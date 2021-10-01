@@ -11,6 +11,9 @@ INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
 --greortsol
 INSERT INTO users(username,password,enabled) VALUES ('greortsol','gos',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (4,'greortsol','owner');
+--marsamber
+INSERT INTO users(username, password, enabled) VALUES ('marsamber', 'password', TRUE);
+INSERT INTO authorities(id, username, authority) VALUES (5, 'marsamber', 'admin');
 
 INSERT INTO vets VALUES (1, 'James', 'Carter');
 INSERT INTO vets VALUES (2, 'Helen', 'Leary');
@@ -47,6 +50,7 @@ INSERT INTO owners VALUES (8, 'Maria', 'Escobito', '345 Maple St.', 'Madison', '
 INSERT INTO owners VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435', 'owner1');
 INSERT INTO owners VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487', 'owner1');
 INSERT INTO owners VALUES (11, 'Gregorio', 'Ortega', 'San Juan Bosco', 'Sevilla', '682489199', 'greortsol');
+INSERT INTO owners VALUES (12, 'Marta', 'Sampedro', 'Flor de Retama, 6', 'Sevilla', '650461339', 'owner1');
 
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (1, 'Leo', '2010-09-07', 1, 1);
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (2, 'Basil', '2012-08-06', 6, 2);
@@ -61,7 +65,9 @@ INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (10, 'Mulligan', '2
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (11, 'Freddy', '2010-03-09', 5, 9);
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (12, 'Lucky', '2010-06-24', 2, 10);
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (13, 'Sly', '2012-06-08', 1, 10);
+
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (14, 'Luna', '2010-12-25', 2, 11);
+INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (15, 'Sol', '2018-05-03', 2, 12);
 
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (1, 7, '2013-01-01', 'rabies shot');
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (2, 8, '2013-01-02', 'rabies shot');
