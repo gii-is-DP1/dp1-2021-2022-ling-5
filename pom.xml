@@ -31,6 +31,18 @@
     </properties>
     <developers>
         <developer>
+
+            <id>
+                davblamor
+            </id>
+            <name>
+                David
+            </name>
+            <email>
+                davidbm2001.db@gmail.com
+            </email>
+      </developer>
+      <developer>
             <id>mancabmor1</id>
             <name>Manuel</name>
             <email>mancabmor1@alum.us.es</email>
@@ -61,6 +73,7 @@
                     https://pbs.twimg.com/media/Eh4n9GhUMAAdO8x?format=jpg
                 </picUrl>
             </properties>
+
         </developer>
     </developers>
     <dependencies>
