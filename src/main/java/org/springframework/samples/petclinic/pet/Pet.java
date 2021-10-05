@@ -104,6 +104,8 @@ public class Pet extends NamedEntity {
 		return Collections.unmodifiableList(sortedVisits);
 	}
 
+	//esta es una prueba de commit
+
 	public void addVisit(Visit visit) {
 		getVisitsInternal().add(visit);
 		visit.setPet(this);
