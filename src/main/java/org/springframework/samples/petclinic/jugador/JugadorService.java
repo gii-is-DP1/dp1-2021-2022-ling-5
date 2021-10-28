@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.Dobble.jugador;
+package org.springframework.samples.petclinic.jugador;
 
 import java.util.List;
 
@@ -17,18 +17,13 @@ public class JugadorService {
     }
 
     @Transactional
-    public Jugador findJugadorByName(String nombredeUsuario) throws DataAccessException{
+    public List<Jugador> findJugadorByName(String nombredeUsuario) throws DataAccessException{
         return jugadorRepository.findByName(nombredeUsuario);
     }
 
     @Transactional
     public Jugador findJugadorById(int id) throws DataAccessException{
         return jugadorRepository.findById(id);
-    }
-
-    @Transactional(readOnly = true)
-    public List<Jugador> findAll() throws DataAccessException{
-        return jugadorRepository.findAll();
     }
 
     @Transactional
