@@ -7,11 +7,11 @@
 		<version>2.5.6</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.LIng5</groupId>
-	<artifactId>Dobble</artifactId>
+	<groupId>com.dobble</groupId>
+	<artifactId>dp1-2021-2022-ling-5</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Dobble</name>
-	<description>Dobble Project</description>
+	<name>dp1-2021-2022-ling-5</name>
+	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
 		<frontend-src-dir>${project.basedir}/src/main/my-app</frontend-src-dir>
@@ -26,14 +26,15 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 
