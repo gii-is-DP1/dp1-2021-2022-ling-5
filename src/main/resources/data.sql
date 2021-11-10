@@ -1,1 +1,1 @@
-INSERT INTO user VALUES (2,'marta','marsamber@gmail.com');
+-- INSERT INTO user VALUES (2,'marta','marsamber@gmail.com');
