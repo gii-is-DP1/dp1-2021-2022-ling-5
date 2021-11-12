@@ -1,6 +1,11 @@
 package com.example.accessingdatamysql.modification;
 
+import java.util.List;
 import java.util.Optional;
+
+import com.example.accessingdatamysql.user.Account;
+import com.example.accessingdatamysql.user.AccountService;
+import com.example.accessingdatamysql.user.PlayerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,14 +24,27 @@ public class ModificationController {
     @Autowired
     private ModificationService modificationService;
 
-    @PostMapping(value = "/modifications") // Map ONLY POST Requests
-    public @ResponseBody Modification addNewModification(@RequestBody Modification modification) {
+    @Autowired
+    private AccountService accountService;
+
+    @PostMapping(value = "accounts/{accountId}/modifications") // Map ONLY POST Requests
+    public @ResponseBody Modification addNewModification(@RequestBody Modification modification,
+            @PathVariable Long accountId) {
+        Optional<Account> account = this.accountService.findAccount(accountId);
+        if (account.isPresent()) {
+            modification.setAccount(account.get());
+        }
         return this.modificationService.saveModification(modification);
     }
 
     @GetMapping(value = "/modifications")
     public @ResponseBody Iterable<Modification> getAllModifications() {
         return this.modificationService.findAllModifications();
+    }
+
+    @GetMapping(value = "accounts/{accountId}/modifications")
+    public @ResponseBody List<Modification> getAllModificationsByAccount(@PathVariable Long accountId) {
+        return this.modificationService.findAllModificationsByAccount(accountId);
     }
 
     @GetMapping(value = "/modifications/{id}")
@@ -43,6 +61,12 @@ public class ModificationController {
     @DeleteMapping(value = "/modifications")
     public @ResponseBody String deleteAllModifications() {
         this.modificationService.deleteAllModifications();
+        return "Deleted all";
+    }
+
+    @DeleteMapping(value = "accounts/{accountId}/modifications")
+    public @ResponseBody String deleteAllModificationsByAccount(@PathVariable Long accountId) {
+        this.modificationService.deleteAllModificationsByAccount(accountId);
         return "Deleted all";
     }
 
