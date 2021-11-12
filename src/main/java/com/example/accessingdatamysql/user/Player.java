@@ -8,6 +8,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.example.accessingdatamysql.achievement.Achievement;
+import com.example.accessingdatamysql.friendship.Friendship;
 import com.example.accessingdatamysql.game.Game;
 import com.example.accessingdatamysql.result.Result;
 
@@ -33,5 +34,11 @@ public class Player extends Account {
 
   @ManyToMany
   private Collection<Achievement> achievements;
+
+  @OneToMany(mappedBy = "requester")
+  private Collection<Friendship> startToFollow;
+
+  @OneToMany(mappedBy = "requested")
+  private Collection<Friendship> requestedToFollow;
 
 }
