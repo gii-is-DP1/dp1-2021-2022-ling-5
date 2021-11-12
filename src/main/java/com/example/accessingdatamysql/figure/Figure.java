@@ -1,4 +1,4 @@
-package com.example.accessingdatamysql.avatar;
+package com.example.accessingdatamysql.figure;
 
 import java.util.Collection;
 
@@ -18,13 +18,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "avatar")
-public class Avatar extends BaseEntity {
+@Table(name = "figure")
+public class Figure extends BaseEntity {
 
-    @OneToMany(mappedBy = "avatar")
+    @OneToMany(mappedBy = "figure")
     private Collection<Account> accounts;
 
-    @OneToOne(mappedBy = "avatar")
+    @OneToOne(mappedBy = "figure")
     private Achievement achievement;
 
     @Column(name = "path")

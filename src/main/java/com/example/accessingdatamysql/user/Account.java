@@ -14,8 +14,9 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import com.example.accessingdatamysql.avatar.Avatar;
 import com.example.accessingdatamysql.change.Change;
+import com.example.accessingdatamysql.figure.Figure;
+import com.example.accessingdatamysql.role.Role;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,7 +30,7 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private Integer id;
+    private Long id;
 
     @Size(min = 3, max = 50)
     @NotEmpty
@@ -58,6 +59,6 @@ public class Account {
     private Collection<Change> changes;
 
     @ManyToOne
-    private Avatar avatar;
+    private Figure figure;
 
 }
