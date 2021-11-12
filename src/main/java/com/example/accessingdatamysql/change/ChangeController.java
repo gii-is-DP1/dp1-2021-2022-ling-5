@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -19,34 +20,34 @@ public class ChangeController {
     @Autowired
     private ChangeService changeService;
 
-    @PostMapping(path = "/changes") // Map ONLY POST Requests
+    @RequestMapping(path = "/changes", method = RequestMethod.POST) // Map ONLY POST Requests
     public @ResponseBody Change addNewChange(@RequestBody Change change) {
         return this.changeService.saveChange(change);
     }
 
-    @GetMapping(path = "/changes")
+    @RequestMapping(path = "/changes", method = RequestMethod.GET)
     public @ResponseBody Iterable<Change> getAllChanges() {
         return this.changeService.findAllChanges();
     }
 
-    @GetMapping(path = "/changes/{id}")
+    @RequestMapping(path = "/changes/{id}", method = RequestMethod.GET)
     public @ResponseBody Optional<Change> getChangeById(@PathVariable Long id) {
         return this.changeService.findChange(id);
     }
 
-    @DeleteMapping(path = "/changes/{id}")
+    @RequestMapping(path = "/changes/{id}", method = RequestMethod.DELETE)
     public @ResponseBody String deleteChange(@PathVariable Long id) {
         this.changeService.deleteChange(id);
         return "Deleted";
     }
 
-    @DeleteMapping(path = "/changes")
+    @RequestMapping(path = "/changes", method = RequestMethod.DELETE)
     public @ResponseBody String deleteAllChanges() {
         this.changeService.deleteAllChanges();
         return "Deleted all";
     }
 
-    @PutMapping("/changes/{id}")
+    @RequestMapping(path = "/changes/{id}", method = RequestMethod.PUT)
     public @ResponseBody Change updateChange(@RequestBody Change newChange, @PathVariable Long id) {
         this.changeService.findChange(id).map(change -> {
             change.setDate(newChange.getDate());
