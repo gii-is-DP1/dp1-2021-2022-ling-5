@@ -16,6 +16,7 @@ import javax.validation.constraints.Size;
 
 import com.example.accessingdatamysql.change.Change;
 import com.example.accessingdatamysql.figure.Figure;
+import com.example.accessingdatamysql.role.Role;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,7 +30,7 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private Integer id;
+    private Long id;
 
     @Size(min = 3, max = 50)
     @NotEmpty
