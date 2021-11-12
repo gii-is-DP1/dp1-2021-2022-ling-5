@@ -2,6 +2,9 @@ package com.example.accessingdatamysql.achievement;
 
 import java.util.Optional;
 
+import com.example.accessingdatamysql.figure.Figure;
+import com.example.accessingdatamysql.figure.FigureService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,8 +22,17 @@ public class AchievementController {
     @Autowired
     private AchievementService achievementService;
 
-    @PostMapping(value = "/achievements") // Map ONLY POST Requests
-    public @ResponseBody Achievement addNewAchievement(@RequestBody Achievement achievement) {
+    @Autowired
+    private FigureService figureService;
+
+    @PostMapping(value = "/achievements/figures/{figureId}")
+    public @ResponseBody Achievement addAchievementToFigure(@RequestBody Achievement achievement,
+            @PathVariable Long achievementId, @PathVariable Long figureId) {
+        Optional<Figure> figure = this.figureService.findFigure(figureId);
+        if (figure.isPresent()) {
+            figure.get().setAchievement(achievement);
+            achievement.setFigure(figure.get());
+        }
         return this.achievementService.saveAchievement(achievement);
     }
 
