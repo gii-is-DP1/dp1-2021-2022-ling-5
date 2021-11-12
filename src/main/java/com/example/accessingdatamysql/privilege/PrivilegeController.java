@@ -11,42 +11,43 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(path = "/api")
+@RequestMapping(value = "/api")
 public class PrivilegeController {
     @Autowired
     private PrivilegeService privilegeService;
 
-    @PostMapping(path = "/privileges") // Map ONLY POST Requests
+    @RequestMapping(value = "/privileges", method = RequestMethod.POST) // Map ONLY POST Requests
     public @ResponseBody Privilege addNewPrivilege(@RequestBody Privilege privilege) {
         return this.privilegeService.savePrivilege(privilege);
     }
 
-    @GetMapping(path = "/privileges")
+    @RequestMapping(value = "/privileges", method = RequestMethod.GET)
     public @ResponseBody Iterable<Privilege> getAllPrivileges() {
         return this.privilegeService.findAllPrivileges();
     }
 
-    @GetMapping(path = "/privileges/{id}")
+    @RequestMapping(value = "/privileges/{id}", method = RequestMethod.GET)
     public @ResponseBody Optional<Privilege> getPrivilegeById(@PathVariable Long id) {
         return this.privilegeService.findPrivilege(id);
     }
 
-    @DeleteMapping(path = "/privileges/{id}")
+    @RequestMapping(value = "/privileges/{id}", method = RequestMethod.DELETE)
     public @ResponseBody String deletePrivilege(@PathVariable Long id) {
         this.privilegeService.deletePrivilege(id);
         return "Deleted";
     }
 
-    @DeleteMapping(path = "/privileges")
+    @RequestMapping(value = "/privileges", method = RequestMethod.DELETE)
     public @ResponseBody String deleteAllPrivileges() {
         this.privilegeService.deleteAllPrivileges();
         return "Deleted all";
     }
 
-    @PutMapping("/privileges/{id}")
+    @RequestMapping(value = "/privileges/{id}", method = RequestMethod.PUT)
     public @ResponseBody Privilege updatePrivilege(@RequestBody Privilege newPrivilege, @PathVariable Long id) {
         this.privilegeService.findPrivilege(id).map(privilege -> {
             privilege.setName(newPrivilege.getName());
