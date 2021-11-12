@@ -18,43 +18,43 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/api")
 public class AchievementController {
     @Autowired
-    private AchievementService adminService;
+    private AchievementService achievementService;
 
-    @RequestMapping(value = "/admins", method = RequestMethod.POST) // Map ONLY POST Requests
-    public @ResponseBody Achievement addNewAchievement(@RequestBody Achievement admin) {
-        return this.adminService.saveAchievement(admin);
+    @RequestMapping(value = "/achievements", method = RequestMethod.POST) // Map ONLY POST Requests
+    public @ResponseBody Achievement addNewAchievement(@RequestBody Achievement achievement) {
+        return this.achievementService.saveAchievement(achievement);
     }
 
-    @RequestMapping(value = "/admins", method = RequestMethod.GET)
+    @RequestMapping(value = "/achievements", method = RequestMethod.GET)
     public @ResponseBody Iterable<Achievement> getAllAchievements() {
-        return this.adminService.findAllAchievements();
+        return this.achievementService.findAllAchievements();
     }
 
-    @RequestMapping(value = "/admins/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/achievements/{id}", method = RequestMethod.GET)
     public @ResponseBody Optional<Achievement> getAchievementById(@PathVariable Long id) {
-        return this.adminService.findAchievement(id);
+        return this.achievementService.findAchievement(id);
     }
 
-    @RequestMapping(value = "/admins/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/achievements/{id}", method = RequestMethod.DELETE)
     public @ResponseBody String deleteAchievement(@PathVariable Long id) {
-        this.adminService.deleteAchievement(id);
+        this.achievementService.deleteAchievement(id);
         return "Deleted";
     }
 
-    @RequestMapping(value = "/admins", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/achievements", method = RequestMethod.DELETE)
     public @ResponseBody String deleteAllAchievements() {
-        this.adminService.deleteAllAchievements();
+        this.achievementService.deleteAllAchievements();
         return "Deleted all";
     }
 
-    @RequestMapping(value = "/admins/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/achievements/{id}", method = RequestMethod.PUT)
     public @ResponseBody Achievement updateAchievement(@RequestBody Achievement newAchievement, @PathVariable Long id) {
-        this.adminService.findAchievement(id).map(admin -> {
-            admin.setDescription(newAchievement.getDescription());
-            return this.adminService.saveAchievement(admin);
+        this.achievementService.findAchievement(id).map(achievement -> {
+            achievement.setDescription(newAchievement.getDescription());
+            return this.achievementService.saveAchievement(achievement);
         }).orElseGet(() -> {
             newAchievement.setId(id);
-            return this.adminService.saveAchievement(newAchievement);
+            return this.achievementService.saveAchievement(newAchievement);
         });
         return newAchievement;
     }
