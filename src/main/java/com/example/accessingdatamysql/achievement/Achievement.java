@@ -8,7 +8,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.example.accessingdatamysql.avatar.Avatar;
+import com.example.accessingdatamysql.figure.Figure;
 import com.example.accessingdatamysql.model.NamedEntity;
 import com.example.accessingdatamysql.user.Player;
 
@@ -25,9 +25,8 @@ public class Achievement extends NamedEntity {
     private String description;
 
     @OneToOne
-    private Avatar avatar;
+    private Figure figure;
 
     @ManyToMany(mappedBy = "achievements")
     private Collection<Player> players;
-
 }
