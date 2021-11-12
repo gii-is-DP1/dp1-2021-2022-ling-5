@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -20,34 +19,34 @@ public class PlayerController {
   @Autowired
   private PlayerService playerService;
 
-  @RequestMapping(value = "/players", method = RequestMethod.POST) // Map ONLY POST Requests
+  @PostMapping(value = "/players") // Map ONLY POST Requests
   public @ResponseBody Player addNewPlayer(@RequestBody Player player) {
     return this.playerService.savePlayer(player);
   }
 
-  @RequestMapping(value = "/players", method = RequestMethod.GET)
+  @GetMapping(value = "/players")
   public @ResponseBody Iterable<Player> getAllPlayers() {
     return this.playerService.findAllPlayers();
   }
 
-  @RequestMapping(value = "/players/{id}", method = RequestMethod.GET)
+  @GetMapping(value = "/players/{id}")
   public @ResponseBody Optional<Player> getPlayerById(@PathVariable Long id) {
     return this.playerService.findPlayer(id);
   }
 
-  @RequestMapping(value = "/players/{id}", method = RequestMethod.DELETE)
+  @DeleteMapping(value = "/players/{id}")
   public @ResponseBody String deletePlayer(@PathVariable Long id) {
     this.playerService.deletePlayer(id);
     return "Deleted";
   }
 
-  @RequestMapping(value = "/players", method = RequestMethod.DELETE)
+  @DeleteMapping(value = "/players")
   public @ResponseBody String deleteAllPlayers() {
     this.playerService.deleteAllPlayers();
     return "Deleted all";
   }
 
-  @RequestMapping(value = "/players/{id}", method = RequestMethod.PUT)
+  @PutMapping(value = "/players/{id}")
   public @ResponseBody Player updatePlayer(@RequestBody Player newPlayer, @PathVariable Long id) {
     this.playerService.findPlayer(id).map(player -> {
       player.setName(newPlayer.getName());

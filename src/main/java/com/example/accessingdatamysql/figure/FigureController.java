@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -20,34 +19,34 @@ public class FigureController {
     @Autowired
     private FigureService figureService;
 
-    @RequestMapping(value = "/figures", method = RequestMethod.POST) // Map ONLY POST Requests
+    @PostMapping(value = "/figures") // Map ONLY POST Requests
     public @ResponseBody Figure addNewFigure(@RequestBody Figure figure) {
         return this.figureService.saveFigure(figure);
     }
 
-    @RequestMapping(value = "/figures", method = RequestMethod.GET)
+    @GetMapping(value = "/figures")
     public @ResponseBody Iterable<Figure> getAllFigures() {
         return this.figureService.findAllFigures();
     }
 
-    @RequestMapping(value = "/figures/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/figures/{id}")
     public @ResponseBody Optional<Figure> getFigureById(@PathVariable Long id) {
         return this.figureService.findFigure(id);
     }
 
-    @RequestMapping(value = "/figures/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/figures/{id}")
     public @ResponseBody String deleteFigure(@PathVariable Long id) {
         this.figureService.deleteFigure(id);
         return "Deleted";
     }
 
-    @RequestMapping(value = "/figures", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/figures")
     public @ResponseBody String deleteAllFigures() {
         this.figureService.deleteAllFigures();
         return "Deleted all";
     }
 
-    @RequestMapping(value = "/figures/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/figures/{id}")
     public @ResponseBody Figure updateFigure(@RequestBody Figure newFigure, @PathVariable Long id) {
         this.figureService.findFigure(id).map(figure -> {
             figure.setPath(newFigure.getPath());
