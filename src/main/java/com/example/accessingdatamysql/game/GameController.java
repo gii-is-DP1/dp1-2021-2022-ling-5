@@ -15,39 +15,39 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(path = "/api")
+@RequestMapping(value = "/api")
 public class GameController {
     @Autowired
     private GameService gameService;
 
-    @RequestMapping(path = "/games", method = RequestMethod.POST) // Map ONLY POST Requests
+    @RequestMapping(value = "/games", method = RequestMethod.POST) // Map ONLY POST Requests
     public @ResponseBody Game addNewGame(@RequestBody Game game) {
         return this.gameService.saveGame(game);
     }
 
-    @RequestMapping(path = "/games", method = RequestMethod.GET)
+    @RequestMapping(value = "/games", method = RequestMethod.GET)
     public @ResponseBody Iterable<Game> getAllGames() {
         return this.gameService.findAllGames();
     }
 
-    @RequestMapping(path = "/games/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/games/{id}", method = RequestMethod.GET)
     public @ResponseBody Optional<Game> getGameById(@PathVariable Long id) {
         return this.gameService.findGame(id);
     }
 
-    @RequestMapping(path = "/games/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/games/{id}", method = RequestMethod.DELETE)
     public @ResponseBody String deleteGame(@PathVariable Long id) {
         this.gameService.deleteGame(id);
         return "Deleted";
     }
 
-    @RequestMapping(path = "/games", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/games", method = RequestMethod.DELETE)
     public @ResponseBody String deleteAllGames() {
         this.gameService.deleteAllGames();
         return "Deleted all";
     }
 
-    @RequestMapping(path = "/games/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/games/{id}", method = RequestMethod.PUT)
     public @ResponseBody Game updateGame(@RequestBody Game newGame, @PathVariable Long id) {
         this.gameService.findGame(id).map(game -> {
             game.setName(newGame.getName());

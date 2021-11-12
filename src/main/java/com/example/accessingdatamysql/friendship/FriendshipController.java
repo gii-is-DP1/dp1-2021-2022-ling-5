@@ -15,39 +15,39 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(path = "/api")
+@RequestMapping(value = "/api")
 public class FriendshipController {
     @Autowired
     private FrindshipService friendshipService;
 
-    @RequestMapping(path = "/friendships", method = RequestMethod.POST) // Map ONLY POST Requests
+    @RequestMapping(value = "/friendships", method = RequestMethod.POST) // Map ONLY POST Requests
     public @ResponseBody Friendship addNewFriendship(@RequestBody Friendship friendship) {
         return this.friendshipService.saveFriendship(friendship);
     }
 
-    @RequestMapping(path = "/friendships", method = RequestMethod.GET)
+    @RequestMapping(value = "/friendships", method = RequestMethod.GET)
     public @ResponseBody Iterable<Friendship> getAllFriendships() {
         return this.friendshipService.findAllFriendships();
     }
 
-    @RequestMapping(path = "/friendships/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/friendships/{id}", method = RequestMethod.GET)
     public @ResponseBody Optional<Friendship> getFriendshipById(@PathVariable Long id) {
         return this.friendshipService.findFriendship(id);
     }
 
-    @RequestMapping(path = "/friendships/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/friendships/{id}", method = RequestMethod.DELETE)
     public @ResponseBody String deleteFriendship(@PathVariable Long id) {
         this.friendshipService.deleteFriendship(id);
         return "Deleted";
     }
 
-    @RequestMapping(path = "/friendships", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/friendships", method = RequestMethod.DELETE)
     public @ResponseBody String deleteAllFriendships() {
         this.friendshipService.deleteAllFriendships();
         return "Deleted all";
     }
 
-    @RequestMapping(path = "/friendships/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/friendships/{id}", method = RequestMethod.PUT)
     public @ResponseBody Friendship updateFriendship(@RequestBody Friendship newFriendship, @PathVariable Long id) {
         this.friendshipService.findFriendship(id).map(friendship -> {
             friendship.setState(newFriendship.getState());
