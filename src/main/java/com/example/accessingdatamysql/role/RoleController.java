@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -20,34 +19,34 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @RequestMapping(value = "/roles", method = RequestMethod.POST) // Map ONLY POST Requests
+    @PostMapping(value = "/roles") // Map ONLY POST Requests
     public @ResponseBody Role addNewRole(@RequestBody Role role) {
         return this.roleService.saveRole(role);
     }
 
-    @RequestMapping(value = "/roles", method = RequestMethod.GET)
+    @GetMapping(value = "/roles")
     public @ResponseBody Iterable<Role> getAllRoles() {
         return this.roleService.findAllRoles();
     }
 
-    @RequestMapping(value = "/roles/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/roles/{id}")
     public @ResponseBody Optional<Role> getRoleById(@PathVariable Long id) {
         return this.roleService.findRole(id);
     }
 
-    @RequestMapping(value = "/roles/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/roles/{id}")
     public @ResponseBody String deleteRole(@PathVariable Long id) {
         this.roleService.deleteRole(id);
         return "Deleted";
     }
 
-    @RequestMapping(value = "/roles", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/roles")
     public @ResponseBody String deleteAllRoles() {
         this.roleService.deleteAllRoles();
         return "Deleted all";
     }
 
-    @RequestMapping(value = "/roles/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/roles/{id}")
     public @ResponseBody Role updateRole(@RequestBody Role newRole, @PathVariable Long id) {
         this.roleService.findRole(id).map(role -> {
             role.setName(newRole.getName());

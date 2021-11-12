@@ -1,4 +1,4 @@
-package com.example.accessingdatamysql.change;
+package com.example.accessingdatamysql.modification;
 
 import java.util.Date;
 
@@ -16,8 +16,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "change")
-public class Change extends BaseEntity {
+@Table(name = "modification")
+public class Modification extends BaseEntity {
 
     @ManyToOne
     private Account account;

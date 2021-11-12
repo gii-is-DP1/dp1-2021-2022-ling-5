@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -20,34 +19,34 @@ public class ResultController {
     @Autowired
     private ResultService resultService;
 
-    @RequestMapping(value = "/results", method = RequestMethod.POST) // Map ONLY POST Requests
+    @PostMapping(value = "/results") // Map ONLY POST Requests
     public @ResponseBody Result addNewResult(@RequestBody Result result) {
         return this.resultService.saveResult(result);
     }
 
-    @RequestMapping(value = "/results", method = RequestMethod.GET)
+    @GetMapping(value = "/results")
     public @ResponseBody Iterable<Result> getAllResults() {
         return this.resultService.findAllResults();
     }
 
-    @RequestMapping(value = "/results/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/results/{id}")
     public @ResponseBody Optional<Result> getResultById(@PathVariable Long id) {
         return this.resultService.findResult(id);
     }
 
-    @RequestMapping(value = "/results/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/results/{id}")
     public @ResponseBody String deleteResult(@PathVariable Long id) {
         this.resultService.deleteResult(id);
         return "Deleted";
     }
 
-    @RequestMapping(value = "/results", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/results")
     public @ResponseBody String deleteAllResults() {
         this.resultService.deleteAllResults();
         return "Deleted all";
     }
 
-    @RequestMapping(value = "/results/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/results/{id}")
     public @ResponseBody Result updateResult(@RequestBody Result newResult, @PathVariable Long id) {
         this.resultService.findResult(id).map(result -> {
             result.setData(newResult.getData());
