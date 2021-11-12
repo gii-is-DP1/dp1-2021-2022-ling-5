@@ -22,11 +22,11 @@ public class Player extends Account {
   @Column(name = "gamesWon")
   private int gamesWon;
 
-  @OneToMany(mappedBy = "player")
-  private Collection<Result> results;
-
   @Column(name = "playerState")
   private PlayerState playerState;
+
+  @OneToMany(mappedBy = "player")
+  private Collection<Result> results;
 
   @ManyToMany
   private Collection<Game> gamesPlayed;
