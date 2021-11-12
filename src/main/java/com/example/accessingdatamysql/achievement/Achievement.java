@@ -29,5 +29,4 @@ public class Achievement extends NamedEntity {
 
     @ManyToMany(mappedBy = "achievements")
     private Collection<Player> players;
-
 }
