@@ -50,10 +50,10 @@ public class ModificationController {
     public @ResponseBody Modification updateModification(@RequestBody Modification newModification,
             @PathVariable Long id) {
         this.modificationService.findModification(id).map(modification -> {
-            modification.setDate(newModification.getDate());
+            modification.setMoment(newModification.getMoment());
             modification.setWhat(newModification.getWhat());
-            modification.setBefore(newModification.getBefore());
-            modification.setAfter(newModification.getAfter());
+            modification.setBeforeModification(newModification.getBeforeModification());
+            modification.setAfterModification(newModification.getAfterModification());
             return this.modificationService.saveModification(modification);
         }).orElseGet(() -> {
             newModification.setId(id);
