@@ -36,6 +36,18 @@ public class PlayerController {
   @Autowired
   private AchievementService achievementService;
 
+  @PostMapping(value = "roles/{roleId}/figures/{figureId}/players") // Map ONLY POST Requests
+  public @ResponseBody Player addNewPlayer(@RequestBody Player player, @PathVariable Long roleId,
+      @PathVariable Long figureId) {
+    Optional<Role> role = this.roleService.findRole(roleId);
+    Optional<Figure> figure = this.figureService.findFigure(figureId);
+    if (figure.isPresent() && role.isPresent()) {
+      player.setFigure(figure.get());
+      player.setRole(role.get());
+    }
+    return this.playerService.savePlayer(player);
+  }
+
   @PostMapping(value = "players/{playerId}/achievements/{achievementId}")
   public @ResponseBody Player addNewAchievementToUser(@PathVariable Long playerId, @PathVariable Long achievementId) {
     Optional<Player> player = this.playerService.findPlayer(playerId);
