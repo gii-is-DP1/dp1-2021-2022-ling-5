@@ -1,6 +1,9 @@
 package com.example.accessingdatamysql.user;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.transaction.Transactional;
 
@@ -32,11 +35,20 @@ public class PlayerService {
         return playerRepository.findAll();
     }
 
+    public List<Player> findAllPlayersByRole(Long roleId) {
+        return StreamSupport.stream(playerRepository.findAll().spliterator(), false)
+                .filter(player -> player.getRole().getId() == roleId).collect(Collectors.toList());
+    }
+
     public void deletePlayer(Long id) {
         playerRepository.deleteById(id);
     }
 
     public void deleteAllPlayers() {
         playerRepository.deleteAll();
+    }
+
+    public void deleteAllPlayersByRole(Long roleId) {
+        findAllPlayersByRole(roleId).stream().forEach(player -> playerRepository.deleteById(player.getId()));
     }
 }
