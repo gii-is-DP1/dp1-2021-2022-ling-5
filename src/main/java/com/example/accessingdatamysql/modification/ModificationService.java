@@ -1,6 +1,9 @@
 package com.example.accessingdatamysql.modification;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.transaction.Transactional;
 
@@ -31,11 +34,21 @@ public class ModificationService {
         return modificationRepository.findAll();
     }
 
+    public List<Modification> findAllModificationsByAccount(Long accountId) {
+        return StreamSupport.stream(modificationRepository.findAll().spliterator(), false)
+                .filter(modification -> modification.getAccount().getId() == accountId).collect(Collectors.toList());
+    }
+
     public void deleteModification(Long id) {
         modificationRepository.deleteById(id);
     }
 
     public void deleteAllModifications() {
         modificationRepository.deleteAll();
+    }
+
+    public void deleteAllModificationsByAccount(Long accountId) {
+        findAllModificationsByAccount(accountId).stream()
+                .forEach(modification -> modificationRepository.deleteById(modification.getId()));
     }
 }

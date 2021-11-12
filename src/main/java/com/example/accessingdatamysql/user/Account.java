@@ -56,7 +56,7 @@ public class Account {
     private Role role;
 
     @OneToMany(mappedBy = "account")
-    private Collection<Modification> changes;
+    private Collection<Modification> modifications;
 
     @ManyToOne
     private Figure figure;

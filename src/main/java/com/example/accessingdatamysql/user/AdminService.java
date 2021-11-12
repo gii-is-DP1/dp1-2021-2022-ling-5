@@ -1,6 +1,9 @@
 package com.example.accessingdatamysql.user;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.transaction.Transactional;
 
@@ -31,11 +34,20 @@ public class AdminService {
         return adminRepository.findAll();
     }
 
+    public List<Admin> findAllAdminsByRole(Long roleId) {
+        return StreamSupport.stream(adminRepository.findAll().spliterator(), false)
+                .filter(admin -> admin.getRole().getId() == roleId).collect(Collectors.toList());
+    }
+
     public void deleteAdmin(Long id) {
         adminRepository.deleteById(id);
     }
 
     public void deleteAllAdmins() {
         adminRepository.deleteAll();
+    }
+
+    public void deleteAllAdminsByRole(Long roleId) {
+        findAllAdminsByRole(roleId).stream().forEach(admin -> adminRepository.deleteById(admin.getId()));
     }
 }
