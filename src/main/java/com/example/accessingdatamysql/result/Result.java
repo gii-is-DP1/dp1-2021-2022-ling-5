@@ -18,13 +18,13 @@ import lombok.Setter;
 @Table(name = "result")
 public class Result extends BaseEntity {
 
+    @Column(name = "data")
+    private String data;
+
     @ManyToOne
     private Game game;
 
     @ManyToOne
     private Player player;
-
-    @Column(name = "data")
-    private String data;
 
 }
