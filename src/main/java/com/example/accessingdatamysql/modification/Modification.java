@@ -22,16 +22,16 @@ public class Modification extends BaseEntity {
     @ManyToOne
     private Account account;
 
-    @Column(name = "date")
-    private Date date;
+    @Column(name = "moment")
+    private Date moment;
 
     @Column(name = "what")
     private String what;
 
-    @Column(name = "before")
-    private String before;
+    @Column(name = "beforeModification")
+    private String beforeModification;
 
-    @Column(name = "after")
-    private String after;
+    @Column(name = "afterModification")
+    private String afterModification;
 
 }
