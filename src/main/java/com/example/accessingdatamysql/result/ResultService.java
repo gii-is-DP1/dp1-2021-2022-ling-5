@@ -1,6 +1,9 @@
 package com.example.accessingdatamysql.result;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.transaction.Transactional;
 
@@ -31,11 +34,29 @@ public class ResultService {
         return resultRepository.findAll();
     }
 
+    public List<Result> findAllResultsByGame(Long gameId) {
+        return StreamSupport.stream(resultRepository.findAll().spliterator(), false)
+                .filter(result -> result.getGame().getId() == gameId).collect(Collectors.toList());
+    }
+
+    public List<Result> findAllResultsByPlayer(Long playerId) {
+        return StreamSupport.stream(resultRepository.findAll().spliterator(), false)
+                .filter(result -> result.getPlayer().getId() == playerId).collect(Collectors.toList());
+    }
+
     public void deleteResult(Long id) {
         resultRepository.deleteById(id);
     }
 
     public void deleteAllResults() {
         resultRepository.deleteAll();
+    }
+
+    public void deleteAllResultsByGame(Long gameId) {
+        findAllResultsByGame(gameId).stream().forEach(result -> resultRepository.deleteById(result.getId()));
+    }
+
+    public void deleteAllResultsByPlayer(Long playerId) {
+        findAllResultsByPlayer(playerId).stream().forEach(result -> resultRepository.deleteById(result.getId()));
     }
 }
