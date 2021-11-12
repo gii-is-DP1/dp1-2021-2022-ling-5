@@ -11,42 +11,43 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(path = "/api")
+@RequestMapping(value = "/api")
 public class PlayerController {
   @Autowired
   private PlayerService playerService;
 
-  @PostMapping(path = "/players") // Map ONLY POST Requests
+  @RequestMapping(value = "/players", method = RequestMethod.POST) // Map ONLY POST Requests
   public @ResponseBody Player addNewPlayer(@RequestBody Player player) {
     return this.playerService.savePlayer(player);
   }
 
-  @GetMapping(path = "/players")
+  @RequestMapping(value = "/players", method = RequestMethod.GET)
   public @ResponseBody Iterable<Player> getAllPlayers() {
     return this.playerService.findAllPlayers();
   }
 
-  @GetMapping(path = "/players/{id}")
+  @RequestMapping(value = "/players/{id}", method = RequestMethod.GET)
   public @ResponseBody Optional<Player> getPlayerById(@PathVariable Long id) {
     return this.playerService.findPlayer(id);
   }
 
-  @DeleteMapping(path = "/players/{id}")
+  @RequestMapping(value = "/players/{id}", method = RequestMethod.DELETE)
   public @ResponseBody String deletePlayer(@PathVariable Long id) {
     this.playerService.deletePlayer(id);
     return "Deleted";
   }
 
-  @DeleteMapping(path = "/players")
+  @RequestMapping(value = "/players", method = RequestMethod.DELETE)
   public @ResponseBody String deleteAllPlayers() {
     this.playerService.deleteAllPlayers();
     return "Deleted all";
   }
 
-  @PutMapping("/players/{id}")
+  @RequestMapping(value = "/players/{id}", method = RequestMethod.PUT)
   public @ResponseBody Player updatePlayer(@RequestBody Player newPlayer, @PathVariable Long id) {
     this.playerService.findPlayer(id).map(player -> {
       player.setName(newPlayer.getName());
