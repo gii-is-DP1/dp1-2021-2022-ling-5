@@ -51,10 +51,7 @@ public class PrivilegeController {
         this.privilegeService.findPrivilege(id).map(privilege -> {
             privilege.setName(newPrivilege.getName());
             return this.privilegeService.savePrivilege(privilege);
-        }).orElseGet(() -> {
-            newPrivilege.setId(id);
-            return this.privilegeService.savePrivilege(newPrivilege);
-        });
-        return newPrivilege;
+        }).orElse(null);
+        return null;
     }
 }

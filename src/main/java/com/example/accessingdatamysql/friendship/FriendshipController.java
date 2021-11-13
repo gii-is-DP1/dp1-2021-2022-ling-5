@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 @Controller
 @RequestMapping(value = "/api")
 public class FriendshipController {
@@ -27,13 +26,18 @@ public class FriendshipController {
     @Autowired
     private PlayerService playerService;
 
-    @PostMapping(value = "/player/requester/{friendshipId}/friendships") // Map ONLY POST Requests
-    public @ResponseBody Friendship addNewRequesterFriendship(@RequestBody Friendship friendship, @PathVariable Long playerId) {
-        Optional<Player> requester = this.playerService.findPlayer(playerId);
-        if (requester.isPresent()) {
-        friendship.setRequester(requester.get());
+    @PostMapping(value = "/players/requester/{requesterId}/requested/{requestedId}/friendships") // Map ONLY POST
+                                                                                                 // Requests
+    public @ResponseBody Friendship addFriendship(@RequestBody Friendship friendship, @PathVariable Long requesterId,
+            @PathVariable Long requestedId) {
+        Optional<Player> requester = this.playerService.findPlayer(requesterId);
+        Optional<Player> requested = this.playerService.findPlayer(requestedId);
+        if (requester.isPresent() && requested.isPresent()) {
+            friendship.setRequester(requester.get());
+            friendship.setRequested(requested.get());
+            return this.friendshipService.saveFriendship(friendship);
         }
-        return this.friendshipService.saveFriendship(friendship);
+        return null;
     }
 
     @GetMapping(value = "/friendships")
@@ -64,7 +68,7 @@ public class FriendshipController {
         } else {
             return new ArrayList<Friendship>();
         }
-    }    
+    }
 
     @DeleteMapping(value = "/friendships/{id}")
     public @ResponseBody String deleteFriendship(@PathVariable Long id) {
@@ -78,57 +82,28 @@ public class FriendshipController {
         return "Deleted all";
     }
 
-    @DeleteMapping(value = "players/requester/{playerId}/friendships")
+    @DeleteMapping(value = "/players/requester/{playerId}/friendships")
     public @ResponseBody String deleteAllFriendshipsByRequester(@PathVariable Long playerId) {
         this.friendshipService.deleteAllFriendshipsByRequester(playerId);
         return "Deleted all";
     }
 
-    @DeleteMapping(value = "players/requested/{playerId}/friendships")
+    @DeleteMapping(value = "/players/requested/{playerId}/friendships")
     public @ResponseBody String deleteAllFriendshipsByRequested(@PathVariable Long playerId) {
         this.friendshipService.deleteAllFriendshipsByRequested(playerId);
         return "Deleted all";
     }
 
-    @PutMapping(value = "/friendships/{id}")
-    public @ResponseBody Friendship updateFriendship(@RequestBody Friendship newFriendship, @PathVariable Long id) {
+    @PutMapping(value = "/players/requested/{requestedId}/friendships/{id}")
+    public @ResponseBody Friendship updateFriendship(@RequestBody Friendship newFriendship,
+            @PathVariable Long requestedId, @PathVariable Long id) {
         this.friendshipService.findFriendship(id).map(friendship -> {
-            friendship.setState(newFriendship.getState());
-            return this.friendshipService.saveFriendship(friendship);
-        }).orElseGet(() -> {
-            newFriendship.setId(id);
-            return this.friendshipService.saveFriendship(newFriendship);
-        });
-        return newFriendship;
-    }
-
-    @PutMapping(value = "/players/requester/{playerId}/friendships/{friendshipId}")
-    public @ResponseBody String updateRequesterFriendship(@PathVariable Long friendshipId, @PathVariable Long playerId) {
-        return this.playerService.findPlayer(playerId).map(requester -> {
-            Optional<Friendship> optionalFriendship = this.friendshipService.findFriendship(friendshipId);
-            if (optionalFriendship.isPresent()) {
-                Friendship friendship = optionalFriendship.get();
-                friendship.setRequester(requester);
-                this.friendshipService.saveFriendship(friendship);
-                return "Saved";
-            } else {
-                return "Friendship not found";
+            if (requestedId == friendship.getRequested().getId()) {
+                friendship.setState(newFriendship.getState());
+                return this.friendshipService.saveFriendship(friendship);
             }
-        }).orElse("Requester not found");
-    }
-
-    @PutMapping(value = "/players/requested/{playerId}/friendships/{friendshipId}")
-    public @ResponseBody String updateRequestedFriendship(@PathVariable Long friendshipId, @PathVariable Long playerId) {
-        return this.playerService.findPlayer(playerId).map(requested -> {
-            Optional<Friendship> optionalFriendship = this.friendshipService.findFriendship(friendshipId);
-            if (optionalFriendship.isPresent()) {
-                Friendship friendship = optionalFriendship.get();
-                friendship.setRequester(requested);
-                this.friendshipService.saveFriendship(friendship);
-                return "Saved";
-            } else {
-                return "Friendship not found";
-            }
-        }).orElse("Requester not found");
+            return null;
+        }).orElse(null);
+        return null;
     }
 }

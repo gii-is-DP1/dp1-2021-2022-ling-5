@@ -36,6 +36,19 @@ public class PlayerController {
   @Autowired
   private AchievementService achievementService;
 
+  @PostMapping(value = "roles/{roleId}/figures/{figureId}/players") // Map ONLY POST Requests
+  public @ResponseBody Player addNewPlayer(@RequestBody Player player, @PathVariable Long roleId,
+      @PathVariable Long figureId) {
+    Optional<Role> role = this.roleService.findRole(roleId);
+    Optional<Figure> figure = this.figureService.findFigure(figureId);
+    if (figure.isPresent() && role.isPresent()) {
+      player.setFigure(figure.get());
+      player.setRole(role.get());
+      return this.playerService.savePlayer(player);
+    }
+    return null;
+  }
+
   @PostMapping(value = "players/{playerId}/achievements/{achievementId}")
   public @ResponseBody Player addNewAchievementToUser(@PathVariable Long playerId, @PathVariable Long achievementId) {
     Optional<Player> player = this.playerService.findPlayer(playerId);
@@ -104,17 +117,11 @@ public class PlayerController {
     this.playerService.findPlayer(id).map(player -> {
       player.setName(newPlayer.getName());
       player.setSurname(newPlayer.getSurname());
-      player.setPassword(newPlayer.getPassword());
-      player.setEmail(newPlayer.getEmail());
-      player.setNickname(newPlayer.getNickname());
       player.setGamesWon(newPlayer.getGamesWon());
       player.setPlayerState(newPlayer.getPlayerState());
       return this.playerService.savePlayer(player);
-    }).orElseGet(() -> {
-      newPlayer.setId(id);
-      return this.playerService.savePlayer(newPlayer);
-    });
-    return newPlayer;
+    }).orElse(null);
+    return null;
   }
 
   @PutMapping(value = "/figures/{figureId}/players/{playerId}")

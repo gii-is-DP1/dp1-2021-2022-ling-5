@@ -44,9 +44,8 @@ public class GameController {
         if (player.isPresent()) {
             player.get().getGamesPlayed().add(game.get());
             game.get().getPlayers().add(player.get());
-            this.gameService.saveGame(game.get());
         }
-        return game.get();
+        return this.gameService.saveGame(game.get());
     }
 
     @PostMapping(value = "/games/{gameId}/minigames/{minigameId}")
@@ -58,9 +57,9 @@ public class GameController {
         if (minigame.isPresent()) {
             minigame.get().getGames().add(game.get());
             game.get().getMinigames().add(minigame.get());
-            this.gameService.saveGame(game.get());
+
         }
-        return game.get();
+        return this.gameService.saveGame(game.get());
     }
 
     @GetMapping(value = "/games")
@@ -123,10 +122,7 @@ public class GameController {
             game.setStartTime(newGame.getStartTime());
             game.setEndTime(newGame.getEndTime());
             return this.gameService.saveGame(game);
-        }).orElseGet(() -> {
-            newGame.setId(id);
-            return this.gameService.saveGame(newGame);
-        });
-        return newGame;
+        }).orElse(null);
+        return null;
     }
 }

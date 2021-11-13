@@ -39,8 +39,9 @@ public class AdminController {
         if (figure.isPresent() && role.isPresent()) {
             admin.setFigure(figure.get());
             admin.setRole(role.get());
+            return this.adminService.saveAdmin(admin);
         }
-        return this.adminService.saveAdmin(admin);
+        return null;
     }
 
     @GetMapping(value = "/admins")
@@ -81,15 +82,9 @@ public class AdminController {
         this.adminService.findAdmin(id).map(admin -> {
             admin.setName(newAdmin.getName());
             admin.setSurname(newAdmin.getSurname());
-            admin.setPassword(newAdmin.getPassword());
-            admin.setEmail(newAdmin.getEmail());
-            admin.setNickname(newAdmin.getNickname());
             return this.adminService.saveAdmin(admin);
-        }).orElseGet(() -> {
-            newAdmin.setId(id);
-            return this.adminService.saveAdmin(newAdmin);
-        });
-        return newAdmin;
+        }).orElse(null);
+        return null;
     }
 
     @PutMapping(value = "/figures/{figureId}/admins/{adminId}")

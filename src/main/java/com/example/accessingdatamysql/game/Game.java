@@ -3,11 +3,14 @@ package com.example.accessingdatamysql.game;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.example.accessingdatamysql.minigame.Minigame;
@@ -24,6 +27,8 @@ import lombok.Setter;
 @Table(name = "game")
 public class Game extends NamedEntity {
 
+    @NotNull
+    @NotEmpty
     @Column(name = "state")
     private State state;
 
@@ -34,9 +39,10 @@ public class Game extends NamedEntity {
     private Date endTime;
 
     @ManyToMany(mappedBy = "games")
+    @Size(min = 1, max = 3)
     private Collection<Minigame> minigames;
 
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game", cascade = CascadeType.REMOVE)
     private Collection<Result> results;
 
     @ManyToMany(mappedBy = "gamesPlayed")
