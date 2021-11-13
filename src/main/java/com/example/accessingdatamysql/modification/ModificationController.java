@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import com.example.accessingdatamysql.user.Account;
 import com.example.accessingdatamysql.user.AccountService;
-import com.example.accessingdatamysql.user.PlayerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,8 +32,9 @@ public class ModificationController {
         Optional<Account> account = this.accountService.findAccount(accountId);
         if (account.isPresent()) {
             modification.setAccount(account.get());
+            return this.modificationService.saveModification(modification);
         }
-        return this.modificationService.saveModification(modification);
+        return null;
     }
 
     @GetMapping(value = "/modifications")
@@ -79,10 +79,7 @@ public class ModificationController {
             modification.setBeforeModification(newModification.getBeforeModification());
             modification.setAfterModification(newModification.getAfterModification());
             return this.modificationService.saveModification(modification);
-        }).orElseGet(() -> {
-            newModification.setId(id);
-            return this.modificationService.saveModification(newModification);
-        });
-        return newModification;
+        }).orElse(null);
+        return null;
     }
 }

@@ -52,10 +52,7 @@ public class MinigameController {
             minigame.setName(newMinigame.getName());
             minigame.setDescription(newMinigame.getDescription());
             return this.minigameService.saveMinigame(minigame);
-        }).orElseGet(() -> {
-            newMinigame.setId(id);
-            return this.minigameService.saveMinigame(newMinigame);
-        });
-        return newMinigame;
+        }).orElse(null);
+        return null;
     }
 }

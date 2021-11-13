@@ -39,9 +39,8 @@ public class CardController {
         if (figure.isPresent()) {
             figure.get().getCards().add(card.get());
             card.get().getFigures().add(figure.get());
-            this.cardService.saveCard(card.get());
         }
-        return card.get();
+        return this.cardService.saveCard(card.get());
     }
 
     @GetMapping(value = "/cards")
@@ -84,12 +83,9 @@ public class CardController {
     @PutMapping(value = "/cards/{id}")
     public @ResponseBody Card updateCard(@RequestBody Card newCard, @PathVariable Long id) {
         this.cardService.findCard(id).map(card -> {
-            card.setImage(newCard.getImage());
+            card.setName(newCard.getName());
             return this.cardService.saveCard(card);
-        }).orElseGet(() -> {
-            newCard.setId(id);
-            return this.cardService.saveCard(newCard);
-        });
-        return newCard;
+        }).orElseGet(null);
+        return null;
     }
 }

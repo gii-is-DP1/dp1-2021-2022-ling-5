@@ -44,8 +44,9 @@ public class PlayerController {
     if (figure.isPresent() && role.isPresent()) {
       player.setFigure(figure.get());
       player.setRole(role.get());
+      return this.playerService.savePlayer(player);
     }
-    return this.playerService.savePlayer(player);
+    return null;
   }
 
   @PostMapping(value = "players/{playerId}/achievements/{achievementId}")
@@ -116,17 +117,11 @@ public class PlayerController {
     this.playerService.findPlayer(id).map(player -> {
       player.setName(newPlayer.getName());
       player.setSurname(newPlayer.getSurname());
-      player.setPassword(newPlayer.getPassword());
-      player.setEmail(newPlayer.getEmail());
-      player.setNickname(newPlayer.getNickname());
       player.setGamesWon(newPlayer.getGamesWon());
       player.setPlayerState(newPlayer.getPlayerState());
       return this.playerService.savePlayer(player);
-    }).orElseGet(() -> {
-      newPlayer.setId(id);
-      return this.playerService.savePlayer(newPlayer);
-    });
-    return newPlayer;
+    }).orElse(null);
+    return null;
   }
 
   @PutMapping(value = "/figures/{figureId}/players/{playerId}")
