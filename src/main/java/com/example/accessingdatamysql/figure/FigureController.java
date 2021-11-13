@@ -49,7 +49,7 @@ public class FigureController {
     @PutMapping(value = "/figures/{id}")
     public @ResponseBody Figure updateFigure(@RequestBody Figure newFigure, @PathVariable Long id) {
         this.figureService.findFigure(id).map(figure -> {
-            figure.setPath(newFigure.getPath());
+            figure.setName(newFigure.getName());
             return this.figureService.saveFigure(figure);
         }).orElseGet(() -> {
             newFigure.setId(id);

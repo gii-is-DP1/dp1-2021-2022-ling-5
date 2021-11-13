@@ -30,13 +30,13 @@ public class RoleController {
         Optional<Role> role = this.roleService.findRole(roleId);
         Optional<Privilege> privilege = this.privilegeService.findPrivilege(privilegeId);
         if (!role.isPresent())
-        return null;
+            return null;
         if (privilege.isPresent()) {
-        role.get().getPrivileges().add(privilege.get());
-        privilege.get().getRoles().add(role.get());
-        this.roleService.saveRole(role.get());
+            role.get().getPrivileges().add(privilege.get());
+            privilege.get().getRoles().add(role.get());
+            return this.roleService.saveRole(role.get());
         }
-        return role.get();
+        return null;
     }
 
     @GetMapping(value = "/roles")
@@ -62,18 +62,17 @@ public class RoleController {
     }
 
     @DeleteMapping(value = "/roles/{roleId}/privileges/{privilegeId}")
-    public @ResponseBody String deletePrivilegeFromRole(@PathVariable Long roleId,
-        @PathVariable Long privilegeId) {
+    public @ResponseBody String deletePrivilegeFromRole(@PathVariable Long roleId, @PathVariable Long privilegeId) {
         Optional<Role> role = this.roleService.findRole(roleId);
         Optional<Privilege> privilege = this.privilegeService.findPrivilege(privilegeId);
         if (!role.isPresent())
-        return "User not found";
+            return "User not found";
         else if (!privilege.isPresent())
-        return "Privilege not found";
+            return "Privilege not found";
         else {
-        role.get().getPrivileges().remove(privilege.get());
-        privilege.get().getRoles().remove(role.get());
-        return "Privilege deleted from role";
+            role.get().getPrivileges().remove(privilege.get());
+            privilege.get().getRoles().remove(role.get());
+            return "Privilege deleted from role";
         }
     }
 
@@ -82,10 +81,7 @@ public class RoleController {
         this.roleService.findRole(id).map(role -> {
             role.setName(newRole.getName());
             return this.roleService.saveRole(role);
-        }).orElseGet(() -> {
-            newRole.setId(id);
-            return this.roleService.saveRole(newRole);
-        });
-        return newRole;
+        }).orElse(null);
+        return null;
     }
 }
