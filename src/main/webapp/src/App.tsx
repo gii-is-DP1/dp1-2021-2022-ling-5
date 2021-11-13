@@ -1,5 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
+import deck from "./images/deck/deck.js";
+import figures from "./images/figures/figures.js";
 import './App.css';
 
 function App() {
@@ -10,14 +12,8 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        
+        <img src={figures.trex} width='100%' alt="logo"/>
       </header>
     </div>
   );
