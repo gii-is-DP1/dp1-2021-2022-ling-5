@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -20,34 +19,34 @@ public class MinigameController {
     @Autowired
     private MinigameService minigameService;
 
-    @RequestMapping(value = "/minigames", method = RequestMethod.POST) // Map ONLY POST Requests
+    @PostMapping(value = "/minigames") // Map ONLY POST Requests
     public @ResponseBody Minigame addNewMinigame(@RequestBody Minigame minigame) {
         return this.minigameService.saveMinigame(minigame);
     }
 
-    @RequestMapping(value = "/minigames", method = RequestMethod.GET)
+    @GetMapping(value = "/minigames")
     public @ResponseBody Iterable<Minigame> getAllMinigames() {
         return this.minigameService.findAllMinigames();
     }
 
-    @RequestMapping(value = "/minigames/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/minigames/{id}")
     public @ResponseBody Optional<Minigame> getMinigameById(@PathVariable Long id) {
         return this.minigameService.findMinigame(id);
     }
 
-    @RequestMapping(value = "/minigames/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/minigames/{id}")
     public @ResponseBody String deleteMinigame(@PathVariable Long id) {
         this.minigameService.deleteMinigame(id);
         return "Deleted";
     }
 
-    @RequestMapping(value = "/minigames", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/minigames")
     public @ResponseBody String deleteAllMinigames() {
         this.minigameService.deleteAllMinigames();
         return "Deleted all";
     }
 
-    @RequestMapping(value = "/minigames/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/minigames/{id}")
     public @ResponseBody Minigame updateMinigame(@RequestBody Minigame newMinigame, @PathVariable Long id) {
         this.minigameService.findMinigame(id).map(minigame -> {
             minigame.setName(newMinigame.getName());

@@ -14,8 +14,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import com.example.accessingdatamysql.change.Change;
 import com.example.accessingdatamysql.figure.Figure;
+import com.example.accessingdatamysql.modification.Modification;
 import com.example.accessingdatamysql.role.Role;
 
 import lombok.Getter;
@@ -56,7 +56,7 @@ public class Account {
     private Role role;
 
     @OneToMany(mappedBy = "account")
-    private Collection<Change> changes;
+    private Collection<Modification> modifications;
 
     @ManyToOne
     private Figure figure;
