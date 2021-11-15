@@ -1,3 +1,25 @@
+-- Carga de jugadores
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -- Carga de figuras
 
 INSERT INTO figure VALUES (1, "ajedrez")
