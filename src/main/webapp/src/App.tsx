@@ -10,11 +10,11 @@ function App() {
   const [games, setGames] = useState<any[]>([]);
     useEffect(()=>{
         figuresService.getAll()
-        .then(response => {
+        .then((response: any) => {
             console.log('Printing games data', response.data);
             setGames(response.data);
           })
-          .catch(error => {
+          .catch((error: any) => {
             console.log('Something went wrong', error);
           })    
       }, []);
