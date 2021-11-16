@@ -1,24 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import figures from "../../images/figures/figures.js";
-import './App.css';
-import figuresService from '../../services/figures.service';
+import figureImg from "../../images/figures/figures.js";
 
-function allFigures() {
-
-  const [figure, setFigures] = useState<any[]>([]);
-    useEffect(()=>{
-        figuresService.getAll()
-        .then((response: any) => {
-            console.log('Printing games data', response.data);
-            setFigures(response.data);
-          })
-          .catch((error: any) => {
-            console.log('Something went wrong', error);
-          })    
-      }, []);
+function AllFigures() {
+  const [state, setState] = useState<any>()
+  useEffect(() => {
+    fetch("http://localhost:8080/api/figures")
+      .then(res => {
+        console.log(res.status)
+        return res.json()
+      })
+      .then(data => setState(data))
+      .catch(console.error)
+  }, [])
+  if (!state) return <div>Loading...</div>
     let ls=[]
-    for (let i = 0; i < figure.length; i++){
-      ls[i]=figures(figure[i].id)
+    for (let i = 0; i < state.length; i++){
+      ls[i]=figureImg(state[i].id)
     }
   return (
     <div>
@@ -33,4 +30,4 @@ function allFigures() {
   );
 }
 
-export default allFigures;
+export default AllFigures

@@ -116,3 +116,7 @@ export default [
  c8,
  c9
 ]
+
+export default function cardImg(id){
+    return ls[id]
+}

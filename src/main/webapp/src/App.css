@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.rowImages {
+  float: left;
+  width: 10%;
+  padding-left: 2.5%;
+}

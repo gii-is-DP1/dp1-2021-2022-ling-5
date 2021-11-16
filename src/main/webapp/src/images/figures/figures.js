@@ -117,6 +117,6 @@ const ls= [
     zanahoria
 ]
 
-export default function figures(img){
-    return ls[img]
+export default function figureImg(id){
+    return ls[id]
 }

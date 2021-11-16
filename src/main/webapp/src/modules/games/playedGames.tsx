@@ -1,22 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import playerService from '../services/player.service';
 
 const gameList = (id:String)=>{
 
-    const [games, setGames] = useState([]);
-    id='1';
-
-    useEffect(()=>{
-        playerService.get(id)
-        .then(response => {
-            console.log('Printing games data', response.data);
-            setGames(response.data.gamesPlayed);
-          })
-          .catch(error => {
-            console.log('Something went wrong', error);
-          })    
-      }, []);
 
     return (
         <div className="container">

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
 import figures from "../../images/figures/figures.js";
-import './App.css';
+import '../../App.css'
 
-function App() {
+function FiguresByCard() {
   const [state, setState] = useState<any>()
   useEffect(() => {
     fetch("http://localhost:8080/api/cards/4")
@@ -14,6 +13,7 @@ function App() {
       .then(data => setState(data))
       .catch(console.error)
   }, [])
+  if (!state) return <div>Loading...</div>
     let ls:any[]=[]
     for (let i = 0; i < state.figures.length; i++){
       ls[i]=figures(state.figures[i].id-1)
@@ -22,7 +22,7 @@ function App() {
     <div>
         {
           ls.map(ls=>(
-            <div>
+            <div className='rowImages'>
             <img src={ls} width='100%' alt="logo" />
             </div>
           ))
@@ -31,4 +31,4 @@ function App() {
   );
 }
 
-export default App;
+export default FiguresByCard;
