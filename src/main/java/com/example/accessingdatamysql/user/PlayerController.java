@@ -117,7 +117,7 @@ public class PlayerController {
     this.playerService.findPlayer(id).map(player -> {
       player.setName(newPlayer.getName());
       player.setSurname(newPlayer.getSurname());
-      player.setGamesWon(newPlayer.getGamesWon());
+      //player.setGamesWon(newPlayer.getGamesWon());
       player.setPlayerState(newPlayer.getPlayerState());
       return this.playerService.savePlayer(player);
     }).orElse(null);
