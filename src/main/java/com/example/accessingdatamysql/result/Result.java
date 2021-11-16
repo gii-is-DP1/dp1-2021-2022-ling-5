@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import com.example.accessingdatamysql.game.Game;
 import com.example.accessingdatamysql.model.BaseEntity;
 import com.example.accessingdatamysql.user.Player;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -25,9 +26,11 @@ public class Result extends BaseEntity {
     @Column(name = "data")
     private String data;
 
+    @JsonIgnore
     @ManyToOne
     private Game game;
 
+    @JsonIgnore
     @ManyToOne
     private Player player;
 

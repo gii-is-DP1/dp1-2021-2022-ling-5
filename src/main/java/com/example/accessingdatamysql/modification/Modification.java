@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 
 import com.example.accessingdatamysql.model.BaseEntity;
 import com.example.accessingdatamysql.user.Account;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -40,6 +41,7 @@ public class Modification extends BaseEntity {
     @Column(name = "afterModification")
     private String afterModification;
 
+    @JsonIgnore
     @ManyToOne
     private Account account;
 

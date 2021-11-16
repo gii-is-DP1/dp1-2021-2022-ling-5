@@ -17,6 +17,7 @@ import com.example.accessingdatamysql.minigame.Minigame;
 import com.example.accessingdatamysql.model.NamedEntity;
 import com.example.accessingdatamysql.result.Result;
 import com.example.accessingdatamysql.user.Player;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -45,6 +46,7 @@ public class Game extends NamedEntity {
     @OneToMany(mappedBy = "game", cascade = CascadeType.REMOVE)
     private Collection<Result> results;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "gamesPlayed")
     @Size(min = 2, max = 8)
     private Collection<Player> players;
