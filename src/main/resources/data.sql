@@ -1,3 +1,31 @@
+-- Carga de jugadores
+
+insert into player values(1,'uno@gmail.com','Uno','unito','uno','uno',1,1,0,0)
+insert into player values(2,'dos@gmail.com','dos','dosito','dos','dos',1,1,0,0)
+insert into player values(3,'tres@gmail.com','tres','tresito','tres','tres',1,1,0,0)
+insert into player values(4,'cuatro@gmail.com','cuatro','cuatrito','cuatro','cuatro',1,1,0,0)
+insert into player values(5,'cinco@gmail.com','cinco','cinquito','cinco','cinco',1,1,0,0)
+insert into player values(6,'seis@gmail.com','seis','seisito','seis','seis',1,1,0,0)
+
+-- Carga de games
+
+
+
+-- Carga de role
+
+
+
+-- Carga de player_games_played
+
+
+
+
+-- Carga de result
+
+
+
+
+
 -- Carga de figuras
 
 INSERT INTO figure VALUES (1, "ajedrez")
