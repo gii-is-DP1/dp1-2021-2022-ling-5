@@ -23,10 +23,10 @@ import lombok.Setter;
 @Entity(name = "Player") // This tells Hibernate to make a table out of this class
 public class Player extends Account {
 
-  @NotNull
-  @NotEmpty
-  @Column(name = "gamesWon")
-  private int gamesWon;
+  // @NotNull
+  // @NotEmpty
+  // @Column(name = "gamesWon")
+  // private int gamesWon;
 
   @NotEmpty
   @NotNull

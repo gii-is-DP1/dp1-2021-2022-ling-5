@@ -1,30 +1,81 @@
 -- Carga de jugadores
 
-insert into player values(1,'uno@gmail.com','Uno','unito','uno','uno',1,1,0,0)
-insert into player values(2,'dos@gmail.com','dos','dosito','dos','dos',1,1,0,0)
-insert into player values(3,'tres@gmail.com','tres','tresito','tres','tres',1,1,0,0)
-insert into player values(4,'cuatro@gmail.com','cuatro','cuatrito','cuatro','cuatro',1,1,0,0)
-insert into player values(5,'cinco@gmail.com','cinco','cinquito','cinco','cinco',1,1,0,0)
-insert into player values(6,'seis@gmail.com','seis','seisito','seis','seis',1,1,0,0)
+insert into player values(1,'uno@gmail.com','Uno','unito','uno','uno',1,1,3)
+insert into player values(2,'dos@gmail.com','dos','dosito','dos','dos',1,1,3)
+insert into player values(3,'tres@gmail.com','tres','tresito','tres','tres',1,1,3)
+insert into player values(4,'cuatro@gmail.com','cuatro','cuatrito','cuatro','cuatro',1,1,3)
+insert into player values(5,'cinco@gmail.com','cinco','cinquito','cinco','cinco',1,1,3)
+insert into player values(6,'seis@gmail.com','seis','seisito','seis','seis',1,1,3)
 
 -- Carga de games
 
+insert into game values(1,'juegoUno','2021-01-01 01:01:01','2021-01-01 01:11:01',2,1)
+insert into game values(2,'juegoDos','2021-02-02 02:02:02','2021-02-02 02:22:02',2,2)
+insert into game values(3,'juegoTres','2021-03-03 03:03:03','2021-03-03 03:33:03',2,3)
+insert into game values(4,'juegoCuatro','2021-04-04 04:04:04','2021-04-04 04:44:04',2,4)
 
 
 -- Carga de role
 
+insert into role values(1,'player')
+insert into role values(2,'admin')
 
 
 -- Carga de player_games_played
 
-
+insert into player_games_played values(1,1)
+insert into player_games_played values(2,1)
+insert into player_games_played values(3,1)
+insert into player_games_played values(4,1)
+insert into player_games_played values(5,1)
+insert into player_games_played values(6,1)
+insert into player_games_played values(2,2)
+insert into player_games_played values(4,2)
+insert into player_games_played values(6,2)
+insert into player_games_played values(3,3)
+insert into player_games_played values(6,3)
+insert into player_games_played values(1,4)
+insert into player_games_played values(3,4)
+insert into player_games_played values(5,4)
 
 
 -- Carga de result
 
+insert into result values(1,1,1,1)
+insert into result values(2,0,1,2)
+insert into result values(3,1,1,3)
+insert into result values(4,1,1,4)
+insert into result values(5,0,1,5)
+insert into result values(6,0,1,6)
+insert into result values(7,3,2,2)
+insert into result values(8,0,2,4)
+insert into result values(9,0,2,6)
+insert into result values(10,2,3,3)
+insert into result values(11,1,3,6)
+insert into result values(12,2,4,1)
+insert into result values(13,0,4,3)
+insert into result values(14,1,4,5)
 
+-- Carga minigames
 
+insert into minigame values(1,'Uno','Ejemplo uno')
+insert into minigame values(2,'Dos','Ejemplo dos')
+insert into minigame values(3,'Tres','Ejemplo tres')
 
+-- Carga minigame_game
+
+insert into minigame_games values(2,1)
+insert into minigame_games values(3,1)
+insert into minigame_games values(1,1)
+insert into minigame_games values(1,2)
+insert into minigame_games values(2,2)
+insert into minigame_games values(3,2)
+insert into minigame_games values(1,3)
+insert into minigame_games values(2,3)
+insert into minigame_games values(3,3)
+insert into minigame_games values(1,4)
+insert into minigame_games values(2,4)
+insert into minigame_games values(3,4)
 
 -- Carga de figuras
 
