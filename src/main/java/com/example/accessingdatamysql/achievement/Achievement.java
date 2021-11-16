@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import com.example.accessingdatamysql.figure.Figure;
 import com.example.accessingdatamysql.model.NamedEntity;
 import com.example.accessingdatamysql.user.Player;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -31,6 +32,7 @@ public class Achievement extends NamedEntity {
     @OneToOne
     private Figure figure;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "achievements")
     private Collection<Player> players;
 }

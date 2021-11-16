@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 
 import com.example.accessingdatamysql.model.BaseEntity;
 import com.example.accessingdatamysql.user.Player;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,9 +25,11 @@ public class Friendship extends BaseEntity {
     @Column(name = "friendshipState")
     private FriendshipState state;
 
+    @JsonIgnore
     @ManyToOne
     private Player requester;
 
+    @JsonIgnore
     @ManyToOne
     private Player requested;
 }
