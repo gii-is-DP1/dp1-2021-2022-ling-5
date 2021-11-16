@@ -1,11 +1,11 @@
 import httpClient from "../http-common";
 
 const getAll = () => {
-    return httpClient.get('/api/cards');
+    return httpClient.get('/cards');
 }
 
 const get = (id: string) =>{
-    return httpClient.get('/api/cards/'+id);
+    return httpClient.get(`/cards/${id}`);
 }
 
 export default {getAll,get}
