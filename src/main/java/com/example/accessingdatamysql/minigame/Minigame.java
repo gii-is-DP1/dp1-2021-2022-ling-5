@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 import com.example.accessingdatamysql.game.Game;
 import com.example.accessingdatamysql.model.NamedEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +23,7 @@ public class Minigame extends NamedEntity {
     @Column(name = "description")
     private String description;
 
+    @JsonIgnore
     @ManyToMany
     private Collection<Game> games;
 

@@ -27,16 +27,11 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          Edit <code>src/App.tsx</code> and save to reloa hplaa.
+          Del servidor: {state}
         </p>
         
-        {
-          ls.map(ls=>(
-            <div>
-            <img src={ls} width='100%' alt="logo" />
-            </div>
-          ))
-        }
+        <img src={figures.trex} width='100%' alt="logo"/>
       </header>
     </div>
   );
