@@ -2,6 +2,7 @@ package com.example.accessingdatamysql.user;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.example.accessingdatamysql.figure.Figure;
@@ -34,6 +36,7 @@ public class Account {
 
     @Size(min = 3, max = 50)
     @NotEmpty
+    @NotNull
     @Column(name = "name")
     protected String name;
 
@@ -41,21 +44,24 @@ public class Account {
     private String surname;
 
     @NotEmpty
+    @NotNull
     @Column(name = "password")
     private String password;
 
     @NotEmpty
+    @NotNull
     @Column(name = "email")
     private String email;
 
     @NotEmpty
+    @NotNull
     @Column(name = "nickname")
     private String nickname;
 
     @ManyToOne
     private Role role;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.REMOVE)
     private Collection<Modification> modifications;
 
     @ManyToOne

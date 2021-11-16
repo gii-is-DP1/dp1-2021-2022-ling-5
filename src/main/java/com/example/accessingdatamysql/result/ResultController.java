@@ -28,17 +28,21 @@ public class ResultController {
 
     @Autowired
     private PlayerService playerService;
-    
+
     @Autowired
     private GameService gameService;
 
-    @PostMapping(value = "/games/{gameId}/results") // Map ONLY POST Requests
-    public @ResponseBody Result addNewResult(@RequestBody Result result, @PathVariable Long gameId) {
+    @PostMapping(value = "/games/{gameId}/players/{playerId}/results") // Map ONLY POST Requests
+    public @ResponseBody Result addNewResult(@RequestBody Result result, @PathVariable Long gameId,
+            @PathVariable Long playerId) {
         Optional<Game> game = this.gameService.findGame(gameId);
-        if (game.isPresent()) {
+        Optional<Player> player = this.playerService.findPlayer(playerId);
+        if (game.isPresent() && player.isPresent()) {
             result.setGame(game.get());
+            result.setPlayer(player.get());
+            return this.resultService.saveResult(result);
         }
-        return this.resultService.saveResult(result);
+        return null;
     }
 
     @GetMapping(value = "/results")
@@ -100,10 +104,7 @@ public class ResultController {
         this.resultService.findResult(id).map(result -> {
             result.setData(newResult.getData());
             return this.resultService.saveResult(result);
-        }).orElseGet(() -> {
-            newResult.setId(id);
-            return this.resultService.saveResult(newResult);
-        });
-        return newResult;
+        }).orElse(null);
+        return null;
     }
 }

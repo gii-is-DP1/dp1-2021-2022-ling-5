@@ -32,8 +32,9 @@ public class AchievementController {
         if (figure.isPresent()) {
             figure.get().setAchievement(achievement);
             achievement.setFigure(figure.get());
+            return this.achievementService.saveAchievement(achievement);
         }
-        return this.achievementService.saveAchievement(achievement);
+        return null;
     }
 
     @GetMapping(value = "/achievements")
@@ -63,10 +64,7 @@ public class AchievementController {
         this.achievementService.findAchievement(id).map(achievement -> {
             achievement.setDescription(newAchievement.getDescription());
             return this.achievementService.saveAchievement(achievement);
-        }).orElseGet(() -> {
-            newAchievement.setId(id);
-            return this.achievementService.saveAchievement(newAchievement);
-        });
-        return newAchievement;
+        }).orElse(null);
+        return null;
     }
 }
