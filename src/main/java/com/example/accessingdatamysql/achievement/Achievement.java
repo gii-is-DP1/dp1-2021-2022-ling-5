@@ -7,10 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
-import com.example.accessingdatamysql.avatar.Avatar;
+import com.example.accessingdatamysql.figure.Figure;
 import com.example.accessingdatamysql.model.NamedEntity;
 import com.example.accessingdatamysql.user.Player;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,13 +24,15 @@ import lombok.Setter;
 @Table(name = "achievement")
 public class Achievement extends NamedEntity {
 
+    @NotNull
+    @NotEmpty
     @Column(name = "description")
     private String description;
 
     @OneToOne
-    private Avatar avatar;
+    private Figure figure;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "achievements")
     private Collection<Player> players;
-
 }

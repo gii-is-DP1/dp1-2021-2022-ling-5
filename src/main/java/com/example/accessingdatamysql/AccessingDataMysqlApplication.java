@@ -2,6 +2,9 @@ package com.example.accessingdatamysql;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 public class AccessingDataMysqlApplication {
@@ -10,4 +13,19 @@ public class AccessingDataMysqlApplication {
 		SpringApplication.run(AccessingDataMysqlApplication.class, args);
 	}
 
-}
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/api/*").allowedOrigins("http://localhost:3000");
+				registry.addMapping("/api/*").allowedOrigins("http://localhost:8080");
+				registry.addMapping("/api/*").allowedOrigins("*");
+				registry.addMapping("/api/*/*").allowedOrigins("*");
+				registry.addMapping("/api/cards/*").allowedOrigins("http://localhost:3000");
+
+			}
+		};
+	}
+
+}//				registry.addMapping("*").allowedOrigins("*"); y esa?

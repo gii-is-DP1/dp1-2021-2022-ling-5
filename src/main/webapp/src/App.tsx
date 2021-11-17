@@ -2,8 +2,10 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Button from 'react-bootstrap/Button';
+import FiguresByCard from './modules/cards/figuresByCard';
 
 function App() {
+
   return (
     <div className="App">
       <header className="App-header">
@@ -20,6 +22,7 @@ function App() {
           Learn React
         </a>
         <Button variant="primary">Primary</Button>{' '}
+          <FiguresByCard />
       </header>
     </div>
   );

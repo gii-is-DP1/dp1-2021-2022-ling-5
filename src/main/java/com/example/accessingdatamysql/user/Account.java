@@ -2,6 +2,7 @@ package com.example.accessingdatamysql.user;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,10 +13,12 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.example.accessingdatamysql.avatar.Avatar;
-import com.example.accessingdatamysql.change.Change;
+import com.example.accessingdatamysql.figure.Figure;
+import com.example.accessingdatamysql.modification.Modification;
+import com.example.accessingdatamysql.role.Role;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,10 +32,11 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private Integer id;
+    private Long id;
 
     @Size(min = 3, max = 50)
     @NotEmpty
+    @NotNull
     @Column(name = "name")
     protected String name;
 
@@ -40,24 +44,27 @@ public class Account {
     private String surname;
 
     @NotEmpty
+    @NotNull
     @Column(name = "password")
     private String password;
 
     @NotEmpty
+    @NotNull
     @Column(name = "email")
     private String email;
 
     @NotEmpty
+    @NotNull
     @Column(name = "nickname")
     private String nickname;
 
     @ManyToOne
     private Role role;
 
-    @OneToMany(mappedBy = "account")
-    private Collection<Change> changes;
+    @OneToMany(mappedBy = "account", cascade = CascadeType.REMOVE)
+    private Collection<Modification> modifications;
 
     @ManyToOne
-    private Avatar avatar;
+    private Figure figure;
 
 }
