@@ -31,7 +31,6 @@ import lombok.Setter;
 public class Game extends NamedEntity {
 
     @NotNull
-    @NotEmpty
     @Column(name = "state")
     private State state;
 
@@ -41,10 +40,19 @@ public class Game extends NamedEntity {
     @Column(name = "endTime")
     private Date endTime;
 
+    @NotEmpty
+    @NotNull
+    @Column(name = "creator")
+    private String creator;
+
+    @Column(name = "winner")
+    private String winner;
+
     @ManyToMany(mappedBy = "games")
     @Size(min = 1, max = 3)
     private Collection<Minigame> minigames;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "game", cascade = CascadeType.REMOVE)
     private Collection<Result> results;
 
