@@ -23,6 +23,7 @@ public class PlayerService {
 
     @Transactional
     public Player savePlayer(Player player) throws DataAccessException {
+        System.out.println("preuba" + player);
         playerRepository.save(player);
         return player;
     }

@@ -31,7 +31,7 @@ public class AdminController {
     @Autowired
     private RoleService roleService;
 
-    @PostMapping(value = "roles/{roleId}/figures/{figureId}/admins") // Map ONLY POST Requests
+    @PostMapping(value = "/roles/{roleId}/figures/{figureId}/admins") // Map ONLY POST Requests
     public @ResponseBody Admin addNewAdmin(@RequestBody Admin admin, @PathVariable Long roleId,
             @PathVariable Long figureId) {
         Optional<Role> role = this.roleService.findRole(roleId);
@@ -49,7 +49,7 @@ public class AdminController {
         return this.adminService.findAllAdmins();
     }
 
-    @GetMapping(value = "roles/{roleId}/admins")
+    @GetMapping(value = "/roles/{roleId}/admins")
     public @ResponseBody List<Admin> getAllAdminsByRole(@PathVariable Long roleId) {
         return this.adminService.findAllAdminsByRole(roleId);
     }
@@ -71,7 +71,7 @@ public class AdminController {
         return "Deleted all";
     }
 
-    @DeleteMapping(value = "roles/{roleId}/admins")
+    @DeleteMapping(value = "/roles/{roleId}/admins")
     public @ResponseBody String deleteAllAdminsByRole(@PathVariable Long roleId) {
         this.adminService.deleteAllAdminsByRole(roleId);
         return "Deleted all";

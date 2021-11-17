@@ -36,7 +36,7 @@ public class PlayerController {
   @Autowired
   private AchievementService achievementService;
 
-  @PostMapping(value = "roles/{roleId}/figures/{figureId}/players") // Map ONLY POST Requests
+  @PostMapping(value = "/roles/{roleId}/figures/{figureId}/players") // Map ONLY POST Requests
   public @ResponseBody Player addNewPlayer(@RequestBody Player player, @PathVariable Long roleId,
       @PathVariable Long figureId) {
     Optional<Role> role = this.roleService.findRole(roleId);
@@ -49,7 +49,7 @@ public class PlayerController {
     return null;
   }
 
-  @PostMapping(value = "players/{playerId}/achievements/{achievementId}")
+  @PostMapping(value = "/players/{playerId}/achievements/{achievementId}")
   public @ResponseBody Player addNewAchievementToUser(@PathVariable Long playerId, @PathVariable Long achievementId) {
     Optional<Player> player = this.playerService.findPlayer(playerId);
     Optional<Achievement> achievement = this.achievementService.findAchievement(achievementId);
@@ -68,7 +68,7 @@ public class PlayerController {
     return this.playerService.findAllPlayers();
   }
 
-  @GetMapping(value = "roles/{roleId}/players")
+  @GetMapping(value = "/roles/{roleId}/players")
   public @ResponseBody List<Player> getAllPlayersByRole(@PathVariable Long roleId) {
     return this.playerService.findAllPlayersByRole(roleId);
   }
@@ -90,7 +90,7 @@ public class PlayerController {
     return "Deleted all";
   }
 
-  @DeleteMapping(value = "roles/{roleId}/players")
+  @DeleteMapping(value = "/roles/{roleId}/players")
   public @ResponseBody String deleteAllPlayersByRole(@PathVariable Long roleId) {
     this.playerService.deleteAllPlayersByRole(roleId);
     return "Deleted all";
@@ -117,7 +117,6 @@ public class PlayerController {
     this.playerService.findPlayer(id).map(player -> {
       player.setName(newPlayer.getName());
       player.setSurname(newPlayer.getSurname());
-      player.setGamesWon(newPlayer.getGamesWon());
       player.setPlayerState(newPlayer.getPlayerState());
       return this.playerService.savePlayer(player);
     }).orElse(null);
