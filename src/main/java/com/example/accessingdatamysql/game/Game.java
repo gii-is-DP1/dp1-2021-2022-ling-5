@@ -7,12 +7,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.example.accessingdatamysql.user.Account;
 import com.example.accessingdatamysql.minigame.Minigame;
 import com.example.accessingdatamysql.model.NamedEntity;
 import com.example.accessingdatamysql.result.Result;
@@ -29,7 +31,6 @@ import lombok.Setter;
 public class Game extends NamedEntity {
 
     @NotNull
-    @NotEmpty
     @Column(name = "state")
     private State state;
 
@@ -39,10 +40,19 @@ public class Game extends NamedEntity {
     @Column(name = "endTime")
     private Date endTime;
 
+    @NotEmpty
+    @NotNull
+    @Column(name = "creator")
+    private String creator;
+
+    @Column(name = "winner")
+    private String winner;
+
     @ManyToMany(mappedBy = "games")
     @Size(min = 1, max = 3)
     private Collection<Minigame> minigames;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "game", cascade = CascadeType.REMOVE)
     private Collection<Result> results;
 
@@ -50,4 +60,8 @@ public class Game extends NamedEntity {
     @ManyToMany(mappedBy = "gamesPlayed")
     @Size(min = 2, max = 8)
     private Collection<Player> players;
+
+    @JsonIgnore
+    @ManyToOne
+    private Account creator;
 }

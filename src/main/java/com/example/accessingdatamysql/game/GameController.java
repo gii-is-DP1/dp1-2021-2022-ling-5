@@ -121,6 +121,8 @@ public class GameController {
             game.setState(newGame.getState());
             game.setStartTime(newGame.getStartTime());
             game.setEndTime(newGame.getEndTime());
+            game.setCreator(newGame.getCreator());
+            game.setWinner(newGame.getWinner());
             return this.gameService.saveGame(game);
         }).orElse(null);
         return null;
