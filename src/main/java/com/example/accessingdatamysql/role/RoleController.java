@@ -25,12 +25,15 @@ public class RoleController {
     @Autowired
     private PrivilegeService privilegeService;
 
-    @PostMapping(value = "roles/{roleId}/privileges/{privilegeId}")
-    public @ResponseBody Role addNewPrivilegeToUser(@PathVariable Long roleId, @PathVariable Long privilegeId) {
+    @PostMapping(value = "/roles")
+    public @ResponseBody Role addNewRole(@RequestBody Role role) {
+        return this.roleService.saveRole(role);
+    }
+
+    @PostMapping(value = "/roles/{roleId}/privileges/{privilegeId}")
+    public @ResponseBody Role addNewPrivilegeToRole(@PathVariable Long roleId, @PathVariable Long privilegeId) {
         Optional<Role> role = this.roleService.findRole(roleId);
         Optional<Privilege> privilege = this.privilegeService.findPrivilege(privilegeId);
-        if (!role.isPresent())
-            return null;
         if (privilege.isPresent()) {
             role.get().getPrivileges().add(privilege.get());
             privilege.get().getRoles().add(role.get());
