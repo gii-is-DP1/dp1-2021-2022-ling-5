@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import FiguresByCard from './modules/cards/figuresByCard';
+import PlayedGames from './modules/games/playedGames';
 
 function App() {
 
@@ -12,7 +12,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-          <FiguresByCard />
+          <PlayedGames />
       </header>
     </div>
   );

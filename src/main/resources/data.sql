@@ -9,7 +9,7 @@ insert into player values(6,'seis@gmail.com','seis','seisito','seis','seis',1,3,
 
 -- Carga de games
 
-insert into game values(1,'juegoUno', 1,'2021-01-01 01:01:01','2021-01-01 01:11:01',1,null)
+insert into game values(1,'juegoUno', 1,'2021-01-01 01:01:01','2021-01-01 01:11:01',2,null)
 insert into game values(2,'juegoDos',2,'2021-02-02 02:02:02','2021-02-02 02:22:02',2,null)
 insert into game values(3,'juegoTres',3,'2021-03-03 03:03:03','2021-03-03 03:33:03',2,null)
 insert into game values(4,'juegoCuatro',4,'2021-04-04 04:04:04','2021-04-04 04:44:04',2,null)

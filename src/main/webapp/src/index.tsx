@@ -7,7 +7,7 @@ import Links from './Links';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Links />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
