@@ -35,4 +35,14 @@ public class Achievement extends NamedEntity {
     @JsonIgnore
     @ManyToMany(mappedBy = "achievements")
     private Collection<Player> players;
+
+    public Achievement() {
+        this.name = "";
+        this.description = "";
+    }
+
+    public Achievement(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 }

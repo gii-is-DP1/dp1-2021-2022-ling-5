@@ -27,7 +27,7 @@ public class AchievementController {
 
     @PostMapping(value = "/achievements/figures/{figureId}")
     public @ResponseBody Achievement addAchievementToFigure(@RequestBody Achievement achievement,
-            @PathVariable Long achievementId, @PathVariable Long figureId) {
+            @PathVariable Long figureId) {
         Optional<Figure> figure = this.figureService.findFigure(figureId);
         if (figure.isPresent()) {
             figure.get().setAchievement(achievement);
