@@ -1,7 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
+import logo from './images/figures/mano.png';
 import './App.css';
-import PlayedGames from './modules/games/playedGames';
+import FiguresByCard from './modules/cards/figuresByCard';
 
 function App() {
 
@@ -9,10 +9,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-          <PlayedGames />
+          <FiguresByCard/>
       </header>
     </div>
   );
