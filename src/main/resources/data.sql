@@ -1,4 +1,4 @@
--- Carga de jugadores
+-- Load of player
 
 insert into player values(1,'uno@gmail.com','Uno','unito','uno','uno',1,3,1)
 insert into player values(2,'dos@gmail.com','dos','dosito','dos','dos',1,3,1)
@@ -7,7 +7,7 @@ insert into player values(4,'cuatro@gmail.com','cuatro','cuatrito','cuatro','cua
 insert into player values(5,'cinco@gmail.com','cinco','cinquito','cinco','cinco',1,3,1)
 insert into player values(6,'seis@gmail.com','seis','seisito','seis','seis',1,3,1)
 
--- Carga de games
+-- Load of game
 
 insert into game values(1,'juegoUno', 1,'2021-01-01 01:01:01','2021-01-01 01:11:01',1,null)
 insert into game values(2,'juegoDos',2,'2021-02-02 02:02:02','2021-02-02 02:22:02',2,null)
@@ -15,13 +15,13 @@ insert into game values(3,'juegoTres',3,'2021-03-03 03:03:03','2021-03-03 03:33:
 insert into game values(4,'juegoCuatro',4,'2021-04-04 04:04:04','2021-04-04 04:44:04',2,null)
 
 
--- Carga de role
+-- Load of role
 
 insert into role values(1,'player')
 insert into role values(2,'admin')
 
 
--- Carga de player_games_played
+-- Load of player_games_played
 
 insert into player_games_played values(1,1)
 insert into player_games_played values(2,1)
@@ -39,7 +39,7 @@ insert into player_games_played values(3,4)
 insert into player_games_played values(5,4)
 
 
--- Carga de result
+-- Load of result
 
 insert into result values(1,"Minigame1:5, Minigame2:0, Minigame3:5",10,1,1)
 insert into result values(2,"Minigame1:0, Minigame2:0, Minigame3:0",0,1,2)
@@ -56,13 +56,13 @@ insert into result values(12,"Minigame1:5, Minigame2:10, Minigame3:5",20,4,1)
 insert into result values(13,"Minigame1:0, Minigame2:0, Minigame3:0",0,4,3)
 insert into result values(14,"Minigame1:5, Minigame2:5, Minigame3:",10,4,5)
 
--- Carga minigames
+-- Load of minigame
 
 insert into minigame values(1,'Uno','Ejemplo uno')
 insert into minigame values(2,'Dos','Ejemplo dos')
 insert into minigame values(3,'Tres','Ejemplo tres')
 
--- Carga minigame_game
+-- Load of minigame_game
 
 insert into minigame_games values(2,1)
 insert into minigame_games values(3,1)
@@ -77,7 +77,7 @@ insert into minigame_games values(1,4)
 insert into minigame_games values(2,4)
 insert into minigame_games values(3,4)
 
--- Carga de figuras
+-- Load of figure
 
 INSERT INTO figure VALUES (1, "ajedrez")
 INSERT INTO figure VALUES (2, "ancla")
@@ -137,8 +137,11 @@ INSERT INTO figure VALUES (55, "vela")
 INSERT INTO figure VALUES (56, "yinyan")
 INSERT INTO figure VALUES (57, "zanahoria")
 
+-- Load of achievement
+INSERT INTO achievement VALUES(1,'Streak10','Streak 10 games', 1)
+INSERT INTO achievement VALUES(1,'Streak20','Streak 20 games', 2)
 
--- Carga de cartas
+-- Load of card
 
 INSERT INTO card VALUES (1,"c1")
 INSERT INTO card VALUES (10,"c10")

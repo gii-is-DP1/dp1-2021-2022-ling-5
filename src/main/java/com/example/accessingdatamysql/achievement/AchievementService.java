@@ -1,6 +1,9 @@
 package com.example.accessingdatamysql.achievement;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.transaction.Transactional;
 
@@ -27,8 +30,9 @@ public class AchievementService {
         return achievementRepository.findById(id);
     }
 
-    public Iterable<Achievement> findAllAchievements() {
-        return achievementRepository.findAll();
+    public List<Achievement> findAllAchievements() {
+        return StreamSupport.stream(achievementRepository.findAll().spliterator(), false).collect(Collectors.toList());
+
     }
 
     public void deleteAchievement(Long id) {
