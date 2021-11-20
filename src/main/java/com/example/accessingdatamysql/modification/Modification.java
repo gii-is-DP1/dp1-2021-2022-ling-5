@@ -10,7 +10,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.example.accessingdatamysql.model.BaseEntity;
-import com.example.accessingdatamysql.user.Account;
+import com.example.accessingdatamysql.user.Admin;
+import com.example.accessingdatamysql.user.Player;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
@@ -43,6 +44,10 @@ public class Modification extends BaseEntity {
 
     @JsonIgnore
     @ManyToOne
-    private Account account;
+    private Player player;
+
+    @JsonIgnore
+    @ManyToOne
+    private Admin admin;
 
 }

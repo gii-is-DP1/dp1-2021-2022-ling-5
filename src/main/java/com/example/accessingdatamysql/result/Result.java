@@ -26,7 +26,10 @@ public class Result extends BaseEntity {
     @Column(name = "data")
     private String data;
 
-    @JsonIgnore
+    @NotNull
+    @Column(name = "totalPoints")
+    private Integer totalPoints;
+
     @ManyToOne
     private Game game;
 
