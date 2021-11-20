@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './images/figures/mano.png';
 import './App.css';
+import Button from 'react-bootstrap/Button';
 import FiguresByCard from './modules/cards/figuresByCard';
 
 function App() {
