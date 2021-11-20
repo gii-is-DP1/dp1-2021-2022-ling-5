@@ -103,6 +103,7 @@ public class ResultController {
     public @ResponseBody Result updateResult(@RequestBody Result newResult, @PathVariable Long id) {
         this.resultService.findResult(id).map(result -> {
             result.setData(newResult.getData());
+            result.setTotalPoints(newResult.getTotalPoints());
             return this.resultService.saveResult(result);
         }).orElse(null);
         return null;

@@ -8,7 +8,8 @@ import javax.persistence.OneToMany;
 
 import com.example.accessingdatamysql.model.NamedEntity;
 import com.example.accessingdatamysql.privilege.Privilege;
-import com.example.accessingdatamysql.user.Account;
+import com.example.accessingdatamysql.user.Admin;
+import com.example.accessingdatamysql.user.Player;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
@@ -21,9 +22,12 @@ public class Role extends NamedEntity {
 
     @JsonIgnore
     @OneToMany(mappedBy = "role")
-    private Collection<Account> accounts;
+    private Collection<Player> players;
 
     @JsonIgnore
+    @OneToMany(mappedBy = "role")
+    private Collection<Admin> admins;
+
     @ManyToMany
     private Collection<Privilege> privileges;
 

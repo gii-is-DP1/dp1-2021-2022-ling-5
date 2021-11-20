@@ -3,8 +3,10 @@ package com.example.accessingdatamysql.modification;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.accessingdatamysql.user.Account;
-import com.example.accessingdatamysql.user.AccountService;
+import com.example.accessingdatamysql.user.Admin;
+import com.example.accessingdatamysql.user.AdminService;
+import com.example.accessingdatamysql.user.Player;
+import com.example.accessingdatamysql.user.PlayerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,14 +26,28 @@ public class ModificationController {
     private ModificationService modificationService;
 
     @Autowired
-    private AccountService accountService;
+    private PlayerService playerService;
 
-    @PostMapping(value = "accounts/{accountId}/modifications") // Map ONLY POST Requests
-    public @ResponseBody Modification addNewModification(@RequestBody Modification modification,
-            @PathVariable Long accountId) {
-        Optional<Account> account = this.accountService.findAccount(accountId);
-        if (account.isPresent()) {
-            modification.setAccount(account.get());
+    @Autowired
+    private AdminService adminService;
+
+    @PostMapping(value = "/players/{playerId}/modifications") // Map ONLY POST Requests
+    public @ResponseBody Modification addNewModificationToPlayer(@RequestBody Modification modification,
+            @PathVariable Long playerId) {
+        Optional<Player> player = this.playerService.findPlayer(playerId);
+        if (player.isPresent()) {
+            modification.setPlayer(player.get());
+            return this.modificationService.saveModification(modification);
+        }
+        return null;
+    }
+
+    @PostMapping(value = "/admins/{adminId}/modifications") // Map ONLY POST Requests
+    public @ResponseBody Modification addNewModificationToAdmin(@RequestBody Modification modification,
+            @PathVariable Long adminId) {
+        Optional<Admin> admin = this.adminService.findAdmin(adminId);
+        if (admin.isPresent()) {
+            modification.setAdmin(admin.get());
             return this.modificationService.saveModification(modification);
         }
         return null;
@@ -42,9 +58,14 @@ public class ModificationController {
         return this.modificationService.findAllModifications();
     }
 
-    @GetMapping(value = "accounts/{accountId}/modifications")
-    public @ResponseBody List<Modification> getAllModificationsByAccount(@PathVariable Long accountId) {
-        return this.modificationService.findAllModificationsByAccount(accountId);
+    @GetMapping(value = "/players/{playerId}/modifications")
+    public @ResponseBody List<Modification> getAllModificationsByPlayer(@PathVariable Long playerId) {
+        return this.modificationService.findAllModificationsByPlayer(playerId);
+    }
+
+    @GetMapping(value = "/admins/{adminId}/modifications")
+    public @ResponseBody List<Modification> getAllModificationsByAdmin(@PathVariable Long adminId) {
+        return this.modificationService.findAllModificationsByAdmin(adminId);
     }
 
     @GetMapping(value = "/modifications/{id}")
@@ -64,9 +85,15 @@ public class ModificationController {
         return "Deleted all";
     }
 
-    @DeleteMapping(value = "accounts/{accountId}/modifications")
-    public @ResponseBody String deleteAllModificationsByAccount(@PathVariable Long accountId) {
-        this.modificationService.deleteAllModificationsByAccount(accountId);
+    @DeleteMapping(value = "/players/{playerId}/modifications")
+    public @ResponseBody String deleteAllModificationsByPlayer(@PathVariable Long playerId) {
+        this.modificationService.deleteAllModificationsByPlayer(playerId);
+        return "Deleted all";
+    }
+
+    @DeleteMapping(value = "/admins/{adminId}/modifications")
+    public @ResponseBody String deleteAllModificationsByAdmin(@PathVariable Long adminId) {
+        this.modificationService.deleteAllModificationsByAdmin(adminId);
         return "Deleted all";
     }
 

@@ -34,9 +34,14 @@ public class ModificationService {
         return modificationRepository.findAll();
     }
 
-    public List<Modification> findAllModificationsByAccount(Long accountId) {
+    public List<Modification> findAllModificationsByPlayer(Long playerId) {
         return StreamSupport.stream(modificationRepository.findAll().spliterator(), false)
-                .filter(modification -> modification.getAccount().getId() == accountId).collect(Collectors.toList());
+                .filter(modification -> modification.getPlayer().getId() == playerId).collect(Collectors.toList());
+    }
+
+    public List<Modification> findAllModificationsByAdmin(Long adminId) {
+        return StreamSupport.stream(modificationRepository.findAll().spliterator(), false)
+                .filter(modification -> modification.getAdmin().getId() == adminId).collect(Collectors.toList());
     }
 
     public void deleteModification(Long id) {
@@ -47,8 +52,13 @@ public class ModificationService {
         modificationRepository.deleteAll();
     }
 
-    public void deleteAllModificationsByAccount(Long accountId) {
-        findAllModificationsByAccount(accountId).stream()
+    public void deleteAllModificationsByPlayer(Long playerId) {
+        findAllModificationsByPlayer(playerId).stream()
+                .forEach(modification -> modificationRepository.deleteById(modification.getId()));
+    }
+
+    public void deleteAllModificationsByAdmin(Long adminId) {
+        findAllModificationsByAdmin(adminId).stream()
                 .forEach(modification -> modificationRepository.deleteById(modification.getId()));
     }
 }
