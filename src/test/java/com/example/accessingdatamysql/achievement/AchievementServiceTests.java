@@ -22,12 +22,6 @@ public class AchievementServiceTests {
     protected AchievementService achievementService;
 
     @Test
-    public void shouldFindAchievements() {
-        List<Achievement> achievements = this.achievementService.findAllAchievements();
-        assertEquals(achievements.size(), 2);
-    }
-
-    @Test
     @Transactional
     public void shouldInsertAchievement() {
         List<Achievement> achievements = this.achievementService.findAllAchievements();

@@ -139,7 +139,7 @@ INSERT INTO figure VALUES (57, "zanahoria")
 
 -- Load of achievement
 INSERT INTO achievement VALUES(1,'Streak10','Streak 10 games', 1)
-INSERT INTO achievement VALUES(1,'Streak20','Streak 20 games', 2)
+INSERT INTO achievement VALUES(2,'Streak20','Streak 20 games', 2)
 
 -- Load of card
 
