@@ -34,7 +34,7 @@ function PlayedGames() {
   }
   return (
     <Container>
-    <Row>
+    <Row> 
       <Col>
       <Row> <h1>Juegos creados</h1> </Row> 
       {
@@ -45,7 +45,6 @@ function PlayedGames() {
           ))
         }
         </Col>
-        <Col></Col>
         <Col>
         <Row> <h1>Juegos jugados</h1> </Row> 
         {

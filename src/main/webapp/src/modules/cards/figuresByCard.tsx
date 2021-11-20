@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { Props, useEffect, useState } from 'react';
 import figures from "../../images/figures/figures.js";
 import '../../App.css'
 
-function FiguresByCard() {
+const FiguresByCard = (data:any) => {
+  console.log(data.id)
   const [state, setState] = useState<any>()
   useEffect(() => {
-    fetch("http://localhost:8080/api/cards/4")
+    fetch("http://localhost:8080/api/cards/"+data.id)
       .then(res => {
         console.log(res.status)
         return res.json()

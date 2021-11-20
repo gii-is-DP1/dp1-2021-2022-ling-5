@@ -23,8 +23,10 @@ const Links = () => {
                     <App /></div>
             </Route>
             <Route path='/games'>
-                <div className="d-flex justify-content-between"><ProfileNavbar />
-                    <App /></div>
+                <div className="d-flex justify-content-between">
+                    <ProfileNavbar />
+                    <PlayedGames />
+                </div>
             </Route>
             <Route path='/awards'>
                 <div className="d-flex justify-content-between"><ProfileNavbar />
@@ -39,9 +41,6 @@ const Links = () => {
             </Route>
             <Route path='/forum' >
                 <Patata />
-            </Route>
-            <Route path="/playedGames">
-                <PlayedGames />
             </Route>
             <Route path="/logout">
                 <Patata />
