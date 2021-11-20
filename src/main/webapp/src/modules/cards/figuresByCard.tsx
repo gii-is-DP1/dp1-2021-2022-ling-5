@@ -1,9 +1,10 @@
 import React, { Props, useEffect, useState } from 'react';
 import figures from "../../images/figures/figures.js";
 import '../../App.css'
+import { Col, Row } from 'react-bootstrap';
+import movimiento from '../games/movimiento';
 
 const FiguresByCard = (data:any) => {
-  console.log(data.id)
   const [state, setState] = useState<any>()
   useEffect(() => {
     fetch("http://localhost:8080/api/cards/"+data.id)
@@ -14,21 +15,22 @@ const FiguresByCard = (data:any) => {
       .then(data => setState(data))
       .catch(console.error)
   }, [])
-  if (!state) return <div>Loading...</div>
+  if (!state){ return <div>Loading...</div>}
+  else{console.log(movimiento(1,state))}
     let ls:any[]=[]
     for (let i = 0; i < state.figures.length; i++){
       ls[i]=figures(state.figures[i].id-1)
     }
   return (
-    <div>
+    <Row>
         {
           ls.map(ls=>(
-            <div className='rowImages'>
+            <Col>
             <img src={ls} width='100%' alt="logo" />
-            </div>
+            </Col>
           ))
         }
-    </div>
+    </Row>
   );
 }
 
