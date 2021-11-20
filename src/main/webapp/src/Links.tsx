@@ -1,19 +1,38 @@
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import App from "./App";
-import Navbar from "./Navbar";
+import PrincipalNavbar from "./PrincipalNavbar";
 import Patata from "./Patata";
+import ProfileNavbar from "./ProfileNavbar";
 import PlayedGames from './modules/games/playedGames';
 
 const Links = () => {
     return <Router>
-        <Navbar />
+        <PrincipalNavbar />
         <Switch>
             <Route exact path='/'>
                 <App />
             </Route>
             <Route path='/profile'>
-                <PlayedGames />
+                <div className="d-flex justify-content-between"><ProfileNavbar />
+                    <App /></div>
+
+            </Route>
+            <Route path='/stats'>
+                <div className="d-flex justify-content-between"><ProfileNavbar />
+                    <App /></div>
+            </Route>
+            <Route path='/games'>
+                <div className="d-flex justify-content-between"><ProfileNavbar />
+                    <App /></div>
+            </Route>
+            <Route path='/awards'>
+                <div className="d-flex justify-content-between"><ProfileNavbar />
+                    <App /></div>
+            </Route>
+            <Route path='/friends'>
+                <div className="d-flex justify-content-between"><ProfileNavbar />
+                    <App /></div>
             </Route>
             <Route path='/notifications'>
                 <Patata />
@@ -23,6 +42,9 @@ const Links = () => {
             </Route>
             <Route path="/playedGames">
                 <PlayedGames />
+            </Route>
+            <Route path="/logout">
+                <Patata />
             </Route>
         </Switch>
     </Router>
