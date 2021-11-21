@@ -4,6 +4,8 @@ import '../../App.css'
 import { Col, Row } from 'react-bootstrap';
 import movimiento from '../games/movimiento';
 
+//<FiguresByCard id='19'/>
+
 const FiguresByCard = (data:any) => {
   const [state, setState] = useState<any>()
   useEffect(() => {

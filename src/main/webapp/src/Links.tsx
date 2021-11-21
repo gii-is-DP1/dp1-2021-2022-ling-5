@@ -14,7 +14,8 @@ const Links = () => {
                 <App />
             </Route>
             <Route path='/profile'>
-                <div className="d-flex justify-content-between"><ProfileNavbar />
+                <div className="d-flex justify-content-between">
+                    <ProfileNavbar />
                     <App /></div>
 
             </Route>

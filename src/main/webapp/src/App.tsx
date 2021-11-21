@@ -4,16 +4,31 @@ import './App.css';
 import Button from 'react-bootstrap/Button';
 import FiguresByCard from './modules/cards/figuresByCard';
 import AllFigures from './modules/figures/allFigures';
+import { Container, Row } from 'react-bootstrap';
 
 function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-          <FiguresByCard id='6'/>
-      </header>
+      <Container> 
+        <Row>
+        <p>
+          Dobble
+        </p>
+        </Row>
+        <Row>
+          <button>
+            New Game
+          </button>
+          <Row>
+          </Row>
+          <button>
+            Join Game
+          </button>
+          </Row>
+      </Container>
     </div>
+    
   );
 }
 

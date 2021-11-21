@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: #fdfd96;
 }
 
 .App-logo {
@@ -12,16 +13,18 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.fondo{
+  background-color: #fdfd96;
+  width: 100%;
+}
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: calc(40px + 2vmin);
+  color: #7845b0;
 }
 
 .App-link {
@@ -41,4 +44,11 @@
   float: left;
   width: 10%;
   padding-left: 2.5%;
+}
+
+.Button{
+
+  display: flex;
+  align-items: center;
+
 }
