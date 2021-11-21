@@ -32,8 +32,8 @@ public class PlayerService {
         return playerRepository.findById(id);
     }
 
-    public Iterable<Player> findAllPlayers() {
-        return playerRepository.findAll();
+    public List<Player> findAllPlayers() {
+        return StreamSupport.stream(playerRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     public List<Player> findAllPlayersByRole(Long roleId) {

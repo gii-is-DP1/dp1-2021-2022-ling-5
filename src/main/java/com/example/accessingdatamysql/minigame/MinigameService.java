@@ -1,6 +1,9 @@
 package com.example.accessingdatamysql.minigame;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.transaction.Transactional;
 
@@ -27,8 +30,8 @@ public class MinigameService {
         return minigameRepository.findById(id);
     }
 
-    public Iterable<Minigame> findAllMinigames() {
-        return minigameRepository.findAll();
+    public List<Minigame> findAllMinigames() {
+        return StreamSupport.stream(minigameRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     public void deleteMinigame(Long id) {

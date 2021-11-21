@@ -31,4 +31,11 @@ public class Role extends NamedEntity {
     @ManyToMany
     private Collection<Privilege> privileges;
 
+    public Role() {
+        this.name = "";
+    }
+
+    public Role(String name) {
+        this.name = name;
+    }
 }

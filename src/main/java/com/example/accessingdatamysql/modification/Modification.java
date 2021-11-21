@@ -50,4 +50,18 @@ public class Modification extends BaseEntity {
     @ManyToOne
     private Admin admin;
 
+    public Modification() {
+        this.moment = new Date(System.currentTimeMillis());
+        this.what = "";
+        this.beforeModification = "";
+        this.afterModification = "";
+    }
+
+    public Modification(Date moment, String what, String beforeModification, String afterModification) {
+        this.moment = moment;
+        this.what = what;
+        this.beforeModification = beforeModification;
+        this.afterModification = afterModification;
+    }
+
 }

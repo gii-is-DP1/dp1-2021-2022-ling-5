@@ -22,4 +22,12 @@ public class Card extends NamedEntity {
     @ManyToMany(mappedBy = "cards")
     @Size(min = 6, max = 6)
     private Collection<Figure> figures;
+
+    public Card() {
+        this.name = "";
+    }
+
+    public Card(String name) {
+        this.name = name;
+    }
 }

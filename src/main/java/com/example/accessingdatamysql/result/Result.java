@@ -37,4 +37,14 @@ public class Result extends BaseEntity {
     @ManyToOne
     private Player player;
 
+    public Result() {
+        this.data = "";
+        this.totalPoints = 0;
+    }
+
+    public Result(String data, Integer totalPoints) {
+        this.data = data;
+        this.totalPoints = totalPoints;
+    }
+
 }

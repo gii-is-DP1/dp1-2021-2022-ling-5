@@ -41,4 +41,12 @@ public class Figure extends NamedEntity {
     @ManyToMany
     private Collection<Card> cards;
 
+    public Figure() {
+        this.name = "";
+    }
+
+    public Figure(String name) {
+        this.name = name;
+    }
+
 }
