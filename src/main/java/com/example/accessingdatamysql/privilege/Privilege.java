@@ -20,4 +20,12 @@ public class Privilege extends NamedEntity {
     @JsonIgnore
     @ManyToMany(mappedBy = "privileges")
     private Collection<Role> roles;
+
+    public Privilege() {
+        this.name = "";
+    }
+
+    public Privilege(String name) {
+        this.name = name;
+    }
 }

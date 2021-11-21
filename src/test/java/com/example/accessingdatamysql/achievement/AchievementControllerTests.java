@@ -11,11 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Optional;
@@ -42,7 +43,6 @@ public class AchievementControllerTests {
     @BeforeEach
     void setup() {
         Achievement achievement1 = new Achievement();
-        achievement1.setId(3L);
         achievement1.setName("Streak 10");
         given(this.achievementService.findAllAchievements()).willReturn(Lists.newArrayList(achievement1));
         given(this.figureService.findFigure(TEST_FIGURE_ID)).willReturn(Optional.of(new Figure()));
@@ -68,21 +68,19 @@ public class AchievementControllerTests {
 
     @Test
     void testDeleteAll() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/achievements")).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/achievements")).andExpect(status().isOk());
     }
 
     @Test
     void testDeleteById() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/achievements/{achievementId}", TEST_ACHIEVEMENT_ID))
-                .andExpect(status().isOk());
+        mockMvc.perform(delete("/api/achievements/{achievementId}", TEST_ACHIEVEMENT_ID)).andExpect(status().isOk());
     }
 
     @Test
     void testUpdate() throws Exception {
         Achievement achievement = new Achievement("Streak100", "Streak 100 games");
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/achievements/{achievementId}", TEST_ACHIEVEMENT_ID)
-                .contentType("application/json").content(objectMapper.writeValueAsString(achievement)))
-                .andExpect(status().isOk());
+        mockMvc.perform(put("/api/achievements/{achievementId}", TEST_ACHIEVEMENT_ID).contentType("application/json")
+                .content(objectMapper.writeValueAsString(achievement))).andExpect(status().isOk());
     }
 
 }

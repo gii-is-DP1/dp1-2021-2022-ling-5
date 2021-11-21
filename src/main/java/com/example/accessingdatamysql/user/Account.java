@@ -30,22 +30,22 @@ public class Account {
     protected String name;
 
     @Column(name = "surname")
-    private String surname;
+    protected String surname;
 
     @NotEmpty
     @NotNull
     @Column(name = "password")
-    private String password;
+    protected String password;
 
     @NotEmpty
     @NotNull
     @Column(name = "email")
-    private String email;
+    protected String email;
 
     @NotEmpty
     @NotNull
     @Column(name = "nickname")
-    private String nickname;
+    protected String nickname;
 
     // @ManyToOne
     // private Role role;

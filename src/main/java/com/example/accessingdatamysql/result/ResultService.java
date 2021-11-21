@@ -30,8 +30,8 @@ public class ResultService {
         return resultRepository.findById(id);
     }
 
-    public Iterable<Result> findAllResults() {
-        return resultRepository.findAll();
+    public List<Result> findAllResults() {
+        return StreamSupport.stream(resultRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     public List<Result> findAllResultsByGame(Long gameId) {
