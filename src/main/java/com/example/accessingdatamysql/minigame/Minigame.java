@@ -27,4 +27,14 @@ public class Minigame extends NamedEntity {
     @ManyToMany
     private Collection<Game> games;
 
+    public Minigame() {
+        this.name = "";
+        this.description = "";
+    }
+
+    public Minigame(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
 }

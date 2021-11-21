@@ -7,6 +7,18 @@ insert into player values(4,'cuatro@gmail.com','cuatro','cuatrito','cuatro','cua
 insert into player values(5,'cinco@gmail.com','cinco','cinquito','cinco','cinco',1,3,1)
 insert into player values(6,'seis@gmail.com','seis','seisito','seis','seis',1,3,1)
 
+-- Load of admin
+
+insert into admin values(1,'unaco@gmail.com','Unaco','unacon','unaco','unaco',1,3,2)
+
+-- Load of modification
+
+insert into modification values(1, 'UNO', 'uno','2021-01-01 01:01:01','cambio1',null, 2)
+
+-- Load of friendship
+
+insert into friendship values(1, 1, 1, 2);
+
 -- Load of game
 
 insert into game values(1,'juegoUno', 1,'2021-01-01 01:01:01','2021-01-01 01:11:01',1,null)
@@ -19,6 +31,10 @@ insert into game values(4,'juegoCuatro',4,'2021-04-04 04:04:04','2021-04-04 04:4
 
 insert into role values(1,'player')
 insert into role values(2,'admin')
+
+-- Load of privilege
+
+insert into privilege values(1, 'VIEW_AWARDS', 1)
 
 
 -- Load of player_games_played
@@ -143,7 +159,7 @@ INSERT INTO achievement VALUES(2,'Streak20','Streak 20 games', 2)
 
 -- Load of card
 
-INSERT INTO card VALUES (1,"c1")
+INSERT INTO card VALUES (1,"c01")
 INSERT INTO card VALUES (10,"c10")
 INSERT INTO card VALUES (11,"c11")
 INSERT INTO card VALUES (12,"c12")
@@ -154,7 +170,7 @@ INSERT INTO card VALUES (16,"c16")
 INSERT INTO card VALUES (17,"c17")
 INSERT INTO card VALUES (18,"c18")
 INSERT INTO card VALUES (19,"c19")
-INSERT INTO card VALUES (2,"c2")
+INSERT INTO card VALUES (2,"c02")
 INSERT INTO card VALUES (20,"c20")
 INSERT INTO card VALUES (21,"c21")
 INSERT INTO card VALUES (22,"c22")
@@ -165,7 +181,7 @@ INSERT INTO card VALUES (26,"c26")
 INSERT INTO card VALUES (27,"c27")
 INSERT INTO card VALUES (28,"c28")
 INSERT INTO card VALUES (29,"c29")
-INSERT INTO card VALUES (3,"c3")
+INSERT INTO card VALUES (3,"c03")
 INSERT INTO card VALUES (30,"c30")
 INSERT INTO card VALUES (31,"c31")
 INSERT INTO card VALUES (32,"c32")
@@ -176,7 +192,7 @@ INSERT INTO card VALUES (36,"c36")
 INSERT INTO card VALUES (37,"c37")
 INSERT INTO card VALUES (38,"c38")
 INSERT INTO card VALUES (39,"c39")
-INSERT INTO card VALUES (4,"c4")
+INSERT INTO card VALUES (4,"c04")
 INSERT INTO card VALUES (40,"c40")
 INSERT INTO card VALUES (41,"c41")
 INSERT INTO card VALUES (42,"c42")
@@ -187,7 +203,7 @@ INSERT INTO card VALUES (46,"c46")
 INSERT INTO card VALUES (47,"c47")
 INSERT INTO card VALUES (48,"c48")
 INSERT INTO card VALUES (49,"c49")
-INSERT INTO card VALUES (5,"c5")
+INSERT INTO card VALUES (5,"c05")
 INSERT INTO card VALUES (50,"c50")
 INSERT INTO card VALUES (51,"c51")
 INSERT INTO card VALUES (52,"c52")
@@ -196,10 +212,10 @@ INSERT INTO card VALUES (54,"c54")
 INSERT INTO card VALUES (55,"c55")
 INSERT INTO card VALUES (56,"c56")
 INSERT INTO card VALUES (57,"c57")
-INSERT INTO card VALUES (6,"c6")
-INSERT INTO card VALUES (7,"c7")
-INSERT INTO card VALUES (8,"c8")
-INSERT INTO card VALUES (9,"c9")
+INSERT INTO card VALUES (6,"c06")
+INSERT INTO card VALUES (7,"c07")
+INSERT INTO card VALUES (8,"c08")
+INSERT INTO card VALUES (9,"c09")
 
 
 -- Carga de figuras de cartas

@@ -30,4 +30,12 @@ public class Friendship extends BaseEntity {
     @JsonIgnore
     @ManyToOne
     private Player requested;
+
+    public Friendship() {
+        this.state = FriendshipState.REQUESTED;
+    }
+
+    public Friendship(FriendshipState state) {
+        this.state = state;
+    }
 }

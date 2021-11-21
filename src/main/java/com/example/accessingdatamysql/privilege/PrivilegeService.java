@@ -1,6 +1,9 @@
 package com.example.accessingdatamysql.privilege;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.transaction.Transactional;
 
@@ -27,8 +30,8 @@ public class PrivilegeService {
         return privilegeRepository.findById(id);
     }
 
-    public Iterable<Privilege> findAllPrivileges() {
-        return privilegeRepository.findAll();
+    public List<Privilege> findAllPrivileges() {
+        return StreamSupport.stream(privilegeRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     public void deletePrivilege(Long id) {
