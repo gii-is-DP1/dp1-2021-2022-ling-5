@@ -1,8 +1,11 @@
 package com.example.accessingdatamysql.ongoingminigame;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Map.Entry;
 
 import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.game.Game;
@@ -65,7 +68,11 @@ public class OnGoingTorreInfernalRepository {
         return ongoinggames.get(gameId);
     }
 
-    public Map<Long, OnGoingTorreInfernal> getAllOnGoingGames(){
-        return ongoinggames;
+    public Iterable<OnGoingTorreInfernal> getAllOnGoingGames(){
+        List<OnGoingTorreInfernal> ongoing = new ArrayList<OnGoingTorreInfernal>();
+        for(Entry<Long, OnGoingTorreInfernal> e: ongoinggames.entrySet()){
+            ongoing.add(e.getValue());
+        }
+        return ongoing;
     }
 }

@@ -1,7 +1,5 @@
 package com.example.accessingdatamysql.ongoingminigame;
 
-import java.util.Map;
-
 import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.card.CardService;
 import com.example.accessingdatamysql.game.GameService;
@@ -38,7 +36,7 @@ public class OnGoingTorreInfernalController {
     }
 
     @GetMapping(value = "/ongoingTorreInfernal")
-    public @ResponseBody Map<Long, OnGoingTorreInfernal> getAll(){
+    public @ResponseBody Iterable<OnGoingTorreInfernal> getAll(){
         return onGoinTorreInfernalService.getAll();
     }
 
