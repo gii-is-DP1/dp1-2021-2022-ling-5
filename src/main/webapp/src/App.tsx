@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Button from 'react-bootstrap/Button';
 import FiguresByCard from './modules/cards/figuresByCard';
+import { Row } from 'react-bootstrap';
 
 function App() {
 
@@ -13,13 +14,20 @@ function App() {
         Dobble
       </p>
       <div className="Button">
+        
         <button>
           New Game
         </button>
+      </div>
+      <div>
         <button>
           Join Game
         </button>
-      </div>
+      </div>  
+        
+        
+        
+    
       
         
     </div>
