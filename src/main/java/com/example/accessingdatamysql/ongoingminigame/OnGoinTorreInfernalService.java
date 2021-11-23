@@ -1,7 +1,5 @@
 package com.example.accessingdatamysql.ongoingminigame;
 
-import java.util.Map;
-
 import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.game.Game;
 
@@ -19,16 +17,12 @@ public class OnGoinTorreInfernalService {
         }
     }
 
-    public Map<Long, OnGoingTorreInfernal> getAll(){
+    public Iterable<OnGoingTorreInfernal> getAll(){
         return ongoing.getAllOnGoingGames();
     }
 
     public void creatGame(Long gameId, Game game, Iterable<Card> cards){
         ongoing.creatGame(gameId, game, cards);
-    }
-
-    public void newCard(Long gameId, Long playerId){
-        ongoing.newCard(gameId, playerId);
     }
 
     public void newCenterCard(Long gameId){
@@ -53,5 +47,9 @@ public class OnGoinTorreInfernalService {
 
     public OnGoingTorreInfernal getGame(Long gameId){
         return ongoing.getGame(gameId);
+    }
+
+    public void deleteGame(Long gameId){
+        ongoing.deleteGame(gameId);
     }
 }
