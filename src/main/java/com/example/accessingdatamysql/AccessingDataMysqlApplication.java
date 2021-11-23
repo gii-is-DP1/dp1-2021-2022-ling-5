@@ -18,11 +18,10 @@ public class AccessingDataMysqlApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/*").allowedOrigins("http://localhost:3000");
-				registry.addMapping("/api/*").allowedOrigins("http://localhost:8080");
 				registry.addMapping("/api/*").allowedOrigins("*");
 				registry.addMapping("/api/*/*").allowedOrigins("*");
-				registry.addMapping("/api/cards/*").allowedOrigins("http://localhost:3000");
+				registry.addMapping("/api/*/*/*").allowedOrigins("*");
+				registry.addMapping("/api/*/*/*/*").allowedOrigins("*");
 
 			}
 		};

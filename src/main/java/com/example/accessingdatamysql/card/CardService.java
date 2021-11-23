@@ -1,6 +1,9 @@
 package com.example.accessingdatamysql.card;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.transaction.Transactional;
 
@@ -27,8 +30,8 @@ public class CardService {
         return cardRepository.findById(id);
     }
 
-    public Iterable<Card> findAllCards() {
-        return cardRepository.findAll();
+    public List<Card> findAllCards() {
+        return StreamSupport.stream(cardRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     public void deleteCard(Long id) {

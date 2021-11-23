@@ -51,4 +51,22 @@ public class Player extends Account {
 
   @ManyToOne
   private Figure figure;
+
+  public Player() {
+    this.name = "";
+    this.surname = "";
+    this.password = "";
+    this.email = "";
+    this.nickname = "";
+    this.playerState = PlayerState.NO_PLAY;
+  }
+
+  public Player(String name, String surname, String password, String email, String nickname, PlayerState playerState) {
+    this.name = name;
+    this.surname = surname;
+    this.password = password;
+    this.email = email;
+    this.nickname = nickname;
+    this.playerState = playerState;
+  }
 }

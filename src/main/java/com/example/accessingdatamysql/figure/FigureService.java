@@ -1,6 +1,9 @@
 package com.example.accessingdatamysql.figure;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.transaction.Transactional;
 
@@ -27,8 +30,8 @@ public class FigureService {
         return figureRepository.findById(id);
     }
 
-    public Iterable<Figure> findAllFigures() {
-        return figureRepository.findAll();
+    public List<Figure> findAllFigures() {
+        return StreamSupport.stream(figureRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     public void deleteFigure(Long id) {

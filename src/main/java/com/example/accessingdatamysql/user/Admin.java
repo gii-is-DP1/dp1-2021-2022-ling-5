@@ -27,4 +27,20 @@ public class Admin extends Account {
 
     @ManyToOne
     private Figure figure;
+
+    public Admin() {
+        this.name = "";
+        this.surname = "";
+        this.password = "";
+        this.email = "";
+        this.nickname = "";
+    }
+
+    public Admin(String name, String surname, String password, String email, String nickname) {
+        this.name = name;
+        this.surname = surname;
+        this.password = password;
+        this.email = email;
+        this.nickname = nickname;
+    }
 }
