@@ -31,7 +31,8 @@ public class CardService {
     }
 
     public List<Card> findAllCards() {
-        return StreamSupport.stream(cardRepository.findAll().spliterator(), false).collect(Collectors.toList());
+        return StreamSupport.stream(cardRepository.findAll().spliterator(), false)
+        .collect(Collectors.toList());
     }
 
     public void deleteCard(Long id) {
