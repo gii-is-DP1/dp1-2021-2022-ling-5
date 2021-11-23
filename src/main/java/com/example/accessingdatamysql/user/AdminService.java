@@ -30,8 +30,8 @@ public class AdminService {
         return adminRepository.findById(id);
     }
 
-    public Iterable<Admin> findAllAdmins() {
-        return adminRepository.findAll();
+    public List<Admin> findAllAdmins() {
+        return StreamSupport.stream(adminRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     public List<Admin> findAllAdminsByRole(Long roleId) {

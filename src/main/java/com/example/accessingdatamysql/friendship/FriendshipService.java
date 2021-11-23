@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class FriendshipService {
     private FriendshipRepository friendshipRepository;
@@ -31,8 +30,8 @@ public class FriendshipService {
         return friendshipRepository.findById(id);
     }
 
-    public Iterable<Friendship> findAllFriendships() {
-        return friendshipRepository.findAll();
+    public List<Friendship> findAllFriendships() {
+        return StreamSupport.stream(friendshipRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     public List<Friendship> findAllFriendshipsByRequester(Long requesterId) {
@@ -54,10 +53,12 @@ public class FriendshipService {
     }
 
     public void deleteAllFriendshipsByRequester(Long playerId) {
-        findAllFriendshipsByRequester(playerId).stream().forEach(friendship -> friendshipRepository.deleteById(friendship.getId()));
+        findAllFriendshipsByRequester(playerId).stream()
+                .forEach(friendship -> friendshipRepository.deleteById(friendship.getId()));
     }
 
     public void deleteAllFriendshipsByRequested(Long playerId) {
-        findAllFriendshipsByRequested(playerId).stream().forEach(friendship -> friendshipRepository.deleteById(friendship.getId()));
+        findAllFriendshipsByRequested(playerId).stream()
+                .forEach(friendship -> friendshipRepository.deleteById(friendship.getId()));
     }
 }

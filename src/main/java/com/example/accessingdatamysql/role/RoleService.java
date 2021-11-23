@@ -1,6 +1,9 @@
 package com.example.accessingdatamysql.role;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.transaction.Transactional;
 
@@ -27,8 +30,8 @@ public class RoleService {
         return roleRepository.findById(id);
     }
 
-    public Iterable<Role> findAllRoles() {
-        return roleRepository.findAll();
+    public List<Role> findAllRoles() {
+        return StreamSupport.stream(roleRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     public void deleteRole(Long id) {
