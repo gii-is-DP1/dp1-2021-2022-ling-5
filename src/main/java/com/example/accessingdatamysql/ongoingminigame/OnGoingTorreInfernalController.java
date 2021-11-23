@@ -1,13 +1,12 @@
 package com.example.accessingdatamysql.ongoingminigame;
 
-import java.util.Map;
-
 import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.card.CardService;
 import com.example.accessingdatamysql.game.GameService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +37,7 @@ public class OnGoingTorreInfernalController {
     }
 
     @GetMapping(value = "/ongoingTorreInfernal")
-    public @ResponseBody Map<Long, OnGoingTorreInfernal> getAll(){
+    public @ResponseBody Iterable<OnGoingTorreInfernal> getAll(){
         return onGoinTorreInfernalService.getAll();
     }
 
@@ -68,16 +67,21 @@ public class OnGoingTorreInfernalController {
         return onGoinTorreInfernalService.getGame(gameId);
     }
 
-    @PutMapping(value = "/players/{playerId}/ongoingTorreInfernal/{gameId}")
-    public @ResponseBody OnGoingTorreInfernal newCard(@PathVariable Long playerId, @PathVariable Long gameId){
-        onGoinTorreInfernalService.newCard(gameId, playerId);
-        return onGoinTorreInfernalService.getGame(gameId);
-    }
-
     @PutMapping(value = "/players/{playerId}/ongoingTorreInfernal/{gameId}/points")
     public @ResponseBody OnGoingTorreInfernal addPoints(@RequestBody RequestAddPoints request , 
         @PathVariable Long playerId, @PathVariable Long gameId){
             onGoinTorreInfernalService.addPoints(gameId, playerId, request.getPoints());
             return onGoinTorreInfernalService.getGame(gameId);
         }
+
+    @DeleteMapping(value = "/ongoingTorreInfernal/{gameId}")
+    public @ResponseBody String deleteGame(@PathVariable Long gameId){
+        OnGoingTorreInfernal onGoingTorreInfernal = getGameById(gameId);
+        if(onGoingTorreInfernal!=null){
+            onGoinTorreInfernalService.deleteGame(gameId);
+            return "Game Deleted";
+        } else{
+            return "No on going game found";
+        }
+    }
 }
