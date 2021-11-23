@@ -23,14 +23,16 @@ public class OnGoingFoso{
     private Map<Long, Integer> points;
     private Card currentCard;
     private Integer limit;
+    private List<Long> orden;
 
     public OnGoingFoso(Long gameId, Game game, Iterable<Card> cards){ 
+        this.orden = new ArrayList<>();
         this.players = List.copyOf(game.getPlayers());
         this.remainingCards = new ArrayList<Card>();
         cards.forEach(card->remainingCards.add(card));
         this.points = new HashMap<Long, Integer>();
         this.playerCard = new HashMap<Long, Card>();
-        this.limit=remainingCards.size()/players.size();
+        this.limit=remainingCards.size()/players.size() -1;
         for(Player player: this.players){
             points.put(player.getId(), 0);
             Random random = new Random();

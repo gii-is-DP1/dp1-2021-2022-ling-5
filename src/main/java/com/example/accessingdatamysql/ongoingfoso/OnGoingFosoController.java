@@ -1,5 +1,7 @@
 package com.example.accessingdatamysql.ongoingfoso;
 
+import java.util.List;
+
 import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.card.CardService;
 import com.example.accessingdatamysql.game.GameService;
@@ -66,6 +68,11 @@ public class OnGoingFosoController {
         onGoinFosoService.addPoints(gameId, playerId, 1);
         onGoinFosoService.changeCards(playerId,gameId);
         return onGoinFosoService.getPlayerCard(gameId, playerId);
+    }
+
+    @GetMapping(value = "/ongoingFoso/{gameId}/positions")
+    public @ResponseBody List<Long> getFinalPositions(@PathVariable Long gameId){
+        return onGoinFosoService.getPositions(gameId);
     }
 
     //desuso

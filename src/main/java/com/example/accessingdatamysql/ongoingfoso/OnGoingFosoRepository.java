@@ -40,6 +40,15 @@ public class OnGoingFosoRepository {
         }else{
             changed.put(playerId, null);
             onGoingFoso.setPlayerCard(changed);
+            onGoingFoso.getOrden().add(playerId);
+            if(onGoingFoso.getOrden().size()==onGoingFoso.getPlayers().size()-1){
+                for(Integer i=0;i<onGoingFoso.getPlayers().size();i++){
+                    if(!onGoingFoso.getOrden().contains(onGoingFoso.getPlayers().get(i).getId())){
+                        Long idFinal=onGoingFoso.getPlayers().get(i).getId();
+                        onGoingFoso.getOrden().add(idFinal);
+                    }
+                }
+            }
         }
     }
 
@@ -73,5 +82,9 @@ public class OnGoingFosoRepository {
     }
     public void deleteGame(Long gameId){
         ongoinggames.remove(gameId);
+    }
+
+    public List<Long> getPositions(Long gameId){
+        return ongoinggames.get(gameId).getOrden();
     }
 }

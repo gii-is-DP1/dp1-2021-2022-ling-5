@@ -1,5 +1,7 @@
 package com.example.accessingdatamysql.ongoingfoso;
 
+import java.util.List;
+
 import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.game.Game;
 
@@ -39,6 +41,10 @@ public class OnGoinFosoService {
 
     public void changeCards(Long playerId,Long gameId){
         ongoing.changeCards(playerId,gameId);
+    }
+
+    public List<Long> getPositions(Long gameId){
+        return ongoing.getPositions(gameId);
     }
 
     public void addPoints(Long gameId, Long playerId, Integer points){
