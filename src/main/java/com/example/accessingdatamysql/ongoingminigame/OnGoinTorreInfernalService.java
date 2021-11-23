@@ -25,10 +25,6 @@ public class OnGoinTorreInfernalService {
         ongoing.creatGame(gameId, game, cards);
     }
 
-    public void newCard(Long gameId, Long playerId){
-        ongoing.newCard(gameId, playerId);
-    }
-
     public void newCenterCard(Long gameId){
         ongoing.newCenterCard(gameId);
     }
@@ -51,5 +47,9 @@ public class OnGoinTorreInfernalService {
 
     public OnGoingTorreInfernal getGame(Long gameId){
         return ongoing.getGame(gameId);
+    }
+
+    public void deleteGame(Long gameId){
+        ongoing.deleteGame(gameId);
     }
 }

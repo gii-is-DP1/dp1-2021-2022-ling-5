@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react"
 
-
-function GetAll(){
+function FindById(gameId: any){
     return new Promise(function(resolve, reject){
-        fetch(`http://localhost:8080/api/ongoingTorreInfernal`)
+        fetch(`http://localhost:8080/api/ongoingTorreInfernal/${gameId}`)
         .then(response=>resolve(response.json()))
         .catch(error => reject(console.error))
     })
 }
 
-export default GetAll
+export default FindById

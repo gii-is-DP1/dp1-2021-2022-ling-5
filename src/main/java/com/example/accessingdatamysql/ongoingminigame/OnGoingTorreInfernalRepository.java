@@ -24,15 +24,6 @@ public class OnGoingTorreInfernalRepository {
         ongoinggames.put(gameId, onGoingTorreInfernal);
     }
 
-    public void newCard(Long gameId, Long playerId){
-        OnGoingTorreInfernal onGoingTorreInfernal = ongoinggames.get(gameId);
-        Random random = new Random();
-        int randomindex = random.ints(0, onGoingTorreInfernal.getRemainingCards().size()).findFirst().getAsInt();
-        Card newCard = onGoingTorreInfernal.getRemainingCards().get(randomindex);
-        onGoingTorreInfernal.getRemainingCards().remove(newCard);
-        onGoingTorreInfernal.getPlayerCard().put(playerId, newCard);
-    }
-
     public void newCenterCard(Long gameId){
         OnGoingTorreInfernal onGoingTorreInfernal = ongoinggames.get(gameId);
         if(onGoingTorreInfernal.getRemainingCards().size()!=0){
@@ -74,5 +65,8 @@ public class OnGoingTorreInfernalRepository {
             ongoing.add(e.getValue());
         }
         return ongoing;
+    }
+    public void deleteGame(Long gameId){
+        ongoinggames.remove(gameId);
     }
 }
