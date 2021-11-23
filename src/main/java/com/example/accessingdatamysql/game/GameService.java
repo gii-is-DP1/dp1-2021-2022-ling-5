@@ -1,6 +1,9 @@
 package com.example.accessingdatamysql.game;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.transaction.Transactional;
 
@@ -27,8 +30,8 @@ public class GameService {
         return gameRepository.findById(id);
     }
 
-    public Iterable<Game> findAllGames() {
-        return gameRepository.findAll();
+    public List<Game> findAllGames() {
+        return StreamSupport.stream(gameRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     public void deleteGame(Long id) {

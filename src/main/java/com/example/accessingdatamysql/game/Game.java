@@ -38,13 +38,12 @@ public class Game extends NamedEntity {
     @Column(name = "endTime")
     private Date endTime;
 
-    @NotEmpty
     @NotNull
     @Column(name = "creator")
     private Integer creator;
 
     @Column(name = "winner")
-    private String winner;
+    private Integer winner;
 
     @ManyToMany(mappedBy = "games")
     @Size(min = 1, max = 3)
@@ -58,4 +57,22 @@ public class Game extends NamedEntity {
     @ManyToMany(mappedBy = "gamesPlayed")
     @Size(min = 2, max = 8)
     private Collection<Player> players;
+
+    public Game() {
+        this.name = "";
+        this.state = State.UNSTARTED;
+        this.startTime = new Date(System.currentTimeMillis());
+        this.endTime = new Date(System.currentTimeMillis());
+        this.creator = 0;
+        this.winner = 0;
+    }
+
+    public Game(String name, State state, Date startTime, Date endTime, Integer creator, Integer winner) {
+        this.name = name;
+        this.state = state;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.creator = creator;
+        this.winner = winner;
+    }
 }

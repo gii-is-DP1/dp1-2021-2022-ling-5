@@ -30,8 +30,8 @@ public class ModificationService {
         return modificationRepository.findById(id);
     }
 
-    public Iterable<Modification> findAllModifications() {
-        return modificationRepository.findAll();
+    public List<Modification> findAllModifications() {
+        return StreamSupport.stream(modificationRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     public List<Modification> findAllModificationsByPlayer(Long playerId) {
