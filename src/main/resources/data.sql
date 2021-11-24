@@ -21,7 +21,7 @@ insert into friendship values(1, 1, 1, 2);
 
 -- Load of game
 
-insert into game values(1,'juegoUno', 1,'2021-01-01 01:01:01','2021-01-01 01:11:01',1,null)
+insert into game values(1,'juegoUno', 1,'2021-01-01 01:01:01','2021-01-01 01:11:01',2,null)
 insert into game values(2,'juegoDos',2,'2021-02-02 02:02:02','2021-02-02 02:22:02',2,null)
 insert into game values(3,'juegoTres',3,'2021-03-03 03:03:03','2021-03-03 03:33:03',2,null)
 insert into game values(4,'juegoCuatro',4,'2021-04-04 04:04:04','2021-04-04 04:44:04',2,null)
@@ -51,26 +51,26 @@ insert into player_games_played values(6,2)
 insert into player_games_played values(3,3)
 insert into player_games_played values(6,3)
 insert into player_games_played values(1,4)
-insert into player_games_played values(3,4)
+insert into player_games_played values(4,4)
 insert into player_games_played values(5,4)
 
 
 -- Load of result
 
-insert into result values(1,"Minigame1:5, Minigame2:0, Minigame3:5",10,1,1)
-insert into result values(2,"Minigame1:0, Minigame2:0, Minigame3:0",0,1,2)
-insert into result values(3,"Minigame1:0, Minigame2:5, Minigame3:5",10,1,3)
-insert into result values(4,"Minigame1:5, Minigame2:0, Minigame3:5",10,1,4)
-insert into result values(5,"Minigame1:0, Minigame2:0, Minigame3:0",0,1,5)
-insert into result values(6,"Minigame1:0, Minigame2:0, Minigame3:0",0,1,6)
-insert into result values(7,"Minigame1:10, Minigame2:10, Minigame3:10",30,2,2)
-insert into result values(8,"Minigame1:0, Minigame2:0, Minigame3:0",0,2,4)
-insert into result values(9,"Minigame1:0, Minigame2:0, Minigame3:0",0,2,6)
-insert into result values(10,"Minigame1:0, Minigame2:10, Minigame3:10",20,3,3)
-insert into result values(11,"Minigame1:5, Minigame2:0, Minigame3:5",10,3,6)
-insert into result values(12,"Minigame1:5, Minigame2:10, Minigame3:5",20,4,1)
-insert into result values(13,"Minigame1:0, Minigame2:0, Minigame3:0",0,4,3)
-insert into result values(14,"Minigame1:5, Minigame2:5, Minigame3:",10,4,5)
+insert into result values(1,"5 0 5",10,1,1)
+insert into result values(2,"0 0 0",0,1,2)
+insert into result values(3,"0 5 5",10,1,3)
+insert into result values(4,"5 0 5",10,1,4)
+insert into result values(5,"0 0 0",0,1,5)
+insert into result values(6,"0 0 0",0,1,6)
+insert into result values(7,"10 10 10",30,2,2)
+insert into result values(8,"0 0 0",0,2,4)
+insert into result values(9,"0 0 0",0,2,6)
+insert into result values(10,"0 0 10",20,3,3)
+insert into result values(11,"5 0 5",10,3,6)
+insert into result values(12,"5 10 5",20,4,1)
+insert into result values(13,"0 0 0",0,4,3)
+insert into result values(14,"5 5 5",10,4,5)
 
 -- Load of minigame
 
