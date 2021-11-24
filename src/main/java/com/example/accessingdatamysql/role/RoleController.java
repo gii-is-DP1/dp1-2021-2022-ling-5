@@ -1,9 +1,11 @@
 package com.example.accessingdatamysql.role;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import com.example.accessingdatamysql.privilege.Privilege;
 import com.example.accessingdatamysql.privilege.PrivilegeService;
+import com.example.accessingdatamysql.user.Player;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,9 @@ public class RoleController {
 
     @PostMapping(value = "/roles")
     public @ResponseBody Role addNewRole(@RequestBody Role role) {
+        role.setPlayers(new ArrayList<Player>());
+        role.setPrivileges(new ArrayList<Privilege>());
+
         return this.roleService.saveRole(role);
     }
 
@@ -35,6 +40,12 @@ public class RoleController {
         Optional<Role> role = this.roleService.findRole(roleId);
         Optional<Privilege> privilege = this.privilegeService.findPrivilege(privilegeId);
         if (privilege.isPresent()) {
+
+            if(role.get().getPrivileges() == null)
+                role.get().setPrivileges(new ArrayList<Privilege>());
+            if(privilege.get().getRoles() == null)
+                privilege.get().setRoles(new ArrayList<Role>());
+
             role.get().getPrivileges().add(privilege.get());
             privilege.get().getRoles().add(role.get());
             return this.roleService.saveRole(role.get());
@@ -70,13 +81,20 @@ public class RoleController {
         Optional<Privilege> privilege = this.privilegeService.findPrivilege(privilegeId);
         if (!role.isPresent())
             return "User not found";
-        else if (!privilege.isPresent())
+        if (!privilege.isPresent())
             return "Privilege not found";
-        else {
-            role.get().getPrivileges().remove(privilege.get());
-            privilege.get().getRoles().remove(role.get());
-            return "Privilege deleted from role";
+        
+        if(role.get().getPrivileges() == null){
+            role.get().setPrivileges(new ArrayList<Privilege>());
+            if(privilege.get().getRoles() == null)
+                privilege.get().setRoles(new ArrayList<Role>());
+            return "This role doesn't have privileges";
         }
+
+        role.get().getPrivileges().remove(privilege.get());
+        privilege.get().getRoles().remove(role.get());
+        return "Privilege deleted from role";
+        
     }
 
     @PutMapping(value = "/roles/{id}")

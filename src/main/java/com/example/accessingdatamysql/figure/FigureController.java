@@ -1,6 +1,11 @@
 package com.example.accessingdatamysql.figure;
 
+import java.util.ArrayList;
 import java.util.Optional;
+
+import com.example.accessingdatamysql.user.Admin;
+import com.example.accessingdatamysql.user.Player;
+import com.example.accessingdatamysql.card.Card;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +26,10 @@ public class FigureController {
 
     @PostMapping(value = "/figures") // Map ONLY POST Requests
     public @ResponseBody Figure addNewFigure(@RequestBody Figure figure) {
+        figure.setAdmins(new ArrayList<Admin>());
+        figure.setPlayers(new ArrayList<Player>());
+        figure.setCards(new ArrayList<Card>());
+
         return this.figureService.saveFigure(figure);
     }
 
@@ -51,10 +60,7 @@ public class FigureController {
         this.figureService.findFigure(id).map(figure -> {
             figure.setName(newFigure.getName());
             return this.figureService.saveFigure(figure);
-        }).orElseGet(() -> {
-            newFigure.setId(id);
-            return this.figureService.saveFigure(newFigure);
-        });
-        return newFigure;
+        }).orElse(null);
+        return null;
     }
 }

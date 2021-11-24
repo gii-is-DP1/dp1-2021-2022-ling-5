@@ -20,7 +20,7 @@ import lombok.Setter;
 public class Card extends NamedEntity {
 
     @ManyToMany(mappedBy = "cards")
-    @Size(min = 6, max = 6)
+    @Size(max = 6)
     private Collection<Figure> figures;
 
     public Card() {
@@ -30,4 +30,10 @@ public class Card extends NamedEntity {
     public Card(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "{" + " id='" + getId() + "'" + ", name='" + getName() + "'" + ", figures='" + getFigures() + "'" + "}";
+    }
+
 }
