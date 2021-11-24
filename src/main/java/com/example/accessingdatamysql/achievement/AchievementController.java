@@ -1,9 +1,11 @@
 package com.example.accessingdatamysql.achievement;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import com.example.accessingdatamysql.figure.Figure;
 import com.example.accessingdatamysql.figure.FigureService;
+import com.example.accessingdatamysql.user.Player;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,8 @@ public class AchievementController {
             @PathVariable Long figureId) {
         Optional<Figure> figure = this.figureService.findFigure(figureId);
         if (figure.isPresent()) {
+            achievement.setPlayers(new ArrayList<Player>());
+
             figure.get().setAchievement(achievement);
             achievement.setFigure(figure.get());
             return this.achievementService.saveAchievement(achievement);

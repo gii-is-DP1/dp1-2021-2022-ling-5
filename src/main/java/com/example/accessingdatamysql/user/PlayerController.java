@@ -1,5 +1,6 @@
 package com.example.accessingdatamysql.user;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import com.example.accessingdatamysql.achievement.Achievement;
 import com.example.accessingdatamysql.achievement.AchievementService;
 import com.example.accessingdatamysql.figure.Figure;
 import com.example.accessingdatamysql.figure.FigureService;
+import com.example.accessingdatamysql.modification.Modification;
 import com.example.accessingdatamysql.role.Role;
 import com.example.accessingdatamysql.role.RoleService;
 
@@ -39,6 +41,8 @@ public class PlayerController {
   @PostMapping(value = "/roles/{roleId}/figures/{figureId}/players") // Map ONLY POST Requests
   public @ResponseBody Player addNewPlayer(@RequestBody Player player, @PathVariable Long roleId,
       @PathVariable Long figureId) {
+    player.setModifications(new ArrayList<Modification>());
+
     Optional<Role> role = this.roleService.findRole(roleId);
     Optional<Figure> figure = this.figureService.findFigure(figureId);
     if (figure.isPresent() && role.isPresent()) {
@@ -56,6 +60,12 @@ public class PlayerController {
     if (!player.isPresent())
       return null;
     if (achievement.isPresent()) {
+
+      if (player.get().getAchievements() == null)
+        player.get().setAchievements(new ArrayList<Achievement>());
+      if (achievement.get().getPlayers() == null)
+        achievement.get().setPlayers(new ArrayList<Player>());
+
       player.get().getAchievements().add(achievement.get());
       achievement.get().getPlayers().add(player.get());
       this.playerService.savePlayer(player.get());
@@ -103,13 +113,19 @@ public class PlayerController {
     Optional<Achievement> achievement = this.achievementService.findAchievement(achievementId);
     if (!player.isPresent())
       return "User not found";
-    else if (!achievement.isPresent())
+    if (!achievement.isPresent())
       return "Achievement not found";
-    else {
-      player.get().getAchievements().remove(achievement.get());
-      achievement.get().getPlayers().remove(player.get());
-      return "Achievement deleted from player";
+
+    if (player.get().getAchievements() == null) {
+      player.get().setAchievements(new ArrayList<Achievement>());
+      if (achievement.get().getPlayers() == null)
+        achievement.get().setPlayers(new ArrayList<Player>());
     }
+
+    player.get().getAchievements().remove(achievement.get());
+    achievement.get().getPlayers().remove(player.get());
+    return "Achievement deleted from player";
+
   }
 
   @PutMapping(value = "/players/{id}")

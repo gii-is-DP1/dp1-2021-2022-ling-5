@@ -6,6 +6,7 @@ import Patata from "./Patata";
 import ProfileNavbar from "./ProfileNavbar";
 import NewGame from "./NewGame";
 import JoinGame from "./JoinGame";
+import PlayedGames from './modules/games/playedGames';
 
 const Links = () => {
     return <Router>
@@ -24,7 +25,8 @@ const Links = () => {
             </Route>
 
             <Route path='/profile'>
-                <div className="d-flex justify-content-between"><ProfileNavbar />
+                <div className="d-flex justify-content-between">
+                    <ProfileNavbar />
                     <App /></div>
 
             </Route>
@@ -33,8 +35,10 @@ const Links = () => {
                     <App /></div>
             </Route>
             <Route path='/games'>
-                <div className="d-flex justify-content-between"><ProfileNavbar />
-                    <App /></div>
+                <div className="d-flex justify-content-between">
+                    <ProfileNavbar />
+                    <PlayedGames />
+                </div>
             </Route>
             <Route path='/awards'>
                 <div className="d-flex justify-content-between"><ProfileNavbar />

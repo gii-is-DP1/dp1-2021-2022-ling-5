@@ -1,6 +1,9 @@
 package com.example.accessingdatamysql.minigame;
 
+import java.util.ArrayList;
 import java.util.Optional;
+
+import com.example.accessingdatamysql.game.Game;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +24,8 @@ public class MinigameController {
 
     @PostMapping(value = "/minigames") // Map ONLY POST Requests
     public @ResponseBody Minigame addNewMinigame(@RequestBody Minigame minigame) {
+        minigame.setGames(new ArrayList<Game>());
+
         return this.minigameService.saveMinigame(minigame);
     }
 

@@ -47,4 +47,10 @@ public class Result extends BaseEntity {
         this.totalPoints = totalPoints;
     }
 
+    @Override
+    public String toString() {
+        return "{" + " id='" + getId() + "'" + ", data='" + getData() + "'" + ", totalPoints='" + getTotalPoints() + "'"
+                + ", game='" + getGame() + "'" + "}";
+    }
+
 }
