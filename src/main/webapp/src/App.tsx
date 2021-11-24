@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import Button from 'react-bootstrap/Button';
 import FiguresByCard from './modules/cards/figuresByCard';
+import { Link } from 'react-router-dom';
+
 
 function App() {
 
@@ -13,27 +15,24 @@ function App() {
         Dobble
       </p>
       <div className="Button">
+      <Link to="/newgame">
         <button>
           New Game
         </button>
+      </Link>
+      <Link to="/joingame">
         <button>
           Join Game
         </button>
+      </Link>
       </div>
       
         
     </div>
 
-      
-
-     
-      
-    
-
     
   );
 }
-
 
 
 export default App ;
