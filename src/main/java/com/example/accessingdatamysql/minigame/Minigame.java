@@ -37,4 +37,10 @@ public class Minigame extends NamedEntity {
         this.description = description;
     }
 
+    @Override
+    public String toString() {
+        return "{" + " id='" + getId() + "'" + ", name='" + getName() + "'" + ", description='" + getDescription() + "'"
+                + "}";
+    }
+
 }
