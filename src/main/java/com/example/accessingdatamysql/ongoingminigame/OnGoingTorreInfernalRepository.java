@@ -24,10 +24,8 @@ public class OnGoingTorreInfernalRepository {
         ongoinggames.put(gameId, onGoingTorreInfernal);
     }
 
-    public void newCenterCard(Long gameId, RequestNewCard request){
+    public void newCenterCard(Long gameId){
         OnGoingTorreInfernal onGoingTorreInfernal = ongoinggames.get(gameId);
-        Card currentCard = onGoingTorreInfernal.getCurrentCard();
-        onGoingTorreInfernal.getPlayerCard().put(request.getPlayerId(), currentCard);
         if(onGoingTorreInfernal.getRemainingCards().size()!=0){
             Random random = new Random();
             int randomindex = random.ints(0, onGoingTorreInfernal.getRemainingCards().size()).findFirst().getAsInt();
