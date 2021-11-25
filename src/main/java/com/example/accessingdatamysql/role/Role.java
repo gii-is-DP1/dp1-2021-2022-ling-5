@@ -38,4 +38,11 @@ public class Role extends NamedEntity {
     public Role(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "{" + " id='" + getId() + "'" + ", name='" + getName() + "'" + ", privileges='" + getPrivileges() + "'"
+                + "}";
+    }
+
 }

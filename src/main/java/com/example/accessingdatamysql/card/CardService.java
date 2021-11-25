@@ -22,8 +22,7 @@ public class CardService {
 
     @Transactional
     public Card saveCard(Card card) throws DataAccessException {
-        cardRepository.save(card);
-        return card;
+        return cardRepository.save(card);
     }
 
     public Optional<Card> findCard(Long id) {

@@ -43,4 +43,11 @@ public class Admin extends Account {
         this.email = email;
         this.nickname = nickname;
     }
+
+    @Override
+    public String toString() {
+        return "{" + super.toString() + ", role='" + getRole() + "'" + ", modifications='" + getModifications() + "'"
+                + ", figure='" + getFigure() + "'" + "}";
+    }
+
 }

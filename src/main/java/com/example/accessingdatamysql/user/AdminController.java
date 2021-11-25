@@ -1,10 +1,12 @@
 package com.example.accessingdatamysql.user;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.example.accessingdatamysql.figure.Figure;
 import com.example.accessingdatamysql.figure.FigureService;
+import com.example.accessingdatamysql.modification.Modification;
 import com.example.accessingdatamysql.role.Role;
 import com.example.accessingdatamysql.role.RoleService;
 
@@ -34,6 +36,8 @@ public class AdminController {
     @PostMapping(value = "/roles/{roleId}/figures/{figureId}/admins") // Map ONLY POST Requests
     public @ResponseBody Admin addNewAdmin(@RequestBody Admin admin, @PathVariable Long roleId,
             @PathVariable Long figureId) {
+        admin.setModifications(new ArrayList<Modification>());
+
         Optional<Role> role = this.roleService.findRole(roleId);
         Optional<Figure> figure = this.figureService.findFigure(figureId);
         if (figure.isPresent() && role.isPresent()) {

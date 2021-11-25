@@ -1,6 +1,9 @@
 package com.example.accessingdatamysql.privilege;
 
+import java.util.ArrayList;
 import java.util.Optional;
+
+import com.example.accessingdatamysql.role.Role;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +24,8 @@ public class PrivilegeController {
 
     @PostMapping(value = "/privileges") // Map ONLY POST Requests
     public @ResponseBody Privilege addNewPrivilege(@RequestBody Privilege privilege) {
+        privilege.setRoles(new ArrayList<Role>());
+
         return this.privilegeService.savePrivilege(privilege);
     }
 

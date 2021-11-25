@@ -64,4 +64,11 @@ public class Modification extends BaseEntity {
         this.afterModification = afterModification;
     }
 
+    @Override
+    public String toString() {
+        return "{" + " id='" + getId() + "'" + ", moment='" + getMoment() + "'" + ", what='" + getWhat() + "'"
+                + ", beforeModification='" + getBeforeModification() + "'" + ", afterModification='"
+                + getAfterModification() + "'" + "}";
+    }
+
 }
