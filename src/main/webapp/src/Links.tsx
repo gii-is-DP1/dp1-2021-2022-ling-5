@@ -1,9 +1,9 @@
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import App from "./App";
-import PrincipalNavbar from "./PrincipalNavbar";
+import PrincipalNavbar from "./modules/general/PrincipalNavbar";
 import Patata from "./Patata";
-import ProfileNavbar from "./ProfileNavbar";
+import ProfileNavbar from "./modules/general/ProfileNavbar";
 import PlayedGames from './modules/games/playedGames';
 
 const Links = () => {

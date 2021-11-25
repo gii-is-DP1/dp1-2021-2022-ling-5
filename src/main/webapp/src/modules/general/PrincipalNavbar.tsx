@@ -1,7 +1,7 @@
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap"
 import React, { useEffect, useState } from 'react'
-import figures from './images/figures/figures'
-import icons from './images/icons/icons'
+import figures from '../../images/figures/figures'
+import icons from '../../images/icons/icons'
 import Button from "@restart/ui/esm/Button"
 
 const PrincipalNavbar = () => {
