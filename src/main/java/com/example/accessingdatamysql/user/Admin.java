@@ -6,6 +6,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.example.accessingdatamysql.figure.Figure;
 import com.example.accessingdatamysql.modification.Modification;
@@ -17,6 +19,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity(name = "Admin") // This tells Hibernate to make a table out of this class
+@Table(uniqueConstraints = @UniqueConstraint(
+  columnNames = "nickname"
+))
 public class Admin extends Account {
 
     @ManyToOne

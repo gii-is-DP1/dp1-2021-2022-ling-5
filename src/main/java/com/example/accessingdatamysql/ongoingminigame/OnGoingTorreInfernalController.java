@@ -62,8 +62,8 @@ public class OnGoingTorreInfernalController {
     }
 
     @PutMapping(value = "/ongoingTorreInfernal/{gameId}/card")
-    public @ResponseBody OnGoingTorreInfernal newCenterCard(@PathVariable Long gameId){
-        onGoinTorreInfernalService.newCenterCard(gameId);
+    public @ResponseBody OnGoingTorreInfernal newCenterCard(@RequestBody RequestNewCard request, @PathVariable Long gameId){
+        onGoinTorreInfernalService.newCenterCard(gameId, request);
         return onGoinTorreInfernalService.getGame(gameId);
     }
 
