@@ -1,9 +1,9 @@
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import App from "./App";
-import PrincipalNavbar from "./PrincipalNavbar";
+import PrincipalNavbar from "./modules/general/PrincipalNavbar";
 import Patata from "./Patata";
-import ProfileNavbar from "./ProfileNavbar";
+import ProfileNavbar from "./modules/general/ProfileNavbar";
 import NewGame from "./NewGame";
 import JoinGame from "./JoinGame";
 import PlayedGames from './modules/games/playedGames';
@@ -15,24 +15,15 @@ const Links = () => {
             <Route exact path='/'>
                 <App />
             </Route>
-            
-            <Route path='/newgame'>
-                <NewGame />
-            </Route>
-
-            <Route path='/joingame'>
-                <JoinGame />
-            </Route>
-
             <Route path='/profile'>
                 <div className="d-flex justify-content-between">
                     <ProfileNavbar />
-                    <App /></div>
+                    <Patata /></div>
 
             </Route>
             <Route path='/stats'>
                 <div className="d-flex justify-content-between"><ProfileNavbar />
-                    <App /></div>
+                    <Patata /></div>
             </Route>
             <Route path='/games'>
                 <div className="d-flex justify-content-between">
@@ -42,11 +33,11 @@ const Links = () => {
             </Route>
             <Route path='/awards'>
                 <div className="d-flex justify-content-between"><ProfileNavbar />
-                    <App /></div>
+                    <Patata /></div>
             </Route>
             <Route path='/friends'>
                 <div className="d-flex justify-content-between"><ProfileNavbar />
-                    <App /></div>
+                    <Patata /></div>
             </Route>
             <Route path='/notifications'>
                 <Patata />

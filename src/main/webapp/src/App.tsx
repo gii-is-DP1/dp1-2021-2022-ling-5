@@ -11,27 +11,26 @@ function App() {
 
   return (
     <div className="App">
-      <Container> 
+      <Container>
         <Row>
-        <p>
-          Dobble
-        </p>
+          <p>
+            Dobble
+          </p>
         </Row>
         <Row>
-          <button>
+          <button onClick={() => window.location.href = '/newGame'}>
             New Game
           </button>
           <Row>
           </Row>
-          <button>
+          <button onClick={() => window.location.href = '/joinGame'} >
             Join Game
           </button>
-          </Row>
+        </Row>
       </Container>
-    </div>
-    
+    </div >
+
   );
 }
 
 export default App;
- 
