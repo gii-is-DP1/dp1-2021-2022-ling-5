@@ -6,7 +6,7 @@ function NewOnGoingGame(formData: FormData){
         body: JSON.stringify(formData)
     }
     return new Promise(function(resolve, reject){
-        fetch(`http://localhost:8080/api/ongoingElFoso`, requestOptions)
+        fetch(`http://localhost:8080/api/ongoingFoso`, requestOptions)
         .then(res=>{
             resolve(res.json())
         })

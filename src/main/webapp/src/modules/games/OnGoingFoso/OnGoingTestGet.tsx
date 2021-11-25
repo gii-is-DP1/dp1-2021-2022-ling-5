@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import FindById from "./OnGoingElFosoById"
-import GetCenterCard from "./OnGoingElFosoGetCard";
-import GetPlayerCard from "./OnGoingElFosoGetPlayerCard";
-import GetPoints from "./OnGoingElFosoGetPoints";
+import FindById from "./OnGoingFosoById"
+import GetCenterCard from "./OnGoingFosoGetCard";
+import GetPlayerCard from "./OnGoingFosoGetPlayerCard";
+import GetPoints from "./OnGoingFosoGetPoints";
 
 
 function GetGameTest(){

@@ -4,7 +4,7 @@ function DeleteGame(gameId: any){
         method: 'DELETE'
     }
     return new Promise(function(resolve, reject){
-        fetch(`http://localhost:8080/api/ongoingElFoso/${gameId}`, requestOptions)
+        fetch(`http://localhost:8080/api/ongoingFoso/${gameId}`, requestOptions)
         .then(res=>{
             resolve(res.json())
         })

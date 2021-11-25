@@ -2,7 +2,7 @@
 
 function GetPoints(gameId: any, playerId: any){
     return new Promise(function(resolve, reject){
-        fetch(`http://localhost:8080/api/players/${playerId}/ongoingElFoso/${gameId}/points`)
+        fetch(`http://localhost:8080/api/players/${playerId}/ongoingFoso/${gameId}/points`)
         .then(response=>resolve(response.text()))
         .catch(error => reject(console.error))
     })

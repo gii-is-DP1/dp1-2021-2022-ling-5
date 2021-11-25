@@ -1,8 +1,7 @@
 import React from "react";
-import AddPoints from "./OnGoingElFosoAddPoints";
-import DeleteGame from "./OnGoingElFosoDelete";
-import NewOnGoingGame from "./OnGoingElFosoNew";
-import NewCard from "./OnGoingElFosoNewCard";
+import DeleteGame from "./OnGoingFosoDelete";
+import NewOnGoingGame from "./OnGoingFosoNew";
+import NewCard from "./OnGoingFosoChangeCard";
 
 class OnGoingTest extends React.Component{
     constructor(props: any){
@@ -10,7 +9,6 @@ class OnGoingTest extends React.Component{
 
         this.handleDelete = this.handleDelete.bind(this);
         this.handleCreate = this.handleCreate.bind(this);
-        this.handleAddPoints = this.handleAddPoints.bind(this);
         this.handleNewCard = this.handleNewCard.bind(this);
     }
 
@@ -25,29 +23,24 @@ class OnGoingTest extends React.Component{
         NewOnGoingGame(formData);
         window.location.reload();
     }
-    handleAddPoints(event: any){
+    handleNewCard(event: any){
         event.preventDefault();
         let form = event.target;
         let formData = new FormData(form);
-        AddPoints(1, 1, formData);
-        window.location.reload();
-    }
-    handleNewCard(){
-        NewCard(1);
+        NewCard(1,formData.get('playerId'));
         window.location.reload();
     }
 
     render(){
         return(
             <div>
-                <button onClick={this.handleNewCard}>New Center Card</button>
                 <button onClick={this.handleDelete}>Delete Game</button>
                 <form onSubmit={this.handleCreate}>
                     <input type="number" name="gameId"/>
                     <input type="submit" value="Submit"/>
                 </form>
-                <form onSubmit={this.handleAddPoints}>
-                    <input type="number" name="points"/>
+                <form onSubmit={this.handleNewCard}>   
+                    <input type="number" name="playerId"/>
                     <input type="submit" value="Submit"/>
                 </form>
             </div>
