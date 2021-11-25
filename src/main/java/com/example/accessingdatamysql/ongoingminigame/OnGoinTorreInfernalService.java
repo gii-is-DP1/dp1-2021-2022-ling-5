@@ -11,45 +11,45 @@ import org.springframework.stereotype.Service;
 public class OnGoinTorreInfernalService {
     private static OnGoingTorreInfernalRepository ongoing = null;
 
-    public OnGoinTorreInfernalService(){
-        if(ongoing==null){
+    public OnGoinTorreInfernalService() {
+        if (ongoing == null) {
             ongoing = new OnGoingTorreInfernalRepository();
         }
     }
 
-    public Iterable<OnGoingTorreInfernal> getAll(){
+    public Iterable<OnGoingTorreInfernal> getAll() {
         return ongoing.getAllOnGoingGames();
     }
 
-    public void creatGame(Long gameId, Game game, Iterable<Card> cards){
+    public void creatGame(Long gameId, Game game, Iterable<Card> cards) {
         ongoing.creatGame(gameId, game, cards);
     }
 
-    public void newCenterCard(Long gameId){
-        ongoing.newCenterCard(gameId);
+    public void newCenterCard(Long gameId, RequestNewCard request) {
+        ongoing.newCenterCard(gameId, request);
     }
 
-    public Card getPlayerCard(Long gameId, Long playerId){
+    public Card getPlayerCard(Long gameId, Long playerId) {
         return ongoing.getPlayerCard(gameId, playerId);
     }
 
-    public Card getCenterCard(Long gameId){
+    public Card getCenterCard(Long gameId) {
         return ongoing.getCenterCard(gameId);
     }
 
-    public int getPoints(Long gameId, Long playerId){
+    public int getPoints(Long gameId, Long playerId) {
         return ongoing.getPoints(gameId, playerId);
     }
 
-    public void addPoints(Long gameId, Long playerId, Integer points){
+    public void addPoints(Long gameId, Long playerId, Integer points) {
         ongoing.addPoints(gameId, playerId, points);
     }
 
-    public OnGoingTorreInfernal getGame(Long gameId){
+    public OnGoingTorreInfernal getGame(Long gameId) {
         return ongoing.getGame(gameId);
     }
 
-    public void deleteGame(Long gameId){
+    public void deleteGame(Long gameId) {
         ongoing.deleteGame(gameId);
     }
 }
