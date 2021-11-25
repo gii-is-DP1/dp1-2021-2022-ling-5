@@ -1,19 +1,19 @@
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap"
 import React, { useEffect, useState } from 'react'
-import figures from './images/figures/figures'
-import icons from './images/icons/icons'
+import figures from '../../images/figures/figures'
+import icons from '../../images/icons/icons'
 import Button from "@restart/ui/esm/Button"
 
 const PrincipalNavbar = () => {
     return <Navbar bg="light" expand="lg">
         <Container>
-            <img
+            <a href="/"><img
                 src={figures(1)}
                 width="30"
                 height="30"
                 className="d-inline-block align-top"
                 alt="React Bootstrap logo"
-            />
+            /></a>
             <NavDropdown title="Player1">
                 <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                 <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
