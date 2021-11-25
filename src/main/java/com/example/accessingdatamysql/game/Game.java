@@ -27,6 +27,11 @@ import lombok.Setter;
 @Table(name = "game")
 public class Game extends NamedEntity {
 
+    // @Size(min = 3, max = 50)
+    // @NotEmpty
+    // @Column(name = "name", unique = true)
+    // private String name;
+
     @Column(name = "state")
     private State state;
 

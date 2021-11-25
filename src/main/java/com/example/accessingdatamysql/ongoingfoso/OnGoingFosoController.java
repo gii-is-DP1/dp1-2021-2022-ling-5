@@ -28,59 +28,59 @@ public class OnGoingFosoController {
     @Autowired
     private CardService cardService;
 
-    //curl -H "Content-Type: application/json" -X POST localhost:8080/api/ongoingFoso -d "{\"gameId\":1}"
+    // curl -H "Content-Type: application/json" -X POST
+    // localhost:8080/api/ongoingFoso -d "{\"gameId\":1}"
     @PostMapping(value = "/ongoingFoso")
-    public @ResponseBody OnGoingFoso createGame(@RequestBody Request request){
-        onGoinFosoService.creatGame(request.getGameId(), 
-            gameService.findGame(request.getGameId()).get(),
-            cardService.findAllCards());
+    public @ResponseBody OnGoingFoso createGame(@RequestBody Request request) {
+        onGoinFosoService.creatGame(request.getGameId(), gameService.findGame(request.getGameId()).get(),
+                cardService.findAllCards());
         return onGoinFosoService.getGame(request.getGameId());
     }
 
     @GetMapping(value = "/ongoingFoso")
-    public @ResponseBody Iterable<OnGoingFoso> getAll(){
+    public @ResponseBody Iterable<OnGoingFoso> getAll() {
         return onGoinFosoService.getAll();
     }
 
     @GetMapping(value = "/ongoingFoso/{gameId}")
-    public @ResponseBody OnGoingFoso getGameById(@PathVariable Long gameId){
+    public @ResponseBody OnGoingFoso getGameById(@PathVariable Long gameId) {
         return onGoinFosoService.getGame(gameId);
     }
-    
+
     @GetMapping(value = "/players/{playerId}/ongoingFoso/{gameId}")
-    public @ResponseBody Card getPlayerCard(@PathVariable Long playerId, @PathVariable Long gameId){
+    public @ResponseBody Card getPlayerCard(@PathVariable Long playerId, @PathVariable Long gameId) {
         return onGoinFosoService.getPlayerCard(gameId, playerId);
     }
 
     @GetMapping(value = "/ongoingFoso/{gameId}/card")
-    public @ResponseBody Card getCenterCard(@PathVariable Long gameId){
+    public @ResponseBody Card getCenterCard(@PathVariable Long gameId) {
         return onGoinFosoService.getCenterCard(gameId);
     }
 
     @GetMapping(value = "/players/{playerId}/ongoingFoso/{gameId}/points")
-    public @ResponseBody Integer getPoints(@PathVariable Long playerId, @PathVariable Long gameId){
+    public @ResponseBody Integer getPoints(@PathVariable Long playerId, @PathVariable Long gameId) {
         return onGoinFosoService.getPoints(gameId, playerId);
     }
 
     @GetMapping(value = "/players/{playerId}/ongoingFoso/{gameId}/newcard")
-    public @ResponseBody Card getNewCard(@PathVariable Long playerId, @PathVariable Long gameId){
+    public @ResponseBody Card getNewCard(@PathVariable Long playerId, @PathVariable Long gameId) {
         onGoinFosoService.addPoints(gameId, playerId, 1);
-        onGoinFosoService.changeCards(playerId,gameId);
+        onGoinFosoService.changeCards(playerId, gameId);
         return onGoinFosoService.getPlayerCard(gameId, playerId);
     }
 
     @GetMapping(value = "/ongoingFoso/{gameId}/positions")
-    public @ResponseBody List<Long> getFinalPositions(@PathVariable Long gameId){
+    public @ResponseBody List<Long> getFinalPositions(@PathVariable Long gameId) {
         return onGoinFosoService.getPositions(gameId);
     }
 
     @DeleteMapping(value = "/ongoingFoso/{gameId}")
-    public @ResponseBody String deleteGame(@PathVariable Long gameId){
+    public @ResponseBody String deleteGame(@PathVariable Long gameId) {
         OnGoingFoso onGoingTorreInfernal = getGameById(gameId);
-        if(onGoingTorreInfernal!=null){
+        if (onGoingTorreInfernal != null) {
             onGoinFosoService.deleteGame(gameId);
             return "Game Deleted";
-        } else{
+        } else {
             return "No on going game found";
         }
     }

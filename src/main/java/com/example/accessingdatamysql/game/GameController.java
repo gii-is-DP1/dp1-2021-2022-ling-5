@@ -88,6 +88,12 @@ public class GameController {
         return this.gameService.findGame(id);
     }
 
+    // @GetMapping(value = "/games/names/{name}")
+    // public @ResponseBody Optional<Game> getGameByName(@PathVariable String name)
+    // {
+    // return this.gameService.findGameByName(name);
+    // }
+
     @DeleteMapping(value = "/games/{id}")
     public @ResponseBody String deleteGame(@PathVariable Long id) {
         this.gameService.deleteGame(id);
