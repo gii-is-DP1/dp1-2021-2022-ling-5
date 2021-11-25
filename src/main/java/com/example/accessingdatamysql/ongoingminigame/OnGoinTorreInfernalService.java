@@ -2,7 +2,6 @@ package com.example.accessingdatamysql.ongoingminigame;
 
 import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.game.Game;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +24,8 @@ public class OnGoinTorreInfernalService {
         ongoing.creatGame(gameId, game, cards);
     }
 
-    public void newCenterCard(Long gameId){
-        ongoing.newCenterCard(gameId);
+    public void newCenterCard(Long gameId, RequestNewCard request){
+        ongoing.newCenterCard(gameId, request);
     }
 
     public Card getPlayerCard(Long gameId, Long playerId){

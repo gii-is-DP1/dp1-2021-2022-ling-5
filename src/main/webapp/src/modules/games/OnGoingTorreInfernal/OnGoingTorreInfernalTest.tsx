@@ -33,7 +33,10 @@ class OnGoingTest extends React.Component{
         window.location.reload();
     }
     handleNewCard(){
-        NewCard(1);
+        let form = new HTMLFormElement()
+        form.setAttribute("playerId", "1")
+        let formData = new FormData(form);
+        NewCard(1, formData);
         window.location.reload();
     }
 

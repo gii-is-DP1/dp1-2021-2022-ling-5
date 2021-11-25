@@ -1,0 +1,22 @@
+.NewGame {
+    text-align: center;
+    background-color: #fdfd96;
+    
+  }
+
+.NewGame-header {
+    background-color: #fdfd96;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(40px + 2vmin);
+    color: #7845b0;
+}
+  #button-group {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
