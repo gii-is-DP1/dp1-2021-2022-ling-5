@@ -22,8 +22,13 @@ public class GameService {
 
     @Transactional
     public Game saveGame(Game game) throws DataAccessException {
-        gameRepository.save(game);
-        return game;
+        try{
+            gameRepository.save(game);
+            return game;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return game;
+        }
     }
 
     public Optional<Game> findGame(Long id) {
