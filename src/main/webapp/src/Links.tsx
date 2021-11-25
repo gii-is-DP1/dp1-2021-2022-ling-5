@@ -13,15 +13,21 @@ const Links = () => {
             <Route exact path='/'>
                 <App />
             </Route>
+            <Route path='/newGame'>
+                <Patata />
+            </Route>
+            <Route path='/joinGame'>
+                <Patata />
+            </Route>
             <Route path='/profile'>
                 <div className="d-flex justify-content-between">
                     <ProfileNavbar />
-                    <App /></div>
+                    <Patata /></div>
 
             </Route>
             <Route path='/stats'>
                 <div className="d-flex justify-content-between"><ProfileNavbar />
-                    <App /></div>
+                    <Patata /></div>
             </Route>
             <Route path='/games'>
                 <div className="d-flex justify-content-between">
@@ -31,11 +37,11 @@ const Links = () => {
             </Route>
             <Route path='/awards'>
                 <div className="d-flex justify-content-between"><ProfileNavbar />
-                    <App /></div>
+                    <Patata /></div>
             </Route>
             <Route path='/friends'>
                 <div className="d-flex justify-content-between"><ProfileNavbar />
-                    <App /></div>
+                    <Patata /></div>
             </Route>
             <Route path='/notifications'>
                 <Patata />
