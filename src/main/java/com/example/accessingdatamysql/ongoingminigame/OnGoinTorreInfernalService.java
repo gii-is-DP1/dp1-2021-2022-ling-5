@@ -2,6 +2,7 @@ package com.example.accessingdatamysql.ongoingminigame;
 
 import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.game.Game;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 

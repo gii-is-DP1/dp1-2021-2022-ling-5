@@ -22,10 +22,10 @@ public class GameService {
 
     @Transactional
     public Game saveGame(Game game) throws DataAccessException {
-        try {
+        try{
             gameRepository.save(game);
             return game;
-        } catch (Exception e) {
+        }catch(Exception e){
             System.out.println(e.getMessage());
             return game;
         }
@@ -33,11 +33,6 @@ public class GameService {
 
     public Optional<Game> findGame(Long id) {
         return gameRepository.findById(id);
-    }
-
-    public Optional<Game> findGameByName(String name) {
-        return StreamSupport.stream(gameRepository.findAll().spliterator(), false)
-                .filter(game -> game.getName().equals(name)).findFirst();
     }
 
     public List<Game> findAllGames() {
