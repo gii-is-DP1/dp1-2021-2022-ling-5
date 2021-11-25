@@ -6,10 +6,11 @@ import FiguresByCard from './modules/cards/figuresByCard';
 import AllFigures from './modules/figures/allFigures';
 import { Container, Row } from 'react-bootstrap';
 
+
 function App() {
 
   return (
-    <div className="App">
+    <div className="App-header">
       <Container>
         <Row>
           <p>
