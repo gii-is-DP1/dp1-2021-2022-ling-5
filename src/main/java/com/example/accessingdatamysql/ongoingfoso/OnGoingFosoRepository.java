@@ -28,18 +28,15 @@ public class OnGoingFosoRepository {
     public void changeCards(Long playerId, Long gameId){
         OnGoingFoso onGoingFoso = ongoinggames.get(gameId);
         Card newCard=ongoinggames.get(gameId).getPlayerCard().get(playerId);
-        Map<Long, Card> changed= Map.copyOf(onGoingFoso.getPlayerCard());
         onGoingFoso.setCurrentCard(newCard);
         if(ongoinggames.get(gameId).getPoints().get(playerId)<ongoinggames.get(gameId).getLimit()){
             Random random = new Random();
             int randomindex = random.ints(0, onGoingFoso.getRemainingCards().size()).findFirst().getAsInt();
             Card newPlayerCard = onGoingFoso.getRemainingCards().get(randomindex);
             onGoingFoso.getRemainingCards().remove(newPlayerCard);
-            changed.put(playerId, newPlayerCard);
-            onGoingFoso.setPlayerCard(changed);
+            onGoingFoso.getPlayerCard().put(playerId, newPlayerCard);
         }else{
-            changed.put(playerId, null);
-            onGoingFoso.setPlayerCard(changed);
+            onGoingFoso.getPlayerCard().put(playerId, null);
             onGoingFoso.getOrden().add(playerId);
             if(onGoingFoso.getOrden().size()==onGoingFoso.getPlayers().size()-1){
                 for(Integer i=0;i<onGoingFoso.getPlayers().size();i++){

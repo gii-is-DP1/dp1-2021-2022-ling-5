@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Optional;
 
-// NO FUNCIONA
+// NO FUNCIONA UPDATE
 @WebMvcTest(controllers = CardController.class)
 public class CardControllerTests {
 
@@ -45,19 +45,17 @@ public class CardControllerTests {
     @BeforeEach
     void setup() {
         Card card1 = new Card();
-        card1.setId(3L);
-        card1.setName("3");
+        card1.setName("c03");
+        card1.setId(TEST_CARD_ID);
         given(this.cardService.findAllCards()).willReturn(Lists.newArrayList(card1));
-        given(this.figureService.findFigure(TEST_FIGURE_ID)).willReturn(Optional.of(new Figure()));
-        given(this.cardService.findCard(TEST_CARD_ID)).willReturn(Optional.of(new Card()));
 
-        // Card card2 = new Card("1");
-        // card2.setId(TEST_CARD_ID);
-        // this.cardService.saveCard(card2);
+        Figure figure1 = new Figure();
+        figure1.setName("mariposa");
+        figure1.setId(TEST_FIGURE_ID);
+        given(this.figureService.findAllFigures()).willReturn(Lists.newArrayList(figure1));
 
-        // Figure figure = new Figure("mariposa");
-        // figure.setId(TEST_FIGURE_ID);
-        // this.figureService.saveFigure(figure);
+        given(this.figureService.findFigure(TEST_FIGURE_ID)).willReturn(Optional.of(figure1));
+        given(this.cardService.findCard(TEST_CARD_ID)).willReturn(Optional.of(card1));
     }
 
     @Test
@@ -72,7 +70,7 @@ public class CardControllerTests {
 
     @Test
     void testProcessCreationSuccess() throws Exception {
-        Card card = new Card("1");
+        Card card = new Card("c01");
         mockMvc.perform(
                 post("/api/cards").contentType("application/json").content(objectMapper.writeValueAsString(card)))
                 .andExpect(status().isOk());
@@ -80,42 +78,30 @@ public class CardControllerTests {
 
     @Test
     void testAddFigureToCard() throws Exception {
-        try {
-            mockMvc.perform(post("/api/cards/{cardId}/figures/{figureId}", TEST_CARD_ID, TEST_FIGURE_ID))
-                    .andExpect(status().isOk());
-        } catch (Exception e) {
-            System.out.println("EXCEPTION figuretocard: " + e.getMessage());
-        }
+        mockMvc.perform(post("/api/cards/{cardId}/figures/{figureId}", TEST_CARD_ID, TEST_FIGURE_ID))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void testDeleteAFigureFromCard() throws Exception {
+        mockMvc.perform(delete("/api//cards/{cardId}/figures/{figureId}", TEST_CARD_ID, TEST_FIGURE_ID))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void testDeleteById() throws Exception {
+        mockMvc.perform(delete("/api/cards/{cardId}", TEST_CARD_ID)).andExpect(status().isOk());
+    }
+
+    @Test
+    void testDeleteAll() throws Exception {
+        mockMvc.perform(delete("/api/cards")).andExpect(status().isOk());
     }
 
     @Test
     void testUpdate() throws Exception {
-        Card card = new Card("2");
-        try {
-            mockMvc.perform(put("/api/cards/{cardId}", TEST_CARD_ID).contentType("application/json")
-                    .content(objectMapper.writeValueAsString(card))).andExpect(status().isOk());
-        } catch (Exception e) {
-            System.out.println("EXCEPTION UPDATE: " + e.getMessage());
-        }
-
+        Card card = new Card("c02");
+        mockMvc.perform(put("/api/cards/{cardId}", TEST_CARD_ID).contentType("application/json")
+                .content(objectMapper.writeValueAsString(card))).andExpect(status().isOk());
     }
-
-    // @Test
-    // void testDeleteAFigureFromCard() throws Exception {
-    // mockMvc.perform(delete("/api//cards/{cardId}/figures/{figureId}",
-    // TEST_CARD_ID, TEST_FIGURE_ID))
-    // .andExpect(status().isOk());
-    // }
-
-    // @Test
-    // void testDeleteById() throws Exception {
-    // mockMvc.perform(delete("/api/cards/{cardId}",
-    // TEST_CARD_ID)).andExpect(status().isOk());
-    // }
-
-    // @Test
-    // void testDeleteAll() throws Exception {
-    // mockMvc.perform(delete("/api/cards")).andExpect(status().isOk());
-    // }
-
 }

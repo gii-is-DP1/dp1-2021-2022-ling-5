@@ -38,4 +38,9 @@ public class Friendship extends BaseEntity {
     public Friendship(FriendshipState state) {
         this.state = state;
     }
+
+    @Override
+    public String toString() {
+        return "{" + " id='" + getId() + "'" + ", state='" + getState() + "'}";
+    }
 }

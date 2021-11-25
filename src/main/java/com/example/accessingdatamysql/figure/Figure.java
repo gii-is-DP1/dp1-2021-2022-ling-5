@@ -49,4 +49,9 @@ public class Figure extends NamedEntity {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "{" + " id='" + getId() + "'" + ", name='" + getName() + "'" + "}";
+    }
+
 }

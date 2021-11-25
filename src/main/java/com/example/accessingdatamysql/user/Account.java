@@ -56,4 +56,11 @@ public class Account {
     // @ManyToOne
     // private Figure figure;
 
+    @Override
+    public String toString() {
+        return "{" + " id='" + getId() + "'" + ", name='" + getName() + "'" + ", surname='" + getSurname() + "'"
+                + ", password='" + getPassword() + "'" + ", email='" + getEmail() + "'" + ", nickname='" + getNickname()
+                + "'" + "}";
+    }
+
 }

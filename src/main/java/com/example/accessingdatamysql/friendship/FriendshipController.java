@@ -98,9 +98,11 @@ public class FriendshipController {
     public @ResponseBody Friendship updateFriendship(@RequestBody Friendship newFriendship,
             @PathVariable Long requestedId, @PathVariable Long id) {
         this.friendshipService.findFriendship(id).map(friendship -> {
-            if (requestedId == friendship.getRequested().getId()) {
-                friendship.setState(newFriendship.getState());
-                return this.friendshipService.saveFriendship(friendship);
+            if (friendship.getRequested() != null) {
+                if (requestedId == friendship.getRequested().getId()) {
+                    friendship.setState(newFriendship.getState());
+                    return this.friendshipService.saveFriendship(friendship);
+                }
             }
             return null;
         }).orElse(null);
