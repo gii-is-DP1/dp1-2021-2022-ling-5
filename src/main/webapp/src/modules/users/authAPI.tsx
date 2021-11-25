@@ -1,22 +1,21 @@
-import { useEffect, useState } from "react"
 
 function loginUser(formData:FormData){
-    const[state, SetState] = useState<any>();
+    
     const requestOptions = {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(formData)
     };
-    useEffect(()=>{
+        return new Promise(function(resolve,reject){
+
+        
         fetch(`http://localhost:8080/api/login`, requestOptions)
         .then(res=>{
-            console.log(res.status)
-            return res.json()
+            resolve(res.json())
         })
-        .then(data => SetState(data))
-        .catch(console.error)
-    }, []);
-    return (<div></div>)
+        .catch(error=> reject(console.error))
+})
+    
 }
 
 export default loginUser
