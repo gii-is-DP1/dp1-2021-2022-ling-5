@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -74,21 +73,6 @@ public class OnGoingFosoController {
     public @ResponseBody List<Long> getFinalPositions(@PathVariable Long gameId){
         return onGoinFosoService.getPositions(gameId);
     }
-
-    //desuso
-    // @PutMapping(value = "/ongoingFoso/{gameId}/card")
-    // public @ResponseBody OnGoingFoso newCenterCard(@PathVariable Long gameId){
-    //     onGoinFosoService.newCenterCard(gameId);
-    //     return onGoinFosoService.getGame(gameId);
-    // }
-
-    //desuso
-    // @PutMapping(value = "/players/{playerId}/ongoingFoso/{gameId}/points")
-    // public @ResponseBody OnGoingFoso addPoints(@RequestBody RequestAddPoints request , 
-    //     @PathVariable Long playerId, @PathVariable Long gameId){
-    //         onGoinFosoService.addPoints(gameId, playerId, request.getPoints());
-    //         return onGoinFosoService.getGame(gameId);
-    //     }
 
     @DeleteMapping(value = "/ongoingFoso/{gameId}")
     public @ResponseBody String deleteGame(@PathVariable Long gameId){
