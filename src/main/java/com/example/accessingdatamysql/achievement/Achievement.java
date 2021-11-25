@@ -45,4 +45,11 @@ public class Achievement extends NamedEntity {
         this.name = name;
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "{" + " id='" + getId() + "'" + ", name='" + getName() + "'" + ", description='" + getDescription() + "'"
+                + ", figure='" + getFigure() + "'" + "}";
+    }
+
 }

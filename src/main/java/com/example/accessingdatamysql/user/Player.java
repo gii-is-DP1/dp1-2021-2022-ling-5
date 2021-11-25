@@ -69,4 +69,14 @@ public class Player extends Account {
     this.nickname = nickname;
     this.playerState = playerState;
   }
+
+  @Override
+  public String toString() {
+    return "{" + super.toString() + ", playerState='" + getPlayerState() + "'" + ", results='" + getResults() + "'"
+        + ", gamesPlayed='" + getGamesPlayed() + "'" + ", achievements='" + getAchievements() + "'"
+        + ", startToFollow='" + getStartToFollow() + "'" + ", requestedToFollow='" + getRequestedToFollow() + "'"
+        + ", role='" + getRole() + "'" + ", modifications='" + getModifications() + "'" + ", figure='" + getFigure()
+        + "'" + "}";
+  }
+
 }

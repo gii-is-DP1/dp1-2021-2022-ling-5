@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -75,4 +74,12 @@ public class Game extends NamedEntity {
         this.creator = creator;
         this.winner = winner;
     }
+
+    @Override
+    public String toString() {
+        return "{" + " id='" + getId() + "'" + ", name='" + getName() + "'" + ", state='" + getState() + "'"
+                + ", startTime='" + getStartTime() + "'" + ", endTime='" + getEndTime() + "'" + ", creator='"
+                + getCreator() + "'" + ", winner='" + getWinner() + "'" + ", minigames='" + getMinigames() + "'" + "}";
+    }
+
 }
