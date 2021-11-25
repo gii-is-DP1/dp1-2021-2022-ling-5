@@ -4,10 +4,10 @@ import App from "./App";
 import PrincipalNavbar from "./modules/general/PrincipalNavbar";
 import Patata from "./Patata";
 import ProfileNavbar from "./modules/general/ProfileNavbar";
-import NewGame from "./NewGame";
-import JoinGame from "./JoinGame";
+import NewGame from "./modules/general/NewGame";
+import JoinGame from "./modules/general/JoinGame";
 import PlayedGames from './modules/games/playedGames';
-import StartGame from "./StartGame";
+import StartGame from "./modules/general/StartGame";
 import AdminPlayedGames from "./modules/games/adminPlayedGames";
 
 const Links = () => {

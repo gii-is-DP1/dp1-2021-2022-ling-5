@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.example.accessingdatamysql.minigame.Minigame;
-import com.example.accessingdatamysql.model.BaseEntity;
+import com.example.accessingdatamysql.model.NamedEntity;
 import com.example.accessingdatamysql.result.Result;
 import com.example.accessingdatamysql.user.Player;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,12 +26,12 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "game")
-public class Game extends BaseEntity {
+public class Game extends NamedEntity {
 
-    @Size(min = 3, max = 50)
-    @NotEmpty
-    @Column(name = "name", unique = true)
-    protected String name;
+    // @Size(min = 3, max = 50)
+    // @NotEmpty
+    // @Column(name = "name", unique = true)
+    // private String name;
 
     @Column(name = "state")
     private State state;

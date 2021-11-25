@@ -35,10 +35,10 @@ public class GameService {
         return gameRepository.findById(id);
     }
 
-    public Optional<Game> findGameByName(String name) {
-        return StreamSupport.stream(gameRepository.findAll().spliterator(), false)
-                .filter(game -> game.getName().equals(name)).findFirst();
-    }
+    // public Optional<Game> findGameByName(String name) {
+    //     return StreamSupport.stream(gameRepository.findAll().spliterator(), false)
+    //             .filter(game -> game.getName().equals(name)).findFirst();
+    // }
 
     public List<Game> findAllGames() {
         return StreamSupport.stream(gameRepository.findAll().spliterator(), false).collect(Collectors.toList());
