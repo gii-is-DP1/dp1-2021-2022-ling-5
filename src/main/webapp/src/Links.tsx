@@ -7,6 +7,8 @@ import ProfileNavbar from "./modules/general/ProfileNavbar";
 import NewGame from "./NewGame";
 import JoinGame from "./JoinGame";
 import PlayedGames from './modules/games/playedGames';
+import StartGame from "./StartGame";
+import AdminPlayedGames from "./modules/games/adminPlayedGames";
 
 const Links = () => {
     return <Router>
@@ -14,6 +16,15 @@ const Links = () => {
         <Switch>
             <Route exact path='/'>
                 <App />
+            </Route>
+            <Route path='/newGame'>
+                <NewGame />
+            </Route>
+            <Route path='/joinGame'>
+                <JoinGame />
+            </Route>
+            <Route path='/startGame'>
+                <StartGame />
             </Route>
             <Route path='/profile'>
                 <div className="d-flex justify-content-between">
@@ -46,7 +57,7 @@ const Links = () => {
                 <Patata />
             </Route>
             <Route path="/logout">
-                <Patata />
+                <AdminPlayedGames />
             </Route>
         </Switch>
     </Router>

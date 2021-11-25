@@ -18,6 +18,8 @@
   width: 100%;
 }
 .App-header {
+  text-align: center;
+  background-color: #fdfd96;
   min-height: 10vh;
   display: flex;
   flex-direction: column;

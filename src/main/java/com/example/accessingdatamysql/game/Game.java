@@ -27,7 +27,6 @@ import lombok.Setter;
 @Table(name = "game")
 public class Game extends NamedEntity {
 
-    @NotNull
     @Column(name = "state")
     private State state;
 
