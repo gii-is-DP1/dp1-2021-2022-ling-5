@@ -23,7 +23,7 @@ public class OnGoinFosoService {
         return ongoing.getAllOnGoingGames();
     }
 
-    public void creatGame(Long gameId, Game game, Iterable<Card> cards){
+    public static void creatGame(Long gameId, Game game, Iterable<Card> cards){
         ongoing.creatGame(gameId, game, cards);
     }
 
