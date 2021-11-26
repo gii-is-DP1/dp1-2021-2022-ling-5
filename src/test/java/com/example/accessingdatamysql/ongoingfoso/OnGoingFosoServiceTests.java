@@ -3,18 +3,15 @@ package com.example.accessingdatamysql.ongoingfoso;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.card.CardService;
 import com.example.accessingdatamysql.game.GameService;
-import com.example.accessingdatamysql.ongoingminigame.RequestNewCard;
 import com.mysql.cj.conf.ConnectionUrlParser.Pair;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.configuration.injection.filter.OngoingInjector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

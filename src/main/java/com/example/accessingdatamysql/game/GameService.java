@@ -22,10 +22,10 @@ public class GameService {
 
     @Transactional
     public Game saveGame(Game game) throws DataAccessException {
-        try {
+        try{
             gameRepository.save(game);
             return game;
-        } catch (Exception e) {
+        }catch(Exception e){
             System.out.println(e.getMessage());
             return game;
         }
