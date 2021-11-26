@@ -1,6 +1,6 @@
 
 import Button from 'react-bootstrap/Button';
-import { ButtonGroup, Form, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 import './NewGame.css';
 import { useEffect, useState } from 'react';
@@ -61,6 +61,7 @@ function NewGame() {
                 })
                   .catch(error => reject(console.error));
               }
+              window.location.href = `/startGame/${gameid}`
             }
           }).catch(error => console.log(error))
         }).catch(error => reject(console.error));

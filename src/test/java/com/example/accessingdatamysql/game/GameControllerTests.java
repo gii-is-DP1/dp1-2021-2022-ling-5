@@ -55,7 +55,7 @@ public class GameControllerTests {
     @BeforeEach
     void setup() {
         Game game = new Game("partida1", State.UNSTARTED, new Date(System.currentTimeMillis()),
-                new Date(System.currentTimeMillis()), 1, 1);
+                new Date(System.currentTimeMillis()), 1L, 1L);
         game.setId(TEST_GAME_ID);
         given(this.gameService.findAllGames()).willReturn(Lists.newArrayList(game));
 
@@ -91,7 +91,7 @@ public class GameControllerTests {
     @Test
     void testProcessCreationSuccess() throws Exception {
         Game game = new Game("partida2", State.UNSTARTED, new Date(System.currentTimeMillis()),
-                new Date(System.currentTimeMillis()), 1, 1);
+                new Date(System.currentTimeMillis()), 1L, 1L);
         mockMvc.perform(
                 post("/api/games").contentType("application/json").content(objectMapper.writeValueAsString(game)))
                 .andExpect(status().isOk());

@@ -1,6 +1,6 @@
 
 import Button from 'react-bootstrap/Button';
-import { ButtonGroup, Form, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 import './NewGame.css';
 import { useState } from 'react';
@@ -15,22 +15,22 @@ function JoinGame() {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     }
-
+    var gameId = 0;
     return new Promise(function (resolve, reject) {
       fetch(`http://localhost:8080/api/games/names/${namegame}`, requestOptions)
         .then(res => {
           res.json().then((gameSearched: any) => {
-            const gameid = gameSearched.id;
+            gameId = gameSearched.id;
             const requestOptions = {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' }
             }
 
-            fetch(`/games/${gameid}/players/${idplayer}`, requestOptions).then(res => {
+            fetch(`/games/${gameId}/players/${idplayer}`, requestOptions).then(res => {
               resolve(res.json())
             })
               .catch(error => reject(console.error));
-            window.location.href = '/startGame'
+            window.location.href = `/startGame/${gameId}`
           })
             .catch(error => reject(console.error))
         })

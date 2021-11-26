@@ -1,7 +1,7 @@
 package com.example.accessingdatamysql.game;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,7 +15,6 @@ import javax.validation.constraints.Size;
 
 import com.example.accessingdatamysql.minigame.Minigame;
 import com.example.accessingdatamysql.model.BaseEntity;
-// import com.example.accessingdatamysql.model.NamedEntity;
 import com.example.accessingdatamysql.result.Result;
 import com.example.accessingdatamysql.user.Player;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -45,34 +44,34 @@ public class Game extends BaseEntity {
 
     @NotNull
     @Column(name = "creator")
-    private Integer creator;
+    private Long creator;
 
     @Column(name = "winner")
-    private Integer winner;
+    private Long winner;
 
     @ManyToMany(mappedBy = "games")
     @Size(max = 3)
-    private Collection<Minigame> minigames;
+    private List<Minigame> minigames;
 
     @JsonIgnore
     @OneToMany(mappedBy = "game", cascade = CascadeType.REMOVE)
-    private Collection<Result> results;
+    private List<Result> results;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "gamesPlayed")
     @Size(max = 8)
-    private Collection<Player> players;
+    private List<Player> players;
 
     public Game() {
         this.name = "";
         this.state = State.UNSTARTED;
         this.startTime = new Date(System.currentTimeMillis());
         this.endTime = new Date(System.currentTimeMillis());
-        this.creator = 0;
-        this.winner = 0;
+        this.creator = 0L;
+        this.winner = 0L;
     }
 
-    public Game(String name, State state, Date startTime, Date endTime, Integer creator, Integer winner) {
+    public Game(String name, State state, Date startTime, Date endTime, Long creator, Long winner) {
         this.name = name;
         this.state = state;
         this.startTime = startTime;

@@ -28,7 +28,7 @@ public class GameServiceTests {
         int found = games.size();
 
         Game game = new Game();
-        game.setCreator(1);
+        game.setCreator(1L);
         game.setName("Partida1");
         this.gameService.saveGame(game);
         assertNotEquals(game.getId(), 0L);
