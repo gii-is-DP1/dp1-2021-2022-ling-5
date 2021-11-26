@@ -1,6 +1,6 @@
 package com.example.accessingdatamysql.minigame;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,7 +25,7 @@ public class Minigame extends NamedEntity {
 
     @JsonIgnore
     @ManyToMany
-    private Collection<Game> games;
+    private List<Game> games;
 
     public Minigame() {
         this.name = "";

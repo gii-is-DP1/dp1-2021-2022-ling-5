@@ -1,6 +1,6 @@
 package com.example.accessingdatamysql.user;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -29,25 +29,25 @@ public class Player extends Account {
   private PlayerState playerState;
 
   @OneToMany(mappedBy = "player", cascade = CascadeType.REMOVE)
-  private Collection<Result> results;
+  private List<Result> results;
 
   @ManyToMany
-  private Collection<Game> gamesPlayed;
+  private List<Game> gamesPlayed;
 
   @ManyToMany
-  private Collection<Achievement> achievements;
+  private List<Achievement> achievements;
 
   @OneToMany(mappedBy = "requester", cascade = CascadeType.REMOVE)
-  private Collection<Friendship> startToFollow;
+  private List<Friendship> startToFollow;
 
   @OneToMany(mappedBy = "requested", cascade = CascadeType.REMOVE)
-  private Collection<Friendship> requestedToFollow;
+  private List<Friendship> requestedToFollow;
 
   @ManyToOne
   private Role role;
 
   @OneToMany(mappedBy = "player", cascade = CascadeType.REMOVE)
-  private Collection<Modification> modifications;
+  private List<Modification> modifications;
 
   @ManyToOne
   private Figure figure;

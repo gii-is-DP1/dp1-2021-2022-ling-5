@@ -1,6 +1,6 @@
 package com.example.accessingdatamysql.privilege;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -19,7 +19,7 @@ public class Privilege extends NamedEntity {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "privileges")
-    private Collection<Role> roles;
+    private List<Role> roles;
 
     public Privilege() {
         this.name = "";

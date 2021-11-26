@@ -88,6 +88,11 @@ public class PlayerController {
     return this.playerService.findPlayer(id);
   }
 
+  @GetMapping(value = "/players/games/{gameId}")
+  public @ResponseBody List<Player> getAllPlayersByGame(@PathVariable Long gameId) {
+    return this.playerService.findAllPlayersByGame(gameId);
+  }
+
   @DeleteMapping(value = "/players/{id}")
   public @ResponseBody String deletePlayer(@PathVariable Long id) {
     this.playerService.deletePlayer(id);

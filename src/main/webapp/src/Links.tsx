@@ -23,7 +23,7 @@ const Links = () => {
             <Route path='/joinGame'>
                 <JoinGame />
             </Route>
-            <Route path='/startGame'>
+            <Route path='/startGame/:id'>
                 <StartGame />
             </Route>
             <Route path='/profile'>
