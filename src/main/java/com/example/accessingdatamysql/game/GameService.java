@@ -22,23 +22,18 @@ public class GameService {
 
     @Transactional
     public Game saveGame(Game game) throws DataAccessException {
-        try {
-            gameRepository.save(game);
-            return game;
-        } catch (Exception e) {
-            System.out.println("EXCEPTION: " + e.getMessage());
-            return game;
-        }
+        gameRepository.save(game);
+        return game;
     }
 
     public Optional<Game> findGame(Long id) {
         return gameRepository.findById(id);
     }
 
-    // public Optional<Game> findGameByName(String name) {
-    // return StreamSupport.stream(gameRepository.findAll().spliterator(), false)
-    // .filter(game -> game.getName().equals(name)).findFirst();
-    // }
+    public Optional<Game> findGameByName(String name) {
+        return StreamSupport.stream(gameRepository.findAll().spliterator(), false)
+                .filter(game -> game.getName().equals(name)).findFirst();
+    }
 
     public List<Game> findAllGames() {
         return StreamSupport.stream(gameRepository.findAll().spliterator(), false).collect(Collectors.toList());

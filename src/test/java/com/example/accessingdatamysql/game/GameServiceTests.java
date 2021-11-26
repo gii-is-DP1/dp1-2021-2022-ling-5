@@ -47,6 +47,15 @@ public class GameServiceTests {
     }
 
     @Test
+    public void shouldFindSingleGameByName() {
+        Optional<Game> gameOpt = this.gameService.findGameByName("juegoUno");
+        if (gameOpt.isPresent()) {
+            Game game = gameOpt.get();
+            assertEquals(game.getName(), "juegoUno");
+        }
+    }
+
+    @Test
     @Transactional
     void shouldUpdateGame() {
         Optional<Game> game = this.gameService.findGame(1L);
