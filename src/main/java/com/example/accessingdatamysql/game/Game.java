@@ -49,7 +49,7 @@ public class Game extends NamedEntity {
     private Integer winner;
 
     @ManyToMany(mappedBy = "games")
-    @Size(min = 1, max = 3)
+    @Size(max = 3)
     private Collection<Minigame> minigames;
 
     @JsonIgnore
@@ -58,7 +58,7 @@ public class Game extends NamedEntity {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "gamesPlayed")
-    @Size(min = 2, max = 8)
+    @Size(max = 8)
     private Collection<Player> players;
 
     public Game() {
