@@ -8,6 +8,8 @@ import java.util.stream.StreamSupport;
 
 import javax.transaction.Transactional;
 
+import com.example.accessingdatamysql.game.GameRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Service;
 public class PlayerService {
 
     private PlayerRepository playerRepository;
+
+    private GameRepository gameRepository;
 
     @Autowired
     public PlayerService(PlayerRepository playerRepository) {
@@ -40,6 +44,12 @@ public class PlayerService {
     public List<Player> findAllPlayersByRole(Long roleId) {
         return StreamSupport.stream(playerRepository.findAll().spliterator(), false)
                 .filter(player -> player.getRole().getId() == roleId).collect(Collectors.toList());
+    }
+
+    public List<Player> findAllPlayersByGame(Long gameId) {
+        return StreamSupport.stream(playerRepository.findAll().spliterator(), false)
+                .filter(player -> player.getGamesPlayed().contains(gameRepository.findById(gameId).get()))
+                .collect(Collectors.toList());
     }
 
     public void deletePlayer(Long id) {

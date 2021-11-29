@@ -1,6 +1,6 @@
 package com.example.accessingdatamysql.achievement;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +34,7 @@ public class Achievement extends NamedEntity {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "achievements")
-    private Collection<Player> players;
+    private List<Player> players;
 
     public Achievement() {
         this.name = "";

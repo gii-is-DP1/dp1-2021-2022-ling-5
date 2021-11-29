@@ -1,6 +1,7 @@
 package com.example.accessingdatamysql.game;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import com.example.accessingdatamysql.minigame.Minigame;
@@ -36,6 +37,9 @@ public class GameController {
     public @ResponseBody Game addNewGame(@RequestBody Game game) {
         game.setMinigames(new ArrayList<Minigame>());
         game.setPlayers(new ArrayList<Player>());
+        List<Player> players = game.getPlayers();
+        players.add(this.playerService.findPlayer(game.getCreator()).get());
+        game.setPlayers(players);
         game.setResults(new ArrayList<Result>());
 
         return this.gameService.saveGame(game);
@@ -88,11 +92,10 @@ public class GameController {
         return this.gameService.findGame(id);
     }
 
-    // @GetMapping(value = "/games/names/{name}")
-    // public @ResponseBody Optional<Game> getGameByName(@PathVariable String name)
-    // {
-    // return this.gameService.findGameByName(name);
-    // }
+    @GetMapping(value = "/games/names/{name}")
+    public @ResponseBody Optional<Game> getGameByName(@PathVariable String name) {
+        return this.gameService.findGameByName(name);
+    }
 
     @DeleteMapping(value = "/games/{id}")
     public @ResponseBody String deleteGame(@PathVariable Long id) {
