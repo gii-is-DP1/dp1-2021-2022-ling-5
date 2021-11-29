@@ -1,5 +1,6 @@
 package com.example.accessingdatamysql.user;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -49,5 +50,14 @@ public class AdminService {
 
     public void deleteAllAdminsByRole(Long roleId) {
         findAllAdminsByRole(roleId).stream().forEach(admin -> adminRepository.deleteById(admin.getId()));
+    }
+    public List<Admin> findByNickname(String nickname){
+        List<Admin> admins = new ArrayList<Admin>();
+        for(Admin a: adminRepository.findAll()){
+            if(a.getNickname().equals(nickname)){
+                admins.add(a);
+            }
+        }
+        return admins;
     }
 }
