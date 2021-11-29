@@ -32,7 +32,7 @@ public class AccountController {
                 } else if(!admin.getPassword().equals(request.getPassword())){
                     return "Invalid credentials";
                 } else{
-                    return admin.getId().toString() + "Admin";
+                    return admin.getId().toString() + ", Admin";
                 }
             }
         } else{
@@ -40,7 +40,7 @@ public class AccountController {
             if(!player.getPassword().equals(request.getPassword())){
                 return "Invalid credentials";
             } else{
-                return player.getId().toString() + "Player";
+                return player.getId().toString() + ", Player";
             }
         }
     }
