@@ -1,5 +1,6 @@
 package com.example.accessingdatamysql.user;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -61,5 +62,14 @@ public class PlayerService {
 
     public void deleteAllPlayersByRole(Long roleId) {
         findAllPlayersByRole(roleId).stream().forEach(player -> playerRepository.deleteById(player.getId()));
+    }
+    public List<Player> findByNickname(String nickname){
+        List<Player> players = new ArrayList<Player>();
+        for(Player p: playerRepository.findAll()){
+            if(p.getNickname().equals(nickname)){
+                players.add(p);
+            }
+        }
+        return players;
     }
 }
