@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 arguments=
 auto.sync=false
 build.scans.enabled=false
@@ -11,3 +12,18 @@ offline.mode=false
 override.workspace.settings=false
 show.console.view=false
 show.executions.view=false
+=======
+arguments=
+auto.sync=false
+build.scans.enabled=false
+connection.gradle.distribution=GRADLE_DISTRIBUTION(WRAPPER)
+connection.project.dir=
+eclipse.preferences.version=1
+gradle.user.home=
+java.home=
+jvm.arguments=
+offline.mode=false
+override.workspace.settings=false
+show.console.view=false
+show.executions.view=false
+>>>>>>> Stashed changes
