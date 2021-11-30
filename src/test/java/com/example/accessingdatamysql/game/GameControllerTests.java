@@ -35,6 +35,8 @@ public class GameControllerTests {
 
     private static final Long TEST_MINIGAME_ID = 1L;
 
+    private static final String NAME = "partida1";
+
     @MockBean
     private GameService gameService;
 
@@ -53,7 +55,7 @@ public class GameControllerTests {
     @BeforeEach
     void setup() {
         Game game = new Game("partida1", State.UNSTARTED, new Date(System.currentTimeMillis()),
-                new Date(System.currentTimeMillis()), 1, 1);
+                new Date(System.currentTimeMillis()), 1L, 1L);
         game.setId(TEST_GAME_ID);
         given(this.gameService.findAllGames()).willReturn(Lists.newArrayList(game));
 
@@ -66,6 +68,7 @@ public class GameControllerTests {
         given(this.minigameService.findAllMinigames()).willReturn(Lists.newArrayList(minigame));
 
         given(this.gameService.findGame(TEST_GAME_ID)).willReturn(Optional.of(game));
+        given(this.gameService.findGameByName(NAME)).willReturn(Optional.of(game));
         given(this.playerService.findPlayer(TEST_PLAYER_ID)).willReturn(Optional.of(player));
         given(this.minigameService.findMinigame(TEST_MINIGAME_ID)).willReturn(Optional.of(minigame));
     }
@@ -81,9 +84,14 @@ public class GameControllerTests {
     }
 
     @Test
+    void testGetByName() throws Exception {
+        mockMvc.perform(get("/api/games/names/{name}", NAME)).andExpect(status().isOk());
+    }
+
+    @Test
     void testProcessCreationSuccess() throws Exception {
         Game game = new Game("partida2", State.UNSTARTED, new Date(System.currentTimeMillis()),
-                new Date(System.currentTimeMillis()), 1, 1);
+                new Date(System.currentTimeMillis()), 1L, 1L);
         mockMvc.perform(
                 post("/api/games").contentType("application/json").content(objectMapper.writeValueAsString(game)))
                 .andExpect(status().isOk());

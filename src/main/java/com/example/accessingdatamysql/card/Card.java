@@ -1,6 +1,7 @@
 package com.example.accessingdatamysql.card;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -21,7 +22,7 @@ public class Card extends NamedEntity {
 
     @ManyToMany(mappedBy = "cards")
     @Size(max = 6)
-    private Collection<Figure> figures;
+    private List<Figure> figures;
 
     public Card() {
         this.name = "";

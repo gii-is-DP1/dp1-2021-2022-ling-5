@@ -1,7 +1,7 @@
 package com.example.accessingdatamysql.game;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,11 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.example.accessingdatamysql.minigame.Minigame;
-import com.example.accessingdatamysql.model.NamedEntity;
+import com.example.accessingdatamysql.model.BaseEntity;
 import com.example.accessingdatamysql.result.Result;
 import com.example.accessingdatamysql.user.Player;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,9 +26,13 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "game")
-public class Game extends NamedEntity {
+public class Game extends BaseEntity {
 
-    @NotNull
+    @Size(min = 3, max = 50)
+    @NotEmpty
+    @Column(name = "name", unique = true)
+    private String name;
+
     @Column(name = "state")
     private State state;
 
@@ -39,34 +44,34 @@ public class Game extends NamedEntity {
 
     @NotNull
     @Column(name = "creator")
-    private Integer creator;
+    private Long creator;
 
     @Column(name = "winner")
-    private Integer winner;
+    private Long winner;
 
     @ManyToMany(mappedBy = "games")
-    @Size(min = 1, max = 3)
-    private Collection<Minigame> minigames;
+    @Size(max = 3)
+    private List<Minigame> minigames;
 
     @JsonIgnore
     @OneToMany(mappedBy = "game", cascade = CascadeType.REMOVE)
-    private Collection<Result> results;
+    private List<Result> results;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "gamesPlayed")
-    @Size(min = 2, max = 8)
-    private Collection<Player> players;
+    @Size(max = 8)
+    private List<Player> players;
 
     public Game() {
         this.name = "";
         this.state = State.UNSTARTED;
         this.startTime = new Date(System.currentTimeMillis());
         this.endTime = new Date(System.currentTimeMillis());
-        this.creator = 0;
-        this.winner = 0;
+        this.creator = 0L;
+        this.winner = 0L;
     }
 
-    public Game(String name, State state, Date startTime, Date endTime, Integer creator, Integer winner) {
+    public Game(String name, State state, Date startTime, Date endTime, Long creator, Long winner) {
         this.name = name;
         this.state = state;
         this.startTime = startTime;
