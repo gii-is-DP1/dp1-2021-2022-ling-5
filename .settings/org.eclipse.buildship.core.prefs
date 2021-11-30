@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 arguments=
 auto.sync=false
@@ -13,6 +14,8 @@ override.workspace.settings=false
 show.console.view=false
 show.executions.view=false
 =======
+=======
+>>>>>>> develop
 arguments=
 auto.sync=false
 build.scans.enabled=false
@@ -26,4 +29,7 @@ offline.mode=false
 override.workspace.settings=false
 show.console.view=false
 show.executions.view=false
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> develop
