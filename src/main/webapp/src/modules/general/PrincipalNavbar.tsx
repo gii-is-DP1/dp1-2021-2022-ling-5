@@ -5,7 +5,7 @@ import icons from '../../images/icons/icons'
 import './principalNavbar.css'
 
 const PrincipalNavbar = () => {
-    var role = "admin";
+    var role = "player";
     if (role === "player") {
         return <Navbar expand="lg">
             <Container>

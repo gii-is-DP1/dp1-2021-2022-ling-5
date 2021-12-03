@@ -11,7 +11,9 @@ import StartGame from "./modules/general/StartGame";
 import AdminPlayedGames from "./modules/games/adminPlayedGames";
 import AdminNavbar from "./modules/general/AdminNavbar";
 import UsersCRUD from "./modules/users/UsersCRUD";
+import StadisticsNavbar from "./modules/general/StadisticsNavbar";
 import CreateUser from "./modules/users/CreateUser";
+import UserPoints from "./modules/playedGames/userPoints";
 
 const Links = () => {
     return <Router>
@@ -36,7 +38,14 @@ const Links = () => {
             </Route>
             <Route path='/stats'>
                 <div id="body" className="d-flex"><ProfileNavbar />
-                    <Patata /></div>
+                    <StadisticsNavbar /></div>
+            </Route>
+            <Route path='/pointsbyminigamme'>
+                <div id="body" className="d-flex">
+                    <ProfileNavbar />
+                    <StadisticsNavbar />
+                    <UserPoints />
+                </div>
             </Route>
             <Route path='/games'>
                 <div id="body" className="d-flex">
@@ -90,6 +99,7 @@ const Links = () => {
             <Route path="/logout">
                 <AdminPlayedGames />
             </Route>
+
         </Switch>
     </Router>
 }
