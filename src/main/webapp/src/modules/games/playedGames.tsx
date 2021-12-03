@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
+import './playedGames.css'
 
 let urlParams = new URLSearchParams(window.location.search);
 let playerId = urlParams.get("playerId");
@@ -33,7 +34,7 @@ function PlayedGames() {
     jugados.push({ game: { name: "Ninguno" }, data: "" })
   }
   return (
-    <Container>
+    <Container id="container">
       <Row>
         <Col>
           <Row> <h1>Juegos creados</h1> </Row>
