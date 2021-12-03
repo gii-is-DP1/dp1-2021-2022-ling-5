@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Col, Row } from 'react-bootstrap';
 
 function UserPoints(props: any) {
     const playerId: any = 1;
@@ -13,29 +14,28 @@ function UserPoints(props: any) {
   
     }, [])
     if (!results) return <div>Loading...</div>
-
     return (
-      <div>
+      <Row>
         {
           results.map(res=>(
-            <div>
-                <h1>{res.game.name}</h1>
-                {res.game.minigames>1
+            <Row>
+                <Col><h1>{res.game.name}</h1></Col>
+                {res.game.minigames.length>1
                 ? [0,1,2].map(i=>(
-                    <div>
-                        <h2>{res.game.minigame[i].name}</h2>
+                    <Col>
+                        <h2>{res.game.minigames[i].name}</h2>
                         <h3>{res.data.split(" ")[i]}</h3>
-                    </div>
+                    </Col>
                 ))
-                : <div>
-                    <h2>{res.game.minigame[0].name}</h2>
+                : <Col>
+                    <h2>{res.game.minigames[0].name}</h2> 
                     <h3>{res.data}</h3>
-                </div>
+                </Col>
                 }
-            </div>
+            </Row>
           ))
         }
-      </div>
+      </Row>
     );
   }
   
