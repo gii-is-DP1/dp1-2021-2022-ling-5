@@ -30,6 +30,7 @@ public class Game extends BaseEntity {
 
     @Size(min = 3, max = 50)
     @NotEmpty
+    @NotNull
     @Column(name = "name", unique = true)
     private String name;
 
