@@ -39,12 +39,12 @@ public class Account {
 
     @NotEmpty
     @NotNull
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     protected String email;
 
     @NotEmpty
     @NotNull
-    @Column(name = "nickname")
+    @Column(name = "nickname", unique = true)
     protected String nickname;
 
     // @ManyToOne

@@ -11,6 +11,7 @@ import StartGame from "./modules/general/StartGame";
 import AdminPlayedGames from "./modules/games/adminPlayedGames";
 import AdminNavbar from "./modules/general/AdminNavbar";
 import UsersCRUD from "./modules/users/UsersCRUD";
+import CreateUser from "./modules/users/CreateUser";
 
 const Links = () => {
     return <Router>
@@ -29,49 +30,55 @@ const Links = () => {
                 <StartGame />
             </Route>
             <Route path='/profile'>
-                <div className="d-flex">
+                <div id="body" className="d-flex">
                     <ProfileNavbar />
                     <Patata /></div>
             </Route>
             <Route path='/stats'>
-                <div className="d-flex"><ProfileNavbar />
+                <div id="body" className="d-flex"><ProfileNavbar />
                     <Patata /></div>
             </Route>
             <Route path='/games'>
-                <div className="d-flex">
+                <div id="body" className="d-flex">
                     <ProfileNavbar />
                     <PlayedGames />
                 </div>
             </Route>
             <Route path='/awards'>
-                <div className="d-flex"><ProfileNavbar />
+                <div id="body" className="d-flex"><ProfileNavbar />
                     <Patata /></div>
             </Route>
             <Route path='/friends'>
-                <div className="d-flex"><ProfileNavbar />
+                <div id="body" className="d-flex"><ProfileNavbar />
                     <Patata /></div>
             </Route>
             <Route path='/gamesProgress'>
-                <div className="d-flex">
+                <div id="body" className="d-flex">
                     <AdminNavbar />
                     <Patata /></div>
             </Route>
             <Route path='/gamesPlayed'>
-                <div className="d-flex"><AdminNavbar />
+                <div id="body" className="d-flex"><AdminNavbar />
                     <Patata /></div>
             </Route>
-            <Route path='/users'>
-                <div className="d-flex">
+            <Route exact path='/users'>
+                <div id="body" className="d-flex">
                     <AdminNavbar />
                     <UsersCRUD />
                 </div>
             </Route>
+            <Route path='/createUser'>
+                <div id="body" className="d-flex">
+                    <AdminNavbar />
+                    <CreateUser />
+                </div>
+            </Route>
             <Route path='/history'>
-                <div className="d-flex"><AdminNavbar />
+                <div id="body" className="d-flex"><AdminNavbar />
                     <Patata /></div>
             </Route>
-            <Route path='/awards'>
-                <div className="d-flex"><AdminNavbar />
+            <Route path='/createAwards'>
+                <div id="body" className="d-flex"><AdminNavbar />
                     <Patata /></div>
             </Route>
             <Route path='/notifications'>

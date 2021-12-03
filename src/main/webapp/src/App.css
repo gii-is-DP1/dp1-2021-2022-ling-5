@@ -13,20 +13,21 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-.fondo{
+.fondo {
   background-color: #fdfd96;
   width: 100%;
 }
 .App-header {
   text-align: center;
   background-color: #fdfd96;
-  min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(40px + 2vmin);
   color: #7845b0;
+  width: 100%;
+  height: 100%;
 }
 
 .App-link {
@@ -48,8 +49,7 @@
   padding-left: 2.5%;
 }
 
-.Button{
+.Button {
   align-items: center;
   margin: 2vh;
-
 }

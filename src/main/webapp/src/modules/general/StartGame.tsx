@@ -9,25 +9,28 @@ import { useParams } from 'react-router';
 function StartGame(props: any) {
   const gameId: any = useParams();
   const { id } = gameId;
-  const [players, SetPlayers] = useState<any[]>([]);
-  useEffect(() => {
+  const [players, setPlayers] = useState<any[]>([]);
 
+  const getPlayers = () => {
     const requestOptions = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     }
 
-    fetch(`http://localhost:8080/api/players/games/${id}`, requestOptions)
+    fetch(`http://localhost:8080/api/games/${id}/players`, requestOptions)
       .then(res => {
         res.json().then((playersSearched: any) => {
-          SetPlayers(playersSearched);
+          setPlayers(playersSearched);
         }).catch(e => console.log(e));
-        window.location.href = '/startGame'
       })
       .catch(error => console.log(error));
+  }
 
+  useEffect(() => {
+    getPlayers();
   }, [])
 
+  if (!players) return <p>Loading...</p>
   return (
 
     <div className="NewGame-header">
@@ -39,16 +42,16 @@ function StartGame(props: any) {
 
         </Form.Group>
 
-        <Button className="Button" size="lg" variant="dark">
-          START
-        </Button>
-
         <div>
-          {[...Array(players.length)].map((el, index) => {
-            return <p key={index}>Player {players[index].id} {players[index].nickname}</p>
+          {players.map((el, index) => {
+            return <p key={index}>Player {el.id} {el.nickname}</p>
           })}
 
         </div>
+
+        <Button className="Button" size="lg" variant="dark">
+          START
+        </Button>
       </Form>
     </div>
 

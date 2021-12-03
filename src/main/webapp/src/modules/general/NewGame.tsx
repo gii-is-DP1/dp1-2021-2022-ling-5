@@ -21,6 +21,8 @@ function NewGame() {
 
   const [minigame, setMinigame] = useState<String>();
 
+  const [gameid, setGameid] = useState<number | undefined>(0);
+
   function createGame() {
 
     console.log("MINIGAME: " + minigame);
@@ -34,34 +36,33 @@ function NewGame() {
       fetch(`http://localhost:8080/api/games`, requestOptions)
         .then(res => {
           res.json().then((gameCreated: any) => {
-            const gameid = gameCreated.id;
+            setGameid(gameCreated.id);
             const requestOptions = {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' }
             }
-            console.log(gameid)
-            if (minigame) {
+            if (minigame && gameCreated.id !== undefined) {
               console.log("hola")
               if (minigame !== '4' && minigame !== 'N/A') {
-                fetch(`http://localhost:8080/api/games/${gameid}/minigames/${minigame}`, requestOptions).then(res => {
+                fetch(`http://localhost:8080/api/games/${gameCreated.id}/minigames/${minigame}`, requestOptions).then(res => {
                   resolve(res.json())
                 })
                   .catch(error => reject(console.error));
               } else {
-                fetch(`http://localhost:8080/api/games/${gameid}/minigames/1`, requestOptions).then(res => {
+                fetch(`http://localhost:8080/api/games/${gameCreated.id}/minigames/1`, requestOptions).then(res => {
                   resolve(res.json())
                 })
                   .catch(error => reject(console.error));
-                fetch(`http://localhost:8080/api/games/${gameid}/minigames/2`, requestOptions).then(res => {
+                fetch(`http://localhost:8080/api/games/${gameCreated.id}/minigames/2`, requestOptions).then(res => {
                   resolve(res.json())
                 })
                   .catch(error => reject(console.error));
-                fetch(`http://localhost:8080/api/games/${gameid}/minigames/3`, requestOptions).then(res => {
+                fetch(`http://localhost:8080/api/games/${gameCreated.id}/minigames/3`, requestOptions).then(res => {
                   resolve(res.json())
                 })
                   .catch(error => reject(console.error));
               }
-              window.location.href = `/startGame/${gameid}`
+              window.location.href = `/startGame/${gameCreated.id}`
             }
           }).catch(error => console.log(error))
         }).catch(error => reject(console.error));
@@ -94,6 +95,8 @@ function NewGame() {
         <Button className="Button" size="lg" variant="dark" onClick={() => createGame()}>
           CREATE
         </Button>
+
+        {gameid === undefined ? <p>This name already exists!</p> : <></>}
       </Form>
     </div>
 

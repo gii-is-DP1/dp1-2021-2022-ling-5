@@ -88,10 +88,14 @@ public class PlayerController {
     return this.playerService.findPlayer(id);
   }
 
-  @GetMapping(value = "/players/games/{gameId}")
-  public @ResponseBody List<Player> getAllPlayersByGame(@PathVariable Long gameId) {
-    return this.playerService.findAllPlayersByGame(gameId);
-  }
+  // @GetMapping(value = "/players/games/{gameId}")
+  // public @ResponseBody List<Player> getAllPlayersByGame(@PathVariable Long
+  // gameId) {
+  // List<Player> players = this.playerService.findAllPlayers();
+  // return players.stream().filter(player ->
+  // player.getGamesPlayed().contains(this.gameService.findGame(gameId).get()))
+  // .collect(Collectors.toList());
+  // }
 
   @DeleteMapping(value = "/players/{id}")
   public @ResponseBody String deletePlayer(@PathVariable Long id) {
