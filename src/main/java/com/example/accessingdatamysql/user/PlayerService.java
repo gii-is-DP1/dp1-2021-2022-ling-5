@@ -8,8 +8,6 @@ import java.util.stream.StreamSupport;
 
 import javax.transaction.Transactional;
 
-import com.example.accessingdatamysql.game.GameRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -18,8 +16,6 @@ import org.springframework.stereotype.Service;
 public class PlayerService {
 
     private PlayerRepository playerRepository;
-
-    private GameRepository gameRepository;
 
     @Autowired
     public PlayerService(PlayerRepository playerRepository) {
@@ -46,11 +42,14 @@ public class PlayerService {
                 .filter(player -> player.getRole().getId() == roleId).collect(Collectors.toList());
     }
 
-    public List<Player> findAllPlayersByGame(Long gameId) {
-        return StreamSupport.stream(playerRepository.findAll().spliterator(), false)
-                .filter(player -> player.getGamesPlayed().contains(gameRepository.findById(gameId).get()))
-                .collect(Collectors.toList());
-    }
+    // public List<Player> findAllPlayersByGame(Long gameId) {
+    // System.out.println("gameId: " + gameId);
+    // System.out.println("GAMEEE: " + gameRepository.findById(gameId).get());
+    // return StreamSupport.stream(playerRepository.findAll().spliterator(), false)
+    // .filter(player ->
+    // player.getGamesPlayed().contains(gameRepository.findById(gameId).get()))
+    // .collect(Collectors.toList());
+    // }
 
     public void deletePlayer(Long id) {
         playerRepository.deleteById(id);
@@ -63,10 +62,11 @@ public class PlayerService {
     public void deleteAllPlayersByRole(Long roleId) {
         findAllPlayersByRole(roleId).stream().forEach(player -> playerRepository.deleteById(player.getId()));
     }
-    public List<Player> findByNickname(String nickname){
+
+    public List<Player> findByNickname(String nickname) {
         List<Player> players = new ArrayList<Player>();
-        for(Player p: playerRepository.findAll()){
-            if(p.getNickname().equals(nickname)){
+        for (Player p : playerRepository.findAll()) {
+            if (p.getNickname().equals(nickname)) {
                 players.add(p);
             }
         }

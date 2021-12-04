@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 function JoinGame() {
   const [namegame, setNamegame] = useState<string>();
-  var idplayer = 1;
+  var idplayer = 2;
 
   function joinGame() {
     const requestOptions = {
@@ -26,7 +26,7 @@ function JoinGame() {
               headers: { 'Content-Type': 'application/json' }
             }
 
-            fetch(`/games/${gameId}/players/${idplayer}`, requestOptions).then(res => {
+            fetch(`http://localhost:8080/api/games/${gameId}/players/${idplayer}`, requestOptions).then(res => {
               resolve(res.json())
             })
               .catch(error => reject(console.error));

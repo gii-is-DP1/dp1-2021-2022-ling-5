@@ -37,13 +37,13 @@ const PrincipalNavbar = () => {
                             className="d-inline-block align-top"
                             alt="React Bootstrap logo"
                         /></Nav.Link>
-                        <Nav.Link><a id="btn-share"><img
+                        <Nav.Link id="btn-share"><img
                             src={icons(2)}
                             width="30"
                             height="30"
                             className="d-inline-block align-top"
                             alt="React Bootstrap logo"
-                        /></a></Nav.Link>
+                        /></Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
@@ -79,13 +79,13 @@ const PrincipalNavbar = () => {
                             className="d-inline-block align-top"
                             alt="React Bootstrap logo"
                         /></Nav.Link>
-                        <Nav.Link><a id="btn-share"><img
+                        <Nav.Link id="btn-share"><img
                             src={icons(2)}
                             width="30"
                             height="30"
                             className="d-inline-block align-top"
                             alt="React Bootstrap logo"
-                        /></a></Nav.Link>
+                        /></Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

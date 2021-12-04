@@ -7,7 +7,7 @@ const AdminNavbar = () => {
         <Nav.Link id="link" href="/gamesPlayed">Games Played</Nav.Link>
         <Nav.Link id="link" href="/users">Users</Nav.Link>
         <Nav.Link id="link" href="/history">History</Nav.Link>
-        <Nav.Link id="link" href="/awards">Awards</Nav.Link>
+        <Nav.Link id="link" href="/createAwards">Awards</Nav.Link>
     </Nav>
 }
 
