@@ -62,7 +62,7 @@ public class ResultControllerTests {
         given(this.playerService.findAllPlayers()).willReturn(Lists.newArrayList(player));
 
         Game game = new Game("partida1", State.UNSTARTED, new Date(System.currentTimeMillis()),
-                new Date(System.currentTimeMillis()), 1, 1);
+                new Date(System.currentTimeMillis()), 1L, 1L);
         game.setId(TEST_GAME_ID);
         given(this.gameService.findAllGames()).willReturn(Lists.newArrayList(game));
 

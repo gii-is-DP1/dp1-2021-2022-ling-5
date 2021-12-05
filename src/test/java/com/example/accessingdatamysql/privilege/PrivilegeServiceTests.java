@@ -40,7 +40,7 @@ public class PrivilegeServiceTests {
         Optional<Privilege> privilegeOpt = this.privilegeService.findPrivilege(1L);
         if (privilegeOpt.isPresent()) {
             Privilege privilege = privilegeOpt.get();
-            assertEquals(privilege.getName(), "VIEWS_AWARDS");
+            assertEquals(privilege.getName(), "VIEW_AWARDS");
         }
     }
 

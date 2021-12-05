@@ -21,10 +21,10 @@ insert into friendship values(1, 1, 1, 2);
 
 -- Load of game
 
-insert into game values(1,'juegoUno', 1,'2021-01-01 01:01:01','2021-01-01 01:11:01',2,null)
-insert into game values(2,'juegoDos',2,'2021-02-02 02:02:02','2021-02-02 02:22:02',2,null)
-insert into game values(3,'juegoTres',3,'2021-03-03 03:03:03','2021-03-03 03:33:03',2,null)
-insert into game values(4,'juegoCuatro',4,'2021-04-04 04:04:04','2021-04-04 04:44:04',2,null)
+insert into game values(1, 1,'2021-01-01 01:11:01','juegoUno','2021-01-01 01:01:01',2,null)
+insert into game values(2,2,'2021-02-02 02:22:02','juegoDos','2021-02-02 02:02:02',2,null)
+insert into game values(3,3,'2021-03-03 03:33:03','juegoTres','2021-03-03 03:03:03',2,null)
+insert into game values(4,4,'2021-04-04 04:44:04','juegoCuatro','2021-04-04 04:04:04',2,null)
 
 
 -- Load of role
@@ -34,7 +34,7 @@ insert into role values(2,'admin')
 
 -- Load of privilege
 
-insert into privilege values(1, 'VIEW_AWARDS', 1)
+insert into privilege values(1, 'VIEW_AWARDS')
 
 
 -- Load of player_games_played
