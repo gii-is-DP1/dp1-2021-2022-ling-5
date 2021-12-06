@@ -24,6 +24,9 @@ const EditUser = () => {
             .then(res => {
                 res.json().then((pl) => {
                     console.log(pl);
+                    fetch('http://localhost:8080/api/players/'+pl.id+'/addfigures',requestOptions)
+                      .then(res=>console.log(res))
+                      .catch(error =>console.log(error));
                     window.location.href = '/users';
                 }).catch(e => console.log(e));
             })

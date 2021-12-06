@@ -13,7 +13,8 @@ import AdminNavbar from "./modules/general/AdminNavbar";
 import UsersCRUD from "./modules/users/UsersCRUD";
 import StadisticsNavbar from "./modules/general/StadisticsNavbar";
 import CreateUser from "./modules/users/CreateUser";
-import UserPoints from "./modules/playedGames/userPoints";
+import UserPoints from "./modules/playedGames/UserPoints";
+import BestAndWorstFigure from "./modules/figures/BestAndWorstFigure";
 
 const Links = () => {
     return <Router>
@@ -45,6 +46,13 @@ const Links = () => {
                     <ProfileNavbar />
                     <StadisticsNavbar />
                     <UserPoints />
+                </div>
+            </Route>
+            <Route path='/mostandleastused'>
+                <div id="body" className="d-flex">
+                    <ProfileNavbar />
+                    <StadisticsNavbar />
+                    <BestAndWorstFigure />
                 </div>
             </Route>
             <Route path='/games'>
