@@ -14,6 +14,7 @@ import UsersCRUD from "./modules/users/UsersCRUD";
 import StadisticsNavbar from "./modules/general/StadisticsNavbar";
 import CreateUser from "./modules/users/CreateUser";
 import UserPoints from "./modules/playedGames/userPoints";
+import PlayerPlayedPoints from "./modules/playerPlayedGames/PlayerPlayedPoints";
 
 const Links = () => {
     return <Router>
@@ -45,6 +46,13 @@ const Links = () => {
                     <ProfileNavbar />
                     <StadisticsNavbar />
                     <UserPoints />
+                </div>
+            </Route>
+            <Route path='/gamesPlayed'>
+                <div id="body" className="d-flex">
+                    <ProfileNavbar />
+                    <StadisticsNavbar />
+                    <PlayerPlayedPoints />
                 </div>
             </Route>
             <Route path='/games'>
