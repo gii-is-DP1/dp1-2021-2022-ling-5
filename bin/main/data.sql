@@ -74,9 +74,9 @@ insert into result values(14,"5 5 5",10,4,5)
 
 -- Load of minigame
 
-insert into minigame values(1,'Uno','Ejemplo uno')
-insert into minigame values(2,'Dos','Ejemplo dos')
-insert into minigame values(3,'Tres','Ejemplo tres')
+insert into minigame values(1,'Torre Infernal','Ejemplo uno')
+insert into minigame values(2,'Foso','Ejemplo dos')
+insert into minigame values(3,'Regalo envenenado','Ejemplo tres')
 
 -- Load of minigame_game
 
