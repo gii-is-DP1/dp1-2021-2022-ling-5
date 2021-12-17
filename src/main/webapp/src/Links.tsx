@@ -6,13 +6,13 @@ import Patata from "./Patata";
 import ProfileNavbar from "./modules/general/ProfileNavbar";
 import NewGame from "./modules/general/NewGame";
 import JoinGame from "./modules/general/JoinGame";
-import PlayedGames from './modules/games/playedGames';
+import PlayedGames from './modules/game/playedGames';
 import StartGame from "./modules/general/StartGame";
-import AdminPlayedGames from "./modules/games/adminPlayedGames";
+import AdminPlayedGames from "./modules/game/adminPlayedGames";
 import AdminNavbar from "./modules/general/AdminNavbar";
-import UsersCRUD from "./modules/users/UsersCRUD";
+import UsersCRUD from "./modules/user/UsersCRUD";
 import StadisticsNavbar from "./modules/general/StadisticsNavbar";
-import CreateUser from "./modules/users/CreateUser";
+import CreateUser from "./modules/user/CreateUser";
 import UserPoints from "./modules/playedGames/userPoints";
 
 const Links = () => {

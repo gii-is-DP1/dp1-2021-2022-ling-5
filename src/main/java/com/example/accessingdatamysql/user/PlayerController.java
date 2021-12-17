@@ -1,7 +1,6 @@
 package com.example.accessingdatamysql.user;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import com.example.accessingdatamysql.achievement.Achievement;
@@ -38,13 +37,12 @@ public class PlayerController {
   @Autowired
   private AchievementService achievementService;
 
-  @PostMapping(value = "/roles/{roleId}/figures/{figureId}/players") // Map ONLY POST Requests
-  public @ResponseBody Player addNewPlayer(@RequestBody Player player, @PathVariable Long roleId,
-      @PathVariable Long figureId) {
+  @PostMapping(value = "/players") // Map ONLY POST Requests
+  public @ResponseBody Player addNewPlayer(@RequestBody Player player) {
     player.setModifications(new ArrayList<Modification>());
 
-    Optional<Role> role = this.roleService.findRole(roleId);
-    Optional<Figure> figure = this.figureService.findFigure(figureId);
+    Optional<Role> role = this.roleService.findRole(1L);
+    Optional<Figure> figure = this.figureService.findFigure(1L);
     if (figure.isPresent() && role.isPresent()) {
       player.setFigure(figure.get());
       player.setRole(role.get());
@@ -78,11 +76,6 @@ public class PlayerController {
     return this.playerService.findAllPlayers();
   }
 
-  @GetMapping(value = "/roles/{roleId}/players")
-  public @ResponseBody List<Player> getAllPlayersByRole(@PathVariable Long roleId) {
-    return this.playerService.findAllPlayersByRole(roleId);
-  }
-
   @GetMapping(value = "/players/{id}")
   public @ResponseBody Optional<Player> getPlayerById(@PathVariable Long id) {
     return this.playerService.findPlayer(id);
@@ -106,12 +99,6 @@ public class PlayerController {
   @DeleteMapping(value = "/players")
   public @ResponseBody String deleteAllPlayers() {
     this.playerService.deleteAllPlayers();
-    return "Deleted all";
-  }
-
-  @DeleteMapping(value = "/roles/{roleId}/players")
-  public @ResponseBody String deleteAllPlayersByRole(@PathVariable Long roleId) {
-    this.playerService.deleteAllPlayersByRole(roleId);
     return "Deleted all";
   }
 
@@ -161,21 +148,6 @@ public class PlayerController {
         return "Player not found";
       }
     }).orElse("Figure not found");
-  }
-
-  @PutMapping(value = "/roles/{roleId}/players/{playerId}")
-  public @ResponseBody String updateRolePlayer(@PathVariable Long playerId, @PathVariable Long roleId) {
-    return this.roleService.findRole(roleId).map(role -> {
-      Optional<Player> optionalPlayer = this.playerService.findPlayer(playerId);
-      if (optionalPlayer.isPresent()) {
-        Player player = optionalPlayer.get();
-        player.setRole(role);
-        this.playerService.savePlayer(player);
-        return "Saved";
-      } else {
-        return "Player not found";
-      }
-    }).orElse("Role not found");
   }
 
 }
