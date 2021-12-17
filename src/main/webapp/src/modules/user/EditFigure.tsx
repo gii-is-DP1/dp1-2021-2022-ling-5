@@ -1,20 +1,15 @@
 import { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import figureImg from '../../images/figures/figures';
+import userAPI from "./userAPI";
 
 
 const EditFigure = (props: any) => {
 
     const edit = (id: number) => {
-        const requestOptions = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' }
-        };
-        fetch(`http://localhost:8080/api/figures/${id}/players/${props.idUser}`, requestOptions)
-            .then(res => {
-                window.location.href = '/users';
-            })
-            .catch(error => console.log(error));
+        userAPI.updateFigureUser(props.idUser, id, "player")
+            .then((res) => window.location.href = '/users')
+            .catch((err) => console.log(err));
     }
 
     return (

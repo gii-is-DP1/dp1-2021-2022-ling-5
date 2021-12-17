@@ -64,8 +64,10 @@ public class PlayerController {
       if (achievement.get().getPlayers() == null)
         achievement.get().setPlayers(new ArrayList<Player>());
 
-      player.get().getAchievements().add(achievement.get());
-      achievement.get().getPlayers().add(player.get());
+      if (!player.get().getAchievements().contains(achievement.get()))
+        player.get().getAchievements().add(achievement.get());
+      if (!achievement.get().getPlayers().contains(player.get()))
+        achievement.get().getPlayers().add(player.get());
       this.playerService.savePlayer(player.get());
     }
     return player.get();

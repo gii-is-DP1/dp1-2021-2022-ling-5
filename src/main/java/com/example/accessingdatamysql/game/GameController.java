@@ -64,8 +64,10 @@ public class GameController {
             if (game.get().getPlayers() == null)
                 game.get().setPlayers(new ArrayList<Player>());
 
-            player.get().getGamesPlayed().add(game.get());
-            game.get().getPlayers().add(player.get());
+            if (!player.get().getGamesPlayed().contains(game.get()))
+                player.get().getGamesPlayed().add(game.get());
+            if (!game.get().getPlayers().contains(player.get()))
+                game.get().getPlayers().add(player.get());
         }
         return this.gameService.saveGame(game.get());
     }
@@ -82,8 +84,10 @@ public class GameController {
             if (game.get().getMinigames() == null)
                 game.get().setMinigames(new ArrayList<Minigame>());
 
-            minigame.get().getGames().add(game.get());
-            game.get().getMinigames().add(minigame.get());
+            if (!minigame.get().getGames().contains(game.get()))
+                minigame.get().getGames().add(game.get());
+            if (!game.get().getMinigames().contains(minigame.get()))
+                game.get().getMinigames().add(minigame.get());
 
         }
         return this.gameService.saveGame(game.get());

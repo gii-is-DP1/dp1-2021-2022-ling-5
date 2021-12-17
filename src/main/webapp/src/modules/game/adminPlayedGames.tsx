@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
+import resultAPI from '../result/resultAPI';
 
 
 let urlParams = new URLSearchParams(window.location.search);
@@ -7,32 +8,33 @@ let playerId = urlParams.get("playerId");
 
 function AdminPlayedGames() {
 
-  const [result, setResult] = useState<any>()
+  const [results, setResults] = useState<any[]>()
+
   useEffect(() => {
-    fetch("http://localhost:8080/api/results")
-      .then(res => {
-        console.log(res.status)
-        return res.json()
-      })
-      .then(data => setResult(data))
-      .catch(console.error)
+    resultAPI.getAllResults()
+      .then((res: any[]) => setResults(res))
+      .catch(err => console.log(err));
   }, [])
-  if (!result) return <div>Loading...</div>
+
+  if (!results) return <div>Loading...</div>
+
   let en_progreso = []
   let jugados = []
-  for (var r of result) {
+  for (var r of results) {
     if (r.game.state === "FINISHED") {
       jugados.push(r)
     } else if (r.game.state === "IN_PROGRESS") {
       en_progreso.push(r)
     }
   }
+
   if (en_progreso.length === 0) {
     en_progreso.push({ game: { name: "Ninguno" }, data: "" })
   }
   if (jugados.length === 0) {
     jugados.push({ game: { name: "Ninguno" }, data: "" })
   }
+
   return (
     <Container>
       <Row>

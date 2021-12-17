@@ -3,42 +3,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react"
 import { Button, Col, Container, Modal, Row } from "react-bootstrap"
 import EditUser from "./EditUser"
+import userAPI from "./userAPI"
 
 const UsersCRUD = () => {
 
     const [players, setPlayers] = useState<any[]>([])
     const [modalShow, setModalShow] = useState<string>("0 0");
 
-    const getPlayers = () => {
-        const requestOptions = {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
-        };
-        fetch(`http://localhost:8080/api/players`, requestOptions)
-            .then(res => {
-                res.json().then((pls) => {
-                    setPlayers(pls);
-                }).catch(e => console.log(e));
-            })
+    const removePlayer = (id: number) => {
+        userAPI.deleteUser("player", id)
+            .then((res) => window.location.href = '/users')
             .catch(error => console.log(error));
     }
 
-    const removePlayer = (id: number) => {
-        const requestOptions = {
-            method: 'DELETE'
-        };
-        return new Promise(function (resolve, reject) {
-            fetch(`http://localhost:8080/api/players/${id}`, requestOptions)
-                .then(res => {
-                    window.location.href = '/users'
-                    resolve(res)
-                })
-                .catch(error => reject(console.error))
-        })
-    }
-
     useEffect(() => {
-        getPlayers();
+        userAPI.getAllUsers("player")
+            .then((pls: any[]) => {
+                setPlayers(pls);
+            }).catch((err) => console.log(err));
     }, [])
 
     return (
