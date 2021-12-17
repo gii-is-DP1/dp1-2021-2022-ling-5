@@ -41,13 +41,15 @@ public class RoleController {
         Optional<Privilege> privilege = this.privilegeService.findPrivilege(privilegeId);
         if (privilege.isPresent()) {
 
-            if(role.get().getPrivileges() == null)
+            if (role.get().getPrivileges() == null)
                 role.get().setPrivileges(new ArrayList<Privilege>());
-            if(privilege.get().getRoles() == null)
+            if (privilege.get().getRoles() == null)
                 privilege.get().setRoles(new ArrayList<Role>());
 
-            role.get().getPrivileges().add(privilege.get());
-            privilege.get().getRoles().add(role.get());
+            if (!role.get().getPrivileges().contains(privilege.get()))
+                role.get().getPrivileges().add(privilege.get());
+            if (!privilege.get().getRoles().contains(role.get()))
+                privilege.get().getRoles().add(role.get());
             return this.roleService.saveRole(role.get());
         }
         return null;
@@ -83,10 +85,10 @@ public class RoleController {
             return "User not found";
         if (!privilege.isPresent())
             return "Privilege not found";
-        
-        if(role.get().getPrivileges() == null){
+
+        if (role.get().getPrivileges() == null) {
             role.get().setPrivileges(new ArrayList<Privilege>());
-            if(privilege.get().getRoles() == null)
+            if (privilege.get().getRoles() == null)
                 privilege.get().setRoles(new ArrayList<Role>());
             return "This role doesn't have privileges";
         }
@@ -94,7 +96,7 @@ public class RoleController {
         role.get().getPrivileges().remove(privilege.get());
         privilege.get().getRoles().remove(role.get());
         return "Privilege deleted from role";
-        
+
     }
 
     @PutMapping(value = "/roles/{id}")

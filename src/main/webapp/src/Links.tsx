@@ -12,9 +12,9 @@ import AdminPlayedGames from "./modules/game/adminPlayedGames";
 import AdminNavbar from "./modules/general/AdminNavbar";
 import UsersCRUD from "./modules/user/UsersCRUD";
 import StadisticsNavbar from "./modules/general/StadisticsNavbar";
-import CreateUser from "./modules/users/CreateUser";
+import CreateUser from "./modules/user/CreateUser";
 import UserPoints from "./modules/playedGames/UserPoints";
-import BestAndWorstFigure from "./modules/figures/BestAndWorstFigure";
+import BestAndWorstFigure from "./modules/figure/BestAndWorstFigure";
 
 const Links = () => {
     return <Router>
@@ -76,7 +76,7 @@ const Links = () => {
             </Route>
             <Route path='/gamesPlayed'>
                 <div id="body" className="d-flex"><AdminNavbar />
-                    <Patata /></div>
+                    <AdminPlayedGames /></div>
             </Route>
             <Route exact path='/users'>
                 <div id="body" className="d-flex">
@@ -105,7 +105,7 @@ const Links = () => {
                 <Patata />
             </Route>
             <Route path="/logout">
-                <AdminPlayedGames />
+                <Patata />
             </Route>
 
         </Switch>

@@ -52,7 +52,7 @@ const gameAPI = {
     },
 
     async getPlayersByGame(gameId: number) {
-        return await fetch(`http://localhost:8080/api/games/${gameId}`)
+        return await fetch(`http://localhost:8080/api/games/${gameId}/players`)
             .then((res: any) => {
                 return res.json();
             }).catch((err: any) => console.log(err));

@@ -5,7 +5,7 @@ import icons from '../../images/icons/icons'
 import './principalNavbar.css'
 
 const PrincipalNavbar = () => {
-    var role = "player";
+    var role = "admin";
     if (role === "player") {
         return <Navbar expand="lg">
             <Container>
@@ -51,7 +51,7 @@ const PrincipalNavbar = () => {
     } else if (role === "admin") {
         return <Navbar expand="lg">
             <Container>
-                <a href="/admin" id="img"><img
+                <a href="/" id="img"><img
                     src={icons(3)}
                     width="30"
                     height="30"

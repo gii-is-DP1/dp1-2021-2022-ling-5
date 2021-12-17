@@ -3,26 +3,27 @@ import figures from "../../images/figures/figures.js";
 import '../../App.css'
 import { Col, Row } from 'react-bootstrap';
 import movimiento from '../game/movimiento';
+import cardAPI from './cardAPI.js';
 
 //<FiguresByCard id='19'/>
 
 const FiguresByCard = (data: any) => {
-  const [state, setState] = useState<any>()
+  const [card, setCard] = useState<any>()
+
   useEffect(() => {
-    fetch("http://localhost:8080/api/cards/" + data.id)
-      .then(res => {
-        console.log(res.status)
-        return res.json()
-      })
-      .then(data => setState(data))
-      .catch(console.error)
+    cardAPI.getCardById(data.id)
+      .then((cd: any) => setCard(cd))
+      .catch((err) => console.log(err));
   }, [])
-  if (!state) { return <div>Loading...</div> }
-  else { console.log(movimiento(1, state)) }
+
+  if (!card) return <div>Loading...</div>
+  else console.log(movimiento(1, card))
+
   let ls: any[] = []
-  for (let i = 0; i < state.figures.length; i++) {
-    ls[i] = figures(state.figures[i].id - 1)
+  for (let i = 0; i < card.figures.length; i++) {
+    ls[i] = figures(card.figures[i].id - 1)
   }
+
   return (
     <Row>
       {

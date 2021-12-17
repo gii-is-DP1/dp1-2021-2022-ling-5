@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Button, Col, Form, Row } from "react-bootstrap"
 import { propTypes } from "react-bootstrap/esm/Image"
 import './createUser.css'
+import userAPI from "./userAPI"
 
 const EditUser = () => {
     const [player, setPlayer] = useState<any>({
@@ -14,23 +15,19 @@ const EditUser = () => {
     })
 
     const newUser = () => {
+
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(player)
+            headers: { 'Content-Type': 'application/json' }
+        }
 
-        };
-        fetch(`http://localhost:8080/api/roles/1/figures/1/players`, requestOptions)
-            .then(res => {
-                res.json().then((pl) => {
-                    console.log(pl);
-                    fetch('http://localhost:8080/api/players/'+pl.id+'/addfigures',requestOptions)
-                      .then(res=>console.log(res))
-                      .catch(error =>console.log(error));
-                    window.location.href = '/users';
-                }).catch(e => console.log(e));
-            })
-            .catch(error => console.log(error));
+        userAPI.addNewUser(player, "player").then((pl: any) => {
+            fetch('http://localhost:8080/api/players/' + pl.id + '/addfigures', requestOptions)
+                .then(res => console.log(res))
+                .catch(error => console.log(error));
+            window.location.href = '/users';
+        }).catch(err => console.log(err));
+
     }
 
     return (
