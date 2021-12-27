@@ -3,8 +3,11 @@ import React, { useEffect, useState } from 'react'
 import figures from '../../images/figures/figures'
 import icons from '../../images/icons/icons'
 import './principalNavbar.css'
+import Share from "./Share"
 
 const PrincipalNavbar = () => {
+    const [modalShow, setModalShow] = useState<boolean>(false);
+
     var role = "admin";
     if (role === "player") {
         return <Navbar expand="lg">
@@ -37,7 +40,7 @@ const PrincipalNavbar = () => {
                             className="d-inline-block align-top"
                             alt="React Bootstrap logo"
                         /></Nav.Link>
-                        <Nav.Link id="btn-share"><img
+                        <Nav.Link id="btn-share" onClick={() => setModalShow(true)}><img
                             src={icons(2)}
                             width="30"
                             height="30"
@@ -46,6 +49,7 @@ const PrincipalNavbar = () => {
                         /></Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
+                <Share show={modalShow} onHide={setModalShow(false)} />
             </Container>
         </Navbar>
     } else if (role === "admin") {
@@ -79,7 +83,7 @@ const PrincipalNavbar = () => {
                             className="d-inline-block align-top"
                             alt="React Bootstrap logo"
                         /></Nav.Link>
-                        <Nav.Link id="btn-share"><img
+                        <Nav.Link id="btn-share" onClick={() => setModalShow(true)}><img
                             src={icons(2)}
                             width="30"
                             height="30"
@@ -88,6 +92,7 @@ const PrincipalNavbar = () => {
                         /></Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
+                <Share show={modalShow} onHide={() => setModalShow(false)} />
             </Container>
         </Navbar>
     } else {
