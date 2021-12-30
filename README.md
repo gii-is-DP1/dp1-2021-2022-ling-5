@@ -11,15 +11,15 @@ https://youtu.be/OJ6e4XmHfgs
 
 https://dev.mysql.com/downloads/installer/
 
-After downloading and installing MySQL, enter from the terminal in the folder where it is installed:
+Once MySQL has been downloaded and installed, in the folder where it is installed, enter:
 
 `cd C:\Program Files\MySQL\MySQL Server 8.0\bin`
 
-type: `mysql -u root -p`
+Use the MySQL command line with the following options: `mysql -u root -p`
 
-After this, the terminal will prompt you for the password that you generated earlier in the installation and the MySQL console will be opened.
+The terminal will then ask you for the password you generated during the installation, and the MySQL console will be opened.
 
-First, we have to create de database and the user with privileges:
+It is first necessary to create the database and the user with access to it:
 
 `create database dobbledb;`
 
@@ -29,13 +29,13 @@ First, we have to create de database and the user with privileges:
 
 ## Other prerequisites
 
-In order to run the project, Maven and Java must be previously installed on the PC (they had to be installed for the petclinic project).
+It is required that Maven and Java be installed on the PC in order to run the project (they had to be installed for the petclinic project).
 
-Node.js, npm and yarn will also need to be installed for the React frontend.
+The React frontend also requires Node.js, npm, and yarn to be installed.
 
 Node.js and npm: https://nodejs.org/en/download/
 
-After the installation, the execution of these commands should tell us the version of them:
+Following the installation, we should be able to determine the version of these programs by executing these commands:
 
 `node -v` `npm -v`
 
@@ -43,7 +43,7 @@ Yarn: `npm install --global yarn`
 
 ## Run the project
 
-In the main project folder, we type:
+We type the following in the main project folder:
 
 `mvn clean install`
 
@@ -55,4 +55,4 @@ In another terminal:
 
 `yarn start`
 
-Finally we will have our backend server running on port 8000 and React (frontend) on port 3000. 
+Finally, our backend server will run on port 8000 and React (frontend) on port 3000.
