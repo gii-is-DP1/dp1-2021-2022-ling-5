@@ -9,7 +9,7 @@ import gameAPI from '../game/gameAPI';
 
 function NewGame() {
 
-  var idplayer = 1;
+  const [idPlayer, setIdPlayer] = useState<number>();
   var fechainicio = Date.now;
 
   const [game, setGame] = useState<any>({
@@ -17,7 +17,7 @@ function NewGame() {
     state: "UNSTARTED",
     startTime: fechainicio,
     endTime: null,
-    creator: idplayer,
+    creator: idPlayer,
   });
 
   const [minigame, setMinigame] = useState<string>();
@@ -43,7 +43,15 @@ function NewGame() {
 
   }
 
+  useEffect(() => {
+    var userData = localStorage.getItem("userData");
+    if (userData !== null) {
+      setIdPlayer(JSON.parse(userData).id);
+      setGame({ ...game, creator: JSON.parse(userData).id })
+    }
+  }, [])
 
+  if (!idPlayer) return <></>
   return (
 
     <div className="NewGame-header">

@@ -8,31 +8,44 @@ import { faCross, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const Friends = () => {
 
-    const playerId = 1
+    const [playerId, setPlayerId] = useState<number>();
     const [friends, setFriends] = useState<any[]>([]);
 
     useEffect(() => {
-        const friendsList: any[] = []
-        friendshipAPI.getAllFriendshipsByRequester(playerId)
-            .then((frs: any[]) => {
-                for (let i = 0; i < frs.length; i++) {
-                    const fr = frs[i];
-                    if (fr.state === "FRIENDS") {
-                        console.log(fr)
-                        friendsList.push(fr)
-                    }
-                    friendshipAPI.getAllFriendshipsByRequested(playerId)
-                        .then((frs: any[]) => {
-                            for (let i = 0; i < frs.length; i++) {
-                                const fr = frs[i];
-                                if (fr.state === "FRIENDS") {
-                                    friendsList.push(fr)
+        var userData: any = localStorage.getItem("userData");
+        var id = 0;
+        if (userData !== null) {
+            userData = JSON.parse(userData);
+            if (userData !== null) {
+                setPlayerId(userData.id)
+                id = userData.id
+            }
+        }
+        if (id !== 0) {
+            const friendsList: any[] = []
+            friendshipAPI.getAllFriendshipsByRequester(id)
+                .then((frs: any[]) => {
+                    for (let i = 0; i < frs.length; i++) {
+                        const fr = frs[i];
+                        if (fr.state === "FRIENDS") {
+                            console.log(fr)
+                            friendsList.push(fr)
+                        }
+                        friendshipAPI.getAllFriendshipsByRequested(id)
+                            .then((frs: any[]) => {
+                                for (let i = 0; i < frs.length; i++) {
+                                    const fr = frs[i];
+                                    if (fr.state === "FRIENDS") {
+                                        console.log(fr)
+                                        friendsList.push(fr)
+                                    }
                                 }
-                            }
-                            setFriends(friendsList)
-                        }).catch(err => console.log(err));
-                }
-            }).catch(err => console.log(err));
+                                setFriends(friendsList)
+                            }).catch(err => console.log(err));
+                    }
+                }).catch(err => console.log(err));
+        }
+
     }, [])
     if (!friends) return <></>
     return <Container id="container">

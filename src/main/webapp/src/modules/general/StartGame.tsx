@@ -4,9 +4,6 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import gameAPI from '../game/gameAPI';
 
-
-
-
 function StartGame(props: any) {
   const gameId: any = useParams();
   const { id } = gameId;
@@ -31,9 +28,9 @@ function StartGame(props: any) {
         </Form.Group>
 
         <div>
-          {players.map((el, index) => {
-            return <p key={index}>Player {el.id} {el.nickname}</p>
-          })}
+          {players.map((el, index) =>
+            <p key={index}>Player {el.id} {el.nickname}</p>
+          )}
 
         </div>
 
