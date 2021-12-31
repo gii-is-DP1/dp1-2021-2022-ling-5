@@ -1,5 +1,5 @@
-const userAPI = {
 
+const userAPI = {
     getUser: function (id: any, role: string) {
         let roleId = "";
         if (role.toLowerCase() === "player") {
