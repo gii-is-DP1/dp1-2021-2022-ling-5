@@ -1,0 +1,40 @@
+import { useEffect, useState } from "react";
+import { Button, Modal } from "react-bootstrap";
+import figureImg from '../../images/figures/figures';
+import userAPI from "./userAPI";
+
+
+const EditFigure = (props: any) => {
+
+    const edit = (id: number) => {
+        userAPI.updateFigureUser(props.idUser, id, "player")
+            .then((res) => window.location.href = '/users')
+            .catch((err) => console.log(err));
+    }
+
+    return (
+        <Modal
+            show={props.show}
+            onHide={props.onHide}
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    Edit figure
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+
+                {[...Array(57)].map((el, ind) =>
+                    <a style={{ cursor: "pointer" }} onClick={() => edit(ind + 1)} key={ind}><img src={figureImg(ind)} width="50" height="50" alt="" /></a>
+                )}
+
+            </Modal.Body>
+            <Modal.Footer>
+                <Button onClick={props.onHide}>Close</Button>
+            </Modal.Footer>
+        </Modal >
+    )
+}
+export default EditFigure;

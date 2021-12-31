@@ -1,6 +1,6 @@
 package com.example.accessingdatamysql.user;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,8 +14,10 @@ import com.example.accessingdatamysql.figure.Figure;
 import com.example.accessingdatamysql.friendship.Friendship;
 import com.example.accessingdatamysql.game.Game;
 import com.example.accessingdatamysql.modification.Modification;
+import com.example.accessingdatamysql.playerfigures.PlayerFigures;
 import com.example.accessingdatamysql.result.Result;
 import com.example.accessingdatamysql.role.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,25 +31,29 @@ public class Player extends Account {
   private PlayerState playerState;
 
   @OneToMany(mappedBy = "player", cascade = CascadeType.REMOVE)
-  private Collection<Result> results;
+  private List<Result> results;
+
+  @JsonIgnore
+  @OneToMany(mappedBy = "figure", cascade = CascadeType.REMOVE)
+  private List<PlayerFigures> playerFigures;
 
   @ManyToMany
-  private Collection<Game> gamesPlayed;
+  private List<Game> gamesPlayed;
 
   @ManyToMany
-  private Collection<Achievement> achievements;
+  private List<Achievement> achievements;
 
   @OneToMany(mappedBy = "requester", cascade = CascadeType.REMOVE)
-  private Collection<Friendship> startToFollow;
+  private List<Friendship> startToFollow;
 
   @OneToMany(mappedBy = "requested", cascade = CascadeType.REMOVE)
-  private Collection<Friendship> requestedToFollow;
+  private List<Friendship> requestedToFollow;
 
   @ManyToOne
   private Role role;
 
   @OneToMany(mappedBy = "player", cascade = CascadeType.REMOVE)
-  private Collection<Modification> modifications;
+  private List<Modification> modifications;
 
   @ManyToOne
   private Figure figure;

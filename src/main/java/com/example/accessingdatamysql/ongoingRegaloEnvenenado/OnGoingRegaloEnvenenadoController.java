@@ -28,7 +28,7 @@ public class OnGoingRegaloEnvenenadoController {
     private CardService cardService;
 
     // curl -H "Content-Type: application/json" -X POST
-    // localhost:8080/api/ongoingTorreInfernal -d "{\"gameId\":1}"
+    // localhost:8080/api/ongoingRegaloEnvenenado -d "{\"gameId\":1}"
     @PostMapping(value = "/ongoingRegaloEnvenenado")
     public @ResponseBody OnGoingRegaloEnvenenado createGame(@RequestBody Request request) {
         onGoingRegaloEnvenenadoService.createGame(request.getGameId(), gameService.findGame(request.getGameId()).get(),
@@ -62,8 +62,9 @@ public class OnGoingRegaloEnvenenadoController {
     }
 
     @PutMapping(value = "/ongoingRegaloEnvenenado/{gameId}/card")
-    public @ResponseBody OnGoingRegaloEnvenenado newCenterCard(@PathVariable Long gameId) {
-        onGoingRegaloEnvenenadoService.newCenterCard(gameId);
+    public @ResponseBody OnGoingRegaloEnvenenado newCenterCard(@RequestBody RequestNewCard request,
+            @PathVariable Long gameId) {
+        onGoingRegaloEnvenenadoService.newCenterCard(gameId, request);
         return onGoingRegaloEnvenenadoService.getGame(gameId);
     }
 

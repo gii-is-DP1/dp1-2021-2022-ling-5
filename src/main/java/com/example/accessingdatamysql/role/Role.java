@@ -1,6 +1,6 @@
 package com.example.accessingdatamysql.role;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -22,14 +22,14 @@ public class Role extends NamedEntity {
 
     @JsonIgnore
     @OneToMany(mappedBy = "role")
-    private Collection<Player> players;
+    private List<Player> players;
 
     @JsonIgnore
     @OneToMany(mappedBy = "role")
-    private Collection<Admin> admins;
+    private List<Admin> admins;
 
     @ManyToMany
-    private Collection<Privilege> privileges;
+    private List<Privilege> privileges;
 
     public Role() {
         this.name = "";

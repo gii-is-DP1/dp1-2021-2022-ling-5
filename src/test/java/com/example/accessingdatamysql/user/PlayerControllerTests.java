@@ -90,14 +90,9 @@ public class PlayerControllerTests {
     }
 
     @Test
-    void testGetByRole() throws Exception {
-        mockMvc.perform(get("/api/roles/{roleId}/players", TEST_ROLE_ID)).andExpect(status().isOk());
-    }
-
-    @Test
     void testCreationRole() throws Exception {
         Player player = new Player("name2", "surname2", "password2", "email2", "nickname2", PlayerState.NO_PLAY);
-        mockMvc.perform(post("/api/roles/{roleId}/figures/{figureId}/players", TEST_ROLE_ID, TEST_FIGURE_ID)
+        mockMvc.perform(post("/api/players")
                 .contentType("application/json").content(objectMapper.writeValueAsString(player)))
                 .andExpect(status().isOk());
     }
@@ -137,12 +132,6 @@ public class PlayerControllerTests {
     @Test
     void testUpdateFigurePlayer() throws Exception {
         mockMvc.perform(put("/api/figures/{figureId}/players/{playerId}", TEST_FIGURE_ID, TEST_PLAYER_ID))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void testUpdateRolePlayer() throws Exception {
-        mockMvc.perform(put("/api/roles/{roleId}/players/{playerId}", TEST_ROLE_ID, TEST_PLAYER_ID))
                 .andExpect(status().isOk());
     }
 }

@@ -78,14 +78,9 @@ public class AdminControllerTests {
     }
 
     @Test
-    void testGetByRole() throws Exception {
-        mockMvc.perform(get("/api/roles/{roleId}/admins", TEST_ROLE_ID)).andExpect(status().isOk());
-    }
-
-    @Test
     void testCreationRole() throws Exception {
         Admin admin = new Admin("name2", "surname2", "password2", "email2", "nickname2");
-        mockMvc.perform(post("/api/roles/{roleId}/figures/{figureId}/admins", TEST_ROLE_ID, TEST_FIGURE_ID)
+        mockMvc.perform(post("/api/admins")
                 .contentType("application/json").content(objectMapper.writeValueAsString(admin)))
                 .andExpect(status().isOk());
     }
@@ -111,12 +106,6 @@ public class AdminControllerTests {
     @Test
     void testUpdateFigureAdmin() throws Exception {
         mockMvc.perform(put("/api/figures/{figureId}/admins/{adminId}", TEST_FIGURE_ID, TEST_ADMIN_ID))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void testUpdateRoleAdmin() throws Exception {
-        mockMvc.perform(put("/api/roles/{roleId}/admins/{adminId}", TEST_ROLE_ID, TEST_ADMIN_ID))
                 .andExpect(status().isOk());
     }
 }

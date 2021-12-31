@@ -1,6 +1,7 @@
 package com.example.accessingdatamysql.game;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import com.example.accessingdatamysql.minigame.Minigame;
@@ -36,7 +37,17 @@ public class GameController {
     public @ResponseBody Game addNewGame(@RequestBody Game game) {
         game.setMinigames(new ArrayList<Minigame>());
         game.setPlayers(new ArrayList<Player>());
+        List<Player> players = game.getPlayers();
+        players.add(this.playerService.findPlayer(game.getCreator()).get());
+        game.setPlayers(players);
+        Player creator = this.playerService.findPlayer(game.getCreator()).get();
+        if (creator.getGamesPlayed() == null) {
+            creator.setGamesPlayed(new ArrayList<Game>());
+        }
+        List<Game> gamesPlayed = creator.getGamesPlayed();
         game.setResults(new ArrayList<Result>());
+        gamesPlayed.add(game);
+        creator.setGamesPlayed(gamesPlayed);
 
         return this.gameService.saveGame(game);
     }
@@ -53,8 +64,10 @@ public class GameController {
             if (game.get().getPlayers() == null)
                 game.get().setPlayers(new ArrayList<Player>());
 
-            player.get().getGamesPlayed().add(game.get());
-            game.get().getPlayers().add(player.get());
+            if (!player.get().getGamesPlayed().contains(game.get()))
+                player.get().getGamesPlayed().add(game.get());
+            if (!game.get().getPlayers().contains(player.get()))
+                game.get().getPlayers().add(player.get());
         }
         return this.gameService.saveGame(game.get());
     }
@@ -71,8 +84,10 @@ public class GameController {
             if (game.get().getMinigames() == null)
                 game.get().setMinigames(new ArrayList<Minigame>());
 
-            minigame.get().getGames().add(game.get());
-            game.get().getMinigames().add(minigame.get());
+            if (!minigame.get().getGames().contains(game.get()))
+                minigame.get().getGames().add(game.get());
+            if (!game.get().getMinigames().contains(minigame.get()))
+                game.get().getMinigames().add(minigame.get());
 
         }
         return this.gameService.saveGame(game.get());
@@ -86,6 +101,16 @@ public class GameController {
     @GetMapping(value = "/games/{id}")
     public @ResponseBody Optional<Game> getGameById(@PathVariable Long id) {
         return this.gameService.findGame(id);
+    }
+
+    @GetMapping(value = "/games/{id}/players")
+    public @ResponseBody List<Player> getPlayersByGame(@PathVariable Long id) {
+        return this.gameService.findGame(id).get().getPlayers();
+    }
+
+    @GetMapping(value = "/games/names/{name}")
+    public @ResponseBody Optional<Game> getGameByName(@PathVariable String name) {
+        return this.gameService.findGameByName(name);
     }
 
     @DeleteMapping(value = "/games/{id}")
