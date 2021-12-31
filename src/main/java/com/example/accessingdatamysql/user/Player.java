@@ -43,9 +43,11 @@ public class Player extends Account {
   @ManyToMany
   private List<Achievement> achievements;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "requester", cascade = CascadeType.REMOVE)
   private List<Friendship> startToFollow;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "requested", cascade = CascadeType.REMOVE)
   private List<Friendship> requestedToFollow;
 
