@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Form, Row } from "react-bootstrap";
-import authApi from "../users/authAPI";
-import token from "../users/token";
+import authApi from "../user/authAPI";
+import token from "../user/token";
 
 class Login extends React.Component<{}, {nickname: string, password: string}>{
     constructor(props: any){
