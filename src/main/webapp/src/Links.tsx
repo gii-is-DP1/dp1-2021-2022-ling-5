@@ -15,8 +15,9 @@ import AdminNavbar from "./modules/general/AdminNavbar";
 import UsersCRUD from "./modules/user/UsersCRUD";
 import StadisticsNavbar from "./modules/general/StadisticsNavbar";
 import CreateUser from "./modules/user/CreateUser";
-import UserPoints from "./modules/playedGames/userPoints";
+import UserPoints from "./modules/playedGames/UserPoints";
 import BestAndWorstFigure from "./modules/figure/BestAndWorstFigure";
+import Friends from "./modules/friendship/Friends";
 
 const Links = () => {
     return <Router>
@@ -75,7 +76,7 @@ const Links = () => {
             </Route>
             <Route path='/friends'>
                 <div id="body" className="d-flex"><ProfileNavbar />
-                    <Patata /></div>
+                    <Friends /></div>
             </Route>
             <Route path='/gamesProgress'>
                 <div id="body" className="d-flex">

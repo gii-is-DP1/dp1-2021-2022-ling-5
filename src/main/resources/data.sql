@@ -18,6 +18,7 @@ insert into modification values(1, 'UNO', 'uno','2021-01-01 01:01:01','cambio1',
 -- Load of friendship
 
 insert into friendship values(1, 1, 1, 2);
+insert into friendship values(2, 0, 3, 1);
 
 -- Load of game
 
