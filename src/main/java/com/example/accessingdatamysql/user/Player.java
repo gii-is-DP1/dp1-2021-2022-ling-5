@@ -69,6 +69,14 @@ public class Player extends Account {
     this.nickname = nickname;
     this.playerState = playerState;
   }
+  public Player(String name, String surname, String password, String email, String nickname){
+    this.name = name;
+    this.surname = surname;
+    this.password = password;
+    this.email = email;
+    this.nickname = nickname;
+    this.playerState = PlayerState.NO_PLAY;
+  }
 
   @Override
   public String toString() {

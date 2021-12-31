@@ -9,6 +9,8 @@ import JoinGame from "./modules/general/JoinGame";
 import PlayedGames from './modules/games/playedGames';
 import StartGame from "./modules/general/StartGame";
 import AdminPlayedGames from "./modules/games/adminPlayedGames";
+import Login from "./modules/general/login";
+import Register from "./modules/general/register";
 
 const Links = () => {
     return <Router>
@@ -16,6 +18,12 @@ const Links = () => {
         <Switch>
             <Route exact path='/'>
                 <App />
+            </Route>
+            <Route path="/login">
+                <Login />
+            </Route>
+            <Route path="/register">
+                <Register />
             </Route>
             <Route path='/newGame'>
                 <NewGame />
