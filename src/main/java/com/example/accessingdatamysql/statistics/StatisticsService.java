@@ -1,9 +1,12 @@
 package com.example.accessingdatamysql.statistics;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -15,9 +18,12 @@ import com.example.accessingdatamysql.playerfigures.PlayerFiguresService;
 import com.example.accessingdatamysql.result.Result;
 import com.example.accessingdatamysql.result.ResultController;
 import com.example.accessingdatamysql.result.ResultService;
+import com.example.accessingdatamysql.user.Player;
+import com.example.accessingdatamysql.user.PlayerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,6 +34,9 @@ public class StatisticsService {
 
     @Autowired
     private PlayerFiguresService playerFiguresService;
+    
+    @Autowired
+    private PlayerService playerService;
 
     public List<Integer> pointsByMinigames(Long id) {
         List<Result> results = resultService.findAllResultsByPlayer(id);
@@ -77,6 +86,32 @@ public class StatisticsService {
         res.add(min.getFigure());
         return res;
 
+    }
+
+    public List<Entry<Long, Integer>> getTop10Ranking(){
+        Map<Long, Integer> map1 = new HashMap<Long, Integer>();
+        for(Player p: playerService.findAllPlayers()){
+            Integer points = pointsByMinigames(p.getId()).stream().collect(Collectors.summingInt(Integer::intValue));
+            map1.put(p.getId(), points);
+        }
+        List<Entry<Long, Integer>> result = map1.entrySet().stream().sorted(Map.Entry.comparingByValue())
+            .limit(10).collect(Collectors.toList());
+        Collections.reverse(result);
+        return result;
+    }
+
+    public Pair<Integer, Integer> getPositionRanking(Long playerId){
+        Map<Long, Integer> map1 = new HashMap<Long, Integer>();
+        for(Player p: playerService.findAllPlayers()){
+            Integer points = pointsByMinigames(p.getId()).stream().collect(Collectors.summingInt(Integer::intValue));
+            map1.put(p.getId(), points);
+        }
+        List<Entry<Long, Integer>> ranking = map1.entrySet().stream().sorted(Map.Entry.comparingByValue())
+            .collect(Collectors.toList());
+        Collections.reverse(ranking);
+        Entry<Long, Integer> entry = ranking.stream().filter(e->e.getKey().equals(playerId)).findAny().get();
+        Integer position = ranking.indexOf(entry);
+        return Pair.of(position+1, entry.getValue());
     }
 
 }
