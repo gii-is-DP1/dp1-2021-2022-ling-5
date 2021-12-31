@@ -8,12 +8,14 @@ import NewGame from "./modules/general/NewGame";
 import JoinGame from "./modules/general/JoinGame";
 import PlayedGames from './modules/game/playedGames';
 import StartGame from "./modules/general/StartGame";
+import Login from "./modules/general/login";
+import Register from "./modules/general/register";
 import AdminPlayedGames from "./modules/game/adminPlayedGames";
 import AdminNavbar from "./modules/general/AdminNavbar";
 import UsersCRUD from "./modules/user/UsersCRUD";
 import StadisticsNavbar from "./modules/general/StadisticsNavbar";
 import CreateUser from "./modules/user/CreateUser";
-import UserPoints from "./modules/playedGames/UserPoints";
+import UserPoints from "./modules/playedGames/userPoints";
 import BestAndWorstFigure from "./modules/figure/BestAndWorstFigure";
 
 const Links = () => {
@@ -22,6 +24,12 @@ const Links = () => {
         <Switch>
             <Route exact path='/'>
                 <App />
+            </Route>
+            <Route path="/login">
+                <Login />
+            </Route>
+            <Route path="/register">
+                <Register />
             </Route>
             <Route path='/newGame'>
                 <NewGame />

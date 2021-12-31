@@ -1,21 +1,29 @@
 
-function loginUser(formData:FormData){
-    
-    const requestOptions = {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(formData)
-    };
-        return new Promise(function(resolve,reject){
-
-        
-        fetch(`http://localhost:8080/api/login`, requestOptions)
-        .then(res=>{
-            resolve(res.json())
-        })
-        .catch(error=> reject(console.error))
-})
-    
+const authApi = {
+    login: function(formData: any){
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(formData)
+        };
+        return new Promise<any>(function(resolve, reject){
+            fetch('http://localhost:8080/api/login', requestOptions)
+            .then(res => resolve(res.json()))
+            .catch(error => reject(alert(error.message)));
+        });
+    },
+    register: function(formData: any){
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(formData)
+        };
+        return new Promise<any>(function(resolve, reject){
+            fetch('http://localhost:8080/api/register', requestOptions)
+            .then(res => resolve(res.json()))
+            .catch(error => reject(alert(error.message)));
+        });
+    }
 }
 
-export default loginUser
+export default authApi;
