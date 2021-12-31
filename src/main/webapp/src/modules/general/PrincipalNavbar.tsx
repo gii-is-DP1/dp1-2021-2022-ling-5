@@ -5,27 +5,33 @@ import icons from '../../images/icons/icons'
 import './principalNavbar.css'
 import Share from "./Share"
 import userAPI from "../user/userAPI"
+import token from "../user/token"
 
 const PrincipalNavbar = () => {
-    var id = 1;
-    var role = "player";
-
     const [modalShow, setModalShow] = useState<boolean>(false);
     const [username, setUsername] = useState<string>("");
     const [figure, setFigure] = useState<number>(0);
+    var id = 0;
+    var role = null;
 
     useEffect(() => {
-        userAPI.getUser(id, role).then((user: any) => {
-            setUsername(user.nickname)
-            setFigure(user.figure.id - 1)
-        }).catch(err => console.log(err));
+        var userData: any = localStorage.getItem("userData");
+        if (userData !== null) userData = JSON.parse(userData)
+        id = userData.id
+        role = localStorage.getItem("rol")
+        if (role !== null && id !== 0) {
+            userAPI.getUser(id, role).then((user: any) => {
+                setUsername(user.nickname)
+                setFigure(user.figure.id - 1)
+            }).catch(err => console.log(err));
+        }
     }, [])
 
-    const src = role === "admin" ? icons(3) : figures(figure);
-    const alt = role === "admin" ? "Dobble logo" : "Profile image";
-    const nickname = role === "admin" ? "Admin" : username;
-    const href1 = role === "admin" ? "/gamesProgress" : "profile";
-    const namehref1 = role === "admin" ? "Info" : "Profile";
+    const src = role === "Admin" ? icons(3) : figures(figure);
+    const alt = role === "Admin" ? "Dobble logo" : "Profile image";
+    const nickname = role === "Admin" ? "Admin" : username;
+    const href1 = role === "Admin" ? "/gamesProgress" : "profile";
+    const namehref1 = role === "Admin" ? "Info" : "Profile";
 
     if (!username && !figure) return <></>
     return <Navbar expand="lg">
@@ -39,7 +45,7 @@ const PrincipalNavbar = () => {
             /></a>
             <NavDropdown title={nickname} id="img">
                 <NavDropdown.Item href={href1}>{namehref1}</NavDropdown.Item>
-                <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => { token.logout(); window.location.href = "/"; }}>Logout</NavDropdown.Item>
             </NavDropdown>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
