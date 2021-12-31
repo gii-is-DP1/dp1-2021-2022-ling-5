@@ -14,8 +14,10 @@ import com.example.accessingdatamysql.figure.Figure;
 import com.example.accessingdatamysql.friendship.Friendship;
 import com.example.accessingdatamysql.game.Game;
 import com.example.accessingdatamysql.modification.Modification;
+import com.example.accessingdatamysql.playerfigures.PlayerFigures;
 import com.example.accessingdatamysql.result.Result;
 import com.example.accessingdatamysql.role.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -30,6 +32,10 @@ public class Player extends Account {
 
   @OneToMany(mappedBy = "player", cascade = CascadeType.REMOVE)
   private List<Result> results;
+
+  @JsonIgnore
+  @OneToMany(mappedBy = "figure", cascade = CascadeType.REMOVE)
+  private List<PlayerFigures> playerFigures;
 
   @ManyToMany
   private List<Game> gamesPlayed;

@@ -2,6 +2,7 @@ import Button from 'react-bootstrap/Button';
 import { Form } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import gameAPI from '../game/gameAPI';
 
 
 
@@ -9,25 +10,15 @@ import { useParams } from 'react-router';
 function StartGame(props: any) {
   const gameId: any = useParams();
   const { id } = gameId;
-  const [players, SetPlayers] = useState<any[]>([]);
+  const [players, setPlayers] = useState<any[]>([]);
+
   useEffect(() => {
-
-    const requestOptions = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    }
-
-    fetch(`http://localhost:8080/api/players/games/${id}`, requestOptions)
-      .then(res => {
-        res.json().then((playersSearched: any) => {
-          SetPlayers(playersSearched);
-        }).catch(e => console.log(e));
-        window.location.href = '/startGame'
-      })
-      .catch(error => console.log(error));
-
+    gameAPI.getPlayersByGame(id)
+      .then((pls: any[]) => setPlayers(pls))
+      .catch((err) => console.log(err));
   }, [])
 
+  if (!players) return <p>Loading...</p>
   return (
 
     <div className="NewGame-header">
@@ -39,16 +30,16 @@ function StartGame(props: any) {
 
         </Form.Group>
 
-        <Button className="Button" size="lg" variant="dark">
-          START
-        </Button>
-
         <div>
-          {[...Array(players.length)].map((el, index) => {
-            return <p key={index}>Player {players[index].id} {players[index].nickname}</p>
+          {players.map((el, index) => {
+            return <p key={index}>Player {el.id} {el.nickname}</p>
           })}
 
         </div>
+
+        <Button className="Button" size="lg" variant="dark">
+          START
+        </Button>
       </Form>
     </div>
 

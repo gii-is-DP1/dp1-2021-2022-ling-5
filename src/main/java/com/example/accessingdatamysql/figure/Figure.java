@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import com.example.accessingdatamysql.achievement.Achievement;
 import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.model.NamedEntity;
+import com.example.accessingdatamysql.playerfigures.PlayerFigures;
 import com.example.accessingdatamysql.user.Admin;
 import com.example.accessingdatamysql.user.Player;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -40,6 +41,10 @@ public class Figure extends NamedEntity {
     @JsonIgnore
     @ManyToMany
     private Collection<Card> cards;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "figure", cascade = CascadeType.REMOVE)
+    private Collection<PlayerFigures> playerFigures;
 
     public Figure() {
         this.name = "";

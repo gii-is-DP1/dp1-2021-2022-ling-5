@@ -4,37 +4,26 @@ import { Form } from 'react-bootstrap';
 
 import './NewGame.css';
 import { useState } from 'react';
+import gameAPI from '../game/gameAPI';
 
 
 function JoinGame() {
   const [namegame, setNamegame] = useState<string>();
-  var idplayer = 1;
+  const [game, setGame] = useState<String | null>();
+  var idplayer = 2;
 
   function joinGame() {
-    const requestOptions = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+    if (namegame) {
+      gameAPI.getGameByName(namegame)
+        .then((game: any) => {
+          setGame(game);
+          if (game !== null) {
+            gameAPI.addNewPlayerToGame(game.id, idplayer)
+              .then((res) => window.location.href = `/startGame/${game.id}`)
+              .catch(err => console.log(err));
+          }
+        }).catch((err) => console.log(err));
     }
-    var gameId = 0;
-    return new Promise(function (resolve, reject) {
-      fetch(`http://localhost:8080/api/games/names/${namegame}`, requestOptions)
-        .then(res => {
-          res.json().then((gameSearched: any) => {
-            gameId = gameSearched.id;
-            const requestOptions = {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' }
-            }
-
-            fetch(`/games/${gameId}/players/${idplayer}`, requestOptions).then(res => {
-              resolve(res.json())
-            })
-              .catch(error => reject(console.error));
-            window.location.href = `/startGame/${gameId}`
-          })
-            .catch(error => reject(console.error))
-        })
-    })
   }
 
   return (
@@ -51,6 +40,8 @@ function JoinGame() {
         <Button className="Button" size="lg" variant="dark" onClick={() => joinGame()}>
           JOIN
         </Button>
+
+        {game === null ? <p>This game doesn't exist</p> : ""}
       </Form>
     </div>
 

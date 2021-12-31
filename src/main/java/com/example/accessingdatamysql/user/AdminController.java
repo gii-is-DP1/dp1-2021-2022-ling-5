@@ -1,7 +1,6 @@
 package com.example.accessingdatamysql.user;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import com.example.accessingdatamysql.figure.Figure;
@@ -33,13 +32,12 @@ public class AdminController {
     @Autowired
     private RoleService roleService;
 
-    @PostMapping(value = "/roles/{roleId}/figures/{figureId}/admins") // Map ONLY POST Requests
-    public @ResponseBody Admin addNewAdmin(@RequestBody Admin admin, @PathVariable Long roleId,
-            @PathVariable Long figureId) {
+    @PostMapping(value = "/admins") // Map ONLY POST Requests
+    public @ResponseBody Admin addNewAdmin(@RequestBody Admin admin) {
         admin.setModifications(new ArrayList<Modification>());
 
-        Optional<Role> role = this.roleService.findRole(roleId);
-        Optional<Figure> figure = this.figureService.findFigure(figureId);
+        Optional<Role> role = this.roleService.findRole(2L);
+        Optional<Figure> figure = this.figureService.findFigure(1L);
         if (figure.isPresent() && role.isPresent()) {
             admin.setFigure(figure.get());
             admin.setRole(role.get());
@@ -51,11 +49,6 @@ public class AdminController {
     @GetMapping(value = "/admins")
     public @ResponseBody Iterable<Admin> getAllAdmins() {
         return this.adminService.findAllAdmins();
-    }
-
-    @GetMapping(value = "/roles/{roleId}/admins")
-    public @ResponseBody List<Admin> getAllAdminsByRole(@PathVariable Long roleId) {
-        return this.adminService.findAllAdminsByRole(roleId);
     }
 
     @GetMapping(value = "/admins/{id}")
@@ -72,12 +65,6 @@ public class AdminController {
     @DeleteMapping(value = "/admins")
     public @ResponseBody String deleteAllAdmins() {
         this.adminService.deleteAllAdmins();
-        return "Deleted all";
-    }
-
-    @DeleteMapping(value = "/roles/{roleId}/admins")
-    public @ResponseBody String deleteAllAdminsByRole(@PathVariable Long roleId) {
-        this.adminService.deleteAllAdminsByRole(roleId);
         return "Deleted all";
     }
 
@@ -104,20 +91,5 @@ public class AdminController {
                 return "Admin not found";
             }
         }).orElse("Figure not found");
-    }
-
-    @PutMapping(value = "/roles/{roleId}/admins/{adminId}")
-    public @ResponseBody String updateRoleAdmin(@PathVariable Long adminId, @PathVariable Long roleId) {
-        return this.roleService.findRole(roleId).map(role -> {
-            Optional<Admin> optionalAdmin = this.adminService.findAdmin(adminId);
-            if (optionalAdmin.isPresent()) {
-                Admin admin = optionalAdmin.get();
-                admin.setRole(role);
-                this.adminService.saveAdmin(admin);
-                return "Saved";
-            } else {
-                return "Admin not found";
-            }
-        }).orElse("Role not found");
     }
 }
