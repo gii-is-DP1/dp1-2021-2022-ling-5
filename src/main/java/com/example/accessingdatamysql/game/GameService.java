@@ -7,6 +7,8 @@ import java.util.stream.StreamSupport;
 
 import javax.transaction.Transactional;
 
+import com.example.accessingdatamysql.user.PlayerService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,9 @@ public class GameService {
     public GameService(GameRepository gameRepository) {
         this.gameRepository = gameRepository;
     }
+
+    @Autowired
+    private PlayerService playerService;
 
     @Transactional
     public Game saveGame(Game game) throws DataAccessException {
@@ -45,5 +50,11 @@ public class GameService {
 
     public void deleteAllGames() {
         gameRepository.deleteAll();
+    }
+
+    public List<Game> getGamesByPlayer(Long playerId){
+        List<Game> games = this.findAllGames();
+        return games.stream().filter(g->g.getPlayers().contains(playerService.findPlayer(playerId).get()))
+            .collect(Collectors.toList());
     }
 }

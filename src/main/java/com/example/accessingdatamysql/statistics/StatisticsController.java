@@ -40,4 +40,9 @@ public class StatisticsController {
         return this.statisticsService.getPositionRanking(playerId);
     }
 
+    @GetMapping(value = "/statistics/playerpergame/{playerId}")
+    public @ResponseBody Map<Integer, Double> getFrecuencyPlayers(@PathVariable Long playerId){
+        return this.statisticsService.getFrecuenciaJugadores(playerId);
+    }
+
 }

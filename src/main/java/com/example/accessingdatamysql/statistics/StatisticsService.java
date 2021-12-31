@@ -13,6 +13,8 @@ import java.util.stream.StreamSupport;
 import javax.transaction.Transactional;
 
 import com.example.accessingdatamysql.figure.Figure;
+import com.example.accessingdatamysql.game.Game;
+import com.example.accessingdatamysql.game.GameService;
 import com.example.accessingdatamysql.playerfigures.PlayerFigures;
 import com.example.accessingdatamysql.playerfigures.PlayerFiguresService;
 import com.example.accessingdatamysql.result.Result;
@@ -37,6 +39,9 @@ public class StatisticsService {
     
     @Autowired
     private PlayerService playerService;
+
+    @Autowired
+    private GameService gameService;
 
     public List<Integer> pointsByMinigames(Long id) {
         List<Result> results = resultService.findAllResultsByPlayer(id);
@@ -112,6 +117,26 @@ public class StatisticsService {
         Entry<Long, Integer> entry = ranking.stream().filter(e->e.getKey().equals(playerId)).findAny().get();
         Integer position = ranking.indexOf(entry);
         return Pair.of(position+1, entry.getValue());
+    }
+
+    public Map<Integer, Double> getFrecuenciaJugadores(Long playerId){
+        Map<Integer, Double> result = new HashMap<Integer, Double>();
+        List<Game> playerGames = gameService.getGamesByPlayer(playerId);
+        Map<Integer, Double> total = new HashMap<Integer, Double>();
+        total.put(2, 0.0);
+        total.put(3, 0.0);
+        total.put(4, 0.0);
+        total.put(5, 0.0);
+        total.put(6, 0.0);
+        total.put(7, 0.0);
+        total.put(8, 0.0);
+        for(Game g: playerGames){
+            Integer numberPlayer = g.getPlayers().size();
+            Double n = total.get(numberPlayer);
+            total.put(numberPlayer, n+1.0);
+        }
+        total.entrySet().stream().forEach(e->result.put(e.getKey(), (e.getValue()/playerGames.size())*100));
+        return result;
     }
 
 }
