@@ -2,6 +2,7 @@ package com.example.accessingdatamysql.statistics;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,30 +94,33 @@ public class StatisticsService {
 
     }
 
-    public List<Entry<Long, Integer>> getTop10Ranking(){
-        Map<Long, Integer> map1 = new HashMap<Long, Integer>();
+    public List<Ranking> getTop10Ranking(){
+        Map<Player, Integer> map1 = new HashMap<Player, Integer>();
         for(Player p: playerService.findAllPlayers()){
             Integer points = pointsByMinigames(p.getId()).stream().collect(Collectors.summingInt(Integer::intValue));
-            map1.put(p.getId(), points);
+            map1.put(p, points);
         }
-        List<Entry<Long, Integer>> result = map1.entrySet().stream().sorted(Map.Entry.comparingByValue())
-            .limit(10).collect(Collectors.toList());
+        Comparator<Ranking> comparator = (Ranking r1, Ranking r2) -> r1.getPoints().compareTo(r2.getPoints());
+        List<Ranking> result = map1.entrySet().stream().map(e->new Ranking(e.getKey().getFigure().getName(),
+            e.getKey().getNickname(), e.getValue())).sorted(comparator).limit(10).collect(Collectors.toList());
         Collections.reverse(result);
         return result;
     }
 
-    public Pair<Integer, Integer> getPositionRanking(Long playerId){
-        Map<Long, Integer> map1 = new HashMap<Long, Integer>();
+    public Pair<Integer, Ranking> getPositionRanking(Long playerId){
+        Map<Player, Integer> map1 = new HashMap<Player, Integer>();
         for(Player p: playerService.findAllPlayers()){
             Integer points = pointsByMinigames(p.getId()).stream().collect(Collectors.summingInt(Integer::intValue));
-            map1.put(p.getId(), points);
+            map1.put(p, points);
         }
-        List<Entry<Long, Integer>> ranking = map1.entrySet().stream().sorted(Map.Entry.comparingByValue())
-            .collect(Collectors.toList());
+        Comparator<Ranking> comparator = (Ranking r1, Ranking r2) -> r1.getPoints().compareTo(r2.getPoints());
+        List<Ranking> ranking = map1.entrySet().stream().map(e->new Ranking(e.getKey().getFigure().getName(),
+            e.getKey().getNickname(), e.getValue())).sorted(comparator).collect(Collectors.toList());
         Collections.reverse(ranking);
-        Entry<Long, Integer> entry = ranking.stream().filter(e->e.getKey().equals(playerId)).findAny().get();
-        Integer position = ranking.indexOf(entry);
-        return Pair.of(position+1, entry.getValue());
+        Player player = playerService.findPlayer(playerId).get();
+        Ranking rank = ranking.stream().filter(r->r.getNickname().equals(player.getNickname())).findAny().get();
+        Integer position = ranking.indexOf(rank);
+        return Pair.of(position+1, rank);
     }
 
     public Map<Integer, Double> getFrecuenciaJugadores(Long playerId){
