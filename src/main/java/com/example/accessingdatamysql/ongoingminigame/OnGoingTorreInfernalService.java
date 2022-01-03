@@ -1,4 +1,4 @@
-package com.example.accessingdatamysql.ongoingRegaloEnvenenado;
+package com.example.accessingdatamysql.ongoingminigame;
 
 import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.game.Game;
@@ -8,17 +8,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Scope("singleton")
-public class OnGoingRegaloEnvenenadoService {
+public class OnGoingTorreInfernalService {
 
-  private static OnGoingRegaloEnvenenadoRepository ongoing = null;
+  private static OnGoingTorreInfernalRepository ongoing = null;
 
-  public OnGoingRegaloEnvenenadoService() {
+  public OnGoingTorreInfernalService() {
     if (ongoing == null) {
-      ongoing = new OnGoingRegaloEnvenenadoRepository();
+      ongoing = new OnGoingTorreInfernalRepository();
     }
   }
 
-  public Iterable<OnGoingRegaloEnvenenado> getAll() {
+  public Iterable<OnGoingTorreInfernal> getAll() {
     return ongoing.getAllOnGoingGames();
   }
 
@@ -49,10 +49,11 @@ public class OnGoingRegaloEnvenenadoService {
     ongoing.addPoints(gameId, playerId, points);
   }
 
-  public OnGoingRegaloEnvenenado getGame(Long gameId) {
+  public OnGoingTorreInfernal getGame(Long gameId) {
     return ongoing.getGame(gameId);
   }
 
+  @Transactional
   public void deleteGame(Long gameId) {
     ongoing.deleteGame(gameId);
   }
