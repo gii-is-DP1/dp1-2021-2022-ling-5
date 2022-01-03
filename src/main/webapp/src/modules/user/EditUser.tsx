@@ -2,43 +2,27 @@ import { useEffect, useState } from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import figures from '../../images/figures/figures';
 import EditFigure from "./EditFigure";
+import userAPI from "./userAPI";
 
 const EditUser = (props: any) => {
     const [player, setPlayer] = useState<any>({});
     const [figure, setFigure] = useState<number>(0);
     const [modalShow, setModalShow] = useState<boolean>(false);
 
-    const getPlayer = () => {
-        const requestOptions = {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
-        };
-        fetch(`http://localhost:8080/api/players/${props.idUser}`, requestOptions)
-            .then(res => {
-                res.json().then((pl: any) => {
-                    setPlayer(pl);
-                    setFigure(pl.figure.id - 1)
-                }).catch(e => console.log(e));
-            })
-            .catch(error => console.log(error));
-    }
-
     const edit = () => {
-        console.log(player)
-        const requestOptions = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(player)
-        };
-        fetch(`http://localhost:8080/api/players/${props.idUser}`, requestOptions)
-            .then(res => {
-                window.location.href = '/users';
-            })
-            .catch(error => console.log(error));
+        console.log(player);
+        userAPI.updateUser(player, props.idUser, "player")
+            .then((res) => window.location.href = '/users')
+            .catch((err) => console.log(err));
     }
 
     useEffect(() => {
-        getPlayer();
+        userAPI.getUser(props.idUser, "player")
+            .then((pl: any) => {
+                setPlayer(pl);
+                setFigure(pl.figure.id - 1);
+            }).catch((err) => console.log(err));
+
     }, [props.idUser])
 
     return (
