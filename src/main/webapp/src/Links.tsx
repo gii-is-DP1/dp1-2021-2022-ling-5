@@ -17,8 +17,10 @@ import StadisticsNavbar from "./modules/general/StadisticsNavbar";
 import CreateUser from "./modules/user/CreateUser";
 import UserPoints from "./modules/playedGames/UserPoints";
 import BestAndWorstFigure from "./modules/figure/BestAndWorstFigure";
+import Ranking from "./modules/user/Ranking";
 import Friends from "./modules/friendship/Friends";
 import { useEffect, useState } from "react";
+import UserFrequency from "./modules/playedGames/UserFrequency";
 
 const Links = () => {
     const [role, setRole] = useState<string | null>(null)
@@ -73,6 +75,22 @@ const Links = () => {
                     <ProfileNavbar />
                     <StadisticsNavbar />
                     <BestAndWorstFigure />
+                </div>
+            </Route> : <>Access is restricted</>}
+
+            {role === "Player" ? <Route path='/ranking'>
+                <div id="body" className="d-flex">
+                    <ProfileNavbar />
+                    <StadisticsNavbar />
+                    <Ranking />
+                </div>
+            </Route> : <>Access is restricted</>}
+
+            {role === "Player" ? <Route path='/userfrequency'>
+                <div id="body" className="d-flex">
+                    <ProfileNavbar />
+                    <StadisticsNavbar />
+                    <UserFrequency />
                 </div>
             </Route> : <>Access is restricted</>}
 
