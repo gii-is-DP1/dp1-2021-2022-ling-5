@@ -1,11 +1,5 @@
 package com.example.accessingdatamysql.statistics;
 
-import com.example.accessingdatamysql.figure.Figure;
-import com.example.accessingdatamysql.playerfigures.PlayerFigures;
-import com.example.accessingdatamysql.playerfigures.PlayerFiguresService;
-import com.example.accessingdatamysql.result.Result;
-import com.example.accessingdatamysql.result.ResultController;
-import com.example.accessingdatamysql.result.ResultService;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,6 +9,7 @@ import java.util.Optional;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+
 import javax.transaction.Transactional;
 
 import com.example.accessingdatamysql.figure.Figure;
@@ -36,8 +31,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class StatisticsService {
 
-  @Autowired
-  private ResultService resultService;
+    @Autowired
+    private ResultService resultService;
 
     @Autowired
     private PlayerFiguresService playerFiguresService;
@@ -73,27 +68,29 @@ public class StatisticsService {
                 }
             }
         }
-      }
+        res.add(total);
+        res.add(minigame1);
+        res.add(minigame2);
+        res.add(minigame3);
+        return res;
     }
-    res.add(total);
-    res.add(minigame1);
-    res.add(minigame2);
-    res.add(minigame3);
-    return res;
-  }
 
-  public List<Figure> maxMinFigures(Long id) {
-    List<Figure> res = new ArrayList<>();
-    List<PlayerFigures> pfs =
-      this.playerFiguresService.findAllPlayerFiguresByPlayer(id);
-    PlayerFigures max = pfs.get(0);
-    PlayerFigures min = pfs.get(1);
-    for (PlayerFigures pf : pfs) {
-      if (pf.getSuccesful() > max.getSuccesful()) {
-        max = pf;
-      } else if (pf.getSuccesful() < min.getSuccesful()) {
-        min = pf;
-      }
+    public List<Figure> maxMinFigures(Long id) {
+        List<Figure> res = new ArrayList<>();
+        List<PlayerFigures> pfs = this.playerFiguresService.findAllPlayerFiguresByPlayer(id);
+        PlayerFigures max = pfs.get(0);
+        PlayerFigures min = pfs.get(1);
+        for (PlayerFigures pf : pfs) {
+            if (pf.getSuccesful() > max.getSuccesful()) {
+                max = pf;
+            } else if (pf.getSuccesful() < min.getSuccesful()) {
+                min = pf;
+            }
+        }
+        res.add(max.getFigure());
+        res.add(min.getFigure());
+        return res;
+
     }
 
     public List<Entry<Long, Integer>> getTop10Ranking(){
