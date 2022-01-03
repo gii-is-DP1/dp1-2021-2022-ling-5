@@ -40,7 +40,7 @@ public class GameService {
                 .filter(game -> game.getName().equals(name)).findFirst();
     }
 
-    public static List<Game> findAllGames() {
+    public List<Game> findAllGames() {
         return StreamSupport.stream(gameRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 

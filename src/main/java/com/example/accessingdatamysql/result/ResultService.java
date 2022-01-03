@@ -30,7 +30,7 @@ public class ResultService {
         return resultRepository.findById(id);
     }
 
-    public static List<Result> findAllResults() {
+    public List<Result> findAllResults() {
         return StreamSupport.stream(resultRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
@@ -39,7 +39,7 @@ public class ResultService {
                 .filter(result -> result.getGame().getId() == gameId).collect(Collectors.toList());
     }
 
-    public static List<Result> findAllResultsByPlayer(Long playerId) {
+    public List<Result> findAllResultsByPlayer(Long playerId) {
         return StreamSupport.stream(resultRepository.findAll().spliterator(), false)
                 .filter(result -> result.getPlayer().getId() == playerId).collect(Collectors.toList());
     }
