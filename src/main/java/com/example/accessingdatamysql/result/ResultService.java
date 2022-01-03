@@ -4,59 +4,72 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ResultService {
-    private ResultRepository resultRepository;
 
-    @Autowired
-    public ResultService(ResultRepository resultRepository) {
-        this.resultRepository = resultRepository;
-    }
+  private ResultRepository resultRepository;
 
-    @Transactional
-    public Result saveResult(Result result) throws DataAccessException {
-        resultRepository.save(result);
-        return result;
-    }
+  @Autowired
+  public ResultService(ResultRepository resultRepository) {
+    this.resultRepository = resultRepository;
+  }
 
-    public Optional<Result> findResult(Long id) {
-        return resultRepository.findById(id);
-    }
+  @Transactional
+  public Result saveResult(Result result) throws DataAccessException {
+    resultRepository.save(result);
+    return result;
+  }
 
-    public List<Result> findAllResults() {
-        return StreamSupport.stream(resultRepository.findAll().spliterator(), false).collect(Collectors.toList());
-    }
+  public Optional<Result> findResult(Long id) {
+    return resultRepository.findById(id);
+  }
 
-    public List<Result> findAllResultsByGame(Long gameId) {
-        return StreamSupport.stream(resultRepository.findAll().spliterator(), false)
-                .filter(result -> result.getGame().getId() == gameId).collect(Collectors.toList());
-    }
+  public List<Result> findAllResults() {
+    return StreamSupport
+      .stream(resultRepository.findAll().spliterator(), false)
+      .collect(Collectors.toList());
+  }
 
-    public List<Result> findAllResultsByPlayer(Long playerId) {
-        return StreamSupport.stream(resultRepository.findAll().spliterator(), false)
-                .filter(result -> result.getPlayer().getId() == playerId).collect(Collectors.toList());
-    }
+  public List<Result> findAllResultsByGame(Long gameId) {
+    return StreamSupport
+      .stream(resultRepository.findAll().spliterator(), false)
+      .filter(result -> result.getGame().getId() == gameId)
+      .collect(Collectors.toList());
+  }
 
-    public void deleteResult(Long id) {
-        resultRepository.deleteById(id);
-    }
+  public List<Result> findAllResultsByPlayer(Long playerId) {
+    return StreamSupport
+      .stream(resultRepository.findAll().spliterator(), false)
+      .filter(result -> result.getPlayer().getId() == playerId)
+      .collect(Collectors.toList());
+  }
 
-    public void deleteAllResults() {
-        resultRepository.deleteAll();
-    }
+  @Transactional
+  public void deleteResult(Long id) {
+    resultRepository.deleteById(id);
+  }
 
-    public void deleteAllResultsByGame(Long gameId) {
-        findAllResultsByGame(gameId).stream().forEach(result -> resultRepository.deleteById(result.getId()));
-    }
+  @Transactional
+  public void deleteAllResults() {
+    resultRepository.deleteAll();
+  }
 
-    public void deleteAllResultsByPlayer(Long playerId) {
-        findAllResultsByPlayer(playerId).stream().forEach(result -> resultRepository.deleteById(result.getId()));
-    }
+  @Transactional
+  public void deleteAllResultsByGame(Long gameId) {
+    findAllResultsByGame(gameId)
+      .stream()
+      .forEach(result -> resultRepository.deleteById(result.getId()));
+  }
+
+  @Transactional
+  public void deleteAllResultsByPlayer(Long playerId) {
+    findAllResultsByPlayer(playerId)
+      .stream()
+      .forEach(result -> resultRepository.deleteById(result.getId()));
+  }
 }

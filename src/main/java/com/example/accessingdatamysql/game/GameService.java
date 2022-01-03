@@ -4,46 +4,51 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GameService {
-    private GameRepository gameRepository;
 
-    @Autowired
-    public GameService(GameRepository gameRepository) {
-        this.gameRepository = gameRepository;
-    }
+  private GameRepository gameRepository;
 
-    @Transactional
-    public Game saveGame(Game game) throws DataAccessException {
-        gameRepository.save(game);
-        return game;
-    }
+  @Autowired
+  public GameService(GameRepository gameRepository) {
+    this.gameRepository = gameRepository;
+  }
 
-    public Optional<Game> findGame(Long id) {
-        return gameRepository.findById(id);
-    }
+  @Transactional
+  public Game saveGame(Game game) throws DataAccessException {
+    gameRepository.save(game);
+    return game;
+  }
 
-    public Optional<Game> findGameByName(String name) {
-        return StreamSupport.stream(gameRepository.findAll().spliterator(), false)
-                .filter(game -> game.getName().equals(name)).findFirst();
-    }
+  public Optional<Game> findGame(Long id) {
+    return gameRepository.findById(id);
+  }
 
-    public List<Game> findAllGames() {
-        return StreamSupport.stream(gameRepository.findAll().spliterator(), false).collect(Collectors.toList());
-    }
+  public Optional<Game> findGameByName(String name) {
+    return StreamSupport
+      .stream(gameRepository.findAll().spliterator(), false)
+      .filter(game -> game.getName().equals(name))
+      .findFirst();
+  }
 
-    public void deleteGame(Long id) {
-        gameRepository.deleteById(id);
-    }
+  public List<Game> findAllGames() {
+    return StreamSupport
+      .stream(gameRepository.findAll().spliterator(), false)
+      .collect(Collectors.toList());
+  }
 
-    public void deleteAllGames() {
-        gameRepository.deleteAll();
-    }
+  @Transactional
+  public void deleteGame(Long id) {
+    gameRepository.deleteById(id);
+  }
+
+  @Transactional
+  public void deleteAllGames() {
+    gameRepository.deleteAll();
+  }
 }

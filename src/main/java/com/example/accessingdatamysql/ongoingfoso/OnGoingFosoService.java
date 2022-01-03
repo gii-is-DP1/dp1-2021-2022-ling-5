@@ -1,35 +1,31 @@
-package com.example.accessingdatamysql.ongoingRegaloEnvenenado;
+package com.example.accessingdatamysql.ongoingfoso;
 
 import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.game.Game;
+import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 @Service
 @Scope("singleton")
-public class OnGoingRegaloEnvenenadoService {
+public class OnGoingFosoService {
 
-  private static OnGoingRegaloEnvenenadoRepository ongoing = null;
+  private static OnGoingFosoRepository ongoing = null;
 
-  public OnGoingRegaloEnvenenadoService() {
+  public OnGoingFosoService() {
     if (ongoing == null) {
-      ongoing = new OnGoingRegaloEnvenenadoRepository();
+      ongoing = new OnGoingFosoRepository();
     }
   }
 
-  public Iterable<OnGoingRegaloEnvenenado> getAll() {
+  public Iterable<OnGoingFoso> getAll() {
     return ongoing.getAllOnGoingGames();
   }
 
   @Transactional
-  public void createGame(Long gameId, Game game, Iterable<Card> cards) {
+  public static void createGame(Long gameId, Game game, Iterable<Card> cards) {
     ongoing.createGame(gameId, game, cards);
-  }
-
-  @Transactional
-  public void newCenterCard(Long gameId, RequestNewCard request) {
-    ongoing.newCenterCard(gameId, request);
   }
 
   public Card getPlayerCard(Long gameId, Long playerId) {
@@ -44,12 +40,20 @@ public class OnGoingRegaloEnvenenadoService {
     return ongoing.getPoints(gameId, playerId);
   }
 
+  public void changeCards(Long playerId, Long gameId) {
+    ongoing.changeCards(playerId, gameId);
+  }
+
+  public List<Long> getPositions(Long gameId) {
+    return ongoing.getPositions(gameId);
+  }
+
   @Transactional
   public void addPoints(Long gameId, Long playerId, Integer points) {
     ongoing.addPoints(gameId, playerId, points);
   }
 
-  public OnGoingRegaloEnvenenado getGame(Long gameId) {
+  public OnGoingFoso getGame(Long gameId) {
     return ongoing.getGame(gameId);
   }
 
