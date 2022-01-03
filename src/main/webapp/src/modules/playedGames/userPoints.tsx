@@ -3,9 +3,11 @@ import { Col, Row } from 'react-bootstrap';
 import resultAPI from '../result/resultAPI';
 
 function UserPoints(props: any) {
-  const playerId: any = 1;
   const [results, setResutls] = useState<any[]>([]);
   useEffect(() => {
+    var userData: any = localStorage.getItem("userData");
+    if (userData !== null) userData = JSON.parse(userData)
+    const playerId = userData.id
     fetch(`http://localhost:8080/api/statistics/pointsbyminigames/${playerId}`)
       .then(res => {
         return res.json()

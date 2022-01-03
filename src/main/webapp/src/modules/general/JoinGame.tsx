@@ -3,28 +3,35 @@ import Button from 'react-bootstrap/Button';
 import { Form } from 'react-bootstrap';
 
 import './NewGame.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import gameAPI from '../game/gameAPI';
 
 
 function JoinGame() {
   const [namegame, setNamegame] = useState<string>();
   const [game, setGame] = useState<String | null>();
-  var idplayer = 2;
+  const [idPlayer, setIdPlayer] = useState<number>();
 
   function joinGame() {
     if (namegame) {
       gameAPI.getGameByName(namegame)
         .then((game: any) => {
           setGame(game);
-          if (game !== null) {
-            gameAPI.addNewPlayerToGame(game.id, idplayer)
+          if (game !== null && idPlayer) {
+            gameAPI.addNewPlayerToGame(game.id, idPlayer)
               .then((res) => window.location.href = `/startGame/${game.id}`)
               .catch(err => console.log(err));
           }
         }).catch((err) => console.log(err));
     }
   }
+
+  useEffect(() => {
+    var userData = localStorage.getItem("userData")
+    if (userData !== null) setIdPlayer(JSON.parse(userData).id)
+  }, [])
+
+  if (!idPlayer) return <></>
 
   return (
 

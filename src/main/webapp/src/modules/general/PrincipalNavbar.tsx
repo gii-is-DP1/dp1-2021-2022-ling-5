@@ -4,100 +4,78 @@ import figures from '../../images/figures/figures'
 import icons from '../../images/icons/icons'
 import './principalNavbar.css'
 import Share from "./Share"
+import userAPI from "../user/userAPI"
+import token from "../user/token"
 
 const PrincipalNavbar = () => {
     const [modalShow, setModalShow] = useState<boolean>(false);
+    const [username, setUsername] = useState<string>("");
+    const [figure, setFigure] = useState<number>(0);
+    var id = 0;
+    var role = null;
 
-    var role = "admin";
-    if (role === "player") {
-        return <Navbar expand="lg">
-            <Container>
-                <a href="/"><img
-                    src={figures(1)}
-                    width="30"
-                    height="30"
-                    className="d-inline-block align-top"
-                    alt="Profile img"
-                /></a>
-                <NavDropdown title="Player1" id="img">
-                    <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-                    <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
-                </NavDropdown>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        <Nav.Link href="/notifications"><img
-                            src={icons(0)}
-                            width="30"
-                            height="30"
-                            className="d-inline-block align-top"
-                            alt="React Bootstrap logo"
-                        /></Nav.Link>
-                        <Nav.Link href="/forum"><img
-                            src={icons(1)}
-                            width="30"
-                            height="30"
-                            className="d-inline-block align-top"
-                            alt="React Bootstrap logo"
-                        /></Nav.Link>
-                        <Nav.Link id="btn-share" onClick={() => setModalShow(true)}><img
-                            src={icons(2)}
-                            width="30"
-                            height="30"
-                            className="d-inline-block align-top"
-                            alt="React Bootstrap logo"
-                        /></Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-                <Share show={modalShow} onHide={setModalShow(false)} />
-            </Container>
-        </Navbar>
-    } else if (role === "admin") {
-        return <Navbar expand="lg">
-            <Container>
-                <a href="/" id="img"><img
-                    src={icons(3)}
-                    width="30"
-                    height="30"
-                    className="d-inline-block align-top"
-                    alt="React Bootstrap logo"
-                /></a>
-                <NavDropdown title="Admin" id="img">
-                    <NavDropdown.Item href="/gamesProgress">Info</NavDropdown.Item>
-                    <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
-                </NavDropdown>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        <Nav.Link href="/notifications"><img
-                            src={icons(0)}
-                            width="30"
-                            height="30"
-                            className="d-inline-block align-top"
-                            alt="React Bootstrap logo"
-                        /></Nav.Link>
-                        <Nav.Link href="/forum"><img
-                            src={icons(1)}
-                            width="30"
-                            height="30"
-                            className="d-inline-block align-top"
-                            alt="React Bootstrap logo"
-                        /></Nav.Link>
-                        <Nav.Link id="btn-share" onClick={() => setModalShow(true)}><img
-                            src={icons(2)}
-                            width="30"
-                            height="30"
-                            className="d-inline-block align-top"
-                            alt="React Bootstrap logo"
-                        /></Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-                <Share show={modalShow} onHide={() => setModalShow(false)} />
-            </Container>
-        </Navbar>
-    } else {
-        return <></>
-    }
+    useEffect(() => {
+        var userData: any = localStorage.getItem("userData");
+        if (userData !== null) userData = JSON.parse(userData)
+        id = userData.id
+        role = localStorage.getItem("rol")
+        if (role !== null && id !== 0) {
+            userAPI.getUser(id, role).then((user: any) => {
+                setUsername(user.nickname)
+                setFigure(user.figure.id - 1)
+            }).catch(err => console.log(err));
+        }
+    }, [])
+
+    const src = role === "Admin" ? icons(3) : figures(figure);
+    const alt = role === "Admin" ? "Dobble logo" : "Profile image";
+    const nickname = role === "Admin" ? "Admin" : username;
+    const href1 = role === "Admin" ? "/gamesProgress" : "profile";
+    const namehref1 = role === "Admin" ? "Info" : "Profile";
+
+    if (!username && !figure) return <></>
+    return <Navbar expand="lg">
+        <Container>
+            <a href="/" id="img"><img
+                src={src}
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+                alt={alt}
+            /></a>
+            <NavDropdown title={nickname} id="img">
+                <NavDropdown.Item href={href1}>{namehref1}</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => { token.logout(); window.location.href = "/"; }}>Logout</NavDropdown.Item>
+            </NavDropdown>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="me-auto">
+                    <Nav.Link href="/notifications"><img
+                        src={icons(0)}
+                        width="30"
+                        height="30"
+                        className="d-inline-block align-top"
+                        alt="Notifications"
+                    /></Nav.Link>
+                    <Nav.Link href="/forum"><img
+                        src={icons(1)}
+                        width="30"
+                        height="30"
+                        className="d-inline-block align-top"
+                        alt="Forum"
+                    /></Nav.Link>
+                    <Nav.Link id="btn-share" onClick={() => setModalShow(true)}><img
+                        src={icons(2)}
+                        width="30"
+                        height="30"
+                        className="d-inline-block align-top"
+                        alt="Share"
+                    /></Nav.Link>
+                </Nav>
+            </Navbar.Collapse>
+            <Share show={modalShow} onHide={() => setModalShow(false)} />
+        </Container>
+    </Navbar>
 
 }
 
