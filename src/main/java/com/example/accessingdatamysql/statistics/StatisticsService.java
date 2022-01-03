@@ -100,10 +100,9 @@ public class StatisticsService {
             Integer points = pointsByMinigames(p.getId()).stream().collect(Collectors.summingInt(Integer::intValue));
             map1.put(p, points);
         }
-        Comparator<Ranking> comparator = (Ranking r1, Ranking r2) -> r1.getPoints().compareTo(r2.getPoints());
         List<Ranking> result = map1.entrySet().stream().map(e->new Ranking(e.getKey().getFigure().getName(),
-            e.getKey().getNickname(), e.getValue())).sorted(comparator).limit(10).collect(Collectors.toList());
-        Collections.reverse(result);
+            e.getKey().getNickname(), e.getValue())).sorted(new RankingComparable())
+            .limit(10).collect(Collectors.toList());
         return result;
     }
 
@@ -113,10 +112,8 @@ public class StatisticsService {
             Integer points = pointsByMinigames(p.getId()).stream().collect(Collectors.summingInt(Integer::intValue));
             map1.put(p, points);
         }
-        Comparator<Ranking> comparator = (Ranking r1, Ranking r2) -> r1.getPoints().compareTo(r2.getPoints());
         List<Ranking> ranking = map1.entrySet().stream().map(e->new Ranking(e.getKey().getFigure().getName(),
-            e.getKey().getNickname(), e.getValue())).sorted(comparator).collect(Collectors.toList());
-        Collections.reverse(ranking);
+            e.getKey().getNickname(), e.getValue())).sorted(new RankingComparable()).collect(Collectors.toList());
         Player player = playerService.findPlayer(playerId).get();
         Ranking rank = ranking.stream().filter(r->r.getNickname().equals(player.getNickname())).findAny().get();
         Integer position = ranking.indexOf(rank);
