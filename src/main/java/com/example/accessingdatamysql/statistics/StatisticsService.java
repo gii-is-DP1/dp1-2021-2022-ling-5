@@ -91,93 +91,51 @@ public class StatisticsService {
     return res;
   }
 
-  public List<Ranking> getTop10Ranking() {
+  public List<Ranking> getTop10Ranking(){
     Map<Player, Integer> map1 = new HashMap<Player, Integer>();
-    for (Player p : playerService.findAllPlayers()) {
-      Integer points = pointsByMinigames(p.getId())
-        .stream()
-        .collect(Collectors.summingInt(Integer::intValue));
-      map1.put(p, points);
+    for(Player p: playerService.findAllPlayers()){
+        Integer points = pointsByMinigames(p.getId()).stream().collect(Collectors.summingInt(Integer::intValue));
+        map1.put(p, points);
     }
-    Comparator<Ranking> comparator = (Ranking r1, Ranking r2) ->
-      r1.getPoints().compareTo(r2.getPoints());
-    List<Ranking> result = map1
-      .entrySet()
-      .stream()
-      .map(
-        e ->
-          new Ranking(
-            e.getKey().getFigure().getName(),
-            e.getKey().getNickname(),
-            e.getValue()
-          )
-      )
-      .sorted(comparator)
-      .limit(10)
-      .collect(Collectors.toList());
-    Collections.reverse(result);
+    List<Ranking> result = map1.entrySet().stream().map(e->new Ranking(e.getKey().getFigure().getName(),
+        e.getKey().getNickname(), e.getValue())).sorted(new RankingComparable())
+        .limit(10).collect(Collectors.toList());
     return result;
-  }
-
-  public Pair<Integer, Ranking> getPositionRanking(Long playerId) {
-    Map<Player, Integer> map1 = new HashMap<Player, Integer>();
-    for (Player p : playerService.findAllPlayers()) {
-      Integer points = pointsByMinigames(p.getId())
-        .stream()
-        .collect(Collectors.summingInt(Integer::intValue));
-      map1.put(p, points);
     }
-    Comparator<Ranking> comparator = (Ranking r1, Ranking r2) ->
-      r1.getPoints().compareTo(r2.getPoints());
-    List<Ranking> ranking = map1
-      .entrySet()
-      .stream()
-      .map(
-        e ->
-          new Ranking(
-            e.getKey().getFigure().getName(),
-            e.getKey().getNickname(),
-            e.getValue()
-          )
-      )
-      .sorted(comparator)
-      .collect(Collectors.toList());
-    Collections.reverse(ranking);
-    Player player = playerService.findPlayer(playerId).get();
-    Ranking rank = ranking
-      .stream()
-      .filter(r -> r.getNickname().equals(player.getNickname()))
-      .findAny()
-      .get();
-    Integer position = ranking.indexOf(rank);
-    return Pair.of(position + 1, rank);
-  }
 
-  public Map<Integer, Double> getFrecuenciaJugadores(Long playerId) {
-    Map<Integer, Double> result = new HashMap<Integer, Double>();
-    List<Game> playerGames = gameService.getGamesByPlayer(playerId);
-    Map<Integer, Double> total = new HashMap<Integer, Double>();
-    total.put(2, 0.0);
-    total.put(3, 0.0);
-    total.put(4, 0.0);
-    total.put(5, 0.0);
-    total.put(6, 0.0);
-    total.put(7, 0.0);
-    total.put(8, 0.0);
-    for (Game g : playerGames) {
-      Integer numberPlayer = g.getPlayers().size();
-      Double n = total.get(numberPlayer);
-      total.put(numberPlayer, n + 1.0);
+    public Pair<Integer, Ranking> getPositionRanking(Long playerId){
+        Map<Player, Integer> map1 = new HashMap<Player, Integer>();
+        for(Player p: playerService.findAllPlayers()){
+            Integer points = pointsByMinigames(p.getId()).stream().collect(Collectors.summingInt(Integer::intValue));
+            map1.put(p, points);
+        }
+        List<Ranking> ranking = map1.entrySet().stream().map(e->new Ranking(e.getKey().getFigure().getName(),
+            e.getKey().getNickname(), e.getValue())).sorted(new RankingComparable()).collect(Collectors.toList());
+        Player player = playerService.findPlayer(playerId).get();
+        Ranking rank = ranking.stream().filter(r->r.getNickname().equals(player.getNickname())).findAny().get();
+        Integer position = ranking.indexOf(rank);
+        return Pair.of(position+1, rank);
     }
-    total
-      .entrySet()
-      .stream()
-      .forEach(
-        e -> result.put(e.getKey(), (e.getValue() / playerGames.size()) * 100)
-      );
-    return result;
-  }
 
+    public Map<Integer, Double> getFrecuenciaJugadores(Long playerId){
+        Map<Integer, Double> result = new HashMap<Integer, Double>();
+        List<Game> playerGames = gameService.getGamesByPlayer(playerId);
+        Map<Integer, Double> total = new HashMap<Integer, Double>();
+        total.put(2, 0.0);
+        total.put(3, 0.0);
+        total.put(4, 0.0);
+        total.put(5, 0.0);
+        total.put(6, 0.0);
+        total.put(7, 0.0);
+        total.put(8, 0.0);
+        for(Game g: playerGames){
+            Integer numberPlayer = g.getPlayers().size();
+            Double n = total.get(numberPlayer);
+            total.put(numberPlayer, n+1.0);
+        }
+        total.entrySet().stream().forEach(e->result.put(e.getKey(), (e.getValue()/playerGames.size())*100));
+        return result;
+    }
   public Double propTotal(Long id) {
     List<Game> partidas = gameService.findAllGames();
     List<Result> misPartidas = resultService.findAllResultsByPlayer(id);
