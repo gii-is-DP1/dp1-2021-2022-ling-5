@@ -31,12 +31,12 @@ public class StatisticsController {
     }
 
     @GetMapping(value = "/statistics/top10ranking")
-    public @ResponseBody List<Entry<Long, Integer>> getTop10(){
+    public @ResponseBody List<Ranking> getTop10(){
         return this.statisticsService.getTop10Ranking();
     }
 
     @GetMapping(value = "/statistics/ranking/{playerId}")
-    public @ResponseBody Pair<Integer, Integer> getPositionRanking(@PathVariable Long playerId){
+    public @ResponseBody Pair<Integer, Ranking> getPositionRanking(@PathVariable Long playerId){
         return this.statisticsService.getPositionRanking(playerId);
     }
 
