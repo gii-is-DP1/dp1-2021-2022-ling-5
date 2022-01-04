@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Badge, Col, Row } from 'react-bootstrap';
 import resultAPI from '../result/resultAPI';
 import ChartsPage from './ChartsPage';
 
@@ -29,29 +29,32 @@ function UserFrequency() {
 
   console.log(frequency);
   return (
-    <div>
-        <ChartsPage></ChartsPage>
-      {/* <Row>
-        <Col>Frecuencia 2: {f2}</Col>
+    <div className="text-center">
+        
+      <Row>
+        
+        <Col> <Badge bg="primary"> </Badge> {' '}Frecuencia 2 jugadores: {f2} %</Col>
       </Row>
       <Row>
-        <Col>Frecuencia 3: {f3}</Col>
+        <Col><Badge bg="success"> </Badge> {' '}Frecuencia 3 jugadores: {f3}  %</Col>
       </Row>
       <Row>
-        <Col>Frecuencia 4: {f4}</Col>
+        <Col><Badge bg="secondary"> </Badge> {' '}Frecuencia 4 jugadores: {f4} %</Col>
       </Row>
       <Row>
-        <Col>Frecuencia 5: {f5}</Col>
+        <Col><Badge bg="info"> </Badge> {' '}Frecuencia 5 jugadores: {f5} %</Col>
       </Row>
       <Row>
-        <Col>Frecuencia 6: {f6}</Col>
+        <Col><Badge bg="warning"> </Badge> {' '}Frecuencia 6 jugadores: {f6} %</Col>
       </Row>
       <Row>
-        <Col>Frecuencia 7: {f7}</Col>
+        <Col><Badge bg="dark"> </Badge> {' '}Frecuencia 7 jugadores: {f7} %</Col>
       </Row>
       <Row>
-        <Col>Frecuencia 8: {f8}</Col>
-      </Row> */}
+        <Col><Badge bg="danger"> </Badge> {' '}Frecuencia 8 jugadores: {f8} %</Col>
+      </Row>
+
+      <ChartsPage frequency={frequency} />
     </div>
   );
 }
