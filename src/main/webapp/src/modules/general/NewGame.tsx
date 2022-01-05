@@ -4,11 +4,12 @@ import { Form } from 'react-bootstrap';
 
 import './NewGame.css';
 import { useEffect, useState } from 'react';
+import gameAPI from '../game/gameAPI';
 
 
 function NewGame() {
 
-  var idplayer = 1;
+  const [idPlayer, setIdPlayer] = useState<number>();
   var fechainicio = Date.now;
 
   const [game, setGame] = useState<any>({
@@ -16,60 +17,41 @@ function NewGame() {
     state: "UNSTARTED",
     startTime: fechainicio,
     endTime: null,
-    creator: idplayer,
+    creator: idPlayer,
   });
 
-  const [minigame, setMinigame] = useState<String>();
+  const [minigame, setMinigame] = useState<string>();
 
   const [gameid, setGameid] = useState<number | undefined>(0);
 
   function createGame() {
 
-    console.log("MINIGAME: " + minigame);
+    gameAPI.addNewGame(game).then((gameCreated: any) => {
+      setGameid(gameCreated.id);
+      if (minigame && gameCreated.id !== undefined) {
+        if (minigame !== '4' && minigame !== 'N/A') {
+          var mg = parseInt(minigame);
+          gameAPI.addNewMinigameToGame(gameCreated.id, mg);
+        } else {
+          gameAPI.addNewMinigameToGame(gameCreated.id, 1);
+          gameAPI.addNewMinigameToGame(gameCreated.id, 2);
+          gameAPI.addNewMinigameToGame(gameCreated.id, 3);
+        }
+        window.location.href = `/startGame/${gameCreated.id}`;
+      }
+    }).catch((err) => console.log(err));
 
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(game)
-    }
-    return new Promise(function (resolve, reject) {
-      fetch(`http://localhost:8080/api/games`, requestOptions)
-        .then(res => {
-          res.json().then((gameCreated: any) => {
-            setGameid(gameCreated.id);
-            const requestOptions = {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' }
-            }
-            if (minigame && gameCreated.id !== undefined) {
-              console.log("hola")
-              if (minigame !== '4' && minigame !== 'N/A') {
-                fetch(`http://localhost:8080/api/games/${gameCreated.id}/minigames/${minigame}`, requestOptions).then(res => {
-                  resolve(res.json())
-                })
-                  .catch(error => reject(console.error));
-              } else {
-                fetch(`http://localhost:8080/api/games/${gameCreated.id}/minigames/1`, requestOptions).then(res => {
-                  resolve(res.json())
-                })
-                  .catch(error => reject(console.error));
-                fetch(`http://localhost:8080/api/games/${gameCreated.id}/minigames/2`, requestOptions).then(res => {
-                  resolve(res.json())
-                })
-                  .catch(error => reject(console.error));
-                fetch(`http://localhost:8080/api/games/${gameCreated.id}/minigames/3`, requestOptions).then(res => {
-                  resolve(res.json())
-                })
-                  .catch(error => reject(console.error));
-              }
-              window.location.href = `/startGame/${gameCreated.id}`
-            }
-          }).catch(error => console.log(error))
-        }).catch(error => reject(console.error));
-    })
   }
 
+  useEffect(() => {
+    var userData = localStorage.getItem("userData");
+    if (userData !== null) {
+      setIdPlayer(JSON.parse(userData).id);
+      setGame({ ...game, creator: JSON.parse(userData).id })
+    }
+  }, [])
 
+  if (!idPlayer) return <></>
   return (
 
     <div className="NewGame-header">

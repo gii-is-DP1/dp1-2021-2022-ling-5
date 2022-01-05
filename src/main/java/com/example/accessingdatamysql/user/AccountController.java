@@ -2,12 +2,18 @@ package com.example.accessingdatamysql.user;
 
 import java.util.List;
 
+import com.example.accessingdatamysql.figure.FigureService;
+import com.example.accessingdatamysql.role.RoleService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.HttpClientErrorException.BadRequest;
+import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequestMapping(value = "/api")
@@ -18,40 +24,48 @@ public class AccountController {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private FigureService figureService;
+
+    @Autowired
+    private RoleService roleService;
+
     @PostMapping(value = "/login")
-    public @ResponseBody String loginUser(@RequestBody RequestLoggin request){
+    public @ResponseBody LogRegResponse loginUser(@RequestBody RequestLoggin request) throws BadRequest{
         List<Player> players = playerService.findByNickname(request.getNickname());
         if(players.size()==0){
             List<Admin> admins = adminService.findByNickname(request.getNickname());
             if(admins.size()==0){
-                return "Invalid credentials";
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid credentials");
             } else{
                 Admin admin = admins.get(0);
                 if(admin==null){
-                    return "Invalid credentials";
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid credentials");
                 } else if(!admin.getPassword().equals(request.getPassword())){
-                    return "Invalid credentials";
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid credentials");
                 } else{
-                    return admin.getId().toString() + ", Admin";
+                    return new LogRegResponse(admin.getId(), "Admin");
                 }
             }
         } else{
             Player player = players.get(0);
             if(!player.getPassword().equals(request.getPassword())){
-                return "Invalid credentials";
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid credentials");
             } else{
-                return player.getId().toString() + ", Player";
+                return new LogRegResponse(player.getId(), "Player");
             }
         }
     }
 
     @PostMapping(value = "/register")
-    public @ResponseBody String registerUser(@RequestBody Player player){
+    public @ResponseBody LogRegResponse registerUser(@RequestBody Player player) throws BadRequest{
         if(playerService.findByNickname(player.getNickname()).size()>0){
-            return "Nickname already taken";
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nickname already taken");
         }
+        player.setFigure(figureService.findFigure(3L).get());
+        player.setRole(roleService.findRole(1L).get());
         playerService.savePlayer(player);
         Player newPlayer = playerService.findByNickname(player.getNickname()).get(0);
-        return newPlayer.getId().toString();
+        return new LogRegResponse(newPlayer.getId(), "Player");
     }
 }

@@ -37,6 +37,8 @@ public class PlayerControllerTests {
 
     private static final Long TEST_ACHIEVEMENT_ID = 1L;
 
+    private static final String NICKNAME = "unito";
+
     @MockBean
     private PlayerService playerService;
 
@@ -69,11 +71,12 @@ public class PlayerControllerTests {
         role.setId(TEST_ROLE_ID);
         given(this.roleService.findAllRoles()).willReturn(Lists.newArrayList(role));
 
-        Achievement achievement = new Achievement("Streak10", "Streak 10 games");
+        Achievement achievement = new Achievement("Points10", "Accumulate 10 points", "POINTS", 10);
         achievement.setId(TEST_ACHIEVEMENT_ID);
         given(this.achievementService.findAllAchievements()).willReturn(Lists.newArrayList(achievement));
 
         given(this.playerService.findPlayer(TEST_PLAYER_ID)).willReturn(Optional.of(player));
+        given(this.playerService.findPlayerByNickname(NICKNAME)).willReturn(Optional.of(player));
         given(this.figureService.findFigure(TEST_FIGURE_ID)).willReturn(Optional.of(figure));
         given(this.roleService.findRole(TEST_ROLE_ID)).willReturn(Optional.of(role));
         given(this.achievementService.findAchievement(TEST_ACHIEVEMENT_ID)).willReturn(Optional.of(achievement));
@@ -90,14 +93,14 @@ public class PlayerControllerTests {
     }
 
     @Test
-    void testGetByRole() throws Exception {
-        mockMvc.perform(get("/api/roles/{roleId}/players", TEST_ROLE_ID)).andExpect(status().isOk());
+    void testGetByNickname() throws Exception {
+        mockMvc.perform(get("/api/players/names/{nickname}", NICKNAME)).andExpect(status().isOk());
     }
 
     @Test
     void testCreationRole() throws Exception {
         Player player = new Player("name2", "surname2", "password2", "email2", "nickname2", PlayerState.NO_PLAY);
-        mockMvc.perform(post("/api/roles/{roleId}/figures/{figureId}/players", TEST_ROLE_ID, TEST_FIGURE_ID)
+        mockMvc.perform(post("/api/players")
                 .contentType("application/json").content(objectMapper.writeValueAsString(player)))
                 .andExpect(status().isOk());
     }
@@ -137,12 +140,6 @@ public class PlayerControllerTests {
     @Test
     void testUpdateFigurePlayer() throws Exception {
         mockMvc.perform(put("/api/figures/{figureId}/players/{playerId}", TEST_FIGURE_ID, TEST_PLAYER_ID))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void testUpdateRolePlayer() throws Exception {
-        mockMvc.perform(put("/api/roles/{roleId}/players/{playerId}", TEST_ROLE_ID, TEST_PLAYER_ID))
                 .andExpect(status().isOk());
     }
 }

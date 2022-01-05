@@ -2,54 +2,59 @@ package com.example.accessingdatamysql.ongoingRegaloEnvenenado;
 
 import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.game.Game;
-
+import javax.transaction.Transactional;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 @Service
 @Scope("singleton")
 public class OnGoingRegaloEnvenenadoService {
-    private static OnGoingRegaloEnvenenadoRepository ongoing = null;
 
-    public OnGoingRegaloEnvenenadoService() {
-        if (ongoing == null) {
-            ongoing = new OnGoingRegaloEnvenenadoRepository();
-        }
-    }
+  private static OnGoingRegaloEnvenenadoRepository ongoing = null;
 
-    public Iterable<OnGoingRegaloEnvenenado> getAll() {
-        return ongoing.getAllOnGoingGames();
+  public OnGoingRegaloEnvenenadoService() {
+    if (ongoing == null) {
+      ongoing = new OnGoingRegaloEnvenenadoRepository();
     }
+  }
 
-    public void createGame(Long gameId, Game game, Iterable<Card> cards) {
-        ongoing.createGame(gameId, game, cards);
-    }
+  public Iterable<OnGoingRegaloEnvenenado> getAll() {
+    return ongoing.getAllOnGoingGames();
+  }
 
-    public void newCenterCard(Long gameId, RequestNewCard request) {
-        ongoing.newCenterCard(gameId, request);
-    }
+  @Transactional
+  public void createGame(Long gameId, Game game, Iterable<Card> cards) {
+    ongoing.createGame(gameId, game, cards);
+  }
 
-    public Card getPlayerCard(Long gameId, Long playerId) {
-        return ongoing.getPlayerCard(gameId, playerId);
-    }
+  @Transactional
+  public void newCenterCard(Long gameId, RequestNewCard request) {
+    ongoing.newCenterCard(gameId, request);
+  }
 
-    public Card getCenterCard(Long gameId) {
-        return ongoing.getCenterCard(gameId);
-    }
+  public Card getPlayerCard(Long gameId, Long playerId) {
+    return ongoing.getPlayerCard(gameId, playerId);
+  }
 
-    public int getPoints(Long gameId, Long playerId) {
-        return ongoing.getPoints(gameId, playerId);
-    }
+  public Card getCenterCard(Long gameId) {
+    return ongoing.getCenterCard(gameId);
+  }
 
-    public void addPoints(Long gameId, Long playerId, Integer points) {
-        ongoing.addPoints(gameId, playerId, points);
-    }
+  public int getPoints(Long gameId, Long playerId) {
+    return ongoing.getPoints(gameId, playerId);
+  }
 
-    public OnGoingRegaloEnvenenado getGame(Long gameId) {
-        return ongoing.getGame(gameId);
-    }
+  @Transactional
+  public void addPoints(Long gameId, Long playerId, Integer points) {
+    ongoing.addPoints(gameId, playerId, points);
+  }
 
-    public void deleteGame(Long gameId) {
-        ongoing.deleteGame(gameId);
-    }
+  public OnGoingRegaloEnvenenado getGame(Long gameId) {
+    return ongoing.getGame(gameId);
+  }
+
+  @Transactional
+  public void deleteGame(Long gameId) {
+    ongoing.deleteGame(gameId);
+  }
 }

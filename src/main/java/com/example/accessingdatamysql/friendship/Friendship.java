@@ -23,11 +23,10 @@ public class Friendship extends BaseEntity {
     @Column(name = "friendshipState")
     private FriendshipState state;
 
-    @JsonIgnore
+    
     @ManyToOne
     private Player requester;
-
-    @JsonIgnore
+    
     @ManyToOne
     private Player requested;
 

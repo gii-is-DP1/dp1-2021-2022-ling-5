@@ -3,39 +3,35 @@ import Button from 'react-bootstrap/Button';
 import { Form } from 'react-bootstrap';
 
 import './NewGame.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import gameAPI from '../game/gameAPI';
 
 
 function JoinGame() {
   const [namegame, setNamegame] = useState<string>();
-  var idplayer = 2;
+  const [game, setGame] = useState<String | null>();
+  const [idPlayer, setIdPlayer] = useState<number>();
 
   function joinGame() {
-    const requestOptions = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+    if (namegame) {
+      gameAPI.getGameByName(namegame)
+        .then((game: any) => {
+          setGame(game);
+          if (game !== null && idPlayer) {
+            gameAPI.addNewPlayerToGame(game.id, idPlayer)
+              .then((res) => window.location.href = `/startGame/${game.id}`)
+              .catch(err => console.log(err));
+          }
+        }).catch((err) => console.log(err));
     }
-    var gameId = 0;
-    return new Promise(function (resolve, reject) {
-      fetch(`http://localhost:8080/api/games/names/${namegame}`, requestOptions)
-        .then(res => {
-          res.json().then((gameSearched: any) => {
-            gameId = gameSearched.id;
-            const requestOptions = {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' }
-            }
-
-            fetch(`http://localhost:8080/api/games/${gameId}/players/${idplayer}`, requestOptions).then(res => {
-              resolve(res.json())
-            })
-              .catch(error => reject(console.error));
-            window.location.href = `/startGame/${gameId}`
-          })
-            .catch(error => reject(console.error))
-        })
-    })
   }
+
+  useEffect(() => {
+    var userData = localStorage.getItem("userData")
+    if (userData !== null) setIdPlayer(JSON.parse(userData).id)
+  }, [])
+
+  if (!idPlayer) return <></>
 
   return (
 
@@ -51,6 +47,8 @@ function JoinGame() {
         <Button className="Button" size="lg" variant="dark" onClick={() => joinGame()}>
           JOIN
         </Button>
+
+        {game === null ? <p>This game doesn't exist</p> : ""}
       </Form>
     </div>
 

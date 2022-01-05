@@ -46,8 +46,10 @@ public class CardController {
             if (card.get().getFigures() == null)
                 card.get().setFigures(new ArrayList<Figure>());
 
-            figure.get().getCards().add(card.get());
-            card.get().getFigures().add(figure.get());
+            if (!figure.get().getCards().contains(card.get()))
+                figure.get().getCards().add(card.get());
+            if (!card.get().getFigures().contains(figure.get()))
+                card.get().getFigures().add(figure.get());
         }
         return this.cardService.saveCard(card.get());
     }
@@ -82,7 +84,7 @@ public class CardController {
             return "Card not found";
         if (!figure.isPresent())
             return "Figure not found";
-        
+
         if (figure.get().getCards() == null) {
             figure.get().setCards(new ArrayList<Card>());
             if (card.get().getFigures() == null)

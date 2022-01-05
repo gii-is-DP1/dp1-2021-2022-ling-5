@@ -43,9 +43,11 @@ public class Player extends Account {
   @ManyToMany
   private List<Achievement> achievements;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "requester", cascade = CascadeType.REMOVE)
   private List<Friendship> startToFollow;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "requested", cascade = CascadeType.REMOVE)
   private List<Friendship> requestedToFollow;
 
@@ -74,6 +76,14 @@ public class Player extends Account {
     this.email = email;
     this.nickname = nickname;
     this.playerState = playerState;
+  }
+  public Player(String name, String surname, String password, String email, String nickname){
+    this.name = name;
+    this.surname = surname;
+    this.password = password;
+    this.email = email;
+    this.nickname = nickname;
+    this.playerState = PlayerState.NO_PLAY;
   }
 
   @Override
