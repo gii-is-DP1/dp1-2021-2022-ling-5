@@ -1,10 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import userAPI from "../user/userAPI";
 import friendshipAPI from "./friendshipAPI";
 import figures from '../../images/figures/figures'
-import { faCross, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const Friends = () => {
 
@@ -50,7 +49,7 @@ const Friends = () => {
     if (!friends) return <></>
 
     //MODAL
-    
+
     return <Container id="container">
         <div id="addFriend" style={{ textAlign: "right" }}>
             <Button variant="dark" onClick={() => window.location.href = '/addFriend'}>Add a Friend </Button>

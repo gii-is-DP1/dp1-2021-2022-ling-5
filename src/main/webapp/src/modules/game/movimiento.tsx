@@ -1,12 +1,10 @@
-import React from 'react';
-
-export default function movimiento(id:any, card:any){
-    let res=false
+export default function movimiento(id: any, card: any) {
+    let res = false
     let figs = card.figures
     console.log(figs)
-    for (var fig of figs){
-        res = res || fig.id ===id
+    for (var fig of figs) {
+        res = res || fig.id === id
     }
 
-    return res; 
+    return res;
 }
