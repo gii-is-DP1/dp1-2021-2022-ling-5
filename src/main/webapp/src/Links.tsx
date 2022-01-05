@@ -8,14 +8,12 @@ import NewGame from "./modules/general/NewGame";
 import JoinGame from "./modules/general/JoinGame";
 import PlayedGames from './modules/game/playedGames';
 import StartGame from "./modules/general/StartGame";
-import Login from "./modules/general/login";
-import Register from "./modules/general/register";
 import AdminPlayedGames from "./modules/game/adminPlayedGames";
 import AdminNavbar from "./modules/general/AdminNavbar";
 import UsersCRUD from "./modules/user/UsersCRUD";
 import StadisticsNavbar from "./modules/general/StadisticsNavbar";
 import CreateUser from "./modules/user/CreateUser";
-import UserPoints from "./modules/playedGames/userPoints";
+import UserPoints from "./modules/playedGames/UserPoints";
 import BestAndWorstFigure from "./modules/figure/BestAndWorstFigure";
 import Ranking from "./modules/user/Ranking";
 import Friends from "./modules/friendship/Friends";
@@ -30,18 +28,13 @@ const Links = () => {
     }, [])
 
     if (!role) return <></>
+    console.log(role)
     return <Router>
         <PrincipalNavbar />
         <Switch>
             <Route exact path='/'>
                 <App />
             </Route>
-            {/* <Route path="/login">
-                <Login />
-            </Route>
-            <Route path="/register">
-                <Register />
-            </Route> */}
             <Route path='/newGame'>
                 <NewGame />
             </Route>
@@ -50,6 +43,15 @@ const Links = () => {
             </Route>
             <Route path='/startGame/:id'>
                 <StartGame />
+            </Route>
+            <Route path='/notifications'>
+                <Patata />
+            </Route>
+            <Route path='/forum' >
+                <Patata />
+            </Route>
+            <Route path="/logout">
+                <Patata />
             </Route>
 
             {role === "Player" ? <Route path='/profile'>
@@ -151,16 +153,6 @@ const Links = () => {
                 <div id="body" className="d-flex"><AdminNavbar />
                     <Patata /></div>
             </Route> : <>Access is restricted</>}
-
-            <Route path='/notifications'>
-                <Patata />
-            </Route>
-            <Route path='/forum' >
-                <Patata />
-            </Route>
-            <Route path="/logout">
-                <Patata />
-            </Route>
 
         </Switch>
     </Router>
