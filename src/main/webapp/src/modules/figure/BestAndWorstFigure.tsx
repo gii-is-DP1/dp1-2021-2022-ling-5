@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import figures from '../../images/figures/figures.js';
-import figureImg from "../../images/figures/figures.js";
 
 function BestAndWorstFigure() {
 

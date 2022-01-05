@@ -1,8 +1,5 @@
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
-import { Container, Button, Row, Col, Modal, Form } from "react-bootstrap";
-import figures from "../../images/figures/figures";
+import { Container, Button, Form } from "react-bootstrap";
 import friendshipAPI from "./friendshipAPI";
 import { MDBInput } from "mdbreact";
 
@@ -50,18 +47,18 @@ const AddFriend = () => {
     if (!friends) return <></>
     return <Container id="container" className="d-inline-block align-top">
         <Form>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Add a friend</Form.Label>
-            <Form.Control type="email" placeholder="Enter username" />
-        </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Add a friend</Form.Label>
+                <Form.Control type="email" placeholder="Enter username" />
+            </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Add a message!</Form.Label>
-            <MDBInput type="textarea" outline />
-        </Form.Group>
-        <Button variant="dark" type="submit">
-            Send invitation
-        </Button>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Add a message!</Form.Label>
+                <MDBInput type="textarea" outline />
+            </Form.Group>
+            <Button variant="dark" type="submit">
+                Send invitation
+            </Button>
         </Form>
     </Container>
 }
