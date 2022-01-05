@@ -136,6 +136,9 @@ public class StatisticsService {
             Double n = total.get(numberPlayer);
             total.put(numberPlayer, n+1.0);
         }
+        if(playerGames.size()==0){
+          return total;
+        }
         total.entrySet().stream().forEach(e->result.put(e.getKey(), (e.getValue()/playerGames.size())*100));
         return result;
     }
