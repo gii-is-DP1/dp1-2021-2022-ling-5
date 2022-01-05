@@ -61,7 +61,7 @@ public class AchievementControllerTests {
 
     @Test
     void testProcessCreationSuccess() throws Exception {
-        Achievement achievement = new Achievement("Streak10", "Streak 10 games");
+        Achievement achievement = new Achievement("Points10", "Accumulate 10 points", "POINTS", 10);
         mockMvc.perform(post("/api/achievements/figures/{figureId}", TEST_FIGURE_ID).contentType("application/json")
                 .content(objectMapper.writeValueAsString(achievement))).andExpect(status().isOk());
     }
@@ -78,7 +78,7 @@ public class AchievementControllerTests {
 
     @Test
     void testUpdate() throws Exception {
-        Achievement achievement = new Achievement("Streak100", "Streak 100 games");
+        Achievement achievement = new Achievement("Points10", "Accumulate 10 points", "POINTS", 10);
         mockMvc.perform(put("/api/achievements/{achievementId}", TEST_ACHIEVEMENT_ID).contentType("application/json")
                 .content(objectMapper.writeValueAsString(achievement))).andExpect(status().isOk());
     }
