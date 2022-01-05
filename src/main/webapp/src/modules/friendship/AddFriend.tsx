@@ -1,12 +1,12 @@
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
-import userAPI from "../user/userAPI";
+import { useState, useEffect } from "react";
+import { Container, Button, Row, Col, Modal, Form } from "react-bootstrap";
+import figures from "../../images/figures/figures";
 import friendshipAPI from "./friendshipAPI";
-import figures from '../../images/figures/figures'
-import { faCross, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { MDBInput } from "mdbreact";
 
-const Friends = () => {
+const AddFriend = () => {
 
     const [playerId, setPlayerId] = useState<number>();
     const [friends, setFriends] = useState<any[]>([]);
@@ -48,37 +48,22 @@ const Friends = () => {
 
     }, [])
     if (!friends) return <></>
+    return <Container id="container" className="d-inline-block align-top">
+        <Form>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Add a friend</Form.Label>
+            <Form.Control type="email" placeholder="Enter username" />
+        </Form.Group>
 
-    //MODAL
-    
-    return <Container id="container">
-        <div id="addFriend" style={{ textAlign: "right" }}>
-            <Button variant="dark" onClick={() => window.location.href = '/addFriend'}>Add a Friend </Button>
-        </div>
-        <Row>
-            <h3>Online</h3>
-        </Row>
-        <br />
-        <Row>
-            <h3>Offline</h3>
-            {friends.map((el, ind) =>
-                <Row key={ind}>
-
-                    <Col>
-                        <h4><img
-                            src={el.requested.id !== playerId ? figures(el.requested.figure.id - 1) : figures(el.requester.figure.id - 1)}
-                            width="30"
-                            height="30"
-                            className="d-inline-block align-top"
-                            alt="Profile image"
-                        />&nbsp;&nbsp;{el.requested.id !== playerId ? el.requested.nickname : el.requester.nickname}</h4>
-                    </Col>
-                    <Col>
-                        <h4><a style={{ cursor: "pointer" }} ><FontAwesomeIcon icon={faTimes} /></a></h4>
-                    </Col>
-                </Row>)}
-        </Row>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Add a message!</Form.Label>
+            <MDBInput type="textarea" outline />
+        </Form.Group>
+        <Button variant="dark" type="submit">
+            Send invitation
+        </Button>
+        </Form>
     </Container>
 }
 
-export default Friends;
+export default AddFriend;
