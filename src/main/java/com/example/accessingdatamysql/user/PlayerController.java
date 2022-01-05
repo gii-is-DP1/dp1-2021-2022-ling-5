@@ -83,6 +83,11 @@ public class PlayerController {
     return this.playerService.findPlayer(id);
   }
 
+  @GetMapping(value = "/players/names/{nickname}")
+  public @ResponseBody Optional<Player> getPlayerByNickname(@PathVariable String nickname) {
+      return this.playerService.findPlayerByNickname(nickname);
+  }
+
   // @GetMapping(value = "/players/games/{gameId}")
   // public @ResponseBody List<Player> getAllPlayersByGame(@PathVariable Long
   // gameId) {
