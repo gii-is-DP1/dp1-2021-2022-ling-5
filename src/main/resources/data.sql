@@ -156,7 +156,7 @@ INSERT INTO figure VALUES (57, "zanahoria")
 
 -- Load of achievement
 INSERT INTO achievement VALUES(1,'Points10', 0, 'Accumulate 10 points', 10, 1)
-INSERT INTO achievement VALUES(2,'Points20', 0, 'Accumulate 10 points', 20, 2)
+INSERT INTO achievement VALUES(2,'Points20', 0, 'Accumulate 20 points', 20, 2)
 
 -- Load of card
 

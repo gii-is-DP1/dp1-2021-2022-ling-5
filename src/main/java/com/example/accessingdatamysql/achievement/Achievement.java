@@ -32,12 +32,10 @@ public class Achievement extends NamedEntity {
     private String description;
 
     @NotNull
-    @NotEmpty
     @Column(name = "achievementTypes")
     private AchievementTypes achievementTypes;
 
     @NotNull
-    @NotEmpty
     @Column(name = "requirement")
     private Integer requirement;
 
