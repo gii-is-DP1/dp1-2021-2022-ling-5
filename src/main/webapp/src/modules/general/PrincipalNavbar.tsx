@@ -8,6 +8,7 @@ import userAPI from "../user/userAPI"
 import token from "../user/token"
 
 const PrincipalNavbar = () => {
+
     const [modalShow, setModalShow] = useState<boolean>(false);
     const [username, setUsername] = useState<string>("");
     const [figure, setFigure] = useState<number>(0);
