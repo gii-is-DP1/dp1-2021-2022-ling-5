@@ -2,6 +2,8 @@ package com.example.accessingdatamysql.achievement;
 
 import com.example.accessingdatamysql.figure.Figure;
 import com.example.accessingdatamysql.figure.FigureService;
+import com.example.accessingdatamysql.user.PlayerController;
+import com.example.accessingdatamysql.user.PlayerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.assertj.core.util.Lists;
@@ -33,6 +35,12 @@ public class AchievementControllerTests {
 
     @MockBean
     private FigureService figureService;
+
+    @MockBean
+    private PlayerService playerService;
+
+    @MockBean
+    private PlayerController playerController;
 
     @Autowired
     private ObjectMapper objectMapper;
