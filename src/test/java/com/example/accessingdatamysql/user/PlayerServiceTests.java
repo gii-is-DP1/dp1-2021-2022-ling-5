@@ -45,6 +45,15 @@ public class PlayerServiceTests {
     }
 
     @Test
+    public void shouldFindSinglePlayerByNickname() {
+        Optional<Player> playerOpt = this.playerService.findPlayerByNickname("unito");
+        if (playerOpt.isPresent()) {
+            Player player = playerOpt.get();
+            assertEquals(player.getNickname(), "unito");
+        }
+    }
+
+    @Test
     @Transactional
     void shouldUpdatePlayer() {
         Optional<Player> player = this.playerService.findPlayer(1L);

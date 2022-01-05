@@ -16,6 +16,14 @@ const userAPI = {
         });
     },
 
+    getPlayerByNickname: function (nickname: any) {
+        return new Promise<any>(function (resolve, reject) {
+            fetch(`http://localhost:8080/api/players/names/${nickname}`)
+                .then(res => res.json()).then(resolve)
+                .catch(error => console.error);
+        });
+    },
+
     async addNewUser(user: any, role: string) {
         if (role.toLowerCase() === "player") {
             role = "players";

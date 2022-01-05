@@ -9,7 +9,7 @@ import { useBootstrapPrefix } from "react-bootstrap/esm/ThemeProvider";
 import userAPI from "../user/userAPI";
 import { get } from "http";
 
-const AddFriend = () => {
+const AceptFriend = () => {
 
     var userData: any = localStorage.getItem("userData");
     if (userData !== null) userData = JSON.parse(userData)
@@ -33,9 +33,7 @@ const AddFriend = () => {
             friendshipAPI.addFriendship(friendship, playerId, friendId).then(res =>
                 window.location.href = '/friends'
             ).catch(err => console.log(err));
-
         }
-
     }
 
     return <Container id="container" className="d-inline-block align-top">
@@ -52,4 +50,4 @@ const AddFriend = () => {
     </Container>
 }
 
-export default AddFriend
+export default AceptFriend
