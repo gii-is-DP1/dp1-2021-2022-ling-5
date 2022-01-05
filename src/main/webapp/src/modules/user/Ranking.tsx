@@ -13,27 +13,31 @@ function Ranking() {
         })
         .then(data => setResults(data))
         .catch(console.error)
+        
     }, [])
 
     const [user, setUser] = useState<any>();
     useEffect(() => {
-        var userData: any = localStorage.getItem("userData");
-        if (userData !== null) userData = JSON.parse(userData)
-        var id = userData.id
-        fetch(`http://localhost:8080/api/statistics/ranking/${id}`)
-        .then(res => {
-            return res.json()
-        })
-        .then(data => setUser(data))
-        .catch(console.error)
-    })
-    
-    if (!results && !user) return <div>Loading...</div>
+    var userData: any = localStorage.getItem("userData");
+    if (userData !== null) userData = JSON.parse(userData)
+    const playerId = userData.id
+    fetch(`http://localhost:8080/api/statistics/ranking/${playerId}`)
+      .then(res => {
+        return res.json()
+      })
+      .then(data => setUser(data))
+      .catch(console.error)
+
+  }, [])
+   
+    if (!results) return <div>Loading...</div>
+    if (!user) return <div>Loading...</div>
+
 
     return (
     <div className="container">
-
-        <p>YOUR POSITION IS {user.first} WITH {user.second} POINTS</p>
+        <h1>RANKING</h1>
+        <h3>YOUR POSITION IS #{user.first} WITH {user.second.points} POINTS</h3>
 
         <Table striped bordered hover responsive="md">
         <thead>
