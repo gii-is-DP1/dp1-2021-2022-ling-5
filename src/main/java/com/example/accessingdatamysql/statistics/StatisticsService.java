@@ -258,6 +258,35 @@ public class StatisticsService {
       return res;
     }
 
+    public Map<String,Long> maxMinAvgTimeAll(){
+
+      List<Game> misPartidas = gameService.findAllGames();
+      List<Long> l2 = new ArrayList<Long>();
+
+      for(int i = 0; i<misPartidas.size();i++){
+        Date f1 = misPartidas.get(i).getStartTime();
+        Date f2 = misPartidas.get(i).getEndTime();
+        TimeUnit time = TimeUnit.MINUTES;
+        Long m = f2.getTime()-f1.getTime();
+        long diffrence = time.convert(m, TimeUnit.MILLISECONDS);
+
+        l2.add(diffrence);
+
+      }
+
+      Collections.sort(l2);
+      Long min = l2.get(0);
+      Long max = l2.get(l2.size()-1);
+      Long avg = l2.stream().mapToLong(Long::longValue).sum()/l2.size();
+
+      Map<String,Long> res = new HashMap<String,Long>();
+      res.put("min", min);
+      res.put("avg", avg);
+      res.put("max", max);
+
+      return res;
+    }
+
     
 
 }
