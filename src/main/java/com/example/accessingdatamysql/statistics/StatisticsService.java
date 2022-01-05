@@ -13,12 +13,15 @@ import com.example.accessingdatamysql.user.PlayerService;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 import java.util.stream.StreamSupport;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,52 +139,125 @@ public class StatisticsService {
         total.entrySet().stream().forEach(e->result.put(e.getKey(), (e.getValue()/playerGames.size())*100));
         return result;
     }
-  public Double propTotal(Long id) {
-    List<Game> partidas = gameService.findAllGames();
-    List<Result> misPartidas = resultService.findAllResultsByPlayer(id);
-    Double a = (double) partidas.size();
-    Double b = (double) misPartidas.size();
-    Double result = b / a;
-    return result;
-  }
+  
 
-  public Double avg(List<Integer> m) {
-    Integer sum = 0;
-    for (int i = 0; i < m.size(); i++) {
-      sum = sum + m.get(i);
+    public  Double propTotal(Long id){
+
+        List<Game> partidas = gameService.findAllGames();
+        List<Result> misPartidas = resultService.findAllResultsByPlayer(id);
+        Double a = (double) partidas.size();
+        Double b = (double) misPartidas.size();
+        Double result = b/a;
+        return result;
+
     }
-    return (double) sum / m.size();
-  }
 
-  public Map<String, Double> maxMinAvg(Long id) {
-    List<Result> resultados = resultService.findAllResultsByPlayer(id);
-    List<Integer> misPuntos = new ArrayList<Integer>();
-    for (Integer i = 0; i < resultados.size(); i++) {
-      Integer result = resultados.get(i).getTotalPoints();
-      misPuntos.add(result);
+    public  Double avg(List<Integer> m){
+        Integer sum = 0;
+        for(int i = 0; i < m.size(); i++) { 
+            sum=  sum+m.get(i);       
+        }
+        return (double) sum/m.size();
     }
-    Collections.sort(misPuntos);
-    Map<String, Double> map = new HashMap<>();
-    map.put("min", (double) misPuntos.get(0));
-    map.put("avg", avg(misPuntos));
-    map.put("max", (double) misPuntos.get(misPuntos.size() - 1));
 
-    return map;
-  }
+    public  Map<String,Double> maxMinAvg(Long id){
+        List<Result> resultados = resultService.findAllResultsByPlayer(id);
+        List<Integer> misPuntos = new ArrayList<Integer>();
+        for(Integer i = 0; i<resultados.size(); i++){
+            Integer result = resultados.get(i).getTotalPoints();
+            misPuntos.add(result);
+        }
+        Collections.sort(misPuntos);
+        Map<String,Double> map= new HashMap<>();
+        map.put("min", (double)misPuntos.get(0));
+        map.put("avg", avg(misPuntos));
+        map.put("max",(double) misPuntos.get(misPuntos.size()-1));
 
-  public Map<String, Double> maxMinAvgAll() {
-    List<Result> resultados = resultService.findAllResults();
-    List<Integer> puntosAll = new ArrayList<Integer>();
-    for (Integer i = 0; i < resultados.size(); i++) {
-      Integer result = resultados.get(i).getTotalPoints();
-      puntosAll.add(result);
+        return map;
+
+
     }
-    Collections.sort(puntosAll);
-    Map<String, Double> map = new HashMap<>();
-    map.put("min", (double) puntosAll.get(0));
-    map.put("avg", avg(puntosAll));
-    map.put("max", (double) puntosAll.get(puntosAll.size() - 1));
 
-    return map;
-  }
+    public  Map<String,Double> maxMinAvgAll(){
+        List<Result> resultados = resultService.findAllResults();
+        List<Integer> puntosAll = new ArrayList<Integer>();
+        for(Integer i = 0; i<resultados.size(); i++){
+            Integer result = resultados.get(i).getTotalPoints();
+            puntosAll.add(result);
+        }
+        Collections.sort(puntosAll);
+        Map<String,Double> map= new HashMap<>();
+        map.put("min", (double)puntosAll.get(0));
+        map.put("avg", avg(puntosAll));
+        map.put("max",(double) puntosAll.get(puntosAll.size()-1));
+
+        return map;
+
+
+    }
+
+
+    public Double propTiempo(Long playerId){
+      List<Game> partidas = gameService.findAllGames();
+      List<Game> misPartidas = gameService.getGamesByPlayer(playerId);
+      List<Double> l1 = new ArrayList<Double>();
+      List<Double> l2 = new ArrayList<Double>();
+      for(int i = 0; i<partidas.size();i++){
+        Date f1 = partidas.get(i).getStartTime();
+        Date f2 = partidas.get(i).getEndTime();
+        Long m = f2.getTime()-f1.getTime();
+        Double res = Double.longBitsToDouble(m);
+        l1.add(res);
+
+      }
+      for(int i = 0; i<misPartidas.size();i++){
+        Date f1 = misPartidas.get(i).getStartTime();
+        Date f2 = misPartidas.get(i).getEndTime();
+        Long m = f2.getTime()-f1.getTime();
+        Double res = Double.longBitsToDouble(m);
+        l2.add(res);
+
+      }
+
+      Double divisor=l1.stream().mapToDouble(Double::doubleValue).sum();
+      if(divisor==0||l1.size()==0){
+        return 0.0;
+      }else{
+        return l2.stream().mapToDouble(Double::doubleValue).sum()/l1.stream().mapToDouble(Double::doubleValue).sum();
+
+
+      }
+    }
+
+    public Map<String,Long> maxMinAvgTime(Long playerId){
+
+      List<Game> misPartidas = gameService.getGamesByPlayer(playerId);
+      List<Long> l2 = new ArrayList<Long>();
+
+      for(int i = 0; i<misPartidas.size();i++){
+        Date f1 = misPartidas.get(i).getStartTime();
+        Date f2 = misPartidas.get(i).getEndTime();
+        TimeUnit time = TimeUnit.MINUTES;
+        Long m = f2.getTime()-f1.getTime();
+        long diffrence = time.convert(m, TimeUnit.MILLISECONDS);
+
+        l2.add(diffrence);
+
+      }
+
+      Collections.sort(l2);
+      Long min = l2.get(0);
+      Long max = l2.get(l2.size()-1);
+      Long avg = l2.stream().mapToLong(Long::longValue).sum()/l2.size();
+
+      Map<String,Long> res = new HashMap<String,Long>();
+      res.put("min", min);
+      res.put("avg", avg);
+      res.put("max", max);
+
+      return res;
+    }
+
+    
+
 }

@@ -57,10 +57,22 @@ public class StatisticsController {
     return this.statisticsService.maxMinAvgAll();
   }
 
+  @GetMapping(value = "/statistics/proptotal/{playerId}")
+  public @ResponseBody Double getPropTotal(@PathVariable Long playerId) {
+    return this.statisticsService.propTiempo(playerId);
+  }
+
   @GetMapping(value = "/statistics/maxminavg/{playerId}")
   public @ResponseBody Map<String, Double> getMaxMinAvg(
     @PathVariable Long playerId
   ) {
     return this.statisticsService.maxMinAvg(playerId);
+  }
+
+  @GetMapping(value = "/statistics/maxminavgtime/{playerId}")
+  public @ResponseBody Map<String, Long> getMaxMinAvgTime(
+    @PathVariable Long playerId
+  ) {
+    return this.statisticsService.maxMinAvgTime(playerId);
   }
 }
