@@ -13,13 +13,14 @@ import AdminNavbar from "./modules/general/AdminNavbar";
 import UsersCRUD from "./modules/user/UsersCRUD";
 import StadisticsNavbar from "./modules/general/StadisticsNavbar";
 import CreateUser from "./modules/user/CreateUser";
-import UserPoints from "./modules/playedGames/UserPoints";
+import UserPoints from "./modules/playedGames/userPoints";
 import BestAndWorstFigure from "./modules/figure/BestAndWorstFigure";
 import Ranking from "./modules/user/Ranking";
 import Friends from "./modules/friendship/Friends";
 import { useEffect, useState } from "react";
 import UserFrequency from "./modules/playedGames/UserFrequency";
 import AddFriend from "./modules/friendship/AddFriend";
+import AcceptFriend from "./modules/friendship/AcceptFriend";
 
 const Links = () => {
     const [role, setRole] = useState<string | null>(null)
@@ -45,7 +46,7 @@ const Links = () => {
                 <StartGame />
             </Route>
             <Route path='/notifications'>
-                <Patata />
+                <AcceptFriend />
             </Route>
             <Route path='/forum' >
                 <Patata />
