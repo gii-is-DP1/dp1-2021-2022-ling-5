@@ -13,7 +13,7 @@ import AdminNavbar from "./modules/general/AdminNavbar";
 import UsersCRUD from "./modules/user/UsersCRUD";
 import StadisticsNavbar from "./modules/general/StadisticsNavbar";
 import CreateUser from "./modules/user/CreateUser";
-import UserPoints from "./modules/playedGames/UserPoints";
+import UserPoints from "./modules/playedGames/userPoints";
 import BestAndWorstFigure from "./modules/figure/BestAndWorstFigure";
 import Ranking from "./modules/user/Ranking";
 import Friends from "./modules/friendship/Friends";
