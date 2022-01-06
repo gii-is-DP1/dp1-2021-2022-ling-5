@@ -34,11 +34,14 @@ const AceptFriend = () => {
 
     const acceptFriend = async(id: any, username: String) => {
         const data = await userAPI.getPlayerByNickname(username);
-        const friendship = {state: "FRIENDS",requester: data, requested:userData};
- 
-        friendshipAPI.updateFriendship(friendship, playerId, id)
-            .then((res) => window.location.href = '/friends')
-            .catch((err) => console.log(err)); 
+        console.log(data);
+        const newfriendship = {state: "FRIENDS",requester: data, requested:userData};
+        console.log(newfriendship);
+        if (newfriendship != null) {
+            friendshipAPI.updateFriendship(newfriendship, playerId, id)
+                .then((res) => window.location.href = '/friends')
+                .catch((err) => console.log(err)); 
+        }
     }
 
     const rejectFriend = async(id: any) => {
@@ -56,10 +59,10 @@ const AceptFriend = () => {
             <small>Friendship {ind+1}</small>
         </Toast.Header>
         <Toast.Body>"{e.requester.nickname}" has requested to be friends!</Toast.Body>
-        <Button variant="outline-danger" type="button" onClick={() => acceptFriend(ind, e.requester.nickname)}>
+        <Button variant="outline-danger" type="button" onClick={() => rejectFriend(e.id)}>
             Decline
         </Button>
-        <Button variant="dark" type="button" onClick={() => rejectFriend(ind)}>
+        <Button variant="dark" type="button" onClick={() => acceptFriend(e.id, e.requester.nickname)}>
             Accept
         </Button>
         </Toast>

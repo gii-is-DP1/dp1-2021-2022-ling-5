@@ -104,7 +104,7 @@ const friendshipAPI = {
             body: JSON.stringify(newFriendship)
         }
 
-        return await fetch(`http://localhost:8080/api/players/requested/${requestedId}/frienships/${friendshipId}`, requestOptions)
+        return await fetch(`http://localhost:8080/api/players/requested/${requestedId}/friendships/${friendshipId}`, requestOptions)
             .then((res: any) => {
                 return res.json();
             }).catch((err: any) => console.log(err));
