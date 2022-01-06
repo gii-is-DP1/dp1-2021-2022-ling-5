@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum AchievementTypes {
     POINTS("POINTS"),POINTSTORRE("POINTSTORRE"),
-        POINTSFOSO("POINTSFOSO"),POINTSREGALOS("POINTSREGALO");
+        POINTSFOSO("POINTSFOSO"),POINTSREGALO("POINTSREGALO");
     
     private final String value;
     private final static Map<String,AchievementTypes> CONSTANTS = new HashMap<String,AchievementTypes>();
@@ -21,6 +21,10 @@ public enum AchievementTypes {
 
     private AchievementTypes(String value){
         this.value = value;
+    }
+
+    public static Map<String,AchievementTypes> getTypes(){
+        return CONSTANTS;
     }
 
     @Override

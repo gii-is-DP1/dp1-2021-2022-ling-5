@@ -110,4 +110,9 @@ public class AchievementController {
             this.playerController.addNewAchievementToUser(playerId, a.getId());
         }
     }
+
+    @GetMapping(value = "/achievementTypes")
+    public @ResponseBody List<AchievementTypes> getAllAchievementTypes(){
+        return AchievementTypes.getTypes().entrySet().stream().map(e->e.getValue()).collect(Collectors.toList());
+    }
 }
