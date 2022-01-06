@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import com.example.accessingdatamysql.model.BaseEntity;
@@ -16,7 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "friendship")
+@Table(name = "friendship", uniqueConstraints = @UniqueConstraint(columnNames = {"requested_id", "requester_id"}))
 public class Friendship extends BaseEntity {
 
     @NotNull

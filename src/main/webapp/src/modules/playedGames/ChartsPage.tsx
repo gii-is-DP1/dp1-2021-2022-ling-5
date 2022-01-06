@@ -1,7 +1,7 @@
 import React from "react";
-import { MDBContainer } from "mdbreact";
 import { Pie } from "react-chartjs-2";
-import {Chart, ArcElement} from 'chart.js'
+import { Chart, ArcElement } from 'chart.js'
+const { MDBContainer } = require("mdbreact");
 
 Chart.register(ArcElement);
 
@@ -14,17 +14,17 @@ const ChartsPage = (props: any) => {
         datasets: [
             {
                 label: "Hours Studied in Geeksforgeeks",
-                data: [frequency[2],frequency[3],frequency[4],frequency[5],frequency[6],frequency[7],frequency[8]],
+                data: [frequency[2], frequency[3], frequency[4], frequency[5], frequency[6], frequency[7], frequency[8]],
                 backgroundColor: ["rgba(2, 71, 243, 0.88)", "green", "grey", "rgba(80, 202, 228, 0.88)", "orange", "black", "red"],
             }
         ]
     }
-    
+
 
     return (
         <MDBContainer>
             <Pie data={data} />
-          
+
         </MDBContainer>
     );
 }

@@ -84,7 +84,7 @@ public class AchievementService {
       case POINTSTORRE:
         points = this.statisticsService.pointsByMinigames(playerId).get(1);
         break;
-      case POINTSREGALOS:
+      case POINTSREGALO:
         points = this.statisticsService.pointsByMinigames(playerId).get(2);
         break;
       default:
