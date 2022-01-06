@@ -56,7 +56,7 @@ const Links = () => {
             {role === "Player" ? <Route path='/profile'>
                 <div id="body" className="d-flex">
                     <ProfileNavbar />
-                    <Patata /></div>
+                    <AcceptFriend /></div>
             </Route> : <>Access is restricted</>}
 
             {role === "Player" ? <Route path='/stats'>
