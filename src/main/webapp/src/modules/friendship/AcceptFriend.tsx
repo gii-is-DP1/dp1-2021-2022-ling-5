@@ -1,7 +1,7 @@
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
-import { Container, Button, Row, Col, Modal, Form } from "react-bootstrap";
+import { Container, Button, Row, Col, Modal, Form, Toast, ToastContainer } from "react-bootstrap";
 import figures from "../../images/figures/figures";
 import friendshipAPI from "./friendshipAPI";
 import { MDBInput } from "mdbreact";
@@ -15,38 +15,58 @@ const AceptFriend = () => {
     if (userData !== null) userData = JSON.parse(userData)
     const playerId = userData.id
 
-    const [username, setUsername] = useState<any>();
+    const requestedList: any[] = []
+    const [friendship, setFriendship] = useState<any[]>([]);
+
+    useEffect(() => {
+        friendshipAPI.getAllFriendshipsByRequested(playerId)
+        .then((frs: any[]) => {
+            for (let i = 0; i < frs.length; i++) {
+                const fr = frs[i];
+                if (fr.state === "REQUESTED") {
+                    console.log(fr)
+                    requestedList.push(fr)
+                }
+            }setFriendship(requestedList)
+            }).catch(err => console.log(err));
+    }, [])
 
 
-    const newFriend = async() => {
-
-        
+    const acceptFriend = async(id: any, username: String) => {
         const data = await userAPI.getPlayerByNickname(username);
-        
         console.log(data);
-        
-        const friendship = {state: "REQUESTED",requester: userData, requested:data};
-
-        if (friendship.requested != null) {
-            let friendId = friendship.requested.id;
-            
-            friendshipAPI.addFriendship(friendship, playerId, friendId).then(res =>
-                window.location.href = '/friends'
-            ).catch(err => console.log(err));
+        const newfriendship = {state: "FRIENDS",requester: data, requested:userData};
+        console.log(newfriendship);
+        if (newfriendship != null) {
+            friendshipAPI.updateFriendship(newfriendship, playerId, id)
+                .then((res) => window.location.href = '/friends')
+                .catch((err) => console.log(err)); 
         }
     }
 
-    return <Container id="container" className="d-inline-block align-top">
-        <Form>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Add a friend</Form.Label>
-            <Form.Control type="username" placeholder="enter username"  onChange={(e) => setUsername(e.target.value )}/>
-        </Form.Group>
+    const rejectFriend = async(id: any) => {
+        friendshipAPI.deleteFriendship(id)
+            .then((res) => window.location.href = '/friends')
+            .catch((err) => console.log(err)); 
+    }
 
-        <Button variant="dark" type="button" onClick={() => newFriend()}>
-            Send invitation
+    return <Container id="container" className="d-inline-block align-top">
+        {friendship.map((e, ind) => (
+        <Toast>
+        <Toast.Header >
+            <i className="fas fa-user-plus"></i>
+            <strong className="me-auto">New friend</strong>
+            <small>Friendship {ind+1}</small>
+        </Toast.Header>
+        <Toast.Body>"{e.requester.nickname}" has requested to be friends!</Toast.Body>
+        <Button variant="outline-danger" type="button" onClick={() => rejectFriend(e.id)}>
+            Decline
         </Button>
-        </Form>
+        <Button variant="dark" type="button" onClick={() => acceptFriend(e.id, e.requester.nickname)}>
+            Accept
+        </Button>
+        </Toast>
+        ))}
     </Container>
 }
 
