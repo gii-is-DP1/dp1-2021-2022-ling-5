@@ -37,7 +37,19 @@ public class PlayerFiguresController {
         if (player.isPresent()) {
             playerFiguresService.createAll(player.get());
         }
+    }
 
+    @PostMapping(value = "/figure/{figureId}/players/{playerId}/playerfigures") // Map ONLY POST Requests
+    public @ResponseBody PlayerFigures addNewResult(@RequestBody PlayerFigures result, @PathVariable Long figureId,
+            @PathVariable Long playerId) {
+        Optional<Figure> figure = this.figureService.findFigure(figureId);
+        Optional<Player> player = this.playerService.findPlayer(playerId);
+        if (figure.isPresent() && player.isPresent()) {
+            result.setFigure(figure.get());
+            result.setPlayer(player.get());
+            return this.playerFiguresService.savePlayerFigures(result);
+        }
+        return null;
     }
 
     @PutMapping(value = "/player/{playerId}/figure/{figureId}/add")
@@ -79,7 +91,7 @@ public class PlayerFiguresController {
     }
 
     @DeleteMapping(value = "/playerfigures/{id}")
-    public @ResponseBody String deleteResult(@PathVariable Long id) {
+    public @ResponseBody String deletePlayerFigure(@PathVariable Long id) {
         this.playerFiguresService.deletePlayerFigures(id);
         return "Deleted";
     }
@@ -87,6 +99,18 @@ public class PlayerFiguresController {
     @DeleteMapping(value = "/PlayerFigures")
     public @ResponseBody String deleteAllPlayerFigures() {
         this.playerFiguresService.deleteAllPlayerFigures();
+        return "Deleted all";
+    }
+
+    @DeleteMapping(value = "/figure/{figureId}/playerfigures")
+    public @ResponseBody String deleteAllPlayerFiguresByFigure(@PathVariable Long figureId) {
+        this.playerFiguresService.deleteAllPlayerFiguresByFigure(figureId);
+        return "Deleted all";
+    }
+
+    @DeleteMapping(value = "/players/{playerId}/playerfigures")
+    public @ResponseBody String deleteAllPlayerFiguresByPlayer(@PathVariable Long playerId) {
+        this.playerFiguresService.deleteAllPlayerFiguresByPlayer(playerId);
         return "Deleted all";
     }
 }
