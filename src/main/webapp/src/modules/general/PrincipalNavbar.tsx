@@ -12,29 +12,31 @@ const PrincipalNavbar = () => {
     const [modalShow, setModalShow] = useState<boolean>(false);
     const [username, setUsername] = useState<string>("");
     const [figure, setFigure] = useState<number>(0);
+    const [role, setRole] = useState<string | null>();
     var id = 0;
-    var role = null;
 
     useEffect(() => {
         var userData: any = localStorage.getItem("userData");
         if (userData !== null) userData = JSON.parse(userData)
         id = userData.id
-        role = localStorage.getItem("rol")
-        if (role !== null && id !== 0) {
-            userAPI.getUser(id, role).then((user: any) => {
+        var rol = localStorage.getItem("rol");
+        setRole(rol);
+        if (rol !== null && id !== 0) {
+            userAPI.getUser(id, rol).then((user: any) => {
                 setUsername(user.nickname)
                 setFigure(user.figure.id - 1)
             }).catch(err => console.log(err));
         }
     }, [])
 
+    if (!username && !figure && !role) return <></>
+
     const src = role === "Admin" ? icons(3) : figures(figure);
     const alt = role === "Admin" ? "Dobble logo" : "Profile image";
     const nickname = role === "Admin" ? "Admin" : username;
-    const href1 = role === "Admin" ? "/gamesProgress" : "profile";
+    const href1 = role === "Admin" ? "/gamesProgress" : "/profile";
     const namehref1 = role === "Admin" ? "Info" : "Profile";
 
-    if (!username && !figure) return <></>
     return <Navbar expand="lg">
         <Container>
             <a href="/" id="img"><img

@@ -73,6 +73,13 @@ public class PlayerFiguresService {
       .forEach(result -> playerFiguresRepository.deleteById(result.getId()));
   }
 
+  @Transactional
+  public void deleteAllPlayerFiguresByFigure(Long figureId) {
+    findAllPlayerFiguresByFigure(figureId)
+      .stream()
+      .forEach(result -> playerFiguresRepository.deleteById(result.getId()));
+  }
+
   public PlayerFigures getByData(Long figureId, Long playerId) {
     return StreamSupport
       .stream(playerFiguresRepository.findAll().spliterator(), false)

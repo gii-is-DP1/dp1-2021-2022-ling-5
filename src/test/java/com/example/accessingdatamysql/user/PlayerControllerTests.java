@@ -71,7 +71,7 @@ public class PlayerControllerTests {
         role.setId(TEST_ROLE_ID);
         given(this.roleService.findAllRoles()).willReturn(Lists.newArrayList(role));
 
-        Achievement achievement = new Achievement("Streak10", "Streak 10 games");
+        Achievement achievement = new Achievement("Points10", "Accumulate 10 points", "POINTS", 10);
         achievement.setId(TEST_ACHIEVEMENT_ID);
         given(this.achievementService.findAllAchievements()).willReturn(Lists.newArrayList(achievement));
 
