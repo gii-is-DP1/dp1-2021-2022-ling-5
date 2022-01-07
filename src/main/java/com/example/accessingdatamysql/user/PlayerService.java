@@ -43,6 +43,13 @@ public class PlayerService {
       .collect(Collectors.toList());
   }
 
+  public Optional<Player> findPlayerByNickname(String nickname) {
+    return StreamSupport
+      .stream(playerRepository.findAll().spliterator(), false)
+      .filter(player -> player.getNickname().equals(nickname))
+      .findFirst();
+  }
+
   // public List<Player> findAllPlayersByGame(Long gameId) {
   // System.out.println("gameId: " + gameId);
   // System.out.println("GAMEEE: " + gameRepository.findById(gameId).get());

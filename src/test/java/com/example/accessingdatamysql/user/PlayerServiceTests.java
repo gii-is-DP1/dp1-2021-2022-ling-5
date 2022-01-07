@@ -50,13 +50,22 @@ public class PlayerServiceTests {
     }
   }
 
-  @Test
-  @Transactional
-  void shouldUpdatePlayer() {
-    Optional<Player> player = this.playerService.findPlayer(1L);
-    if (player.isPresent()) {
-      String oldName = player.get().getName();
-      String newName = oldName + "X";
+    @Test
+    public void shouldFindSinglePlayerByNickname() {
+        Optional<Player> playerOpt = this.playerService.findPlayerByNickname("unito");
+        if (playerOpt.isPresent()) {
+            Player player = playerOpt.get();
+            assertEquals(player.getNickname(), "unito");
+        }
+    }
+
+    @Test
+    @Transactional
+    void shouldUpdatePlayer() {
+        Optional<Player> player = this.playerService.findPlayer(1L);
+        if (player.isPresent()) {
+            String oldName = player.get().getName();
+            String newName = oldName + "X";
 
       player.get().setName(newName);
       this.playerService.savePlayer(player.get());

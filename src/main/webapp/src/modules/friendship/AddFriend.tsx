@@ -2,65 +2,51 @@ import { useState, useEffect } from "react";
 import { Container, Button, Form } from "react-bootstrap";
 import friendshipAPI from "./friendshipAPI";
 import { MDBInput } from "mdbreact";
+import { useBootstrapPrefix } from "react-bootstrap/esm/ThemeProvider";
+import userAPI from "../user/userAPI";
+import { get } from "http";
 
 const AddFriend = () => {
 
-    const [playerId, setPlayerId] = useState<number>();
-    const [friends, setFriends] = useState<any[]>([]);
+    var userData: any = localStorage.getItem("userData");
+    if (userData !== null) userData = JSON.parse(userData)
+    const playerId = userData.id
 
-    useEffect(() => {
-        var userData: any = localStorage.getItem("userData");
-        var id = 0;
-        if (userData !== null) {
-            userData = JSON.parse(userData);
-            if (userData !== null) {
-                setPlayerId(userData.id)
-                id = userData.id
-            }
-        }
-        if (id !== 0) {
-            const friendsList: any[] = []
-            friendshipAPI.getAllFriendshipsByRequester(id)
-                .then((frs: any[]) => {
-                    for (let i = 0; i < frs.length; i++) {
-                        const fr = frs[i];
-                        if (fr.state === "FRIENDS") {
-                            console.log(fr)
-                            friendsList.push(fr)
-                        }
-                        friendshipAPI.getAllFriendshipsByRequested(id)
-                            .then((frs: any[]) => {
-                                for (let i = 0; i < frs.length; i++) {
-                                    const fr = frs[i];
-                                    if (fr.state === "FRIENDS") {
-                                        console.log(fr)
-                                        friendsList.push(fr)
-                                    }
-                                }
-                                setFriends(friendsList)
-                            }).catch(err => console.log(err));
-                    }
-                }).catch(err => console.log(err));
+    const [username, setUsername] = useState<any>();
+
+
+    const newFriend = async() => {
+
+        
+        const data = await userAPI.getPlayerByNickname(username);
+        
+        console.log(data);
+        
+        const friendship = {state: "REQUESTED",requester: userData, requested:data};
+
+        if (friendship.requested != null) {
+            let friendId = friendship.requested.id;
+            
+            friendshipAPI.addFriendship(friendship, playerId, friendId).then(res =>
+                window.location.href = '/friends'
+            ).catch(err => console.log(err));
+
         }
 
-    }, [])
-    if (!friends) return <></>
+    }
+
     return <Container id="container" className="d-inline-block align-top">
         <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Add a friend</Form.Label>
-                <Form.Control type="email" placeholder="Enter username" />
-            </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Add a friend</Form.Label>
+            <Form.Control type="username" placeholder="enter username"  onChange={(e) => setUsername(e.target.value )}/>
+        </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Add a message!</Form.Label>
-                <MDBInput type="textarea" outline />
-            </Form.Group>
-            <Button variant="dark" type="submit">
-                Send invitation
-            </Button>
+        <Button variant="dark" type="button" onClick={() => newFriend()}>
+            Send invitation
+        </Button>
         </Form>
     </Container>
 }
 
-export default AddFriend;
+export default AddFriend

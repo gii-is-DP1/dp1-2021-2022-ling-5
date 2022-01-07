@@ -27,7 +27,7 @@ public class AchievementServiceTests {
         List<Achievement> achievements = this.achievementService.findAllAchievements();
         int found = achievements.size();
 
-        Achievement achievement = new Achievement("Streak10", "Streak 10 games");
+        Achievement achievement = new Achievement("Points10", "Accumulate 10 points", "POINTS", 10);
         this.achievementService.saveAchievement(achievement);
         assertNotEquals(achievement.getId(), 0L);
 
@@ -40,8 +40,8 @@ public class AchievementServiceTests {
         Optional<Achievement> achievementOpt = this.achievementService.findAchievement(1L);
         if (achievementOpt.isPresent()) {
             Achievement achievement = achievementOpt.get();
-            assertEquals(achievement.getName(), "Streak10");
-            assertEquals(achievement.getDescription(), "Streak 10 games");
+            assertEquals(achievement.getName(), "Points10");
+            assertEquals(achievement.getDescription(), "Accumulate 10 points");
         }
     }
 
@@ -65,7 +65,7 @@ public class AchievementServiceTests {
 
     @Test
     void shouldDeleteAchievement() {
-        Achievement achievement = new Achievement("Streak30", "Streak 30 games");
+        Achievement achievement = new Achievement("Points10", "Accumulate 10 points", "POINTS", 10);
         achievement = this.achievementService.saveAchievement(achievement);
         List<Achievement> achievements = this.achievementService.findAllAchievements();
         int found = achievements.size();

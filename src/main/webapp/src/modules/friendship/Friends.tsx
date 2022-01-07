@@ -10,7 +10,7 @@ const Friends = () => {
     const [playerId, setPlayerId] = useState<number>();
     const [friends, setFriends] = useState<any[]>([]);
 
-    useEffect(() => {
+    const getFriends = async () => {
         var userData: any = localStorage.getItem("userData");
         var id = 0;
         if (userData !== null) {
@@ -22,33 +22,29 @@ const Friends = () => {
         }
         if (id !== 0) {
             const friendsList: any[] = []
-            friendshipAPI.getAllFriendshipsByRequester(id)
-                .then((frs: any[]) => {
-                    for (let i = 0; i < frs.length; i++) {
-                        const fr = frs[i];
-                        if (fr.state === "FRIENDS") {
-                            console.log(fr)
-                            friendsList.push(fr)
-                        }
-                        friendshipAPI.getAllFriendshipsByRequested(id)
-                            .then((frs: any[]) => {
-                                for (let i = 0; i < frs.length; i++) {
-                                    const fr = frs[i];
-                                    if (fr.state === "FRIENDS") {
-                                        console.log(fr)
-                                        friendsList.push(fr)
-                                    }
-                                }
-                                setFriends(friendsList)
-                            }).catch(err => console.log(err));
-                    }
-                }).catch(err => console.log(err));
+            const friendsByRequested = await friendshipAPI.getAllFriendshipsByRequested(id);
+            const friendsByRequester = await friendshipAPI.getAllFriendshipsByRequester(id);
+            friendsByRequested.map((el: any) => {
+                if (el.state === "FRIENDS") friendsList.push(el);
+            });
+            friendsByRequester.map((el: any) => {
+                if (el.state === "FRIENDS") friendsList.push(el);
+            });
+            setFriends(friendsList);
         }
+    }
+    useEffect(() => {
+        getFriends()
 
     }, [])
-    if (!friends) return <></>
 
-    //MODAL
+    const removeFriend = (id: any) => {
+        friendshipAPI.deleteFriendship(id)
+            .then((res) => window.location.href = '/friends')
+            .catch(error => console.log(error));
+    }
+
+    if (!friends) return <></>
 
     return <Container id="container">
         <div id="addFriend" style={{ textAlign: "right" }}>
@@ -73,7 +69,7 @@ const Friends = () => {
                         />&nbsp;&nbsp;{el.requested.id !== playerId ? el.requested.nickname : el.requester.nickname}</h4>
                     </Col>
                     <Col>
-                        <h4><a style={{ cursor: "pointer" }} ><FontAwesomeIcon icon={faTimes} /></a></h4>
+                        <h4><a style={{ cursor: "pointer" }} onClick={() => removeFriend(el.id)} ><FontAwesomeIcon icon={faTimes} /></a></h4>
                     </Col>
                 </Row>)}
         </Row>

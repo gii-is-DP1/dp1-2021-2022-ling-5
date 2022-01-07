@@ -20,6 +20,7 @@ import Friends from "./modules/friendship/Friends";
 import { useEffect, useState } from "react";
 import UserFrequency from "./modules/playedGames/UserFrequency";
 import AddFriend from "./modules/friendship/AddFriend";
+import AcceptFriend from "./modules/friendship/AcceptFriend";
 
 const Links = () => {
     const [role, setRole] = useState<string | null>(null)
@@ -28,7 +29,6 @@ const Links = () => {
     }, [])
 
     if (!role) return <></>
-    console.log(role)
     return <Router>
         <PrincipalNavbar />
         <Switch>
@@ -45,12 +45,9 @@ const Links = () => {
                 <StartGame />
             </Route>
             <Route path='/notifications'>
-                <Patata />
+                <AcceptFriend />
             </Route>
             <Route path='/forum' >
-                <Patata />
-            </Route>
-            <Route path="/logout">
                 <Patata />
             </Route>
 
