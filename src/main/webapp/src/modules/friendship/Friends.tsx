@@ -36,7 +36,7 @@ const Friends = () => {
     useEffect(() => {
         getFriends()
 
-    }, [])
+    }, [friends])
 
     const removeFriend = (id: any) => {
         friendshipAPI.deleteFriendship(id)
@@ -52,48 +52,10 @@ const Friends = () => {
         </div>
         <Row>
             <h3>Online </h3>
-            {friends.map((el, ind) =>{
-                if(el.requested.id !== playerId ){
-                    if(el.requested.playerState !== "OFFLINE"){
+            {friends.map((el, ind) => {
+                if (el.requested.id !== playerId) {
+                    if (el.requested.playerState !== "OFFLINE") {
                         return (<Row key={ind}><Col>
-                        <h4><img
-                            src={el.requested.id !== playerId ? figures(el.requested.figure.id - 1) : figures(el.requester.figure.id - 1)}
-                            width="30"
-                            height="30"
-                            className="d-inline-block align-top"
-                            alt="Profile image"
-                        />&nbsp;&nbsp;{el.requested.id !== playerId ? el.requested.nickname : el.requester.nickname}</h4>
-                    </Col>
-                    <Col>
-                        <h4><a style={{ cursor: "pointer" }} onClick={() => removeFriend(el.id)} ><FontAwesomeIcon icon={faTimes} /></a></h4>
-                    </Col> </Row>);
-                    }
-                    return <></>
-               }
-               if(el.requester.playerState !== "OFFLINE"){
-                return (<Row key={ind}><Col>
-                    <h4><img
-                        src={el.requested.id !== playerId ? figures(el.requested.figure.id - 1) : figures(el.requester.figure.id - 1)}
-                        width="30"
-                        height="30"
-                        className="d-inline-block align-top"
-                        alt="Profile image"
-                    />&nbsp;&nbsp;{el.requested.id !== playerId ? el.requested.nickname : el.requester.nickname}</h4>
-                </Col>
-                <Col>
-                    <h4><a style={{ cursor: "pointer" }} onClick={() => removeFriend(el.id)} ><FontAwesomeIcon icon={faTimes} /></a></h4>
-                </Col> </Row>);
-                }
-                return <></>  
-            })}
-        </Row>
-        <br />
-        <Row>
-            <h3>Offline</h3>
-                {friends.map((el, ind) =>{
-                    if(el.requested.id !== playerId ){
-                        if(el.requested.playerState === "OFFLINE"){
-                            return (<Row key={ind}><Col>
                             <h4><img
                                 src={el.requested.id !== playerId ? figures(el.requested.figure.id - 1) : figures(el.requester.figure.id - 1)}
                                 width="30"
@@ -102,13 +64,13 @@ const Friends = () => {
                                 alt="Profile image"
                             />&nbsp;&nbsp;{el.requested.id !== playerId ? el.requested.nickname : el.requester.nickname}</h4>
                         </Col>
-                        <Col>
-                            <h4><a style={{ cursor: "pointer" }} onClick={() => removeFriend(el.id)} ><FontAwesomeIcon icon={faTimes} /></a></h4>
-                        </Col> </Row>);
-                        }
-                        return <></>
-                   }
-                   if(el.requester.playerState === "OFFLINE"){
+                            <Col>
+                                <h4><a style={{ cursor: "pointer" }} onClick={() => removeFriend(el.id)} ><FontAwesomeIcon icon={faTimes} /></a></h4>
+                            </Col> </Row>);
+                    }
+                    return <></>
+                }
+                if (el.requester.playerState !== "OFFLINE") {
                     return (<Row key={ind}><Col>
                         <h4><img
                             src={el.requested.id !== playerId ? figures(el.requested.figure.id - 1) : figures(el.requester.figure.id - 1)}
@@ -118,12 +80,50 @@ const Friends = () => {
                             alt="Profile image"
                         />&nbsp;&nbsp;{el.requested.id !== playerId ? el.requested.nickname : el.requester.nickname}</h4>
                     </Col>
-                    <Col>
-                        <h4><a style={{ cursor: "pointer" }} onClick={() => removeFriend(el.id)} ><FontAwesomeIcon icon={faTimes} /></a></h4>
-                    </Col> </Row>);
+                        <Col>
+                            <h4><a style={{ cursor: "pointer" }} onClick={() => removeFriend(el.id)} ><FontAwesomeIcon icon={faTimes} /></a></h4>
+                        </Col> </Row>);
+                }
+                return <></>
+            })}
+        </Row>
+        <br />
+        <Row>
+            <h3>Offline</h3>
+            {friends.map((el, ind) => {
+                if (el.requested.id !== playerId) {
+                    if (el.requested.playerState === "OFFLINE") {
+                        return (<Row key={ind}><Col>
+                            <h4><img
+                                src={el.requested.id !== playerId ? figures(el.requested.figure.id - 1) : figures(el.requester.figure.id - 1)}
+                                width="30"
+                                height="30"
+                                className="d-inline-block align-top"
+                                alt="Profile image"
+                            />&nbsp;&nbsp;{el.requested.id !== playerId ? el.requested.nickname : el.requester.nickname}</h4>
+                        </Col>
+                            <Col>
+                                <h4><a style={{ cursor: "pointer" }} onClick={() => removeFriend(el.id)} ><FontAwesomeIcon icon={faTimes} /></a></h4>
+                            </Col> </Row>);
                     }
-                    return <></>  
-                })}
+                    return <></>
+                }
+                if (el.requester.playerState === "OFFLINE") {
+                    return (<Row key={ind}><Col>
+                        <h4><img
+                            src={el.requested.id !== playerId ? figures(el.requested.figure.id - 1) : figures(el.requester.figure.id - 1)}
+                            width="30"
+                            height="30"
+                            className="d-inline-block align-top"
+                            alt="Profile image"
+                        />&nbsp;&nbsp;{el.requested.id !== playerId ? el.requested.nickname : el.requester.nickname}</h4>
+                    </Col>
+                        <Col>
+                            <h4><a style={{ cursor: "pointer" }} onClick={() => removeFriend(el.id)} ><FontAwesomeIcon icon={faTimes} /></a></h4>
+                        </Col> </Row>);
+                }
+                return <></>
+            })}
         </Row>
     </Container>
 }
