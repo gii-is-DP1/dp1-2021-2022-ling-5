@@ -23,6 +23,9 @@ import AddFriend from "./modules/friendship/AddFriend";
 import AcceptFriend from "./modules/friendship/AcceptFriend";
 import PropGamesPlayed from "./modules/statistics/PropGamesPlayed";
 import PropTime from "./modules/statistics/PropTime";
+import AdminAchievement from "./modules/achievement/AdminAchievement";
+import CreateAchievement from "./modules/achievement/CreateAchievement";
+import Achievements from "./modules/achievement/Achievements";
 
 const Links = () => {
     const [role, setRole] = useState<string | null>(null)
@@ -131,7 +134,7 @@ const Links = () => {
             <Route path='/awards'>
                 {role === "Player" ?
                     <div id="body" className="d-flex"><ProfileNavbar />
-                        <Patata /></div>
+                        <Achievements /></div>
                     : <>Access is restricted</>}
             </Route>
             <Route path='/friends'>
@@ -181,10 +184,18 @@ const Links = () => {
                         <Patata /></div>
                     : <>Access is restricted</>}
             </Route>
-            <Route path='/createAwards'>
+            <Route path='/adminAwards'>
                 {role === "Admin" ?
                     <div id="body" className="d-flex"><AdminNavbar />
-                        <Patata /></div>
+                        <AdminAchievement /></div>
+                    : <>Access is restricted</>}
+            </Route>
+            <Route path='/createAchievement'>
+                {role === "Admin" ?
+                    <div id="body" className="d-flex">
+                        <AdminNavbar />
+                        <CreateAchievement />
+                    </div>
                     : <>Access is restricted</>}
             </Route>
         </Switch>
