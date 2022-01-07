@@ -1,75 +1,53 @@
-import { useState } from "react"
-import { Button, Col, Form, Row } from "react-bootstrap"
-import { propTypes } from "react-bootstrap/esm/Image"
-import './createUser.css'
-import userAPI from "./userAPI"
+import { faEdit, faPlus, faTrash, faUserEdit, faUserMinus, faUserPlus } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useEffect, useState } from "react"
+import { Button, Col, Container, Modal, Row } from "react-bootstrap"
+import EditUser from "../user/EditUser"
+import userAPI from "../user/userAPI"
+import achievementAPI from "./achievementAPI"
+import EditAchievement from "./EditAchievement"
+
 
 const AdminAchievement = () => {
-    const [player, setPlayer] = useState<any>({
-        name: null,
-        surname: null,
-        password: null,
-        email: null,
-        nickname: null,
-        playerState: "NO_PLAY"
-    })
 
-    const newUser = () => {
+    const [achievements, setAchievements] = useState<any[]>([])
+    const [modalShow, setModalShow] = useState<string>("0 0");
 
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' }
-        }
-
-        userAPI.addNewUser(player, "player").then((pl: any) => {
-            fetch('http://localhost:8080/api/players/' + pl.id + '/addfigures', requestOptions)
-                .then(res => console.log(res))
-                .catch(error => console.log(error));
-            window.location.href = '/users';
-        }).catch(err => console.log(err));
-
+    const removeAchievement= (id: number) => {
+        achievementAPI.deleteAchievement(id)
+            .then((res) => window.location.href = '/adminAwards')
+            .catch(error => console.log(error));
     }
 
+    useEffect(() => {
+        achievementAPI.getAllAchievements()
+            .then((ach: any[]) => {
+                setAchievements(ach);
+            }).catch((err) => console.log(err));
+    }, [])
+
     return (
-        <Form>
-            <Row>
-                <Col>
-                    <Form.Group className="mb-3" controlId="formBasicName">
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter name" onChange={(e) => setPlayer({ ...player, name: e.target.value })} />
-                    </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicSurname">
-                        <Form.Label>Surname</Form.Label>
-                        <Form.Control type="text" placeholder="Enter surname" onChange={(e) => setPlayer({ ...player, surname: e.target.value })} />
-                    </Form.Group>
+        <Container id="container">
+            <div id="createUser" style={{ textAlign: "right" }}>
+                <Button variant="dark" onClick={() => window.location.href = '/createAchievement'}>Create new achievement <FontAwesomeIcon icon={faPlus} /></Button>
+            </div>
 
-                    <Form.Group className="mb-3" controlId="formBasicNickname">
-                        <Form.Label>Nickname</Form.Label>
-                        <Form.Control type="text" placeholder="Enter nickname" onChange={(e) => setPlayer({ ...player, nickname: e.target.value })} />
-                    </Form.Group>
-                </Col>
-                <Col>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" onChange={(e) => setPlayer({ ...player, email: e.target.value })} />
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" onChange={(e) => setPlayer({ ...player, password: e.target.value })} />
-                    </Form.Group>
-                </Col>
-            </Row>
-            <Row>
-                <div style={{ textAlign: "center" }} >
-                    <Button variant="primary" type="button" onClick={() => newUser()}>
-                        Submit
-                    </Button>
-                </div>
-            </Row>
-
-        </Form>)
+            {achievements.map((e, ind) =>
+                <Row key={ind}>
+                    <Col><h4>{e.name}</h4></Col>
+                    <Col>
+                        <a style={{ cursor: "pointer" }} onClick={() => setModalShow(`1 ${e.id}`)}><FontAwesomeIcon icon={faEdit} /></a>&nbsp;&nbsp;
+                        <a style={{ cursor: "pointer" }} onClick={() => removeAchievement(e.id)}><FontAwesomeIcon icon={faTrash} /></a>
+                    </Col>
+                </Row>)}
+            <EditAchievement
+                idUser={parseInt(modalShow.split(" ")[1])}
+                show={parseInt(modalShow.split(" ")[0])}
+                onHide={() => setModalShow("0 0")}
+            />
+        </Container>
+    )
 }
 
 export default AdminAchievement

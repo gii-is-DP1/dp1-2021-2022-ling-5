@@ -45,7 +45,7 @@ const Friends = () => {
             <Button variant="dark" onClick={() => window.location.href = '/addFriend'}>Add a Friend </Button>
         </div>
         <Row>
-            <h3>Online</h3>
+            <h3>Online </h3>
         </Row>
         <br />
         <Row>
