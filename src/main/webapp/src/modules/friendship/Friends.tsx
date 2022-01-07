@@ -48,6 +48,14 @@ const Friends = () => {
     }, [])
     if (!friends) return <></>
 
+
+    const removeFriend = (id: any) => {
+        friendshipAPI.deleteFriendship(id)
+            .then((res) => window.location.href = '/friends')
+            .catch(error => console.log(error));
+    }
+
+
     //MODAL
 
     return <Container id="container">
@@ -62,7 +70,6 @@ const Friends = () => {
             <h3>Offline</h3>
             {friends.map((el, ind) =>
                 <Row key={ind}>
-
                     <Col>
                         <h4><img
                             src={el.requested.id !== playerId ? figures(el.requested.figure.id - 1) : figures(el.requester.figure.id - 1)}
@@ -73,7 +80,7 @@ const Friends = () => {
                         />&nbsp;&nbsp;{el.requested.id !== playerId ? el.requested.nickname : el.requester.nickname}</h4>
                     </Col>
                     <Col>
-                        <h4><a style={{ cursor: "pointer" }} ><FontAwesomeIcon icon={faTimes} /></a></h4>
+                        <h4><a style={{ cursor: "pointer" }} onClick={() => removeFriend(el.id) } ><FontAwesomeIcon icon={faTimes} /></a></h4>
                     </Col>
                 </Row>)}
         </Row>
