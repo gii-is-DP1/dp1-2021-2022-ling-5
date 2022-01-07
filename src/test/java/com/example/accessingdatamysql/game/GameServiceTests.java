@@ -28,7 +28,7 @@ public class GameServiceTests {
         int found = games.size();
 
         Game game = new Game();
-        game.setCreator(1);
+        game.setCreator(1L);
         game.setName("Partida1");
         this.gameService.saveGame(game);
         assertNotEquals(game.getId(), 0L);
@@ -40,6 +40,15 @@ public class GameServiceTests {
     @Test
     public void shouldFindSingleGame() {
         Optional<Game> gameOpt = this.gameService.findGame(1L);
+        if (gameOpt.isPresent()) {
+            Game game = gameOpt.get();
+            assertEquals(game.getName(), "juegoUno");
+        }
+    }
+
+    @Test
+    public void shouldFindSingleGameByName() {
+        Optional<Game> gameOpt = this.gameService.findGameByName("juegoUno");
         if (gameOpt.isPresent()) {
             Game game = gameOpt.get();
             assertEquals(game.getName(), "juegoUno");

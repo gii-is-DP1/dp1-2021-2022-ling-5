@@ -1,62 +1,60 @@
 
 import Button from 'react-bootstrap/Button';
-import { ButtonGroup, Form, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 import './NewGame.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import gameAPI from '../game/gameAPI';
 
 
 function JoinGame() {
   const [namegame, setNamegame] = useState<string>();
-  var idplayer = 1;
+  const [game, setGame] = useState<String | null>();
+  const [idPlayer, setIdPlayer] = useState<number>();
 
-  function joinGame(){
-    const requestOptions = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    }
-    
-    return new Promise(function (resolve, reject) {
-      fetch(`http://localhost:8080/api/games/names/${namegame}`, requestOptions)
-      .then(res => {
-        res.json().then((game:any) => {
-          const gameid = game.id;
-          const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' }
+  function joinGame() {
+    if (namegame) {
+      gameAPI.getGameByName(namegame)
+        .then((game: any) => {
+          setGame(game);
+          if (game !== null && idPlayer) {
+            gameAPI.addNewPlayerToGame(game.id, idPlayer)
+              .then((res) => window.location.href = `/startGame/${game.id}`)
+              .catch(err => console.log(err));
           }
-
-          fetch(`/games/${gameid}/players/${idplayer}`, requestOptions).then(res => {
-              resolve(res.json())
-          })
-          .catch(error => reject(console.error));
-          window.location.href = '/startGame'
-      })
-      .catch(error => reject(console.error))
-      })
-    })
+        }).catch((err) => console.log(err));
+    }
   }
 
+  useEffect(() => {
+    var userData = localStorage.getItem("userData")
+    if (userData !== null) setIdPlayer(JSON.parse(userData).id)
+  }, [])
+
+  if (!idPlayer) return <></>
+
   return (
-  
-    <div className="NewGame-header"> 
+
+    <div className="NewGame-header">
       <p>JOIN GAME</p>
       <Form>
         <Form.Group className="mb-3">
           <Form.Label>Game's name you want to join</Form.Label>
-          <Form.Control placeholder="Enter game's name" onChange={(e) => setNamegame(e.target.value )}/>
+          <Form.Control placeholder="Enter game's name" onChange={(e) => setNamegame(e.target.value)} />
         </Form.Group>
 
-        
+
         <Button className="Button" size="lg" variant="dark" onClick={() => joinGame()}>
           JOIN
         </Button>
+
+        {game === null ? <p>This game doesn't exist</p> : ""}
       </Form>
     </div>
 
-      
+
   );
 }
 
 
-export default JoinGame ;
+export default JoinGame;

@@ -40,7 +40,7 @@ public class MinigameServiceTests {
         Optional<Minigame> minigameOpt = this.minigameService.findMinigame(1L);
         if (minigameOpt.isPresent()) {
             Minigame minigame = minigameOpt.get();
-            assertEquals(minigame.getName(), "Uno");
+            assertEquals(minigame.getName(), "Torre Infernal");
         }
     }
 
@@ -65,7 +65,7 @@ public class MinigameServiceTests {
     @Test
     void shouldDeleteMinigame() {
         Minigame minigame = new Minigame();
-        minigame.setName("Dos");
+        minigame.setName("Foso");
         minigame = this.minigameService.saveMinigame(minigame);
         List<Minigame> minigames = this.minigameService.findAllMinigames();
         int found = minigames.size();

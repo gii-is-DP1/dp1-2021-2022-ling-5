@@ -1,6 +1,6 @@
 package com.example.accessingdatamysql.user;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -23,7 +23,7 @@ public class Admin extends Account {
     private Role role;
 
     @OneToMany(mappedBy = "admin", cascade = CascadeType.REMOVE)
-    private Collection<Modification> modifications;
+    private List<Modification> modifications;
 
     @ManyToOne
     private Figure figure;

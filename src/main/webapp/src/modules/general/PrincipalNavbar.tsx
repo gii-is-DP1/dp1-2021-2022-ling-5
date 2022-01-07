@@ -1,22 +1,54 @@
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap"
+import { Container, Nav, Navbar, NavDropdown, Button } from "react-bootstrap"
 import React, { useEffect, useState } from 'react'
 import figures from '../../images/figures/figures'
 import icons from '../../images/icons/icons'
-import Button from "@restart/ui/esm/Button"
+import './principalNavbar.css'
+import Share from "./Share"
+import userAPI from "../user/userAPI"
+import token from "../user/token"
 
 const PrincipalNavbar = () => {
-    return <Navbar bg="light" expand="lg">
+
+    const [modalShow, setModalShow] = useState<boolean>(false);
+    const [username, setUsername] = useState<string>("");
+    const [figure, setFigure] = useState<number>(0);
+    const [role, setRole] = useState<string | null>();
+    var id = 0;
+
+    useEffect(() => {
+        var userData: any = localStorage.getItem("userData");
+        if (userData !== null) userData = JSON.parse(userData)
+        id = userData.id
+        var rol = localStorage.getItem("rol");
+        setRole(rol);
+        if (rol !== null && id !== 0) {
+            userAPI.getUser(id, rol).then((user: any) => {
+                setUsername(user.nickname)
+                setFigure(user.figure.id - 1)
+            }).catch(err => console.log(err));
+        }
+    }, [])
+
+    if (!username && !figure && !role) return <></>
+
+    const src = role === "Admin" ? icons(3) : figures(figure);
+    const alt = role === "Admin" ? "Dobble logo" : "Profile image";
+    const nickname = role === "Admin" ? "Admin" : username;
+    const href1 = role === "Admin" ? "/gamesProgress" : "/profile";
+    const namehref1 = role === "Admin" ? "Info" : "Profile";
+
+    return <Navbar expand="lg">
         <Container>
-            <a href="/"><img
-                src={figures(1)}
+            <a href="/" id="img"><img
+                src={src}
                 width="30"
                 height="30"
                 className="d-inline-block align-top"
-                alt="React Bootstrap logo"
+                alt={alt}
             /></a>
-            <NavDropdown title="Player1">
-                <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-                <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
+            <NavDropdown title={nickname} id="img">
+                <NavDropdown.Item href={href1}>{namehref1}</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => { token.logout(); window.location.href = "/"; }}>Logout</NavDropdown.Item>
             </NavDropdown>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -26,26 +58,28 @@ const PrincipalNavbar = () => {
                         width="30"
                         height="30"
                         className="d-inline-block align-top"
-                        alt="React Bootstrap logo"
+                        alt="Notifications"
                     /></Nav.Link>
                     <Nav.Link href="/forum"><img
                         src={icons(1)}
                         width="30"
                         height="30"
                         className="d-inline-block align-top"
-                        alt="React Bootstrap logo"
+                        alt="Forum"
                     /></Nav.Link>
-                    <Nav.Link><Button id="btn-share"><img
+                    <Nav.Link id="btn-share" onClick={() => setModalShow(true)}><img
                         src={icons(2)}
                         width="30"
                         height="30"
                         className="d-inline-block align-top"
-                        alt="React Bootstrap logo"
-                    /></Button></Nav.Link>
+                        alt="Share"
+                    /></Nav.Link>
                 </Nav>
             </Navbar.Collapse>
+            <Share show={modalShow} onHide={() => setModalShow(false)} />
         </Container>
     </Navbar>
+
 }
 
 export default PrincipalNavbar
