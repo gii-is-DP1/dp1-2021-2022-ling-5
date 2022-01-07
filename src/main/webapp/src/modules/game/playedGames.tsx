@@ -7,41 +7,53 @@ let urlParams = new URLSearchParams(window.location.search);
 let playerId = urlParams.get("playerId");
 
 function PlayedGames() {
-  const player = 3;
   const [results, setResults] = useState<any[]>();
+  const [playerId, setPlayerId] = useState<number>();
 
   useEffect(() => {
-    resultAPI.getAllResultsByPlayer(player)
+    var userData: any = localStorage.getItem("userData");
+    var id = 0;
+    if (userData !== null) {
+      userData = JSON.parse(userData);
+      if (userData !== null) {
+        setPlayerId(userData.id)
+        id = userData.id
+      }
+    }
+    resultAPI.getAllResultsByPlayer(id)
       .then((res: any[]) => setResults(res))
       .catch((err) => console.log(err));
   }, [])
 
-  if (!results) return <div>Loading...</div>
+  if (!results && !playerId) return <div>Loading...</div>
 
-  let creados = []
-  let jugados = []
-  for (var r of results) {
-    if (r.game.creator === player) {
-      creados.push(r)
-    } else {
-      jugados.push(r)
+  let created = []
+  let played = []
+  if (results !== undefined) {
+    for (var r of results) {
+      if (r.game.creator === playerId) {
+        created.push(r)
+      } else {
+        played.push(r)
+      }
     }
   }
 
-  if (creados.length === 0) {
-    creados.push({ game: { name: "Ninguno" }, data: "" })
+
+  if (created.length === 0) {
+    created.push({ game: { name: "Ninguno" }, data: "" })
   }
-  if (jugados.length === 0) {
-    jugados.push({ game: { name: "Ninguno" }, data: "" })
+  if (played.length === 0) {
+    played.push({ game: { name: "Ninguno" }, data: "" })
   }
 
   return (
     <Container id="container">
       <Row>
         <Col>
-          <Row> <h1>Juegos creados</h1> </Row>
+          <Row> <h1>Created games</h1> </Row>
           {
-            creados.map(e => (
+            created.map(e => (
               <Row>
                 <strong>{e.game.name} </strong><p>{e.data}</p>
               </Row>
@@ -49,9 +61,9 @@ function PlayedGames() {
           }
         </Col>
         <Col>
-          <Row> <h1>Juegos jugados</h1> </Row>
+          <Row> <h1>Played games</h1> </Row>
           {
-            jugados.map(e => (
+            played.map(e => (
               <Row>
                 <strong>{e.game.name}: </strong><p>{e.data}</p>
               </Row>

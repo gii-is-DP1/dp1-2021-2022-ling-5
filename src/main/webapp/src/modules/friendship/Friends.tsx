@@ -37,8 +37,14 @@ const Friends = () => {
         getFriends()
 
     }, [])
+
+    const removeFriend = (id: any) => {
+        friendshipAPI.deleteFriendship(id)
+            .then((res) => window.location.href = '/friends')
+            .catch(error => console.log(error));
+    }
+
     if (!friends) return <></>
-    //MODAL
 
     return <Container id="container">
         <div id="addFriend" style={{ textAlign: "right" }}>
@@ -63,7 +69,7 @@ const Friends = () => {
                         />&nbsp;&nbsp;{el.requested.id !== playerId ? el.requested.nickname : el.requester.nickname}</h4>
                     </Col>
                     <Col>
-                        <h4><a style={{ cursor: "pointer" }} ><FontAwesomeIcon icon={faTimes} /></a></h4>
+                        <h4><a style={{ cursor: "pointer" }} onClick={() => removeFriend(el.id)} ><FontAwesomeIcon icon={faTimes} /></a></h4>
                     </Col>
                 </Row>)}
         </Row>
