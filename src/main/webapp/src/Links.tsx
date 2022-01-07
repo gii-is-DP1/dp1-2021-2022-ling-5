@@ -21,6 +21,8 @@ import { useEffect, useState } from "react";
 import UserFrequency from "./modules/playedGames/UserFrequency";
 import AddFriend from "./modules/friendship/AddFriend";
 import AcceptFriend from "./modules/friendship/AcceptFriend";
+import PropGamesPlayed from "./modules/statistics/PropGamesPlayed";
+import PropTime from "./modules/statistics/PropTime";
 
 const Links = () => {
     const [role, setRole] = useState<string | null>(null)
@@ -97,6 +99,24 @@ const Links = () => {
                         <ProfileNavbar />
                         <StadisticsNavbar />
                         <UserFrequency />
+                    </div>
+                    : <>Access is restricted</>}
+            </Route>
+            <Route path='/propGames'>
+                {role === "Player" ?
+                    <div id="body" className="d-flex">
+                        <ProfileNavbar />
+                        <StadisticsNavbar />
+                        <PropGamesPlayed />
+                    </div>
+                    : <>Access is restricted</>}
+            </Route>
+            <Route path='/propTime'>
+                {role === "Player" ?
+                    <div id="body" className="d-flex">
+                        <ProfileNavbar />
+                        <StadisticsNavbar />
+                        <PropTime />
                     </div>
                     : <>Access is restricted</>}
             </Route>
