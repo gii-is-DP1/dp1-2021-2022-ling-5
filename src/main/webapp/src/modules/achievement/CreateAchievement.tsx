@@ -35,6 +35,7 @@ const CreateAchievement = () => {
     return (
         <Form>
             <Row>
+                 <h3>New achievement</h3>
                 <Col>
                     <Form.Group className="mb-3" controlId="formBasicName">
                         <Form.Label>Name</Form.Label>

@@ -2,8 +2,6 @@ import { faEdit, faPlus, faTrash, faUserEdit, faUserMinus, faUserPlus } from "@f
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react"
 import { Button, Col, Container, Modal, Row } from "react-bootstrap"
-import EditUser from "../user/EditUser"
-import userAPI from "../user/userAPI"
 import achievementAPI from "./achievementAPI"
 import EditAchievement from "./EditAchievement"
 

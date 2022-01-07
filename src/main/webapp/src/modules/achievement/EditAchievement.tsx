@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Dropdown, DropdownButton, Form, Modal, Row } from "react-bootstrap";
 import figures from '../../images/figures/figures';
-import EditFigure from "../user/EditFigure";
-import userAPI from "../user/userAPI";
 import achievementAPI from "./achievementAPI";
+import EditFigureAward from "./EditFigureAward";
 
 
 const EditAchievement = (props: any) => {
@@ -51,7 +50,7 @@ const EditAchievement = (props: any) => {
                                 alt="Profile img"
                             />
                             <Button onClick={() => setModalShow(true)}>Change figure</Button>
-                            <EditFigure idAchievement={achievement.id}
+                            <EditFigureAward idAchievement={achievement.id}
                                 show={modalShow}
                                 onHide={() => setModalShow(false)} />
                         </Col>

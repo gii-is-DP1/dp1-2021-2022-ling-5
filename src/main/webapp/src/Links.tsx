@@ -13,7 +13,7 @@ import AdminNavbar from "./modules/general/AdminNavbar";
 import UsersCRUD from "./modules/user/UsersCRUD";
 import StadisticsNavbar from "./modules/general/StadisticsNavbar";
 import CreateUser from "./modules/user/CreateUser";
-import UserPoints from "./modules/playedGames/UserPoints";
+import UserPoints from "./modules/playedGames/userPoints";
 import BestAndWorstFigure from "./modules/figure/BestAndWorstFigure";
 import Ranking from "./modules/user/Ranking";
 import Friends from "./modules/friendship/Friends";
@@ -164,10 +164,18 @@ const Links = () => {
                         <Patata /></div>
                     : <>Access is restricted</>}
             </Route>
-            <Route path='/createAwards'>
+            <Route path='/adminAwards'>
                 {role === "Admin" ?
                     <div id="body" className="d-flex"><AdminNavbar />
-                        <Patata /></div>
+                        <AdminAchievement /></div>
+                    : <>Access is restricted</>}
+            </Route>
+            <Route path='/createAchievement'>
+                {role === "Admin" ?
+                    <div id="body" className="d-flex">
+                        <AdminNavbar />
+                        <CreateAchievement />
+                    </div>
                     : <>Access is restricted</>}
             </Route>
         </Switch>
