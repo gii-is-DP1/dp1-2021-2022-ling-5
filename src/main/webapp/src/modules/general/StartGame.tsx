@@ -1,5 +1,4 @@
-import Button from 'react-bootstrap/Button';
-import { Form } from 'react-bootstrap';
+import { Form,Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { useParams, withRouter } from 'react-router-dom';
 import gameAPI from '../game/gameAPI';
