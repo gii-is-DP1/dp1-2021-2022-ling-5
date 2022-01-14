@@ -1,9 +1,0 @@
-{
-  "devDependencies": {
-    "@types/chart.js": "^2.9.35",
-    "@types/react-router-dom": "^5.1.7"
-  },
-  "dependencies": {
-    "axios": "^0.24.0"
-  }
-}

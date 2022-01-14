@@ -7,9 +7,8 @@ import userAPI from "./userAPI";
 const EditFigure = (props: any) => {
 
     const edit = (id: number) => {
-        userAPI.updateFigureUser(props.idUser, id, "player")
-            .then((res) => window.location.href = '/users')
-            .catch((err) => console.log(err));
+        userAPI.updateFigureUser(props.idUser, id, "player");
+        props.onChange(id - 1);
     }
 
     return (
