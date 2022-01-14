@@ -1,13 +1,21 @@
 package com.example.accessingdatamysql.user;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.example.accessingdatamysql.comment.Comment;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,6 +56,10 @@ public class Account {
   @Column(name = "nickname", unique = true)
   protected String nickname;
 
+  @JsonIgnore
+  @OneToMany(mappedBy = "comment", cascade = CascadeType.REMOVE)
+  private List<Comment> comments;
+
   // @ManyToOne
   // private Role role;
 
@@ -59,27 +71,25 @@ public class Account {
 
   @Override
   public String toString() {
-    return (
-      "{" +
-      " id='" +
-      getId() +
-      "'" +
-      ", name='" +
-      getName() +
-      "'" +
-      ", surname='" +
-      getSurname() +
-      "'" +
-      ", password='" +
-      getPassword() +
-      "'" +
-      ", email='" +
-      getEmail() +
-      "'" +
-      ", nickname='" +
-      getNickname() +
-      "'" +
-      "}"
-    );
+    return ("{" +
+        " id='" +
+        getId() +
+        "'" +
+        ", name='" +
+        getName() +
+        "'" +
+        ", surname='" +
+        getSurname() +
+        "'" +
+        ", password='" +
+        getPassword() +
+        "'" +
+        ", email='" +
+        getEmail() +
+        "'" +
+        ", nickname='" +
+        getNickname() +
+        "'" +
+        "}");
   }
 }
