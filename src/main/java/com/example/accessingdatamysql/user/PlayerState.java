@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum PlayerState {
-    PLAYING("PLAYING"), WAITING_TO_PLAY("WAITING_TO_PLAY"), SPECTATING("SPECTATING"), NO_PLAY("NO_PLAY");
+    PLAYING("PLAYING"), WAITING_TO_PLAY("WAITING_TO_PLAY"), SPECTATING("SPECTATING"), NO_PLAY("NO_PLAY"), OFFLINE("OFFLINE");
 
     private final String value;
     private final static Map<String, PlayerState> CONSTANTS = new HashMap<String, PlayerState>();
