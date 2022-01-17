@@ -1,6 +1,5 @@
 package com.example.accessingdatamysql.card;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -21,7 +20,7 @@ import lombok.Setter;
 public class Card extends NamedEntity {
 
     @ManyToMany(mappedBy = "cards")
-    @Size(max = 6)
+    @Size(max = 8)
     private List<Figure> figures;
 
     public Card() {

@@ -4,7 +4,6 @@ import com.example.accessingdatamysql.achievement.Achievement;
 import com.example.accessingdatamysql.figure.Figure;
 import com.example.accessingdatamysql.friendship.Friendship;
 import com.example.accessingdatamysql.game.Game;
-import com.example.accessingdatamysql.modification.Modification;
 import com.example.accessingdatamysql.playerfigures.PlayerFigures;
 import com.example.accessingdatamysql.result.Result;
 import com.example.accessingdatamysql.role.Role;
@@ -72,9 +71,6 @@ public class Player extends Account {
 
   @ManyToOne
   private Role role;
-
-  @OneToMany(mappedBy = "player", cascade = CascadeType.REMOVE)
-  private List<Modification> modifications;
 
   @ManyToOne
   private Figure figure;
@@ -144,9 +140,6 @@ public class Player extends Account {
       "'" +
       ", role='" +
       getRole() +
-      "'" +
-      ", modifications='" +
-      getModifications() +
       "'" +
       ", figure='" +
       getFigure() +

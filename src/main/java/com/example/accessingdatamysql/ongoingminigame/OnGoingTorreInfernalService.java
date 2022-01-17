@@ -2,9 +2,9 @@ package com.example.accessingdatamysql.ongoingminigame;
 
 import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.game.Game;
-import javax.transaction.Transactional;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Scope("singleton")
@@ -32,14 +32,17 @@ public class OnGoingTorreInfernalService {
     ongoing.newCenterCard(gameId, request);
   }
 
+  @Transactional(readOnly = true)
   public Card getPlayerCard(Long gameId, Long playerId) {
     return ongoing.getPlayerCard(gameId, playerId);
   }
 
+  @Transactional(readOnly = true)
   public Card getCenterCard(Long gameId) {
     return ongoing.getCenterCard(gameId);
   }
 
+  @Transactional(readOnly = true)
   public int getPoints(Long gameId, Long playerId) {
     return ongoing.getPoints(gameId, playerId);
   }
@@ -49,6 +52,7 @@ public class OnGoingTorreInfernalService {
     ongoing.addPoints(gameId, playerId, points);
   }
 
+  @Transactional(readOnly = true)
   public OnGoingTorreInfernal getGame(Long gameId) {
     return ongoing.getGame(gameId);
   }

@@ -6,19 +6,11 @@ import com.example.accessingdatamysql.result.Result;
 import com.example.accessingdatamysql.user.Player;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -78,14 +70,7 @@ public class Game extends BaseEntity {
     this.winner = 0L;
   }
 
-  public Game(
-    String name,
-    State state,
-    Date startTime,
-    Date endTime,
-    Long creator,
-    Long winner
-  ) {
+  public Game( String name, State state, Date startTime, Date endTime, Long creator, Long winner) {
     this.name = name;
     this.state = state;
     this.startTime = startTime;
@@ -96,33 +81,6 @@ public class Game extends BaseEntity {
 
   @Override
   public String toString() {
-    return (
-      "{" +
-      " id='" +
-      getId() +
-      "'" +
-      ", name='" +
-      getName() +
-      "'" +
-      ", state='" +
-      getState() +
-      "'" +
-      ", startTime='" +
-      getStartTime() +
-      "'" +
-      ", endTime='" +
-      getEndTime() +
-      "'" +
-      ", creator='" +
-      getCreator() +
-      "'" +
-      ", winner='" +
-      getWinner() +
-      "'" +
-      ", minigames='" +
-      getMinigames() +
-      "'" +
-      "}"
-    );
+    return ("{" +" id='" + getId() + "'" + ", name='" + getName() + "'" + ", state='" + getState() + "'" + ", startTime='"  +getStartTime() + "'" + ", endTime='" + getEndTime() + "'" + ", creator='" + getCreator() + "'" + ", winner='" + getWinner() + "'" + ", minigames='" + getMinigames() + "'" + "}");
   }
 }
