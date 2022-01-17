@@ -26,6 +26,9 @@ import PropTime from "./modules/statistics/PropTime";
 import AdminAchievement from "./modules/achievement/AdminAchievement";
 import CreateAchievement from "./modules/achievement/CreateAchievement";
 import Achievements from "./modules/achievement/Achievements";
+import Forums from "./modules/forum/AllForums";
+import Forum from "./modules/forum/Forum";
+import NewForum from "./modules/forum/NewForum";
 
 const Links = () => {
     const [role, setRole] = useState<string | null>(null)
@@ -52,8 +55,8 @@ const Links = () => {
             <Route path='/notifications'>
                 <AcceptFriend />
             </Route>
-            <Route path='/forum' >
-                <Patata />
+            <Route path='/forums' >
+                <Forums />
             </Route>
 
             <Route path='/profile'>
@@ -198,6 +201,12 @@ const Links = () => {
                     </div>
                     : <>Access is restricted</>}
             </Route>
+            <Route path='/forum/:id' >
+                <Forum />
+            </Route><Route path='/newforum' >
+                <NewForum />
+            </Route>
+            
         </Switch>
     </Router>
 }

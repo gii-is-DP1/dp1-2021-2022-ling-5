@@ -31,7 +31,7 @@ public class OnGoingFosoController {
   // localhost:8080/api/ongoingFoso -d "{\"gameId\":1}"
   @PostMapping(value = "/ongoingFoso")
   public @ResponseBody OnGoingFoso createGame(@RequestBody Request request) {
-    onGoinFosoService.createGame(
+    OnGoingFosoService.createGame(
       request.getGameId(),
       gameService.findGame(request.getGameId()).get(),
       cardService.findAllCards()
