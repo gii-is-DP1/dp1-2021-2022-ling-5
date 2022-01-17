@@ -1,9 +1,8 @@
 package com.example.accessingdatamysql.comment;
 
-import java.time.LocalDate;
 
 import com.example.accessingdatamysql.forum.ForumService;
-import com.example.accessingdatamysql.user.AccountService;
+import com.example.accessingdatamysql.user.PlayerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,24 +22,20 @@ public class CommentController {
     private CommentService commentService;
 
     @Autowired
-    private AccountService accountService;
+    private PlayerService playerService;
 
     @Autowired
     private ForumService forumService;
 
-    @PostMapping(value = "/new") // Map ONLY POST Requests
-    public @ResponseBody Comment addNewComment(@RequestBody String text, @RequestBody Long userId,
-            @RequestBody Integer forumId) {
-        Comment n = new Comment();
-        n.setText(text);
-        n.setDate(LocalDate.now());
-        n.setUser(accountService.findAccount(userId).get());
-        n.setForum(forumService.findForum(forumId).get());
-        return this.commentService.saveComment(n);
+    @PostMapping(value = "/{playerId}/{forumId}") // Map ONLY POST Requests
+    public @ResponseBody Comment addNewComment(@RequestBody Comment comment,@PathVariable Long playerId,@PathVariable Long forumId) {
+        comment.setForum(forumService.findForum(forumId).get());
+        comment.setUser(playerService.findPlayer(playerId).get());
+        return this.commentService.saveComment(comment);
     }
 
-    @PutMapping(value = "/id")
-    public @ResponseBody Comment updateComment(@RequestBody String text, @PathVariable Integer id) {
+    @PutMapping(value = "/{id}")
+    public @ResponseBody Comment updateComment(@RequestBody String text, @PathVariable Long id) {
         this.commentService.findComment(id).map(comment -> {
             comment.setText(text);
             return this.commentService.saveComment(comment);
@@ -49,7 +44,7 @@ public class CommentController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public @ResponseBody String deleteComment(@PathVariable Integer id) {
+    public @ResponseBody String deleteComment(@PathVariable Long id) {
         this.commentService.deleteComment(id);
         return "Deleted";
     }

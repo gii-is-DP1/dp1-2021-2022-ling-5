@@ -1,14 +1,15 @@
 package com.example.accessingdatamysql.comment;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.example.accessingdatamysql.forum.Forum;
 import com.example.accessingdatamysql.model.BaseEntity;
-import com.example.accessingdatamysql.user.Account;
+import com.example.accessingdatamysql.user.Player;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
@@ -20,20 +21,33 @@ import lombok.Setter;
 @Entity
 public class Comment extends BaseEntity {
 
-    @NotEmpty
+    public Comment(String text2, LocalDateTime now, Player player, Forum forum2) {
+        this.text=text2;
+        this.date=now;
+        this.user=player;
+        this.forum=forum2;
+	}
+
+    public Comment(){
+        this.text="";
+        this.date=LocalDateTime.now();
+        this.user=null;
+        this.forum=null;
+    }
+
+	@NotEmpty
     private String text;
 
-    @NotEmpty
-    private LocalDate date;
+    @NotNull
+    private LocalDateTime date;
 
     @JsonIgnore
     @ManyToOne
-    @NotEmpty
-    @JoinColumn(name = "forum_id")
+    @NotNull
     private Forum forum;
 
     @ManyToOne
-    @NotEmpty
-    @JoinColumn(name = "account_id")
-    private Account user;
+    @NotNull
+    @JoinColumn(name = "player_id")
+    private Player user;
 }

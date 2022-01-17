@@ -1,6 +1,5 @@
 package com.example.accessingdatamysql.forum;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,15 +22,12 @@ public class ForumController {
     private ForumService forumService;
 
     @PostMapping(value = "/new") // Map ONLY POST Requests
-    public @ResponseBody Forum addNewForum(@RequestBody String name) {
-        Forum n = new Forum();
-        n.setName(name);
-        n.setCreationDate(LocalDate.now());
-        return this.forumService.saveForum(n);
+    public @ResponseBody Forum addNewForum(@RequestBody Forum forum) {
+        return this.forumService.saveForum(forum);
     }
 
-    @PutMapping(value = "/id")
-    public @ResponseBody Forum updateForum(@RequestBody Forum newForum, @PathVariable Integer id) {
+    @PutMapping(value = "/{id}")
+    public @ResponseBody Forum updateForum(@RequestBody Forum newForum, @PathVariable Long id) {
         this.forumService.findForum(id).map(forum -> {
             forum.setName(newForum.getName());
             forum.setCreationDate(newForum.getCreationDate());
@@ -46,12 +42,12 @@ public class ForumController {
     }
 
     @GetMapping(value = "/{id}")
-    public @ResponseBody Optional<Forum> getForumById(@PathVariable Integer id) {
+    public @ResponseBody Optional<Forum> getForumById(@PathVariable Long id) {
         return this.forumService.findForum(id);
     }
 
     @DeleteMapping(value = "/{id}")
-    public @ResponseBody String deleteForum(@PathVariable Integer id) {
+    public @ResponseBody String deleteForum(@PathVariable Long id) {
         this.forumService.deleteService(id);
         return "Deleted";
     }

@@ -18,11 +18,11 @@ public class CommentService {
         return n;
     }
 
-    public Optional<Comment> findComment(Integer id) {
+    public Optional<Comment> findComment(Long id) {
         return commentRepository.findById(id);
     }
 
-    public void deleteComment(Integer id) {
+    public void deleteComment(Long id) {
         commentRepository.deleteById(id);
     }
 

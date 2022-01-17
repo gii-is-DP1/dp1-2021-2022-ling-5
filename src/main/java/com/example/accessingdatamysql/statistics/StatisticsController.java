@@ -3,7 +3,6 @@ package com.example.accessingdatamysql.statistics;
 import com.example.accessingdatamysql.figure.Figure;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Controller;

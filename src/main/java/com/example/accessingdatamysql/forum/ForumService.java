@@ -1,5 +1,6 @@
 package com.example.accessingdatamysql.forum;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,15 +27,15 @@ public class ForumService {
         List<Forum> ls = StreamSupport
                 .stream(f.spliterator(), false)
                 .collect(Collectors.toList());
-        // ls.sort(Comparator.comparing(o -> o.)); ordenar pro comentarios o creacion
+        ls.sort(Comparator.comparing(o -> ((Forum) o).hasComment()?((Forum) o).lastCommentDate():((Forum) o).getCreationDate()).reversed());
         return ls;
     }
 
-    public Optional<Forum> findForum(Integer id) {
+    public Optional<Forum> findForum(Long id) {
         return forumRepository.findById(id);
     }
 
-    public void deleteService(Integer id) {
+    public void deleteService(Long id) {
         Optional<Forum> f = this.findForum(id);
         if (f.isPresent()) {
             forumRepository.delete(f.get());
