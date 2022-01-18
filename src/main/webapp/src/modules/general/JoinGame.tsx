@@ -1,6 +1,5 @@
 
-import Button from 'react-bootstrap/Button';
-import { Form } from 'react-bootstrap';
+import { Form,Button } from 'react-bootstrap';
 
 import './NewGame.css';
 import { useEffect, useState } from 'react';

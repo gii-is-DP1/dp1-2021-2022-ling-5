@@ -55,4 +55,4 @@ In another terminal:
 
 `yarn start`
 
-Finally, our backend server will run on port 8000 and React (frontend) on port 3000.
+Finally, our backend server will run on port 8080 and React (frontend) on port 3000.
