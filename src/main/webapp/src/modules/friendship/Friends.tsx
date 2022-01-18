@@ -61,11 +61,11 @@ const Friends = () => {
                                 width="30"
                                 height="30"
                                 className="d-inline-block align-top"
-                                alt="Profile image"
+                                alt="Profile"
                             />&nbsp;&nbsp;{el.requested.id !== playerId ? el.requested.nickname : el.requester.nickname}</h4>
                         </Col>
                             <Col>
-                                <h4><a style={{ cursor: "pointer" }} onClick={() => removeFriend(el.id)} ><FontAwesomeIcon icon={faTimes} /></a></h4>
+                                <h4><Button style={{backgroundColor:"transparent", border:"none", color:"black"}} onClick={() => removeFriend(el.id)} ><FontAwesomeIcon icon={faTimes} /></Button></h4>
                             </Col> </Row>);
                     }
                     return <></>
@@ -77,11 +77,11 @@ const Friends = () => {
                             width="30"
                             height="30"
                             className="d-inline-block align-top"
-                            alt="Profile image"
+                            alt="Profile"
                         />&nbsp;&nbsp;{el.requested.id !== playerId ? el.requested.nickname : el.requester.nickname}</h4>
                     </Col>
                         <Col>
-                            <h4><a style={{ cursor: "pointer" }} onClick={() => removeFriend(el.id)} ><FontAwesomeIcon icon={faTimes} /></a></h4>
+                            <h4><Button style={{backgroundColor:"transparent", border:"none", color:"black"}} onClick={() => removeFriend(el.id)} ><FontAwesomeIcon icon={faTimes} /></Button></h4>
                         </Col> </Row>);
                 }
                 return <></>
@@ -99,11 +99,11 @@ const Friends = () => {
                                 width="30"
                                 height="30"
                                 className="d-inline-block align-top"
-                                alt="Profile image"
+                                alt="Profile"
                             />&nbsp;&nbsp;{el.requested.id !== playerId ? el.requested.nickname : el.requester.nickname}</h4>
                         </Col>
                             <Col>
-                                <h4><a style={{ cursor: "pointer" }} onClick={() => removeFriend(el.id)} ><FontAwesomeIcon icon={faTimes} /></a></h4>
+                                <h4><Button style={{backgroundColor:"transparent", border:"none", color:"black"}} onClick={() => removeFriend(el.id)} ><FontAwesomeIcon icon={faTimes} /></Button></h4>
                             </Col> </Row>);
                     }
                     return <></>
@@ -115,11 +115,11 @@ const Friends = () => {
                             width="30"
                             height="30"
                             className="d-inline-block align-top"
-                            alt="Profile image"
+                            alt="Profile"
                         />&nbsp;&nbsp;{el.requested.id !== playerId ? el.requested.nickname : el.requester.nickname}</h4>
                     </Col>
                         <Col>
-                            <h4><a style={{ cursor: "pointer" }} onClick={() => removeFriend(el.id)} ><FontAwesomeIcon icon={faTimes} /></a></h4>
+                            <h4><Button style={{backgroundColor:"transparent", border:"none", color:"black"}} onClick={() => removeFriend(el.id)} ><FontAwesomeIcon icon={faTimes} /></Button></h4>
                         </Col> </Row>);
                 }
                 return <></>

@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { Figure, Table } from "react-bootstrap";
-import userAPI from "./userAPI";
-import figures from '../../images/figures/figures'
+import {  Table } from "react-bootstrap";
 
 function Ranking() {
 

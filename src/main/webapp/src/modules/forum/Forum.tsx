@@ -1,9 +1,6 @@
-import { link } from 'fs';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Form, Button,Col, Row } from 'react-bootstrap';
-import { useParams, withRouter } from 'react-router-dom';
-import { getCommentRange } from 'typescript';
-import figures from '../../images/figures/figures.js';
+import {  withRouter } from 'react-router-dom';
 
 function Forum(props: any) {
     const forumId = props.match.params.id;

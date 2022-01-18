@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import resultAPI from '../result/resultAPI';
 
 function UserPoints(props: any) {
   const [results, setResutls] = useState<any[]>([]);

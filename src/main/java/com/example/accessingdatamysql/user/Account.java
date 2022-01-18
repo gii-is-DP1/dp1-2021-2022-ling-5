@@ -49,15 +49,6 @@ public class Account {
   @Column(name = "nickname", unique = true)
   protected String nickname;
 
-  // @ManyToOne
-  // private Role role;
-
-  // @OneToMany(mappedBy = "account", cascade = CascadeType.REMOVE)
-  // private Collection<Modification> modifications;
-
-  // @ManyToOne
-  // private Figure figure;
-
   @Override
   public String toString() {
     return ("{" +

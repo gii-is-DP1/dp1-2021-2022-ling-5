@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Badge, Col, Row } from 'react-bootstrap';
-import resultAPI from '../result/resultAPI';
 import ChartsPage from './ChartsPage';
 
 function UserFrequency() {

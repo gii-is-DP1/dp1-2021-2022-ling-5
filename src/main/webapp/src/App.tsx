@@ -1,9 +1,4 @@
-import React from 'react';
-// import logo from './images/figures/mano.png';
 import './App.css';
-// import Button from 'react-bootstrap/Button';
-// import FiguresByCard from './modules/cards/figuresByCard';
-// import AllFigures from './modules/figures/allFigures';
 import { Container, Row } from 'react-bootstrap';
 
 
