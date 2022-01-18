@@ -60,7 +60,7 @@ const PrincipalNavbar = () => {
                         className="d-inline-block align-top"
                         alt="Notifications"
                     /></Nav.Link>
-                    <Nav.Link href="/forum"><img
+                    <Nav.Link href="/forums"><img
                         src={icons(1)}
                         width="30"
                         height="30"

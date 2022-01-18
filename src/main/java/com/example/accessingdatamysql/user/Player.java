@@ -1,6 +1,7 @@
 package com.example.accessingdatamysql.user;
 
 import com.example.accessingdatamysql.achievement.Achievement;
+import com.example.accessingdatamysql.comment.Comment;
 import com.example.accessingdatamysql.figure.Figure;
 import com.example.accessingdatamysql.friendship.Friendship;
 import com.example.accessingdatamysql.game.Game;
@@ -74,6 +75,10 @@ public class Player extends Account {
 
   @ManyToOne
   private Figure figure;
+
+  @JsonIgnore
+  @OneToMany(cascade = CascadeType.REMOVE)
+  private List<Comment> comments;
 
   public Player() {
     this.name = "";

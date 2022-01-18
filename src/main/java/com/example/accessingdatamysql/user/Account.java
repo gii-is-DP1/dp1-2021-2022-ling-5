@@ -8,6 +8,7 @@ import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -50,27 +51,25 @@ public class Account {
 
   @Override
   public String toString() {
-    return (
-      "{" +
-      " id='" +
-      getId() +
-      "'" +
-      ", name='" +
-      getName() +
-      "'" +
-      ", surname='" +
-      getSurname() +
-      "'" +
-      ", password='" +
-      getPassword() +
-      "'" +
-      ", email='" +
-      getEmail() +
-      "'" +
-      ", nickname='" +
-      getNickname() +
-      "'" +
-      "}"
-    );
+    return ("{" +
+        " id='" +
+        getId() +
+        "'" +
+        ", name='" +
+        getName() +
+        "'" +
+        ", surname='" +
+        getSurname() +
+        "'" +
+        ", password='" +
+        getPassword() +
+        "'" +
+        ", email='" +
+        getEmail() +
+        "'" +
+        ", nickname='" +
+        getNickname() +
+        "'" +
+        "}");
   }
 }
