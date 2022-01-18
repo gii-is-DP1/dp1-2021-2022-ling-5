@@ -3,9 +3,6 @@ import { Row, Col, Container } from 'react-bootstrap';
 import resultAPI from '../result/resultAPI';
 import './playedGames.css'
 
-let urlParams = new URLSearchParams(window.location.search);
-let playerId = urlParams.get("playerId");
-
 function PlayedGames() {
   const [results, setResults] = useState<any[]>();
   const [playerId, setPlayerId] = useState<number>();

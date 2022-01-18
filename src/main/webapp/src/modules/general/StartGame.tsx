@@ -1,6 +1,6 @@
 import { Form,Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import { useParams, withRouter } from 'react-router-dom';
+import {  withRouter } from 'react-router-dom';
 import gameAPI from '../game/gameAPI';
 import userAPI from '../user/userAPI';
 

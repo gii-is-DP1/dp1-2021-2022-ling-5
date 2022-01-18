@@ -1,4 +1,3 @@
-import './AdminAchievement.css'
 import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react"
@@ -37,8 +36,8 @@ const AdminAchievement = () => {
                 <Row key={ind}>
                     <Col><h4>{e.name}</h4></Col>
                     <Col>
-                        <Button onClick={() => setModalShow(`1 ${e.id}`)}><FontAwesomeIcon icon={faEdit} /></Button>&nbsp;&nbsp;
-                        <Button onClick={() => removeAchievement(e.id)}><FontAwesomeIcon icon={faTrash} /></Button>
+                        <Button onClick={() => setModalShow(`1 ${e.id}`)} style={{backgroundColor:"transparent", border:"none", color:"black"}}><FontAwesomeIcon icon={faEdit} /></Button>&nbsp;&nbsp;
+                        <Button onClick={() => removeAchievement(e.id)} style={{backgroundColor:"transparent", border:"none", color:"black"}}><FontAwesomeIcon icon={faTrash} /></Button>
                     </Col>
                 </Row>)}
             <EditAchievement

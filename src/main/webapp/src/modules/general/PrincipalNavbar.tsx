@@ -1,5 +1,5 @@
-import { Container, Nav, Navbar, NavDropdown, Button } from "react-bootstrap"
-import React, { useEffect, useState } from 'react'
+import { Container, Nav, Navbar, NavDropdown} from "react-bootstrap"
+import { useEffect, useState } from 'react'
 import figures from '../../images/figures/figures'
 import icons from '../../images/icons/icons'
 import './principalNavbar.css'
