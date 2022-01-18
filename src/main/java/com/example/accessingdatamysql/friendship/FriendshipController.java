@@ -32,12 +32,17 @@ public class FriendshipController {
             @PathVariable Long requestedId) {
         Optional<Player> requester = this.playerService.findPlayer(requesterId);
         Optional<Player> requested = this.playerService.findPlayer(requestedId);
-        if (requester.isPresent() && requested.isPresent()) {
+        if (!requester.isPresent())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Requester not found");
+        if (!requested.isPresent())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Requested not found");
+        try {
             friendship.setRequester(requester.get());
             friendship.setRequested(requested.get());
             return this.friendshipService.saveFriendship(friendship);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Requested or Requester not found");
     }
 
     @GetMapping(value = "/friendships")
@@ -89,14 +94,23 @@ public class FriendshipController {
 
     @DeleteMapping(value = "/players/requester/{playerId}/friendships")
     public @ResponseBody void deleteAllFriendshipsByRequester(@PathVariable Long playerId) {
-        this.friendshipService.deleteAllFriendshipsByRequester(playerId);
-        throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Friendship deleted");
+        Optional<Player> pOptional = this.playerService.findPlayer(playerId);
+        if (pOptional.isPresent()) {
+            this.friendshipService.deleteAllFriendshipsByRequester(playerId);
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Friendship deleted");
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Requester not found");
+
     }
 
     @DeleteMapping(value = "/players/requested/{playerId}/friendships")
     public @ResponseBody String deleteAllFriendshipsByRequested(@PathVariable Long playerId) {
-        this.friendshipService.deleteAllFriendshipsByRequested(playerId);
-        throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Friendship deleted");
+        Optional<Player> pOptional = this.playerService.findPlayer(playerId);
+        if (pOptional.isPresent()) {
+            this.friendshipService.deleteAllFriendshipsByRequested(playerId);
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Friendship deleted");
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Requested not found");
     }
 
     @PutMapping(value = "/players/requested/{requestedId}/friendships/{id}")

@@ -59,7 +59,7 @@ public class RoleController {
     }
 
     @DeleteMapping(value = "/roles")
-    public @ResponseBody String deleteAllRoles() {
+    public @ResponseBody void deleteAllRoles() {
         this.roleService.deleteAllRoles();
         throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Roles deleted");
     }

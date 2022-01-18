@@ -47,17 +47,21 @@ public class CardController {
         }
         if (figure.isPresent()) {
 
-            if (figure.get().getCards() == null)
-                figure.get().setCards(new ArrayList<Card>());
-            if (card.get().getFigures() == null)
-                card.get().setFigures(new ArrayList<Figure>());
+            try {
+                if (figure.get().getCards() == null)
+                    figure.get().setCards(new ArrayList<Card>());
+                if (card.get().getFigures() == null)
+                    card.get().setFigures(new ArrayList<Figure>());
 
-            if (!figure.get().getCards().contains(card.get()))
-                figure.get().getCards().add(card.get());
-            if (!card.get().getFigures().contains(figure.get()))
-                card.get().getFigures().add(figure.get());
+                if (!figure.get().getCards().contains(card.get()))
+                    figure.get().getCards().add(card.get());
+                if (!card.get().getFigures().contains(figure.get()))
+                    card.get().getFigures().add(figure.get());
 
-            return this.cardService.saveCard(card.get());
+                return this.cardService.saveCard(card.get());
+            } catch (Exception e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            }
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Figure not found");
     }
@@ -92,7 +96,7 @@ public class CardController {
     }
 
     @DeleteMapping(value = "/cards/{cardId}/figures/{figureId}")
-    public @ResponseBody String deleteFigureFromCard(@PathVariable Long figureId, @PathVariable Long cardId) {
+    public @ResponseBody void deleteFigureFromCard(@PathVariable Long figureId, @PathVariable Long cardId) {
         Optional<Card> card = this.cardService.findCard(cardId);
         Optional<Figure> figure = this.figureService.findFigure(figureId);
         if (!card.isPresent())

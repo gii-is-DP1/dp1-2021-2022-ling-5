@@ -65,15 +65,21 @@ public class GameController {
         if (!game.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game not found");
         if (player.isPresent()) {
-            if (player.get().getGamesPlayed() == null)
-                player.get().setGamesPlayed(new ArrayList<Game>());
-            if (game.get().getPlayers() == null)
-                game.get().setPlayers(new ArrayList<Player>());
+            try {
+                if (player.get().getGamesPlayed() == null)
+                    player.get().setGamesPlayed(new ArrayList<Game>());
+                if (game.get().getPlayers() == null)
+                    game.get().setPlayers(new ArrayList<Player>());
 
-            if (!player.get().getGamesPlayed().contains(game.get()))
-                player.get().getGamesPlayed().add(game.get());
-            if (!game.get().getPlayers().contains(player.get()))
-                game.get().getPlayers().add(player.get());
+                if (!player.get().getGamesPlayed().contains(game.get()))
+                    player.get().getGamesPlayed().add(game.get());
+                if (!game.get().getPlayers().contains(player.get()))
+                    game.get().getPlayers().add(player.get());
+                return this.gameService.saveGame(game.get());
+            } catch (Exception e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            }
+
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Player not found");
     }
@@ -85,15 +91,20 @@ public class GameController {
         if (!game.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game not found");
         if (minigame.isPresent()) {
-            if (minigame.get().getGames() == null)
-                minigame.get().setGames(new ArrayList<Game>());
-            if (game.get().getMinigames() == null)
-                game.get().setMinigames(new ArrayList<Minigame>());
+            try {
+                if (minigame.get().getGames() == null)
+                    minigame.get().setGames(new ArrayList<Game>());
+                if (game.get().getMinigames() == null)
+                    game.get().setMinigames(new ArrayList<Minigame>());
 
-            if (!minigame.get().getGames().contains(game.get()))
-                minigame.get().getGames().add(game.get());
-            if (!game.get().getMinigames().contains(minigame.get()))
-                game.get().getMinigames().add(minigame.get());
+                if (!minigame.get().getGames().contains(game.get()))
+                    minigame.get().getGames().add(game.get());
+                if (!game.get().getMinigames().contains(minigame.get()))
+                    game.get().getMinigames().add(minigame.get());
+                return this.gameService.saveGame(game.get());
+            } catch (Exception e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            }
 
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Minigame not found");

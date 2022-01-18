@@ -94,19 +94,19 @@ public class ResultController {
     }
 
     @DeleteMapping(value = "/results")
-    public @ResponseBody String deleteAllResults() {
+    public @ResponseBody void deleteAllResults() {
         this.resultService.deleteAllResults();
         throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Results deleted");
     }
 
     @DeleteMapping(value = "/games/{gameId}/results")
-    public @ResponseBody String deleteAllResultsByGame(@PathVariable Long gameId) {
+    public @ResponseBody void deleteAllResultsByGame(@PathVariable Long gameId) {
         this.resultService.deleteAllResultsByGame(gameId);
         throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Results deleted");
     }
 
     @DeleteMapping(value = "/players/{playerId}/results")
-    public @ResponseBody String deleteAllResultsByPlayer(@PathVariable Long playerId) {
+    public @ResponseBody void deleteAllResultsByPlayer(@PathVariable Long playerId) {
         this.resultService.deleteAllResultsByPlayer(playerId);
         throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Results deleted");
     }
