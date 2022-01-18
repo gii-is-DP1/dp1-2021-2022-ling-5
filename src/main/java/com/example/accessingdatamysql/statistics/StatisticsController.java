@@ -80,7 +80,6 @@ public class StatisticsController {
     return this.statisticsService.maxMinAvgTime(playerId);
   }
 
-<<<<<<< HEAD
   @GetMapping(value = "/statistics/maxminavgtimeall")
   public @ResponseBody Map<String, Long> getMaxMinAvgTimeAll() {
     return this.statisticsService.maxMinAvgTimeAll();
