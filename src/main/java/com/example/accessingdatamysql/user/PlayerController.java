@@ -38,7 +38,7 @@ public class PlayerController {
   @Autowired
   private AchievementService achievementService;
 
-  @PostMapping(value = "/players") // Map ONLY POST Requests
+  @PostMapping(value = "/players") 
   public @ResponseBody Player addNewPlayer(@RequestBody Player player) {
 
     Optional<Role> role = this.roleService.findRole(1L);

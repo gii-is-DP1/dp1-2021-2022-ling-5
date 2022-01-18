@@ -2,6 +2,7 @@ import { Form,Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { useParams, withRouter } from 'react-router-dom';
 import gameAPI from '../game/gameAPI';
+import userAPI from '../user/userAPI';
 
 function StartGame(props: any) {
   const id = props.match.params.id;
@@ -9,8 +10,14 @@ function StartGame(props: any) {
 
   useEffect(() => {
     gameAPI.getPlayersByGame(id)
-      .then((pls: any[]) => setPlayers(pls))
-      .catch((err) => console.log(err));
+      .then((pls: any[]) => {
+        setPlayers(pls);
+        for (let i = 0; i < pls.length; i++) {
+          var pl = pls[i];
+          pl.playerState = "WAITING_TO_PLAY";
+          userAPI.updateUser(pl, pl.id, "player");
+        }
+      }).catch((err) => console.log(err));
   }, [])
 
   if (!players) return <p>Loading...</p>

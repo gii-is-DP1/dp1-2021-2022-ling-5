@@ -48,7 +48,7 @@ const PrincipalNavbar = () => {
             /></a>
             <NavDropdown title={nickname} id="img">
                 <NavDropdown.Item href={href1}>{namehref1}</NavDropdown.Item>
-                <NavDropdown.Item onClick={() => { token.logout(); window.location.href = "/"; }}>Logout</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => token.logout()}>Logout</NavDropdown.Item>
             </NavDropdown>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
