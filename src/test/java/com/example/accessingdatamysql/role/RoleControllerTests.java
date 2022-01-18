@@ -62,12 +62,12 @@ public class RoleControllerTests {
 
     @Test
     void testDeleteById() throws Exception {
-        mockMvc.perform(delete("/api/roles/{roleId}", TEST_ROLE_ID)).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/roles/{roleId}", TEST_ROLE_ID)).andExpect(status().isNoContent());
     }
 
     @Test
     void testDeleteAll() throws Exception {
-        mockMvc.perform(delete("/api/roles")).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/roles")).andExpect(status().isNoContent());
     }
 
     @Test

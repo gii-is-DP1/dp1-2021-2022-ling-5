@@ -169,7 +169,7 @@ public class GameController {
             game.get().setPlayers(new ArrayList<Player>());
             if (player.get().getGamesPlayed() == null)
                 player.get().setGamesPlayed(new ArrayList<Game>());
-            throw new ResponseStatusException(HttpStatus.OK, "Game doesn't have players to remove");
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Game doesn't have players to remove");
         }
 
         game.get().getPlayers().remove(player.get());
@@ -191,7 +191,7 @@ public class GameController {
             game.get().setMinigames(new ArrayList<Minigame>());
             if (minigame.get().getGames() == null)
                 minigame.get().setGames(new ArrayList<Game>());
-            throw new ResponseStatusException(HttpStatus.OK, "Game doesn't have minigames to remove");
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Game doesn't have minigames to remove");
         }
 
         game.get().getMinigames().remove(minigame.get());

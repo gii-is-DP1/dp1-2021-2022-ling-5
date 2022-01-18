@@ -65,12 +65,12 @@ public class FigureControllerTests {
 
     @Test
     void testDeleteById() throws Exception {
-        mockMvc.perform(delete("/api/figures/{figureId}", TEST_FIGURE_ID)).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/figures/{figureId}", TEST_FIGURE_ID)).andExpect(status().isNoContent());
     }
 
     @Test
     void testDeleteAll() throws Exception {
-        mockMvc.perform(delete("/api/figures")).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/figures")).andExpect(status().isNoContent());
     }
 
     @Test
