@@ -1,13 +1,7 @@
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
-import { Container, Button, Row, Col, Modal, Form, Toast, ToastContainer } from "react-bootstrap";
-import figures from "../../images/figures/figures";
+import { Container, Button, Toast } from "react-bootstrap";
 import friendshipAPI from "./friendshipAPI";
-import { MDBInput } from "mdbreact";
-import { useBootstrapPrefix } from "react-bootstrap/esm/ThemeProvider";
 import userAPI from "../user/userAPI";
-import { get } from "http";
 
 const AceptFriend = () => {
 

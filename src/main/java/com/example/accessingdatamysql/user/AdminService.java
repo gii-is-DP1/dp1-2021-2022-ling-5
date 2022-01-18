@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AdminService {
@@ -26,21 +26,24 @@ public class AdminService {
     return admin;
   }
 
+  @Transactional(readOnly = true)
   public Optional<Admin> findAdmin(Long id) {
     return adminRepository.findById(id);
   }
 
+  @Transactional(readOnly = true)
   public List<Admin> findAllAdmins() {
     return StreamSupport
-      .stream(adminRepository.findAll().spliterator(), false)
-      .collect(Collectors.toList());
+        .stream(adminRepository.findAll().spliterator(), false)
+        .collect(Collectors.toList());
   }
 
+  @Transactional(readOnly = true)
   public List<Admin> findAllAdminsByRole(Long roleId) {
     return StreamSupport
-      .stream(adminRepository.findAll().spliterator(), false)
-      .filter(admin -> admin.getRole().getId() == roleId)
-      .collect(Collectors.toList());
+        .stream(adminRepository.findAll().spliterator(), false)
+        .filter(admin -> admin.getRole().getId() == roleId)
+        .collect(Collectors.toList());
   }
 
   @Transactional
@@ -56,10 +59,11 @@ public class AdminService {
   @Transactional
   public void deleteAllAdminsByRole(Long roleId) {
     findAllAdminsByRole(roleId)
-      .stream()
-      .forEach(admin -> adminRepository.deleteById(admin.getId()));
+        .stream()
+        .forEach(admin -> adminRepository.deleteById(admin.getId()));
   }
 
+  @Transactional(readOnly = true)
   public List<Admin> findByNickname(String nickname) {
     List<Admin> admins = new ArrayList<Admin>();
     for (Admin a : adminRepository.findAll()) {
