@@ -139,10 +139,10 @@ public class PlayerController {
 
       player.get().getAchievements().remove(achievement.get());
       achievement.get().getPlayers().remove(player.get());
-      throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Deleted achievement from player");
     } catch (Exception e) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
     }
+    throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Deleted achievement from player");
   }
 
   @PutMapping(value = "/players/{id}")

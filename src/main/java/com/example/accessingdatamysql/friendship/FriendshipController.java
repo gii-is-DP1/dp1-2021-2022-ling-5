@@ -125,11 +125,11 @@ public class FriendshipController {
                 friendship.setState(newFriendship.getState());
                 return this.friendshipService.saveFriendship(friendship);
             }
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "The requested given doesn't match with the requested in the friendship");
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                "The requested given doesn't match with the requested in the friendship");
 
     }
 }

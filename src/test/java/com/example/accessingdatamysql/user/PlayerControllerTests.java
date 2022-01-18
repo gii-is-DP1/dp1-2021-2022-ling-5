@@ -114,19 +114,19 @@ public class PlayerControllerTests {
 
     @Test
     void testDeleteById() throws Exception {
-        mockMvc.perform(delete("/api/players/{playerId}", TEST_PLAYER_ID)).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/players/{playerId}", TEST_PLAYER_ID)).andExpect(status().isNoContent());
     }
 
     @Test
     void testDeleteAll() throws Exception {
-        mockMvc.perform(delete("/api/players")).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/players")).andExpect(status().isNoContent());
     }
 
     @Test
     void testDeleteAchievementFromPlayer() throws Exception {
         mockMvc.perform(
                 delete("/api/players/{playerId}/achievements/{achievementId}", TEST_PLAYER_ID, TEST_ACHIEVEMENT_ID))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
     }
 
     @Test
