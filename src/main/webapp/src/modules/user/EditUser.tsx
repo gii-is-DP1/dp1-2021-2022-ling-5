@@ -9,10 +9,15 @@ const EditUser = (props: any) => {
     const [figure, setFigure] = useState<number>(0);
     const [modalShow, setModalShow] = useState<boolean>(false);
 
+    function handleChange(newFigure: number) {
+        setFigure(newFigure);
+        setModalShow(false);
+    }
+
     const edit = () => {
         console.log(player);
         userAPI.updateUser(player, props.idUser, "player")
-            .then((res) => window.location.href = '/users')
+            .then(props.onHide)
             .catch((err) => console.log(err));
     }
 
@@ -50,6 +55,8 @@ const EditUser = (props: any) => {
                             />
                             <Button onClick={() => setModalShow(true)}>Change figure</Button>
                             <EditFigure idUser={player.id}
+                                figure={figure}
+                                onChange={handleChange}
                                 show={modalShow}
                                 onHide={() => setModalShow(false)} />
                         </Col>

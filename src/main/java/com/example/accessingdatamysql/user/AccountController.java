@@ -2,6 +2,9 @@ package com.example.accessingdatamysql.user;
 
 import java.util.List;
 
+import com.example.accessingdatamysql.figure.FigureService;
+import com.example.accessingdatamysql.role.RoleService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -20,6 +23,12 @@ public class AccountController {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private FigureService figureService;
+
+    @Autowired
+    private RoleService roleService;
 
     @PostMapping(value = "/login")
     public @ResponseBody LogRegResponse loginUser(@RequestBody RequestLoggin request) throws BadRequest{
@@ -53,6 +62,8 @@ public class AccountController {
         if(playerService.findByNickname(player.getNickname()).size()>0){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nickname already taken");
         }
+        player.setFigure(figureService.findFigure(3L).get());
+        player.setRole(roleService.findRole(1L).get());
         playerService.savePlayer(player);
         Player newPlayer = playerService.findByNickname(player.getNickname()).get(0);
         return new LogRegResponse(newPlayer.getId(), "Player");

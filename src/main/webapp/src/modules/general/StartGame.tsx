@@ -1,12 +1,10 @@
-import Button from 'react-bootstrap/Button';
-import { Form } from 'react-bootstrap';
+import { Form,Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useParams, withRouter } from 'react-router-dom';
 import gameAPI from '../game/gameAPI';
 
 function StartGame(props: any) {
-  const gameId: any = useParams();
-  const { id } = gameId;
+  const id = props.match.params.id;
   const [players, setPlayers] = useState<any[]>([]);
 
   useEffect(() => {
@@ -45,4 +43,4 @@ function StartGame(props: any) {
 }
 
 
-export default StartGame;
+export default withRouter(StartGame);

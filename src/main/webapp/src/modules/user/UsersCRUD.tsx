@@ -11,9 +11,7 @@ const UsersCRUD = () => {
     const [modalShow, setModalShow] = useState<string>("0 0");
 
     const removePlayer = (id: number) => {
-        userAPI.deleteUser("player", id)
-            .then((res) => window.location.href = '/users')
-            .catch(error => console.log(error));
+        userAPI.deleteUser("player", id);
     }
 
     useEffect(() => {
@@ -21,7 +19,7 @@ const UsersCRUD = () => {
             .then((pls: any[]) => {
                 setPlayers(pls);
             }).catch((err) => console.log(err));
-    }, [])
+    }, [players])
 
     return (
 

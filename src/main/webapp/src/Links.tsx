@@ -20,6 +20,15 @@ import Friends from "./modules/friendship/Friends";
 import { useEffect, useState } from "react";
 import UserFrequency from "./modules/playedGames/UserFrequency";
 import AddFriend from "./modules/friendship/AddFriend";
+import AcceptFriend from "./modules/friendship/AcceptFriend";
+import PropGamesPlayed from "./modules/statistics/PropGamesPlayed";
+import PropTime from "./modules/statistics/PropTime";
+import AdminAchievement from "./modules/achievement/AdminAchievement";
+import CreateAchievement from "./modules/achievement/CreateAchievement";
+import Achievements from "./modules/achievement/Achievements";
+import Forums from "./modules/forum/AllForums";
+import Forum from "./modules/forum/Forum";
+import NewForum from "./modules/forum/NewForum";
 
 const Links = () => {
     const [role, setRole] = useState<string | null>(null)
@@ -28,7 +37,6 @@ const Links = () => {
     }, [])
 
     if (!role) return <></>
-    console.log(role)
     return <Router>
         <PrincipalNavbar />
         <Switch>
@@ -45,13 +53,10 @@ const Links = () => {
                 <StartGame />
             </Route>
             <Route path='/notifications'>
-                <Patata />
+                <AcceptFriend />
             </Route>
-            <Route path='/forum' >
-                <Patata />
-            </Route>
-            <Route path="/logout">
-                <Patata />
+            <Route path='/forums' >
+                <Forums />
             </Route>
 
             <Route path='/profile'>
@@ -103,6 +108,24 @@ const Links = () => {
                     </div>
                     : <>Access is restricted</>}
             </Route>
+            <Route path='/propGames'>
+                {role === "Player" ?
+                    <div id="body" className="d-flex">
+                        <ProfileNavbar />
+                        <StadisticsNavbar />
+                        <PropGamesPlayed />
+                    </div>
+                    : <>Access is restricted</>}
+            </Route>
+            <Route path='/propTime'>
+                {role === "Player" ?
+                    <div id="body" className="d-flex">
+                        <ProfileNavbar />
+                        <StadisticsNavbar />
+                        <PropTime />
+                    </div>
+                    : <>Access is restricted</>}
+            </Route>
             <Route path='/games'>
                 {role === "Player" ?
                     <div id="body" className="d-flex">
@@ -114,7 +137,7 @@ const Links = () => {
             <Route path='/awards'>
                 {role === "Player" ?
                     <div id="body" className="d-flex"><ProfileNavbar />
-                        <Patata /></div>
+                        <Achievements /></div>
                     : <>Access is restricted</>}
             </Route>
             <Route path='/friends'>
@@ -164,12 +187,26 @@ const Links = () => {
                         <Patata /></div>
                     : <>Access is restricted</>}
             </Route>
-            <Route path='/createAwards'>
+            <Route path='/adminAwards'>
                 {role === "Admin" ?
                     <div id="body" className="d-flex"><AdminNavbar />
-                        <Patata /></div>
+                        <AdminAchievement /></div>
                     : <>Access is restricted</>}
             </Route>
+            <Route path='/createAchievement'>
+                {role === "Admin" ?
+                    <div id="body" className="d-flex">
+                        <AdminNavbar />
+                        <CreateAchievement />
+                    </div>
+                    : <>Access is restricted</>}
+            </Route>
+            <Route path='/forum/:id' >
+                <Forum />
+            </Route><Route path='/newforum' >
+                <NewForum />
+            </Route>
+            
         </Switch>
     </Router>
 }

@@ -16,6 +16,14 @@ const userAPI = {
         });
     },
 
+    getPlayerByNickname: function (nickname: any) {
+        return new Promise<any>(function (resolve, reject) {
+            fetch(`http://localhost:8080/api/players/names/${nickname}`)
+                .then(res => res.json()).then(resolve)
+                .catch(error => console.error);
+        });
+    },
+
     async addNewUser(user: any, role: string) {
         if (role.toLowerCase() === "player") {
             role = "players";
@@ -131,10 +139,13 @@ const userAPI = {
             headers: { 'Content-Type': 'application/json' }
         }
 
-        return await fetch(`http://localhost:8080/api/figures/${figureId}/${role}/${userId}`, requestOptions)
-            .then((res: any) => {
-                return res.json();
-            }).catch((err: any) => console.log(err));
+        return new Promise(function (resolve, reject) {
+            fetch(`http://localhost:8080/api/figures/${figureId}/${role}/${userId}`, requestOptions)
+                .then(res => {
+                    resolve(res.json())
+                })
+                .catch(error => reject(console.error))
+        });
     },
 
     async addNewAchievementToPlayer(playerId: number, achievementId: number) {
