@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Links from './Links';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Patata from './Patata';
 import Register from './modules/general/register';
 import Login from './modules/general/login';
 import { Col, Row } from 'react-bootstrap';

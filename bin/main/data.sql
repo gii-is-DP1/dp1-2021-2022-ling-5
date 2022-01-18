@@ -1,19 +1,16 @@
 -- Load of player
 
-insert into player values(1,'uno@gmail.com','Uno','unito','uno','uno',1,3,1)
-insert into player values(2,'dos@gmail.com','dos','dosito','dos','dos',1,3,1)
-insert into player values(3,'tres@gmail.com','tres','tresito','tres','tres',1,3,1)
-insert into player values(4,'cuatro@gmail.com','cuatro','cuatrito','cuatro','cuatro',1,3,1)
-insert into player values(5,'cinco@gmail.com','cinco','cinquito','cinco','cinco',1,3,1)
-insert into player values(6,'seis@gmail.com','seis','seisito','seis','seis',1,3,1)
+insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(1,'uno@gmail.com','Uno','unito','uno','uno',1,3,1);
+insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(2,'dos@gmail.com','dos','dosito','dos','dos',1,3,1);
+insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(3,'tres@gmail.com','tres','tresito','tres','tres',1,3,1);
+insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(4,'cuatro@gmail.com','cuatro','cuatrito','cuatro','cuatro',1,3,1);
+insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(5,'cinco@gmail.com','cinco','cinquito','cinco','cinco',1,3,1);
+insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(6,'seis@gmail.com','seis','seisito','seis','seis',1,3,1);
 
 -- Load of admin
 
-insert into admin values(1,'unaco@gmail.com','Unaco','unacon','unaco','unaco',1,3,2)
+insert into admin values(1,'unaco@gmail.com','Unaco','unacon','unaco','unaco',1,2)
 
--- Load of modification
-
-insert into modification values(1, 'UNO', 'uno','2021-01-01 01:01:01','cambio1',null, 2)
 
 -- Load of friendship
 
@@ -32,10 +29,6 @@ insert into game values(4,4,'2021-04-04 04:44:04','juegoCuatro','2021-04-04 04:0
 
 insert into role values(1,'player')
 insert into role values(2,'admin')
-
--- Load of privilege
-
-insert into privilege values(1, 'VIEW_AWARDS')
 
 
 -- Load of player_games_played
@@ -155,8 +148,8 @@ INSERT INTO figure VALUES (56, "yinyan")
 INSERT INTO figure VALUES (57, "zanahoria")
 
 -- Load of achievement
-INSERT INTO achievement VALUES(1,'Streak10','Streak 10 games', 1)
-INSERT INTO achievement VALUES(2,'Streak20','Streak 20 games', 2)
+INSERT INTO achievement VALUES(1,'Points10', 0, 'Accumulate 10 points', 10, 1)
+INSERT INTO achievement VALUES(2,'Points20', 0, 'Accumulate 20 points', 20, 2)
 
 -- Load of card
 
@@ -793,7 +786,6 @@ INSERT INTO figure_cards VALUES (12,9)
 
 --Load playerfigures
 
-INSERT INTO playerfigures VALUES (0,255,1,1)
 INSERT INTO playerfigures VALUES (1,33,2,1)
 INSERT INTO playerfigures VALUES (2,380,3,1)
 INSERT INTO playerfigures VALUES (3,448,4,1)
@@ -964,3 +956,4 @@ INSERT INTO playerfigures VALUES (167,457,54,3)
 INSERT INTO playerfigures VALUES (168,488,55,3)
 INSERT INTO playerfigures VALUES (169,377,56,3)
 INSERT INTO playerfigures VALUES (170,178,57,3)
+INSERT INTO playerfigures VALUES (171,255,1,1)

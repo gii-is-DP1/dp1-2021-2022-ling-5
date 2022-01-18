@@ -19,48 +19,57 @@ import lombok.Setter;
 @MappedSuperclass
 public class Account {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Size(min = 3, max = 50)
-    @NotEmpty
-    @NotNull
-    @Column(name = "name")
-    protected String name;
+  @Size(min = 3, max = 50)
+  @NotEmpty
+  @NotNull
+  @Column(name = "name")
+  protected String name;
 
-    @Column(name = "surname")
-    protected String surname;
+  @Column(name = "surname")
+  protected String surname;
 
-    @NotEmpty
-    @NotNull
-    @Column(name = "password")
-    protected String password;
+  @NotEmpty
+  @NotNull
+  @Column(name = "password")
+  protected String password;
 
-    @NotEmpty
-    @NotNull
-    @Column(name = "email", unique = true)
-    protected String email;
+  @Size(min = 3, max = 50)
+  @NotEmpty
+  @NotNull
+  @Column(name = "email", unique = true)
+  protected String email;
 
-    @NotEmpty
-    @NotNull
-    @Column(name = "nickname", unique = true)
-    protected String nickname;
+  @Size(min = 3, max = 50)
+  @NotEmpty
+  @NotNull
+  @Column(name = "nickname", unique = true)
+  protected String nickname;
 
-    // @ManyToOne
-    // private Role role;
-
-    // @OneToMany(mappedBy = "account", cascade = CascadeType.REMOVE)
-    // private Collection<Modification> modifications;
-
-    // @ManyToOne
-    // private Figure figure;
-
-    @Override
-    public String toString() {
-        return "{" + " id='" + getId() + "'" + ", name='" + getName() + "'" + ", surname='" + getSurname() + "'"
-                + ", password='" + getPassword() + "'" + ", email='" + getEmail() + "'" + ", nickname='" + getNickname()
-                + "'" + "}";
-    }
-
+  @Override
+  public String toString() {
+    return ("{" +
+        " id='" +
+        getId() +
+        "'" +
+        ", name='" +
+        getName() +
+        "'" +
+        ", surname='" +
+        getSurname() +
+        "'" +
+        ", password='" +
+        getPassword() +
+        "'" +
+        ", email='" +
+        getEmail() +
+        "'" +
+        ", nickname='" +
+        getNickname() +
+        "'" +
+        "}");
+  }
 }

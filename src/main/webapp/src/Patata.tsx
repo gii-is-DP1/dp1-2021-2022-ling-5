@@ -1,14 +1,60 @@
-import ChartsPage from "./modules/playedGames/ChartsPage";
+import { useState, useEffect } from "react";
+import { Card } from "react-bootstrap";
+import figures from "./images/figures/figures";
+import icons from "./images/icons/icons";
+import userAPI from "./modules/user/userAPI";
 
-const Patata = () => {
-    const freq = new Map();
-    freq.set("1", 2)
-    freq.set("2", 1)
-    freq.set("3", 3)
-    freq.set("4", 8)
-    freq.set("5", 7)
+function Patata() {
 
-    return <ChartsPage frequency={freq} />
+    const [username, setUsername] = useState<string>("");
+    const [figure, setFigure] = useState<number>(0);
+    const [id, setId] = useState<number>();
+    var role = null;
+    useEffect(() => {
+        var idStr = localStorage.getItem("sessionId");
+        var role = localStorage.getItem("rol")
+
+        if (idStr && idStr !== null && role !== null) {
+            setId(parseInt(idStr))
+            if (id) {
+                userAPI.getUser(id, role).then((user: any) => {
+                    setUsername(user.nickname)
+                    setFigure(user.figure.id - 1)
+                }).catch(err => console.log(err));
+            }
+
+        }
+
+
+    }, [id])
+
+    const src = role === "Admin" ? icons(3) : figures(figure);
+    const alt = role === "Admin" ? "Dobble logo" : "Profile image";
+
+
+    if (!username && !figure && !id) return <></>
+    return (
+
+        <div className="container">
+
+            <Card>
+                <a href="/" id="img"><img
+                    src={src}
+                    width="50"
+                    height="50"
+                    className="d-inline-block align-top"
+                    alt={alt}
+                /></a>
+                <Card.Body>
+                    <Card.Text>
+                        Some quick example text to build on the card title and make up the bulk
+                        of the card's content.
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+        </div>
+
+    );
 }
 
 export default Patata;

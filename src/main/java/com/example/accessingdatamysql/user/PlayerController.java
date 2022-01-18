@@ -7,11 +7,11 @@ import com.example.accessingdatamysql.achievement.Achievement;
 import com.example.accessingdatamysql.achievement.AchievementService;
 import com.example.accessingdatamysql.figure.Figure;
 import com.example.accessingdatamysql.figure.FigureService;
-import com.example.accessingdatamysql.modification.Modification;
 import com.example.accessingdatamysql.role.Role;
 import com.example.accessingdatamysql.role.RoleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequestMapping(value = "/api")
@@ -37,18 +38,22 @@ public class PlayerController {
   @Autowired
   private AchievementService achievementService;
 
-  @PostMapping(value = "/players") // Map ONLY POST Requests
+  @PostMapping(value = "/players") 
   public @ResponseBody Player addNewPlayer(@RequestBody Player player) {
-    player.setModifications(new ArrayList<Modification>());
 
     Optional<Role> role = this.roleService.findRole(1L);
     Optional<Figure> figure = this.figureService.findFigure(1L);
-    if (figure.isPresent() && role.isPresent()) {
+    if (!figure.isPresent())
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Figure not found");
+    if (!role.isPresent())
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Role not found");
+    try {
       player.setFigure(figure.get());
       player.setRole(role.get());
       return this.playerService.savePlayer(player);
+    } catch (Exception e) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
     }
-    return null;
   }
 
   @PostMapping(value = "/players/{playerId}/achievements/{achievementId}")
@@ -56,9 +61,10 @@ public class PlayerController {
     Optional<Player> player = this.playerService.findPlayer(playerId);
     Optional<Achievement> achievement = this.achievementService.findAchievement(achievementId);
     if (!player.isPresent())
-      return null;
-    if (achievement.isPresent()) {
-
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Player not found");
+    if (!achievement.isPresent())
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Achievement not found");
+    try {
       if (player.get().getAchievements() == null)
         player.get().setAchievements(new ArrayList<Achievement>());
       if (achievement.get().getPlayers() == null)
@@ -69,8 +75,13 @@ public class PlayerController {
       if (!achievement.get().getPlayers().contains(player.get()))
         achievement.get().getPlayers().add(player.get());
       this.playerService.savePlayer(player.get());
+
+      return player.get();
+
+    } catch (Exception e) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
     }
-    return player.get();
+
   }
 
   @GetMapping(value = "/players")
@@ -79,77 +90,91 @@ public class PlayerController {
   }
 
   @GetMapping(value = "/players/{id}")
-  public @ResponseBody Optional<Player> getPlayerById(@PathVariable Long id) {
-    return this.playerService.findPlayer(id);
+  public @ResponseBody Player getPlayerById(@PathVariable Long id) {
+    Optional<Player> pOptional = this.playerService.findPlayer(id);
+    if (pOptional.isPresent())
+      return pOptional.get();
+    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Player not found");
   }
 
-  // @GetMapping(value = "/players/games/{gameId}")
-  // public @ResponseBody List<Player> getAllPlayersByGame(@PathVariable Long
-  // gameId) {
-  // List<Player> players = this.playerService.findAllPlayers();
-  // return players.stream().filter(player ->
-  // player.getGamesPlayed().contains(this.gameService.findGame(gameId).get()))
-  // .collect(Collectors.toList());
-  // }
+  @GetMapping(value = "/players/names/{nickname}")
+  public @ResponseBody Player getPlayerByNickname(@PathVariable String nickname) {
+    Optional<Player> pOptional = this.playerService.findPlayerByNickname(nickname);
+    if (pOptional.isPresent())
+      return pOptional.get();
+    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Player not found");
+  }
 
   @DeleteMapping(value = "/players/{id}")
-  public @ResponseBody String deletePlayer(@PathVariable Long id) {
-    this.playerService.deletePlayer(id);
-    return "Deleted";
+  public @ResponseBody void deletePlayer(@PathVariable Long id) {
+    Optional<Player> pOptional = this.playerService.findPlayer(id);
+    if (pOptional.isPresent()) {
+      this.playerService.deletePlayer(id);
+      throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Player deleted");
+    }
+    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Player not found");
   }
 
   @DeleteMapping(value = "/players")
-  public @ResponseBody String deleteAllPlayers() {
+  public @ResponseBody void deleteAllPlayers() {
     this.playerService.deleteAllPlayers();
-    return "Deleted all";
+    throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Players deleted");
   }
 
   @DeleteMapping(value = "/players/{playerId}/achievements/{achievementId}")
-  public @ResponseBody String deleteAchievementFromPlayer(@PathVariable Long playerId,
+  public @ResponseBody void deleteAchievementFromPlayer(@PathVariable Long playerId,
       @PathVariable Long achievementId) {
     Optional<Player> player = this.playerService.findPlayer(playerId);
     Optional<Achievement> achievement = this.achievementService.findAchievement(achievementId);
     if (!player.isPresent())
-      return "User not found";
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Player not found");
     if (!achievement.isPresent())
-      return "Achievement not found";
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Achievement not found");
+    try {
+      if (player.get().getAchievements() == null) {
+        player.get().setAchievements(new ArrayList<Achievement>());
+        if (achievement.get().getPlayers() == null)
+          achievement.get().setPlayers(new ArrayList<Player>());
+      }
 
-    if (player.get().getAchievements() == null) {
-      player.get().setAchievements(new ArrayList<Achievement>());
-      if (achievement.get().getPlayers() == null)
-        achievement.get().setPlayers(new ArrayList<Player>());
+      player.get().getAchievements().remove(achievement.get());
+      achievement.get().getPlayers().remove(player.get());
+    } catch (Exception e) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
     }
-
-    player.get().getAchievements().remove(achievement.get());
-    achievement.get().getPlayers().remove(player.get());
-    return "Achievement deleted from player";
-
+    throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Deleted achievement from player");
   }
 
   @PutMapping(value = "/players/{id}")
   public @ResponseBody Player updatePlayer(@RequestBody Player newPlayer, @PathVariable Long id) {
-    this.playerService.findPlayer(id).map(player -> {
+    Optional<Player> pOptional = this.playerService.findPlayer(id);
+    if (!pOptional.isPresent())
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Player is not found");
+    try {
+      Player player = pOptional.get();
       player.setName(newPlayer.getName());
       player.setSurname(newPlayer.getSurname());
       player.setPlayerState(newPlayer.getPlayerState());
       return this.playerService.savePlayer(player);
-    }).orElse(null);
-    return null;
+    } catch (Exception e) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+    }
   }
 
   @PutMapping(value = "/figures/{figureId}/players/{playerId}")
-  public @ResponseBody String updateFigurePlayer(@PathVariable Long playerId, @PathVariable Long figureId) {
-    return this.figureService.findFigure(figureId).map(figure -> {
-      Optional<Player> optionalPlayer = this.playerService.findPlayer(playerId);
-      if (optionalPlayer.isPresent()) {
-        Player player = optionalPlayer.get();
-        player.setFigure(figure);
-        this.playerService.savePlayer(player);
-        return "Saved";
-      } else {
-        return "Player not found";
-      }
-    }).orElse("Figure not found");
+  public @ResponseBody Player updateFigurePlayer(@PathVariable Long playerId, @PathVariable Long figureId) {
+    Optional<Figure> fOptional = this.figureService.findFigure(figureId);
+    if (!fOptional.isPresent())
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Figure not found");
+    Optional<Player> optionalPlayer = this.playerService.findPlayer(playerId);
+    if (!optionalPlayer.isPresent())
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Player not found");
+    try {
+      Player player = optionalPlayer.get();
+      player.setFigure(fOptional.get());
+      return this.playerService.savePlayer(player);
+    } catch (Exception e) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+    }
   }
-
 }

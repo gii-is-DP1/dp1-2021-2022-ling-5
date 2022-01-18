@@ -1,18 +1,23 @@
-import Button from 'react-bootstrap/Button';
-import { Form } from 'react-bootstrap';
+import { Form,Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import {  withRouter } from 'react-router-dom';
 import gameAPI from '../game/gameAPI';
+import userAPI from '../user/userAPI';
 
 function StartGame(props: any) {
-  const gameId: any = useParams();
-  const { id } = gameId;
+  const id = props.match.params.id;
   const [players, setPlayers] = useState<any[]>([]);
 
   useEffect(() => {
     gameAPI.getPlayersByGame(id)
-      .then((pls: any[]) => setPlayers(pls))
-      .catch((err) => console.log(err));
+      .then((pls: any[]) => {
+        setPlayers(pls);
+        for (let i = 0; i < pls.length; i++) {
+          var pl = pls[i];
+          pl.playerState = "WAITING_TO_PLAY";
+          userAPI.updateUser(pl, pl.id, "player");
+        }
+      }).catch((err) => console.log(err));
   }, [])
 
   if (!players) return <p>Loading...</p>
@@ -45,4 +50,4 @@ function StartGame(props: any) {
 }
 
 
-export default StartGame;
+export default withRouter(StartGame);

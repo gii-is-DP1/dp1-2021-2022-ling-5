@@ -3,7 +3,6 @@ package com.example.accessingdatamysql.statistics;
 import com.example.accessingdatamysql.figure.Figure;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Controller;
@@ -52,15 +51,37 @@ public class StatisticsController {
     return this.statisticsService.getFrecuenciaJugadores(playerId);
   }
 
-  @GetMapping(value = "/statistics/maxminavg")
+  @GetMapping(value = "/statistics/propTotal/{playerId}")
+  public @ResponseBody Double getPropTotal(@PathVariable Long playerId) {
+    return this.statisticsService.propTotal(playerId);
+  }
+
+  @GetMapping(value = "/statistics/maxMinAvgAll")
   public @ResponseBody Map<String, Double> getMaxMinAvgAll() {
     return this.statisticsService.maxMinAvgAll();
   }
 
-  @GetMapping(value = "/statistics/maxminavg/{playerId}")
+  @GetMapping(value = "/statistics/maxMinAvg/{playerId}")
   public @ResponseBody Map<String, Double> getMaxMinAvg(
     @PathVariable Long playerId
   ) {
     return this.statisticsService.maxMinAvg(playerId);
+  }
+
+  @GetMapping(value = "/statistics/propTotalTime/{playerId}")
+  public @ResponseBody Double getPropTotalTime(@PathVariable Long playerId) {
+    return this.statisticsService.propTiempo(playerId);
+  }
+
+  @GetMapping(value = "/statistics/maxMinAvgTime/{playerId}")
+  public @ResponseBody Map<String, Long> getMaxMinAvgTime(
+    @PathVariable Long playerId
+  ) {
+    return this.statisticsService.maxMinAvgTime(playerId);
+  }
+
+  @GetMapping(value = "/statistics/maxMinAvgTimeAll")
+  public @ResponseBody Map<String, Long> getMaxMinAvgTimeAll() {
+    return this.statisticsService.maxMinAvgTimeAll();
   }
 }

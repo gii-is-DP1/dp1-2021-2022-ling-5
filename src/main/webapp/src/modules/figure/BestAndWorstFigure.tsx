@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import figures from '../../images/figures/figures.js';
-import figureImg from "../../images/figures/figures.js";
 
 function BestAndWorstFigure() {
 
@@ -30,13 +29,13 @@ function BestAndWorstFigure() {
       <Row>
         <Col>
           <h1>Most used:</h1>
-          <img src={figures(best.id - 1)} width='50px' height='50px' />
+          <img src={figures(best.id - 1)} alt="Most used" width='50px' height='50px' />
         </Col>
       </Row>
       <Row>
         <Col>
           <h1>Least used:</h1>
-          <img src={figures(worst.id - 1)} width='50px' height='50px' />
+          <img src={figures(worst.id - 1)} alt="Least used" width='50px' height='50px' />
         </Col>
       </Row>
     </div>

@@ -18,17 +18,9 @@ public class AccessingDataMysqlApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/*").allowedOrigins("*").allowedMethods("PUT", "DELETE", "POST", "GET");
+				registry.addMapping("/api/**").allowedOrigins("*").allowedMethods("PUT", "DELETE", "POST", "GET");
 				;
-				registry.addMapping("/api/*/*").allowedOrigins("*").allowedMethods("PUT", "DELETE", "POST", "GET");
-				;
-				registry.addMapping("/api/*/*/*").allowedOrigins("*").allowedMethods("PUT", "DELETE", "POST", "GET");
-				;
-				registry.addMapping("/api/*/*/*/*").allowedOrigins("*").allowedMethods("PUT", "DELETE", "POST", "GET");
-				;
-				registry.addMapping("/api/*/*/*/*/*").allowedOrigins("*").allowedMethods("PUT", "DELETE", "POST",
-						"GET");
-				;
+				
 
 			}
 		};

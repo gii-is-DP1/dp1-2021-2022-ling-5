@@ -101,22 +101,22 @@ public class ResultControllerTests {
 
     @Test
     void testDeleteById() throws Exception {
-        mockMvc.perform(delete("/api/results/{resultId}", TEST_RESULT_ID)).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/results/{resultId}", TEST_RESULT_ID)).andExpect(status().isNoContent());
     }
 
     @Test
     void testDeleteAll() throws Exception {
-        mockMvc.perform(delete("/api/results")).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/results")).andExpect(status().isNoContent());
     }
 
     @Test
     void testDeleteAllByGame() throws Exception {
-        mockMvc.perform(delete("/api/games/{gameId}/results", TEST_GAME_ID)).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/games/{gameId}/results", TEST_GAME_ID)).andExpect(status().isNoContent());
     }
 
     @Test
     void testDeleteAllByPlayer() throws Exception {
-        mockMvc.perform(delete("/api/players/{playerId}/results", TEST_PLAYER_ID)).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/players/{playerId}/results", TEST_PLAYER_ID)).andExpect(status().isNoContent());
     }
 
     @Test
