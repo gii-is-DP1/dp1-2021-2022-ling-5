@@ -20,7 +20,7 @@ import lombok.Setter;
 public class Card extends NamedEntity {
 
     @ManyToMany(mappedBy = "cards")
-    @Size(max = 6)
+    @Size(max = 8)
     private List<Figure> figures;
 
     public Card() {

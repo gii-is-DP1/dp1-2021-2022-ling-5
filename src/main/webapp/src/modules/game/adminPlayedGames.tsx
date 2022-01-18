@@ -2,10 +2,6 @@ import { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import resultAPI from '../result/resultAPI';
 
-
-let urlParams = new URLSearchParams(window.location.search);
-let playerId = urlParams.get("playerId");
-
 function AdminPlayedGames() {
 
   const [results, setResults] = useState<any[]>()

@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class FigureService {
@@ -25,14 +26,16 @@ public class FigureService {
     return figure;
   }
 
+  @Transactional(readOnly = true)
   public Optional<Figure> findFigure(Long id) {
     return figureRepository.findById(id);
   }
 
+  @Transactional(readOnly = true)
   public List<Figure> findAllFigures() {
     return StreamSupport
-      .stream(figureRepository.findAll().spliterator(), false)
-      .collect(Collectors.toList());
+        .stream(figureRepository.findAll().spliterator(), false)
+        .collect(Collectors.toList());
   }
 
   @Transactional

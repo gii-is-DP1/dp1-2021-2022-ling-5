@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { Button, Col, Form, Row } from "react-bootstrap"
-import { propTypes } from "react-bootstrap/esm/Image"
 import './createUser.css'
 import userAPI from "./userAPI"
 

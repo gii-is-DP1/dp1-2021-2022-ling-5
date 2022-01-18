@@ -1,19 +1,16 @@
 -- Load of player
 
-insert into player values(1,'uno@gmail.com','Uno','unito','uno','uno',1,3,1)
-insert into player values(2,'dos@gmail.com','dos','dosito','dos','dos',1,3,1)
-insert into player values(3,'tres@gmail.com','tres','tresito','tres','tres',1,3,1)
-insert into player values(4,'cuatro@gmail.com','cuatro','cuatrito','cuatro','cuatro',1,3,1)
-insert into player values(5,'cinco@gmail.com','cinco','cinquito','cinco','cinco',1,3,1)
-insert into player values(6,'seis@gmail.com','seis','seisito','seis','seis',1,3,1)
+insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(1,'uno@gmail.com','Uno','unito','uno','uno',1,3,1);
+insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(2,'dos@gmail.com','dos','dosito','dos','dos',1,3,1);
+insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(3,'tres@gmail.com','tres','tresito','tres','tres',1,3,1);
+insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(4,'cuatro@gmail.com','cuatro','cuatrito','cuatro','cuatro',1,3,1);
+insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(5,'cinco@gmail.com','cinco','cinquito','cinco','cinco',1,3,1);
+insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(6,'seis@gmail.com','seis','seisito','seis','seis',1,3,1);
 
 -- Load of admin
 
 insert into admin values(1,'unaco@gmail.com','Unaco','unacon','unaco','unaco',1,2)
 
--- Load of modification
-
-insert into modification values(1, 'UNO', 'uno','2021-01-01 01:01:01','cambio1',null, 2)
 
 -- Load of friendship
 
@@ -33,6 +30,7 @@ insert into game values(4,4,'2021-04-04 04:44:04','juegoCuatro','2021-04-04 04:0
 insert into role values(1,'player')
 insert into role values(2,'admin')
 
+<<<<<<< HEAD
 -- Load of privilege
 
 insert into privilege values(1, 'VIEW_AWARDS')
@@ -53,6 +51,8 @@ insert into comment(id,text,date,forum_id,player_id) values(5,'Las cartas no coi
 insert into comment(id,text,date,forum_id,player_id) values(6,'dilo por ti','2021-04-01 01:01:02',2,5)
 insert into comment(id,text,date,forum_id,player_id) values(7,'yo estoy en racha','2021-04-01 01:01:02',2,5)
 
+=======
+>>>>>>> develop
 
 -- Load of player_games_played
 

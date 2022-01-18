@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ResultService {
@@ -25,28 +25,32 @@ public class ResultService {
     return result;
   }
 
+  @Transactional(readOnly = true)
   public Optional<Result> findResult(Long id) {
     return resultRepository.findById(id);
   }
 
+  @Transactional(readOnly = true)
   public List<Result> findAllResults() {
     return StreamSupport
-      .stream(resultRepository.findAll().spliterator(), false)
-      .collect(Collectors.toList());
+        .stream(resultRepository.findAll().spliterator(), false)
+        .collect(Collectors.toList());
   }
 
+  @Transactional(readOnly = true)
   public List<Result> findAllResultsByGame(Long gameId) {
     return StreamSupport
-      .stream(resultRepository.findAll().spliterator(), false)
-      .filter(result -> result.getGame().getId() == gameId)
-      .collect(Collectors.toList());
+        .stream(resultRepository.findAll().spliterator(), false)
+        .filter(result -> result.getGame().getId() == gameId)
+        .collect(Collectors.toList());
   }
 
+  @Transactional(readOnly = true)
   public List<Result> findAllResultsByPlayer(Long playerId) {
     return StreamSupport
-      .stream(resultRepository.findAll().spliterator(), false)
-      .filter(result -> result.getPlayer().getId() == playerId)
-      .collect(Collectors.toList());
+        .stream(resultRepository.findAll().spliterator(), false)
+        .filter(result -> result.getPlayer().getId() == playerId)
+        .collect(Collectors.toList());
   }
 
   @Transactional
@@ -62,14 +66,14 @@ public class ResultService {
   @Transactional
   public void deleteAllResultsByGame(Long gameId) {
     findAllResultsByGame(gameId)
-      .stream()
-      .forEach(result -> resultRepository.deleteById(result.getId()));
+        .stream()
+        .forEach(result -> resultRepository.deleteById(result.getId()));
   }
 
   @Transactional
   public void deleteAllResultsByPlayer(Long playerId) {
     findAllResultsByPlayer(playerId)
-      .stream()
-      .forEach(result -> resultRepository.deleteById(result.getId()));
+        .stream()
+        .forEach(result -> resultRepository.deleteById(result.getId()));
   }
 }
