@@ -17,7 +17,7 @@ const PropGamesPlayed = () => {
                 id = userData.id
             }
         }
-        if (id != 0) {
+        if (id !== 0) {
             fetch(`http://localhost:8080/api/statistics/propTotal/${id}`).then((res: any) => {
                 res.json().then((prop: number) => setPropTotal(prop)).catch(console.error);
             }).catch(console.error);

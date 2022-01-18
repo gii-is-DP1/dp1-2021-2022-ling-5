@@ -75,7 +75,7 @@ const CreateAchievement = () => {
                             </Modal.Header>
                             <Modal.Body>
                                 {[...Array(57)].map((el, ind) =>
-                                    <a style={{ cursor: "pointer" }} onClick={() => setFigureId(ind + 1)} key={ind}><img src={figureImg(ind)} width="50" height="50" alt="" /></a>
+                                    <Button style={{backgroundColor:"transparent", border:"none"}} onClick={() => setFigureId(ind + 1)} key={ind}><img src={figureImg(ind)} width="50" height="50" alt="" /></Button>
                                 )}
                             </Modal.Body>
                             <Modal.Footer>
