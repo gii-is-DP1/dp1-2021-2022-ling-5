@@ -48,7 +48,7 @@ class Register extends
                         <Form.Label>
                             Name:
                         </Form.Label>
-                        <Form.Control type="text" name="name" value={this.state.name} onChange={this.handleChange}></Form.Control>
+                        <Form.Control required type="text" name="name" value={this.state.name} onChange={this.handleChange}></Form.Control>
                     </Form.Group>
                 </Row>
                 <Row className="text-center">
@@ -62,7 +62,7 @@ class Register extends
                     <div className="col-md-4"></div>
                     <Form.Group className="col-md-4">
                         <Form.Label>Email: </Form.Label>
-                        <Form.Control type="text" name="email" value={this.state.email} onChange={this.handleChange}></Form.Control>
+                        <Form.Control type="email" name="email" value={this.state.email} onChange={this.handleChange}></Form.Control>
                     </Form.Group>
                 </Row>
                 <Row className="text-center">
