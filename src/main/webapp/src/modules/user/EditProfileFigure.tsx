@@ -1,13 +1,13 @@
 import { Button, Modal } from "react-bootstrap";
 import figureImg from '../../images/figures/figures';
-import achievementAPI from "./achievementAPI";
+import userAPI from "./userAPI";
 
 
-const EditFigureAward = (props: any) => {
+const EditProfileFigure = (props: any) => {
 
     const edit = (id: number) => {
-        achievementAPI.updateFigureAchievement(props.idAch, id)
-            props.onChange(id - 1);
+        userAPI.updateFigureUser(props.idUser, id, "player");
+        props.onChange(id - 1);
     }
 
     return (
@@ -19,13 +19,13 @@ const EditFigureAward = (props: any) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Edit figure
+                    Edit user figure
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
 
                 {[...Array(57)].map((el, ind) =>
-                    <Button style={{backgroundColor:"transparent", border:"none"}} onClick={() => edit(ind + 1)} key={ind}><img src={figureImg(ind)} width="50" height="50" alt="" /></Button>
+                    <Button style={{backgroundColor:"transparent", border:"none", color:"black"}} onClick={() => edit(ind + 1)} key={ind}><img src={figureImg(ind)} width="50" height="50" alt="" /></Button>
                 )}
 
             </Modal.Body>
@@ -35,4 +35,4 @@ const EditFigureAward = (props: any) => {
         </Modal >
     )
 }
-export default EditFigureAward;
+export default EditProfileFigure;

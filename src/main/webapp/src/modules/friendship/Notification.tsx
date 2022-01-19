@@ -3,7 +3,7 @@ import { Container, Button, Toast } from "react-bootstrap";
 import friendshipAPI from "./friendshipAPI";
 import userAPI from "../user/userAPI";
 
-const AceptFriend = () => {
+const Notification = () => {
 
     var userData: any = localStorage.getItem("userData");
     if (userData !== null) userData = JSON.parse(userData)
@@ -18,7 +18,6 @@ const AceptFriend = () => {
                 for (let i = 0; i < frs.length; i++) {
                     const fr = frs[i];
                     if (fr.state === "REQUESTED") {
-                        console.log(fr)
                         requestedList.push(fr)
                     }
                 } setFriendship(requestedList)
@@ -28,7 +27,6 @@ const AceptFriend = () => {
 
     const acceptFriend = async (id: any, username: String) => {
         const data = await userAPI.getPlayerByNickname(username);
-        console.log(data);
         const newfriendship = { state: "FRIENDS", requester: data, requested: userData };
         console.log(newfriendship);
         if (newfriendship != null) {
@@ -44,7 +42,7 @@ const AceptFriend = () => {
             .catch((err) => console.log(err));
     }
 
-    return <Container id="container" className="d-inline-block align-top">
+    return <Container id="container" >
         {friendship.map((e, ind) => (
             <Toast>
                 <Toast.Header >
@@ -64,4 +62,4 @@ const AceptFriend = () => {
     </Container>
 }
 
-export default AceptFriend
+export default Notification
