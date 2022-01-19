@@ -13,7 +13,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,29 +22,26 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "game")
 public class Game extends BaseEntity {
 
-  @Size(min = 3, max = 50)
+  public static final int MIN_SIZE = 3;
+  public static final int MAX_SIZE = 50;
+
+  @Size(min = MIN_SIZE, max = MAX_SIZE)
   @NotEmpty
   @NotNull
-  @Column(name = "name", unique = true)
+  @Column(unique = true)
   private String name;
 
-  @Column(name = "state")
   private State state;
 
-  @Column(name = "startTime")
   private Date startTime;
 
-  @Column(name = "endTime")
   private Date endTime;
 
   @NotNull
-  @Column(name = "creator")
   private Long creator;
 
-  @Column(name = "winner")
   private Long winner;
 
   @ManyToMany(mappedBy = "games")
@@ -70,7 +66,7 @@ public class Game extends BaseEntity {
     this.winner = 0L;
   }
 
-  public Game( String name, State state, Date startTime, Date endTime, Long creator, Long winner) {
+  public Game(String name, State state, Date startTime, Date endTime, Long creator, Long winner) {
     this.name = name;
     this.state = state;
     this.startTime = startTime;
@@ -81,6 +77,8 @@ public class Game extends BaseEntity {
 
   @Override
   public String toString() {
-    return ("{" +" id='" + getId() + "'" + ", name='" + getName() + "'" + ", state='" + getState() + "'" + ", startTime='"  +getStartTime() + "'" + ", endTime='" + getEndTime() + "'" + ", creator='" + getCreator() + "'" + ", winner='" + getWinner() + "'" + ", minigames='" + getMinigames() + "'" + "}");
+    return ("{" + " id='" + getId() + "'" + ", name='" + getName() + "'" + ", state='" + getState() + "'"
+        + ", startTime='" + getStartTime() + "'" + ", endTime='" + getEndTime() + "'" + ", creator='" + getCreator()
+        + "'" + ", winner='" + getWinner() + "'" + ", minigames='" + getMinigames() + "'" + "}");
   }
 }

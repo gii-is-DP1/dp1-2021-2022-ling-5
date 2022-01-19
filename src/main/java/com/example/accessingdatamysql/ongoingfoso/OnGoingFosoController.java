@@ -27,8 +27,6 @@ public class OnGoingFosoController {
   @Autowired
   private CardService cardService;
 
-  // curl -H "Content-Type: application/json" -X POST
-  // localhost:8080/api/ongoingFoso -d "{\"gameId\":1}"
   @PostMapping(value = "/ongoingFoso")
   public @ResponseBody OnGoingFoso createGame(@RequestBody Request request) {
     OnGoingFosoService.createGame(
