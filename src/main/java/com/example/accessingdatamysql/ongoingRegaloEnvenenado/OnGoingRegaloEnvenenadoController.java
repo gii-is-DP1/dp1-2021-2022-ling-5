@@ -27,8 +27,6 @@ public class OnGoingRegaloEnvenenadoController {
     @Autowired
     private CardService cardService;
 
-    // curl -H "Content-Type: application/json" -X POST
-    // localhost:8080/api/ongoingRegaloEnvenenado -d "{\"gameId\":1}"
     @PostMapping(value = "/ongoingRegaloEnvenenado")
     public @ResponseBody OnGoingRegaloEnvenenado createGame(@RequestBody Request request) {
         onGoingRegaloEnvenenadoService.createGame(request.getGameId(), gameService.findGame(request.getGameId()).get(),

@@ -28,19 +28,19 @@ public class PlayerService {
   }
 
   @Transactional(readOnly = true)
-  public Optional<Player> findPlayer(Long id) {
+  public Optional<Player> findPlayer(Long id) throws DataAccessException {
     return playerRepository.findById(id);
   }
 
   @Transactional(readOnly = true)
-  public List<Player> findAllPlayers() {
+  public List<Player> findAllPlayers() throws DataAccessException {
     return StreamSupport
         .stream(playerRepository.findAll().spliterator(), false)
         .collect(Collectors.toList());
   }
 
   @Transactional(readOnly = true)
-  public List<Player> findAllPlayersByRole(Long roleId) {
+  public List<Player> findAllPlayersByRole(Long roleId) throws DataAccessException {
     return StreamSupport
         .stream(playerRepository.findAll().spliterator(), false)
         .filter(player -> player.getRole().getId() == roleId)
@@ -48,7 +48,7 @@ public class PlayerService {
   }
 
   @Transactional(readOnly = true)
-  public Optional<Player> findPlayerByNickname(String nickname) {
+  public Optional<Player> findPlayerByNickname(String nickname) throws DataAccessException {
     return StreamSupport
         .stream(playerRepository.findAll().spliterator(), false)
         .filter(player -> player.getNickname().equals(nickname))
@@ -56,24 +56,24 @@ public class PlayerService {
   }
 
   @Transactional
-  public void deletePlayer(Long id) {
+  public void deletePlayer(Long id) throws DataAccessException {
     playerRepository.deleteById(id);
   }
 
   @Transactional
-  public void deleteAllPlayers() {
+  public void deleteAllPlayers() throws DataAccessException {
     playerRepository.deleteAll();
   }
 
   @Transactional
-  public void deleteAllPlayersByRole(Long roleId) {
+  public void deleteAllPlayersByRole(Long roleId) throws DataAccessException {
     findAllPlayersByRole(roleId)
         .stream()
         .forEach(player -> playerRepository.deleteById(player.getId()));
   }
 
   @Transactional(readOnly = true)
-  public List<Player> findByNickname(String nickname) {
+  public List<Player> findByNickname(String nickname) throws DataAccessException {
     List<Player> players = new ArrayList<Player>();
     for (Player p : playerRepository.findAll()) {
       if (p.getNickname().equals(nickname)) {

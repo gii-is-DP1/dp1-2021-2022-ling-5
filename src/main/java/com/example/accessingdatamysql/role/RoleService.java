@@ -26,24 +26,24 @@ public class RoleService {
   }
 
   @Transactional(readOnly = true)
-  public Optional<Role> findRole(Long id) {
+  public Optional<Role> findRole(Long id) throws DataAccessException {
     return roleRepository.findById(id);
   }
 
   @Transactional(readOnly = true)
-  public List<Role> findAllRoles() {
+  public List<Role> findAllRoles() throws DataAccessException {
     return StreamSupport
         .stream(roleRepository.findAll().spliterator(), false)
         .collect(Collectors.toList());
   }
 
   @Transactional
-  public void deleteRole(Long id) {
+  public void deleteRole(Long id) throws DataAccessException {
     roleRepository.deleteById(id);
   }
 
   @Transactional
-  public void deleteAllRoles() {
+  public void deleteAllRoles() throws DataAccessException {
     roleRepository.deleteAll();
   }
 }

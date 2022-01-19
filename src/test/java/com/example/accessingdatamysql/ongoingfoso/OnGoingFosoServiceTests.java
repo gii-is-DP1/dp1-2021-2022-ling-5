@@ -15,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -43,12 +44,14 @@ public class OnGoingFosoServiceTests {
   }
 
   @Test
+  @Transactional(readOnly = true)
   void testGetById() {
     OnGoingFoso game2 = onGoingFosoService.getGame(2L);
     assertEquals(game2.getPlayers(), game.getPlayers());
   }
 
   @Test
+  @Transactional
   void testcreateGame() {
     Long gameId = 1L;
     OnGoingFosoService.createGame(
@@ -64,24 +67,28 @@ public class OnGoingFosoServiceTests {
   }
 
   @Test
+  @Transactional(readOnly = true)
   void testgetPoints() {
     Integer points = onGoingFosoService.getGame(2L).getPoints().get(2L);
     assertEquals(points, onGoingFosoService.getPoints(2L, 2L));
   }
 
   @Test
+  @Transactional(readOnly = true)
   void testgetPlayerCard() {
     Card playerCard = onGoingFosoService.getGame(2L).getPlayerCard().get(2L);
     assertEquals(playerCard, onGoingFosoService.getPlayerCard(2L, 2L));
   }
 
   @Test
+  @Transactional(readOnly = true)
   void testgetCenterCard() {
     Card centerCard = onGoingFosoService.getGame(2L).getCurrentCard();
     assertEquals(centerCard, onGoingFosoService.getCenterCard(2L));
   }
 
   @Test
+  @Transactional
   void testChangeCards() {
     Long centerCard = onGoingFosoService.getGame(2L).getCurrentCard().getId();
     Long playerCard = onGoingFosoService
@@ -106,6 +113,7 @@ public class OnGoingFosoServiceTests {
   }
 
   @Test
+  @Transactional
   void testAddPoints() {
     onGoingFosoService.addPoints(2L, 2L, 10);
     Integer points = onGoingFosoService.getGame(2L).getPoints().get(2L);
@@ -113,6 +121,7 @@ public class OnGoingFosoServiceTests {
   }
 
   @Test
+  @Transactional
   void testDeleteGame() {
     Integer size = 0;
     for (OnGoingFoso g : onGoingFosoService.getAll()) {

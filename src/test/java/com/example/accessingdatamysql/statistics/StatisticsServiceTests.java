@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -26,6 +27,7 @@ public class StatisticsServiceTests {
     private FigureRepository figureRepository;
 
     @Test
+    @Transactional(readOnly = true)
     void testPointsByMinigames() {
 
         List<Integer> l1 = new ArrayList<Integer>();
@@ -37,6 +39,7 @@ public class StatisticsServiceTests {
     }
 
     @Test
+    @Transactional(readOnly = true)
     void testMaxMinFigures() {
 
         List<Figure> res = new ArrayList<Figure>();
@@ -49,6 +52,7 @@ public class StatisticsServiceTests {
     }
 
     @Test
+    @Transactional(readOnly = true)
     void testRanking() {
 
         List<Ranking> res = new ArrayList<Ranking>();
@@ -68,6 +72,7 @@ public class StatisticsServiceTests {
     }
 
     @Test
+    @Transactional(readOnly = true)
     void testpropjugadores() {
 
         Map<Integer, Double> res = new HashMap<Integer, Double>();
@@ -83,6 +88,7 @@ public class StatisticsServiceTests {
     }
 
     @Test
+    @Transactional(readOnly = true)
     void testMaxMinAvgAll() {
         Map<String, Double> res = new HashMap<String, Double>();
         res.put("min", 0.0);
@@ -93,11 +99,13 @@ public class StatisticsServiceTests {
     }
 
     @Test
+    @Transactional(readOnly = true)
     void testPropTotal() {
         assertEquals(statisticsService.propTotal(1L), 0.5);
     }
 
     @Test
+    @Transactional(readOnly = true)
     void testMaxMinAvgPlayer() {
 
         Map<String, Double> res = new HashMap<String, Double>();
@@ -112,6 +120,7 @@ public class StatisticsServiceTests {
     }
 
     @Test
+    @Transactional(readOnly = true)
     void testMaxMinAvgTimePlayer() {
 
         Map<String, Long> res = new HashMap<String, Long>();
@@ -123,6 +132,7 @@ public class StatisticsServiceTests {
     }
 
     @Test
+    @Transactional(readOnly = true)
     void testMaxMinAvgTimeAll() {
 
         Map<String, Long> res = new HashMap<String, Long>();
