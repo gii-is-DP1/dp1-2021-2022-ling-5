@@ -25,24 +25,24 @@ public class CardService {
   }
 
   @Transactional(readOnly = true)
-  public Optional<Card> findCard(Long id) {
+  public Optional<Card> findCard(Long id) throws DataAccessException {
     return cardRepository.findById(id);
   }
-  
+
   @Transactional(readOnly = true)
-  public List<Card> findAllCards() {
+  public List<Card> findAllCards() throws DataAccessException {
     return StreamSupport
-      .stream(cardRepository.findAll().spliterator(), false)
-      .collect(Collectors.toList());
+        .stream(cardRepository.findAll().spliterator(), false)
+        .collect(Collectors.toList());
   }
 
   @Transactional
-  public void deleteCard(Long id) {
+  public void deleteCard(Long id) throws DataAccessException {
     cardRepository.deleteById(id);
   }
 
   @Transactional
-  public void deleteAllCards() {
+  public void deleteAllCards() throws DataAccessException {
     cardRepository.deleteAll();
   }
 }

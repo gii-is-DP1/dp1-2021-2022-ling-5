@@ -4,7 +4,8 @@ const resultAPI = {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(result)
+            body: JSON.stringify(result),
+            'credentials':'include' as RequestCredentials
         }
 
         return await fetch(`http://localhost:8080/api/games/${gameId}/players/${playerId}/results`, requestOptions)
@@ -43,7 +44,8 @@ const resultAPI = {
 
     deleteResult(resultId: number) {
         const requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
         };
 
         return new Promise(function (resolve, reject) {
@@ -57,7 +59,8 @@ const resultAPI = {
 
     deleteAllResults() {
         const requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
         };
 
         return new Promise(function (resolve, reject) {
@@ -71,7 +74,8 @@ const resultAPI = {
 
     deleteAllResultsByGame(gameId: number) {
         const requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
         };
 
         return new Promise(function (resolve, reject) {
@@ -85,7 +89,8 @@ const resultAPI = {
 
     deleteAllResultsByPlayer(playerId: number) {
         const requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
         };
 
         return new Promise(function (resolve, reject) {
@@ -101,7 +106,8 @@ const resultAPI = {
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newResult)
+            body: JSON.stringify(newResult),
+            'credentials':'include' as RequestCredentials
         }
 
         return await fetch(`http://localhost:8080/api/results/${resultId}`, requestOptions)

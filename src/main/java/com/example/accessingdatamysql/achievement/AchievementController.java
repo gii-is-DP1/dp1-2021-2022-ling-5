@@ -137,4 +137,11 @@ public class AchievementController {
     public @ResponseBody List<AchievementTypes> getAllAchievementTypes() {
         return AchievementTypes.getTypes().entrySet().stream().map(e -> e.getValue()).collect(Collectors.toList());
     }
+
+    @GetMapping(value = "/achievments/figures/{playerId}")
+    public @ResponseBody List<Figure> getAllFigureAchivementsPlayer(@PathVariable Long playerId){
+        Player p = playerService.findPlayer(playerId).get();
+        return this.achievementService.findAllAchievements().stream().filter(a->a.getPlayers().contains(p))
+            .map(a->a.getFigure()).collect(Collectors.toList());
+    }
 }

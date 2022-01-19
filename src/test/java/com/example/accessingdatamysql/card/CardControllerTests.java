@@ -22,7 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Optional;
 
-// NO FUNCIONA UPDATE
 @WebMvcTest(controllers = CardController.class)
 public class CardControllerTests {
 

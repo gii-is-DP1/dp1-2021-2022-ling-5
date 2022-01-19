@@ -1,6 +1,5 @@
 package com.example.accessingdatamysql.playerfigures;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -21,7 +20,6 @@ import lombok.Setter;
 public class PlayerFigures extends BaseEntity {
 
     @NotNull
-    @Column(name = "succesful")
     private Integer succesful;
 
     @ManyToOne

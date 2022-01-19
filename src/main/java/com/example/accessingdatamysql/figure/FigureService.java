@@ -27,24 +27,24 @@ public class FigureService {
   }
 
   @Transactional(readOnly = true)
-  public Optional<Figure> findFigure(Long id) {
+  public Optional<Figure> findFigure(Long id) throws DataAccessException {
     return figureRepository.findById(id);
   }
 
   @Transactional(readOnly = true)
-  public List<Figure> findAllFigures() {
+  public List<Figure> findAllFigures() throws DataAccessException {
     return StreamSupport
         .stream(figureRepository.findAll().spliterator(), false)
         .collect(Collectors.toList());
   }
 
   @Transactional
-  public void deleteFigure(Long id) {
+  public void deleteFigure(Long id) throws DataAccessException {
     figureRepository.deleteById(id);
   }
 
   @Transactional
-  public void deleteAllFigures() {
+  public void deleteAllFigures() throws DataAccessException {
     figureRepository.deleteAll();
   }
 }
