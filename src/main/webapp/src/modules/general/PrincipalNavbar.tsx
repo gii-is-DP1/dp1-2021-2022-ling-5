@@ -1,5 +1,5 @@
-import { Container, Nav, Navbar, NavDropdown, Button } from "react-bootstrap"
-import React, { useEffect, useState } from 'react'
+import { Container, Nav, Navbar, NavDropdown} from "react-bootstrap"
+import { useEffect, useState } from 'react'
 import figures from '../../images/figures/figures'
 import icons from '../../images/icons/icons'
 import './principalNavbar.css'
@@ -48,7 +48,7 @@ const PrincipalNavbar = () => {
             /></a>
             <NavDropdown title={nickname} id="img">
                 <NavDropdown.Item href={href1}>{namehref1}</NavDropdown.Item>
-                <NavDropdown.Item onClick={() => { token.logout(); window.location.href = "/"; }}>Logout</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => token.logout()}>Logout</NavDropdown.Item>
             </NavDropdown>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -60,7 +60,7 @@ const PrincipalNavbar = () => {
                         className="d-inline-block align-top"
                         alt="Notifications"
                     /></Nav.Link>
-                    <Nav.Link href="/forum"><img
+                    <Nav.Link href="/forums"><img
                         src={icons(1)}
                         width="30"
                         height="30"

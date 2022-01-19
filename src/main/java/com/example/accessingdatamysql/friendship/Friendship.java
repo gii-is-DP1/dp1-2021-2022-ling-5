@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 
 import com.example.accessingdatamysql.model.BaseEntity;
 import com.example.accessingdatamysql.user.Player;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;

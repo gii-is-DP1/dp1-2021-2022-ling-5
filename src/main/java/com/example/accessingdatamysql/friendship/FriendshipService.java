@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class FriendshipService {
@@ -21,33 +22,37 @@ public class FriendshipService {
 
   @Transactional
   public Friendship saveFriendship(Friendship friendship)
-    throws DataAccessException {
+      throws DataAccessException {
     friendshipRepository.save(friendship);
     return friendship;
   }
 
+  @Transactional(readOnly = true)
   public Optional<Friendship> findFriendship(Long id) {
     return friendshipRepository.findById(id);
   }
 
+  @Transactional(readOnly = true)
   public List<Friendship> findAllFriendships() {
     return StreamSupport
-      .stream(friendshipRepository.findAll().spliterator(), false)
-      .collect(Collectors.toList());
+        .stream(friendshipRepository.findAll().spliterator(), false)
+        .collect(Collectors.toList());
   }
 
+  @Transactional(readOnly = true)
   public List<Friendship> findAllFriendshipsByRequester(Long requesterId) {
     return StreamSupport
-      .stream(friendshipRepository.findAll().spliterator(), false)
-      .filter(friendship -> friendship.getRequester().getId() == requesterId)
-      .collect(Collectors.toList());
+        .stream(friendshipRepository.findAll().spliterator(), false)
+        .filter(friendship -> friendship.getRequester().getId() == requesterId)
+        .collect(Collectors.toList());
   }
-
+  
+  @Transactional(readOnly = true)
   public List<Friendship> findAllFriendshipsByRequested(Long requestedId) {
     return StreamSupport
-      .stream(friendshipRepository.findAll().spliterator(), false)
-      .filter(friendship -> friendship.getRequested().getId() == requestedId)
-      .collect(Collectors.toList());
+        .stream(friendshipRepository.findAll().spliterator(), false)
+        .filter(friendship -> friendship.getRequested().getId() == requestedId)
+        .collect(Collectors.toList());
   }
 
   @Transactional
@@ -63,18 +68,16 @@ public class FriendshipService {
   @Transactional
   public void deleteAllFriendshipsByRequester(Long playerId) {
     findAllFriendshipsByRequester(playerId)
-      .stream()
-      .forEach(
-        friendship -> friendshipRepository.deleteById(friendship.getId())
-      );
+        .stream()
+        .forEach(
+            friendship -> friendshipRepository.deleteById(friendship.getId()));
   }
 
   @Transactional
   public void deleteAllFriendshipsByRequested(Long playerId) {
     findAllFriendshipsByRequested(playerId)
-      .stream()
-      .forEach(
-        friendship -> friendshipRepository.deleteById(friendship.getId())
-      );
+        .stream()
+        .forEach(
+            friendship -> friendshipRepository.deleteById(friendship.getId()));
   }
 }

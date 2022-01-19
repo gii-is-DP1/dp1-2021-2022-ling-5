@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Row, Col, Container } from 'react-bootstrap';
+import { Row, Container } from 'react-bootstrap';
 import figureImg from '../../images/figures/figures';
-import resultAPI from '../result/resultAPI';
 import achievementAPI from './achievementAPI';
 
 

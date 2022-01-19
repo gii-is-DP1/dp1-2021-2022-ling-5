@@ -1,6 +1,6 @@
 
 const userAPI = {
-    getUser: function (id: any, role: string) {
+    getUser: function (id: number, role: string) {
         let roleId = "";
         if (role.toLowerCase() === "player") {
             roleId = "players";
@@ -139,10 +139,13 @@ const userAPI = {
             headers: { 'Content-Type': 'application/json' }
         }
 
-        return await fetch(`http://localhost:8080/api/figures/${figureId}/${role}/${userId}`, requestOptions)
-            .then((res: any) => {
-                return res.json();
-            }).catch((err: any) => console.log(err));
+        return new Promise(function (resolve, reject) {
+            fetch(`http://localhost:8080/api/figures/${figureId}/${role}/${userId}`, requestOptions)
+                .then(res => {
+                    resolve(res.json())
+                })
+                .catch(error => reject(console.error))
+        });
     },
 
     async addNewAchievementToPlayer(playerId: number, achievementId: number) {

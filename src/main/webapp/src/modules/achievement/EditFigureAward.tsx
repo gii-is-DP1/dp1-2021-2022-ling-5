@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import figureImg from '../../images/figures/figures';
 import achievementAPI from "./achievementAPI";
@@ -27,7 +26,7 @@ const EditFigureAward = (props: any) => {
             <Modal.Body>
 
                 {[...Array(57)].map((el, ind) =>
-                    <a style={{ cursor: "pointer" }} onClick={() => edit(ind + 1)} key={ind}><img src={figureImg(ind)} width="50" height="50" alt="" /></a>
+                    <Button style={{backgroundColor:"transparent", border:"none"}} onClick={() => edit(ind + 1)} key={ind}><img src={figureImg(ind)} width="50" height="50" alt="" /></Button>
                 )}
 
             </Modal.Body>

@@ -13,18 +13,6 @@ const roleAPI = {
             }).catch((err: any) => console.log(err));
     },
 
-    async addNewPrivilegeToRole(roleId: number, privilegeId: number) {
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' }
-        }
-
-        return await fetch(`http://localhost:8080/api/roles/${roleId}/privileges/${privilegeId}`, requestOptions)
-            .then((res: any) => {
-                return res.json();
-            }).catch((err: any) => console.log(err));
-    },
-
     async getAllRoles() {
         return await fetch(`http://localhost:8080/api/roles`)
             .then((res: any) => {
@@ -60,20 +48,6 @@ const roleAPI = {
 
         return new Promise(function (resolve, reject) {
             fetch(`http://localhost:8080/api/roles`, requestOptions)
-                .then(res => {
-                    resolve(res)
-                })
-                .catch(error => reject(console.error))
-        })
-    },
-
-    deletePrivilegeFromRole(roleId: number, privilegeId: number) {
-        const requestOptions = {
-            method: 'DELETE'
-        };
-
-        return new Promise(function (resolve, reject) {
-            fetch(`http://localhost:8080/api/roles/${roleId}/privileges/${privilegeId}`, requestOptions)
                 .then(res => {
                     resolve(res)
                 })

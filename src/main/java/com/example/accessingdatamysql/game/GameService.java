@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class GameService {
@@ -29,21 +29,24 @@ public class GameService {
     return game;
   }
 
+  @Transactional(readOnly = true)
   public Optional<Game> findGame(Long id) {
     return gameRepository.findById(id);
   }
 
+  @Transactional(readOnly = true)
   public Optional<Game> findGameByName(String name) {
     return StreamSupport
-      .stream(gameRepository.findAll().spliterator(), false)
-      .filter(game -> game.getName().equals(name))
-      .findFirst();
+        .stream(gameRepository.findAll().spliterator(), false)
+        .filter(game -> game.getName().equals(name))
+        .findFirst();
   }
 
+  @Transactional(readOnly = true)
   public List<Game> findAllGames() {
     return StreamSupport
-      .stream(gameRepository.findAll().spliterator(), false)
-      .collect(Collectors.toList());
+        .stream(gameRepository.findAll().spliterator(), false)
+        .collect(Collectors.toList());
   }
 
   @Transactional
@@ -56,13 +59,13 @@ public class GameService {
     gameRepository.deleteAll();
   }
 
+  @Transactional(readOnly = true)
   public List<Game> getGamesByPlayer(Long playerId) {
     List<Game> games = this.findAllGames();
     return games
-      .stream()
-      .filter(
-        g -> g.getPlayers().contains(playerService.findPlayer(playerId).get())
-      )
-      .collect(Collectors.toList());
+        .stream()
+        .filter(
+            g -> g.getPlayers().contains(playerService.findPlayer(playerId).get()))
+        .collect(Collectors.toList());
   }
 }
