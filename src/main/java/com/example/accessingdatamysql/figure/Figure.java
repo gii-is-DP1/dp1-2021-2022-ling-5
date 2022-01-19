@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 import com.example.accessingdatamysql.achievement.Achievement;
 import com.example.accessingdatamysql.card.Card;
@@ -23,7 +22,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "figure")
 public class Figure extends NamedEntity {
 
     @JsonIgnore

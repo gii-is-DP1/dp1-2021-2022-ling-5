@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -36,6 +36,7 @@ public class FriendshipServiceTests {
     }
 
     @Test
+    @Transactional(readOnly = true)
     public void shouldFindSingleFriendship() {
         Optional<Friendship> friendshipOpt = this.friendshipService.findFriendship(1L);
         if (friendshipOpt.isPresent()) {
@@ -61,6 +62,7 @@ public class FriendshipServiceTests {
     }
 
     @Test
+    @Transactional
     void shouldDeleteFriendship() {
         Friendship friendship = new Friendship(FriendshipState.REQUESTED);
         friendship = this.friendshipService.saveFriendship(friendship);

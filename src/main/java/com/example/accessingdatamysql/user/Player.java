@@ -19,7 +19,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.ManyToMany;
@@ -30,7 +29,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity(name = "Player") // This tells Hibernate to make a table out of this class
+@Entity
 @EntityListeners(AuditingEntityListener.class)
 public class Player extends Account {
 
@@ -46,7 +45,6 @@ public class Player extends Account {
   @LastModifiedDate
   private LocalDateTime lastModifiedDate;
 
-  @Column(name = "playerState")
   private PlayerState playerState;
 
   @OneToMany(mappedBy = "player", cascade = CascadeType.REMOVE)

@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -36,6 +36,7 @@ public class FigureServiceTests {
     }
 
     @Test
+    @Transactional(readOnly = true)
     public void shouldFindSingleFigure() {
         Optional<Figure> figureOpt = this.figureService.findFigure(1L);
         if (figureOpt.isPresent()) {
@@ -63,6 +64,7 @@ public class FigureServiceTests {
     }
 
     @Test
+    @Transactional
     void shouldDeleteFigure() {
         Figure figure = new Figure("patata");
         figure = this.figureService.saveFigure(figure);

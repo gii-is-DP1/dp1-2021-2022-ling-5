@@ -35,7 +35,7 @@ public class GameController {
     @Autowired
     private MinigameService minigameService;
 
-    @PostMapping(value = "/games") // Map ONLY POST Requests
+    @PostMapping(value = "/games")
     public @ResponseBody Game addNewGame(@RequestBody Game game) {
         try {
             game.setMinigames(new ArrayList<Minigame>());

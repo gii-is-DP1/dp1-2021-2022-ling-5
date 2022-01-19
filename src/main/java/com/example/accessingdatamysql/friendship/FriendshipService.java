@@ -28,27 +28,27 @@ public class FriendshipService {
   }
 
   @Transactional(readOnly = true)
-  public Optional<Friendship> findFriendship(Long id) {
+  public Optional<Friendship> findFriendship(Long id) throws DataAccessException {
     return friendshipRepository.findById(id);
   }
 
   @Transactional(readOnly = true)
-  public List<Friendship> findAllFriendships() {
+  public List<Friendship> findAllFriendships() throws DataAccessException {
     return StreamSupport
         .stream(friendshipRepository.findAll().spliterator(), false)
         .collect(Collectors.toList());
   }
 
   @Transactional(readOnly = true)
-  public List<Friendship> findAllFriendshipsByRequester(Long requesterId) {
+  public List<Friendship> findAllFriendshipsByRequester(Long requesterId) throws DataAccessException {
     return StreamSupport
         .stream(friendshipRepository.findAll().spliterator(), false)
         .filter(friendship -> friendship.getRequester().getId() == requesterId)
         .collect(Collectors.toList());
   }
-  
+
   @Transactional(readOnly = true)
-  public List<Friendship> findAllFriendshipsByRequested(Long requestedId) {
+  public List<Friendship> findAllFriendshipsByRequested(Long requestedId) throws DataAccessException {
     return StreamSupport
         .stream(friendshipRepository.findAll().spliterator(), false)
         .filter(friendship -> friendship.getRequested().getId() == requestedId)
@@ -56,17 +56,17 @@ public class FriendshipService {
   }
 
   @Transactional
-  public void deleteFriendship(Long id) {
+  public void deleteFriendship(Long id) throws DataAccessException {
     friendshipRepository.deleteById(id);
   }
 
   @Transactional
-  public void deleteAllFriendships() {
+  public void deleteAllFriendships() throws DataAccessException {
     friendshipRepository.deleteAll();
   }
 
   @Transactional
-  public void deleteAllFriendshipsByRequester(Long playerId) {
+  public void deleteAllFriendshipsByRequester(Long playerId) throws DataAccessException {
     findAllFriendshipsByRequester(playerId)
         .stream()
         .forEach(
@@ -74,7 +74,7 @@ public class FriendshipService {
   }
 
   @Transactional
-  public void deleteAllFriendshipsByRequested(Long playerId) {
+  public void deleteAllFriendshipsByRequested(Long playerId) throws DataAccessException {
     findAllFriendshipsByRequested(playerId)
         .stream()
         .forEach(

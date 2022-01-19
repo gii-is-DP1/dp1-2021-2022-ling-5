@@ -28,7 +28,7 @@ public class CardController {
     @Autowired
     private FigureService figureService;
 
-    @PostMapping(value = "/cards") // Map ONLY POST Requests
+    @PostMapping(value = "/cards")
     public @ResponseBody Card addNewCard(@RequestBody Card card) {
         card.setFigures(new ArrayList<Figure>());
         try {

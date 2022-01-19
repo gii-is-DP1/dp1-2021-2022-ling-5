@@ -16,13 +16,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "friendship", uniqueConstraints = @UniqueConstraint(columnNames = {"requested_id", "requester_id"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"requested_id", "requester_id"}))
 public class Friendship extends BaseEntity {
 
     @NotNull
     @Column(name = "friendshipState")
     private FriendshipState state;
-
     
     @ManyToOne
     private Player requester;

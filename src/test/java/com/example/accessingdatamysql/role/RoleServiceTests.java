@@ -6,14 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -36,6 +35,7 @@ public class RoleServiceTests {
     }
 
     @Test
+    @Transactional(readOnly = true)
     public void shouldFindSingleRole() {
         Optional<Role> roleOpt = this.roleService.findRole(1L);
         if (roleOpt.isPresent()) {
@@ -63,6 +63,7 @@ public class RoleServiceTests {
     }
 
     @Test
+    @Transactional
     void shouldDeleteRole() {
         Role role = new Role();
         role.setName("admin");

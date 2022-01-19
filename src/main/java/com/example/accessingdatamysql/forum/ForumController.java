@@ -21,7 +21,7 @@ public class ForumController {
     @Autowired
     private ForumService forumService;
 
-    @PostMapping(value = "/new") // Map ONLY POST Requests
+    @PostMapping(value = "/new") 
     public @ResponseBody Forum addNewForum(@RequestBody Forum forum) {
         return this.forumService.saveForum(forum);
     }

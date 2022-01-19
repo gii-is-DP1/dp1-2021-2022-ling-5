@@ -1,9 +1,7 @@
 package com.example.accessingdatamysql.result;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -18,16 +16,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "result")
 public class Result extends BaseEntity {
 
     @NotNull
     @NotEmpty
-    @Column(name = "data")
     private String data;
 
     @NotNull
-    @Column(name = "totalPoints")
     private Integer totalPoints;
 
     @ManyToOne
