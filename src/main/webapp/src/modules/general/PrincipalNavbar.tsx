@@ -34,7 +34,7 @@ const PrincipalNavbar = () => {
     const src = role === "Admin" ? icons(3) : figures(figure);
     const alt = role === "Admin" ? "Dobble logo" : "Profile image";
     const nickname = role === "Admin" ? "Admin" : username;
-    const href1 = role === "Admin" ? "/gamesProgress" : "/profile";
+    const href1 = role === "Admin" ? "/gamesProgessAndPlayed" : "/profile";
     const namehref1 = role === "Admin" ? "Info" : "Profile";
 
     return <Navbar expand="lg">

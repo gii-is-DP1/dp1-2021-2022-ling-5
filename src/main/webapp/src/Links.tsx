@@ -8,7 +8,6 @@ import NewGame from "./modules/general/NewGame";
 import JoinGame from "./modules/general/JoinGame";
 import PlayedGames from './modules/game/playedGames';
 import StartGame from "./modules/general/StartGame";
-import AdminPlayedGames from "./modules/game/adminPlayedGames";
 import AdminNavbar from "./modules/general/AdminNavbar";
 import UsersCRUD from "./modules/user/UsersCRUD";
 import StadisticsNavbar from "./modules/general/StadisticsNavbar";
@@ -30,6 +29,7 @@ import Forum from "./modules/forum/Forum";
 import NewForum from "./modules/forum/NewForum";
 import UserPoints from "./modules/playedGames/UserPoints";
 import Profile from "./modules/user/Profile";
+import AdminPlayedGames from "./modules/game/AdminPlayedGames";
 
 const Links = () => {
     const [role, setRole] = useState<string | null>(null)
@@ -153,7 +153,7 @@ const Links = () => {
                         <AddFriend /></div>
                     : <>Access is restricted</>}
             </Route>
-            <Route path='/gamesProgressAndPlayed'>
+            <Route path='/gamesProgessAndPlayed'>
                 {role === "Admin" ?
                     <div id="body" className="d-flex"><AdminNavbar />
                         <AdminPlayedGames /></div>

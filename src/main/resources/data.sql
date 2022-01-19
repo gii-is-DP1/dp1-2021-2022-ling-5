@@ -168,9 +168,15 @@ INSERT INTO figure(id, name) VALUES (55, "vela")
 INSERT INTO figure(id, name) VALUES (56, "yinyan")
 INSERT INTO figure(id, name) VALUES (57, "zanahoria")
 
+
 -- Load of achievement
 INSERT INTO achievement(id, name, achievement_types, description, requirement, figure_id) VALUES(1,'Points10', 0, 'Accumulate 10 points', 10, 1)
 INSERT INTO achievement(id, name, achievement_types, description, requirement, figure_id) VALUES(2,'Points20', 0, 'Accumulate 20 points', 20, 2)
+
+
+-- Load of achievement into player
+INSERT INTO player_achievements(players_id, achievements_id) VALUES (1,1)
+
 
 -- Load of card
 

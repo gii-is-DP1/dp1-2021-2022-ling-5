@@ -1,14 +1,32 @@
+import { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import figureImg from '../../images/figures/figures';
+import achievementAPI from "../achievement/achievementAPI";
+import figureAPI from "../figure/figureAPI";
 import userAPI from "./userAPI";
 
 
 const EditProfileFigure = (props: any) => {
 
+    const [figures, setFigures] = useState<any[]>([])
+
     const edit = (id: number) => {
         userAPI.updateFigureUser(props.idUser, id, "player");
         props.onChange(id - 1);
     }
+
+    useEffect(() => {
+        var userData: any = localStorage.getItem("userData");
+        if (userData !== null) userData = JSON.parse(userData)
+        const playerId = userData.id
+        // figureAPI.getFigureById(2)
+        //     .then(data => setFigures(data))
+        //     .catch((err) => console.log(err));
+        achievementAPI.getAllFigureAchivementsPlayer(playerId)
+            .then((f: any[]) => {
+                setFigures(f);
+            }).catch((err) => console.log(err));
+    }, [figures])
 
     return (
         <Modal
@@ -24,7 +42,7 @@ const EditProfileFigure = (props: any) => {
             </Modal.Header>
             <Modal.Body>
 
-                {[...Array(57)].map((el, ind) =>
+                {figures.map((el, ind) =>
                     <Button style={{backgroundColor:"transparent", border:"none", color:"black"}} onClick={() => edit(ind + 1)} key={ind}><img src={figureImg(ind)} width="50" height="50" alt="" /></Button>
                 )}
 

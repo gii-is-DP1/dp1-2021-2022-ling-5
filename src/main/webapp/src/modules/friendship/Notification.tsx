@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Container, Button, Toast } from "react-bootstrap";
 import friendshipAPI from "./friendshipAPI";
 import userAPI from "../user/userAPI";
+import invitationAPI from "./InvitationAPI";
 
 const Notification = () => {
 
@@ -10,7 +11,9 @@ const Notification = () => {
     const playerId = userData.id
 
     const requestedList: any[] = []
+    const ivitationList: any[] = []
     const [friendship, setFriendship] = useState<any[]>([]);
+    const [invitation, setInvitation] = useState<any[]>([]);
 
     useEffect(() => {
         friendshipAPI.getAllFriendshipsByRequested(playerId)
@@ -22,7 +25,16 @@ const Notification = () => {
                     }
                 } setFriendship(requestedList)
             }).catch(err => console.log(err));
-    }, [friendship])
+        invitationAPI.getAllInvitations()
+            .then((inv: any[]) => {
+                for (let i = 0; i < inv.length; i++) {
+                    const invi = inv[i];
+                    if (invi.requester.id.equals(playerId) || (invi.requested.id.equals(playerId))) {
+                        ivitationList.push(invi)
+                    }
+                } setInvitation(ivitationList)
+        }).catch(err => console.log(err));
+    }, [])
 
 
     const acceptFriend = async (id: any, username: String) => {
@@ -59,6 +71,19 @@ const Notification = () => {
                 </Button>
             </Toast>
         ))}
+        {invitation.map((e, ind) => (
+            <Toast>
+                <Toast.Header >
+                    <i className="fas fa-user-plus"></i>
+                    <strong className="me-auto">You have a new invitation to join a game</strong>
+                    <small>{e.createdDate}</small>
+                </Toast.Header>
+                <Toast.Body>"{e.requester.nickname}" has requested to join the game {e.game.name}</Toast.Body>
+            </Toast>
+        ))}
+
+
+
     </Container>
 }
 

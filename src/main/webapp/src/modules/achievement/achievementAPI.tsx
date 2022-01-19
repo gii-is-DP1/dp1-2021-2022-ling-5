@@ -19,8 +19,22 @@ const achievementAPI = {
             }).catch((err: any) => console.log(err));
     },
 
+    async getAchievementByPlayer(playerId: number){
+        return await fetch(`http://localhost:8080/api/achievements/players/${playerId}`)
+            .then((res: any) => {
+                return res.json();
+            }).catch((err: any) => console.log(err));
+    },
+
     async getAchievementById(achievementId: number) {
         return await fetch(`http://localhost:8080/api/achievements/${achievementId}`)
+            .then((res: any) => {
+                return res.json();
+            }).catch((err: any) => console.log(err));
+    },
+
+    async getAllFigureAchivementsPlayer(playerId: number){
+        return await fetch(`http://localhost:8080/api//achievments/figures/${playerId}`)
             .then((res: any) => {
                 return res.json();
             }).catch((err: any) => console.log(err));
@@ -79,4 +93,5 @@ const achievementAPI = {
             }).catch((err: any) => console.log(err));
         }
     }
+
 export default achievementAPI;

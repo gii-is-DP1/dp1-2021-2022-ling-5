@@ -77,7 +77,7 @@ function NewGame() {
           CREATE
         </Button>
 
-        {gameid === undefined ? <p>This name already exists!</p> : <></>}
+        {/* {gameid === undefined ? <p>This name already exists!</p> : <></>} */}
       </Form>
     </div>
 
