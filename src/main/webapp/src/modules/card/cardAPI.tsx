@@ -4,7 +4,8 @@ const cardAPI = {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(card)
+            body: JSON.stringify(card),
+            'credentials':'include' as RequestCredentials
         }
 
         return await fetch(`http://localhost:8080/api/cards`, requestOptions)
@@ -16,7 +17,8 @@ const cardAPI = {
     async addNewFigureToCard(cardId: number, figureId: number) {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json' },
+            'credentials':'include' as RequestCredentials
         }
 
         return await fetch(`http://localhost:8080/api/cards/${cardId}/figures/${figureId}`, requestOptions)
@@ -41,7 +43,8 @@ const cardAPI = {
 
     deleteCard(cardId: number) {
         const requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
         };
 
         return new Promise(function (resolve, reject) {
@@ -55,7 +58,8 @@ const cardAPI = {
 
     deleteAllCards() {
         const requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
         };
 
         return new Promise(function (resolve, reject) {
@@ -69,7 +73,8 @@ const cardAPI = {
 
     deleteFigureFromCard(figureId: number, cardId: number) {
         const requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
         };
 
         return new Promise(function (resolve, reject) {
@@ -83,7 +88,8 @@ const cardAPI = {
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newCard)
+            body: JSON.stringify(newCard),
+            'credentials':'include' as RequestCredentials
         }
 
         return await fetch(`http://localhost:8080/api/cards/${cardId}`, requestOptions)

@@ -2,6 +2,9 @@ package com.example.accessingdatamysql.user;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import com.example.accessingdatamysql.figure.FigureService;
 import com.example.accessingdatamysql.role.RoleService;
 
@@ -31,35 +34,44 @@ public class AccountController {
     private RoleService roleService;
 
     @PostMapping(value = "/login")
-    public @ResponseBody LogRegResponse loginUser(@RequestBody RequestLoggin request) throws BadRequest{
+    public @ResponseBody LogRegResponse loginUser(@RequestBody RequestLoggin request, HttpServletRequest req)
+            throws BadRequest {
+        HttpSession session = req.getSession();
+        System.out.println(session);
         List<Player> players = playerService.findByNickname(request.getNickname());
-        if(players.size()==0){
+        if (players.size() == 0) {
             List<Admin> admins = adminService.findByNickname(request.getNickname());
-            if(admins.size()==0){
+            if (admins.size() == 0) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid credentials");
-            } else{
+            } else {
                 Admin admin = admins.get(0);
-                if(admin==null){
+                if (admin == null) {
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid credentials");
-                } else if(!admin.getPassword().equals(request.getPassword())){
+                } else if (!admin.getPassword().equals(request.getPassword())) {
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid credentials");
-                } else{
-                    return new LogRegResponse(admin.getId(), "Admin");
+                } else {
+                    Long id = admin.getId();
+                    String nickname = admin.getNickname();
+                    session.setAttribute("nickname", nickname);
+                    return new LogRegResponse(id, "Admin");
                 }
             }
-        } else{
+        } else {
             Player player = players.get(0);
-            if(!player.getPassword().equals(request.getPassword())){
+            if (!player.getPassword().equals(request.getPassword())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid credentials");
-            } else{
-                return new LogRegResponse(player.getId(), "Player");
+            } else {
+                Long id = player.getId();
+                String nickname = player.getNickname();
+                session.setAttribute("nickname", nickname);
+                return new LogRegResponse(id, "Player");
             }
         }
     }
 
     @PostMapping(value = "/register")
-    public @ResponseBody LogRegResponse registerUser(@RequestBody Player player) throws BadRequest{
-        if(playerService.findByNickname(player.getNickname()).size()>0){
+    public @ResponseBody LogRegResponse registerUser(@RequestBody Player player) throws BadRequest {
+        if (playerService.findByNickname(player.getNickname()).size() > 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nickname already taken");
         }
         player.setFigure(figureService.findFigure(3L).get());
