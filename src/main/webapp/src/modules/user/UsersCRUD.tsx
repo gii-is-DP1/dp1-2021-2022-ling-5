@@ -1,7 +1,7 @@
-import { faTrash, faUserEdit, faUserMinus, faUserPlus } from "@fortawesome/free-solid-svg-icons"
+import { faUserEdit, faUserMinus, faUserPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react"
-import { Button, Col, Container, Modal, Row } from "react-bootstrap"
+import { Button, Col, Container,  Row } from "react-bootstrap"
 import EditUser from "./EditUser"
 import userAPI from "./userAPI"
 
@@ -11,9 +11,7 @@ const UsersCRUD = () => {
     const [modalShow, setModalShow] = useState<string>("0 0");
 
     const removePlayer = (id: number) => {
-        userAPI.deleteUser("player", id)
-            .then((res) => window.location.href = '/users')
-            .catch(error => console.log(error));
+        userAPI.deleteUser("player", id);
     }
 
     useEffect(() => {
@@ -21,7 +19,7 @@ const UsersCRUD = () => {
             .then((pls: any[]) => {
                 setPlayers(pls);
             }).catch((err) => console.log(err));
-    }, [])
+    }, [players])
 
     return (
 
@@ -34,8 +32,8 @@ const UsersCRUD = () => {
                 <Row key={ind}>
                     <Col><h4>{e.nickname}</h4></Col>
                     <Col>
-                        <a style={{ cursor: "pointer" }} onClick={() => setModalShow(`1 ${e.id}`)}><FontAwesomeIcon icon={faUserEdit} /></a>&nbsp;&nbsp;
-                        <a style={{ cursor: "pointer" }} onClick={() => removePlayer(e.id)}><FontAwesomeIcon icon={faUserMinus} /></a>
+                        <Button style={{backgroundColor:"transparent", border:"none", color:"black"}} onClick={() => setModalShow(`1 ${e.id}`)}><FontAwesomeIcon icon={faUserEdit} /></Button>&nbsp;&nbsp;
+                        <Button style={{backgroundColor:"transparent", border:"none", color:"black"}} onClick={() => removePlayer(e.id)}><FontAwesomeIcon icon={faUserMinus} /></Button>
                     </Col>
                 </Row>)}
             <EditUser

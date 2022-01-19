@@ -65,6 +65,18 @@ const achievementAPI = {
             .then((res: any) => {
                 return res.json();
             }).catch((err: any) => console.log(err));
+    },
+
+    async updateFigureAchievement(achId: number, figureId: number) {
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' }
+        }
+
+        return await fetch(`http://localhost:8080/api/achievements/figures/${figureId}`, requestOptions)
+            .then((res: any) => {
+                return res.json();
+            }).catch((err: any) => console.log(err));
+        }
     }
-}
 export default achievementAPI;

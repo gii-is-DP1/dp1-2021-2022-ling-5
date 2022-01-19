@@ -31,7 +31,7 @@ public class AdminControllerTests {
 
     private static final Long TEST_FIGURE_ID = 1L;
 
-    private static final Long TEST_ROLE_ID = 1L;
+    private static final Long TEST_ROLE_ID = 2L;
 
     @MockBean
     private AdminService adminService;
@@ -87,12 +87,12 @@ public class AdminControllerTests {
 
     @Test
     void testDeleteById() throws Exception {
-        mockMvc.perform(delete("/api/admins/{adminId}", TEST_ADMIN_ID)).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/admins/{adminId}", TEST_ADMIN_ID)).andExpect(status().isNoContent());
     }
 
     @Test
     void testDeleteAll() throws Exception {
-        mockMvc.perform(delete("/api/admins")).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/admins")).andExpect(status().isNoContent());
     }
 
     @Test

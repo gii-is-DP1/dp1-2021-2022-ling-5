@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import figureImg from '../../images/figures/figures';
 import userAPI from "./userAPI";
@@ -7,9 +6,8 @@ import userAPI from "./userAPI";
 const EditFigure = (props: any) => {
 
     const edit = (id: number) => {
-        userAPI.updateFigureUser(props.idUser, id, "player")
-            .then((res) => window.location.href = '/users')
-            .catch((err) => console.log(err));
+        userAPI.updateFigureUser(props.idUser, id, "player");
+        props.onChange(id - 1);
     }
 
     return (
@@ -27,7 +25,7 @@ const EditFigure = (props: any) => {
             <Modal.Body>
 
                 {[...Array(57)].map((el, ind) =>
-                    <a style={{ cursor: "pointer" }} onClick={() => edit(ind + 1)} key={ind}><img src={figureImg(ind)} width="50" height="50" alt="" /></a>
+                    <Button style={{backgroundColor:"transparent", border:"none", color:"black"}} onClick={() => edit(ind + 1)} key={ind}><img src={figureImg(ind)} width="50" height="50" alt="" /></Button>
                 )}
 
             </Modal.Body>

@@ -13,7 +13,7 @@ import AdminNavbar from "./modules/general/AdminNavbar";
 import UsersCRUD from "./modules/user/UsersCRUD";
 import StadisticsNavbar from "./modules/general/StadisticsNavbar";
 import CreateUser from "./modules/user/CreateUser";
-import UserPoints from "./modules/playedGames/userPoints";
+import UserPoints from "./modules/playedGames/UserPoints";
 import BestAndWorstFigure from "./modules/figure/BestAndWorstFigure";
 import Ranking from "./modules/user/Ranking";
 import Friends from "./modules/friendship/Friends";
@@ -21,6 +21,14 @@ import { useEffect, useState } from "react";
 import UserFrequency from "./modules/playedGames/UserFrequency";
 import AddFriend from "./modules/friendship/AddFriend";
 import AcceptFriend from "./modules/friendship/AcceptFriend";
+import PropGamesPlayed from "./modules/statistics/PropGamesPlayed";
+import PropTime from "./modules/statistics/PropTime";
+import AdminAchievement from "./modules/achievement/AdminAchievement";
+import CreateAchievement from "./modules/achievement/CreateAchievement";
+import Achievements from "./modules/achievement/Achievements";
+import Forums from "./modules/forum/AllForums";
+import Forum from "./modules/forum/Forum";
+import NewForum from "./modules/forum/NewForum";
 
 const Links = () => {
     const [role, setRole] = useState<string | null>(null)
@@ -47,8 +55,8 @@ const Links = () => {
             <Route path='/notifications'>
                 <AcceptFriend />
             </Route>
-            <Route path='/forum' >
-                <Patata />
+            <Route path='/forums' >
+                <Forums />
             </Route>
 
             <Route path='/profile'>
@@ -100,6 +108,24 @@ const Links = () => {
                     </div>
                     : <>Access is restricted</>}
             </Route>
+            <Route path='/propGames'>
+                {role === "Player" ?
+                    <div id="body" className="d-flex">
+                        <ProfileNavbar />
+                        <StadisticsNavbar />
+                        <PropGamesPlayed />
+                    </div>
+                    : <>Access is restricted</>}
+            </Route>
+            <Route path='/propTime'>
+                {role === "Player" ?
+                    <div id="body" className="d-flex">
+                        <ProfileNavbar />
+                        <StadisticsNavbar />
+                        <PropTime />
+                    </div>
+                    : <>Access is restricted</>}
+            </Route>
             <Route path='/games'>
                 {role === "Player" ?
                     <div id="body" className="d-flex">
@@ -111,7 +137,7 @@ const Links = () => {
             <Route path='/awards'>
                 {role === "Player" ?
                     <div id="body" className="d-flex"><ProfileNavbar />
-                        <Patata /></div>
+                        <Achievements /></div>
                     : <>Access is restricted</>}
             </Route>
             <Route path='/friends'>
@@ -161,128 +187,26 @@ const Links = () => {
                         <Patata /></div>
                     : <>Access is restricted</>}
             </Route>
-            <Route path='/createAwards'>
+            <Route path='/adminAwards'>
                 {role === "Admin" ?
                     <div id="body" className="d-flex"><AdminNavbar />
-                        <Patata /></div>
+                        <AdminAchievement /></div>
                     : <>Access is restricted</>}
             </Route>
-            <Route path='/profile'>
-                {role === "Player" ?
-                    <div id="body" className="d-flex">
-                        <ProfileNavbar />
-                        <AcceptFriend /></div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/stats'>
-                {role === "Player" ?
-                    <div id="body" className="d-flex"><ProfileNavbar />
-                        <StadisticsNavbar /></div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/pointsByMinigame'>
-                {role === "Player" ?
-                    <div id="body" className="d-flex">
-                        <ProfileNavbar />
-                        <StadisticsNavbar />
-                        <UserPoints />
-                    </div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/mostAndLeastUsed'>
-                {role === "Player" ?
-                    <div id="body" className="d-flex">
-                        <ProfileNavbar />
-                        <StadisticsNavbar />
-                        <BestAndWorstFigure />
-                    </div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/ranking'>
-                {role === "Player" ?
-                    <div id="body" className="d-flex">
-                        <ProfileNavbar />
-                        <StadisticsNavbar />
-                        <Ranking />
-                    </div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/userFrequency'>
-                {role === "Player" ?
-                    <div id="body" className="d-flex">
-                        <ProfileNavbar />
-                        <StadisticsNavbar />
-                        <UserFrequency />
-                    </div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/games'>
-                {role === "Player" ?
-                    <div id="body" className="d-flex">
-                        <ProfileNavbar />
-                        <PlayedGames />
-                    </div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/awards'>
-                {role === "Player" ?
-                    <div id="body" className="d-flex"><ProfileNavbar />
-                        <Patata /></div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/friends'>
-                {role === "Player" ?
-                    <div id="body" className="d-flex"><ProfileNavbar />
-                        <Friends /></div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/addFriend'>
-                {role === "Player" ?
-                    <div id="body" className="d-flex"><ProfileNavbar />
-                        <AddFriend /></div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/gamesProgress'>
+            <Route path='/createAchievement'>
                 {role === "Admin" ?
                     <div id="body" className="d-flex">
                         <AdminNavbar />
-                        <Patata /></div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/gamesPlayed'>
-                {role === "Admin" ?
-                    <div id="body" className="d-flex"><AdminNavbar />
-                        <AdminPlayedGames /></div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route exact path='/users'>
-                {role === "Admin" ?
-                    <div id="body" className="d-flex">
-                        <AdminNavbar />
-                        <UsersCRUD />
+                        <CreateAchievement />
                     </div>
                     : <>Access is restricted</>}
             </Route>
-            <Route path='/createUser'>
-                {role === "Admin" ?
-                    <div id="body" className="d-flex">
-                        <AdminNavbar />
-                        <CreateUser />
-                    </div>
-                    : <>Access is restricted</>}
+            <Route path='/forum/:id' >
+                <Forum />
+            </Route><Route path='/newforum' >
+                <NewForum />
             </Route>
-            <Route path='/history'>
-                {role === "Admin" ?
-                    <div id="body" className="d-flex"><AdminNavbar />
-                        <Patata /></div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/createAwards'>
-                {role === "Admin" ?
-                    <div id="body" className="d-flex"><AdminNavbar />
-                        <Patata /></div>
-                    : <>Access is restricted</>}
-            </Route>
+            
         </Switch>
     </Router>
 }

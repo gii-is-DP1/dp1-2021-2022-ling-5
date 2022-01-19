@@ -8,27 +8,31 @@ function Patata() {
 
     const [username, setUsername] = useState<string>("");
     const [figure, setFigure] = useState<number>(0);
-    var id = 0;
+    const [id, setId] = useState<number>();
     var role = null;
-
     useEffect(() => {
-        var userData: any = localStorage.getItem("userData");
-        if (userData !== null) userData = JSON.parse(userData)
-        id = userData.id
-        role = localStorage.getItem("rol")
-        if (role !== null && id !== 0) {
-            userAPI.getUser(id, role).then((user: any) => {
-                setUsername(user.nickname)
-                setFigure(user.figure.id - 1)
-            }).catch(err => console.log(err));
+        var idStr = localStorage.getItem("sessionId");
+        var role = localStorage.getItem("rol")
+
+        if (idStr && idStr !== null && role !== null) {
+            setId(parseInt(idStr))
+            if (id) {
+                userAPI.getUser(id, role).then((user: any) => {
+                    setUsername(user.nickname)
+                    setFigure(user.figure.id - 1)
+                }).catch(err => console.log(err));
+            }
+
         }
-    }, [])
+
+
+    }, [id])
 
     const src = role === "Admin" ? icons(3) : figures(figure);
     const alt = role === "Admin" ? "Dobble logo" : "Profile image";
 
 
-    if (!username && !figure) return <></>
+    if (!username && !figure && !id) return <></>
     return (
 
         <div className="container">

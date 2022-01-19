@@ -3,11 +3,9 @@ package com.example.accessingdatamysql.role;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.example.accessingdatamysql.model.NamedEntity;
-import com.example.accessingdatamysql.privilege.Privilege;
 import com.example.accessingdatamysql.user.Admin;
 import com.example.accessingdatamysql.user.Player;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,9 +26,6 @@ public class Role extends NamedEntity {
     @OneToMany(mappedBy = "role")
     private List<Admin> admins;
 
-    @ManyToMany
-    private List<Privilege> privileges;
-
     public Role() {
         this.name = "";
     }
@@ -41,7 +36,7 @@ public class Role extends NamedEntity {
 
     @Override
     public String toString() {
-        return "{" + " id='" + getId() + "'" + ", name='" + getName() + "'" + ", privileges='" + getPrivileges() + "'"
+        return "{" + " id='" + getId() + "'" + ", name='" + getName() + "'" + "'"
                 + "}";
     }
 

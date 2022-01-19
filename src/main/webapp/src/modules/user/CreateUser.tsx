@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { Button, Col, Form, Row } from "react-bootstrap"
-import { propTypes } from "react-bootstrap/esm/Image"
 import './createUser.css'
 import userAPI from "./userAPI"
 
@@ -33,6 +32,7 @@ const EditUser = () => {
     return (
         <Form>
             <Row>
+                <h3>New player</h3>
                 <Col>
                     <Form.Group className="mb-3" controlId="formBasicName">
                         <Form.Label>Name</Form.Label>
