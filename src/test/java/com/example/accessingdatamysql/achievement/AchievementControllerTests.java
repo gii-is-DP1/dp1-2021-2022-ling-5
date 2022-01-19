@@ -76,12 +76,12 @@ public class AchievementControllerTests {
 
     @Test
     void testDeleteAll() throws Exception {
-        mockMvc.perform(delete("/api/achievements")).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/achievements")).andExpect(status().isNoContent());
     }
 
     @Test
     void testDeleteById() throws Exception {
-        mockMvc.perform(delete("/api/achievements/{achievementId}", TEST_ACHIEVEMENT_ID)).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/achievements/{achievementId}", TEST_ACHIEVEMENT_ID)).andExpect(status().isNoContent());
     }
 
     @Test

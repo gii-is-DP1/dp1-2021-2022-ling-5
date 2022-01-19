@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import figures from "../../images/figures/figures.js";
 import '../../App.css'
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import movimiento from '../game/movimiento';
 
 function NewForum() {
     const [playerId, setPlayerId] = useState<number>();

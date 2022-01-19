@@ -62,12 +62,12 @@ public class MinigameControllerTests {
 
     @Test
     void testDeleteById() throws Exception {
-        mockMvc.perform(delete("/api/minigames/{minigameId}", TEST_MINIGAME_ID)).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/minigames/{minigameId}", TEST_MINIGAME_ID)).andExpect(status().isNoContent());
     }
 
     @Test
     void testDeleteAll() throws Exception {
-        mockMvc.perform(delete("/api/minigames")).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/minigames")).andExpect(status().isNoContent());
     }
 
     @Test

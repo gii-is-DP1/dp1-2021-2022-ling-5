@@ -35,7 +35,7 @@ public class Figure extends NamedEntity {
     private Collection<Admin> admins;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "figure", cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "figure")
     private Achievement achievement;
 
     @JsonIgnore

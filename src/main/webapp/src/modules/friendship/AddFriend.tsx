@@ -1,10 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Container, Button, Form } from "react-bootstrap";
 import friendshipAPI from "./friendshipAPI";
-import { MDBInput } from "mdbreact";
-import { useBootstrapPrefix } from "react-bootstrap/esm/ThemeProvider";
 import userAPI from "../user/userAPI";
-import { get } from "http";
 
 const AddFriend = () => {
 
