@@ -179,6 +179,28 @@ const userAPI = {
             }).catch((err: any) => console.log(err));
     },
 
+    async addFiguresToPlayers(id: number){
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        }
+        fetch('http://localhost:8080/api/players/' + id + '/addfigures', requestOptions)
+            .then(res => console.log(res))
+            .catch(error => console.log(error));
+    },
+
+    async addOneToFigure(playerId:number,figureId:number){
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: ''
+        }
+        fetch(`http://localhost:8080/api/player/${playerId}/figure/${figureId}/add`, requestOptions)
+            .then((res: any) => {
+                console.log(`One point added to figure ${figureId} of player ${playerId}`)
+            }).catch((err: any) => console.log(err));
+    }
+
 }
 
 export default userAPI;
