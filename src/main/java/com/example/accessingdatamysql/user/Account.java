@@ -30,13 +30,13 @@ public class Account extends BaseEntity {
   @NotNull
   protected String password;
 
-  @Size(min = 3, max = 50)
+  @Size(min = MIN_SIZE, max = MAX_SIZE)
   @NotEmpty
   @NotNull
   @Column(unique = true)
   protected String email;
 
-  @Size(min = 3, max = 50)
+  @Size(min = MIN_SIZE, max = MAX_SIZE)
   @NotEmpty
   @NotNull
   @Column(unique = true)
