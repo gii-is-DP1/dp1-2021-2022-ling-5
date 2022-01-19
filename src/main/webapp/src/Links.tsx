@@ -153,14 +153,7 @@ const Links = () => {
                         <AddFriend /></div>
                     : <>Access is restricted</>}
             </Route>
-            <Route path='/gamesProgress'>
-                {role === "Admin" ?
-                    <div id="body" className="d-flex">
-                        <AdminNavbar />
-                        <Patata /></div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/gamesPlayed'>
+            <Route path='/gamesProgressAndPlayed'>
                 {role === "Admin" ?
                     <div id="body" className="d-flex"><AdminNavbar />
                         <AdminPlayedGames /></div>
