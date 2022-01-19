@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import userAPI from "../user/userAPI";
 
 export default function movimiento(figureId: any, card: any) {
     const [playerId, setPlayerId] = useState<number>();
@@ -20,15 +21,7 @@ export default function movimiento(figureId: any, card: any) {
         }
     
         if(res){
-            const requestOptions = {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: ''
-            }
-            fetch(`http://localhost:8080/api/player/${playerId}/figure/${figureId}/add`, requestOptions)
-                .then((res: any) => {
-                    console.log(`One point added to figure ${figureId} of player ${playerId}`)
-                }).catch((err: any) => console.log(err));
+            userAPI.addOneToFigure(id,figureId);
         }
     }
 
