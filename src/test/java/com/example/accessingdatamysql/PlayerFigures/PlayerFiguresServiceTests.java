@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
-
 import com.example.accessingdatamysql.playerfigures.PlayerFigures;
 import com.example.accessingdatamysql.playerfigures.PlayerFiguresService;
 
@@ -17,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -40,6 +39,7 @@ public class PlayerFiguresServiceTests {
     }
 
     @Test
+    @Transactional(readOnly = true)
     public void shouldFindSinglePlayerFigures() {
         Optional<PlayerFigures> pfOpt = this.playerFiguresService.findPlayerFigures(1L);
         if (pfOpt.isPresent()) {
@@ -49,6 +49,7 @@ public class PlayerFiguresServiceTests {
     }
 
     @Test
+    @Transactional
     void shouldDeleteResult() {
         PlayerFigures pf = new PlayerFigures(20);
         pf = this.playerFiguresService.savePlayerFigures(pf);

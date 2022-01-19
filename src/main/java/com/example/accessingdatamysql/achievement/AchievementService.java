@@ -38,29 +38,29 @@ public class AchievementService {
   }
 
   @Transactional(readOnly = true)
-  public Optional<Achievement> findAchievement(Long id) {
+  public Optional<Achievement> findAchievement(Long id) throws DataAccessException {
     return achievementRepository.findById(id);
   }
 
   @Transactional(readOnly = true)
-  public List<Achievement> findAllAchievements() {
+  public List<Achievement> findAllAchievements() throws DataAccessException {
     return StreamSupport
         .stream(achievementRepository.findAll().spliterator(), false)
         .collect(Collectors.toList());
   }
 
   @Transactional
-  public void deleteAchievement(Long id) {
+  public void deleteAchievement(Long id) throws DataAccessException {
     achievementRepository.deleteById(id);
   }
 
   @Transactional
-  public void deleteAllAchievements() {
+  public void deleteAllAchievements() throws DataAccessException {
     achievementRepository.deleteAll();
   }
 
   @Transactional
-  public List<Achievement> checkAchievements(Long playerId) {
+  public List<Achievement> checkAchievements(Long playerId) throws DataAccessException {
     List<Achievement> achievements = new ArrayList<Achievement>();
     for (Achievement a : this.findAllAchievements()) {
       if (!a.getPlayers().contains(this.playerService.findPlayer(playerId).get())) {
@@ -73,7 +73,7 @@ public class AchievementService {
     return achievements;
   }
 
-  private Achievement verifyAchievementPlayer(Achievement achievement, Long playerId) {
+  private Achievement verifyAchievementPlayer(Achievement achievement, Long playerId) throws DataAccessException {
     Integer points = 0;
     switch (achievement.getAchievementTypes()) {
       case POINTS:
