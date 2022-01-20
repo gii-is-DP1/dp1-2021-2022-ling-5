@@ -43,6 +43,7 @@ class Register extends
 
     render() {
         return (
+            
             <form onSubmit={this.handleSubmit}>
                 <Row className="text-center">
                     <div className="col-md-4"></div>
@@ -98,6 +99,7 @@ class Register extends
                     </Button>
                 </Row>
             </form>
+           
         );
     }
 }
