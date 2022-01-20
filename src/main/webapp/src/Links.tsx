@@ -30,6 +30,7 @@ import Stats from "./modules/general/Stats";
 import ErrorPage from "./modules/general/ErrorPage";
 import Auditory from "./modules/user/Auditory";
 import AdminPlayedGames from "./modules/game/AdminPlayedGames";
+import RegaloEnvenenado from "./modules/general/RegaloEnvenenado";
 
 const Links = () => {
     const [role, setRole] = useState<string | null>(null)
@@ -55,6 +56,9 @@ const Links = () => {
             </Route>
             <Route path='/game/:gameId/2'>
                 <Foso />
+            </Route>
+            <Route path='/game/:gameId/3'>
+                <RegaloEnvenenado />
             </Route>
             <Route path='/notifications'>
                 <AcceptFriend />
