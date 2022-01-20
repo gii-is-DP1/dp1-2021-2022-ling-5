@@ -28,7 +28,7 @@ import Forums from "./modules/forum/AllForums";
 import Forum from "./modules/forum/Forum";
 import NewForum from "./modules/forum/NewForum";
 import Foso from "./modules/general/Foso";
-import UserPoints from "./modules/playedGames/UserPoints";
+import UserPoints from "./modules/playedGames/userPoints";
 import Profile from "./modules/user/Profile";
 import AdminPlayedGames from "./modules/game/adminPlayedGames";
 
