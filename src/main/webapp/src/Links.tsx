@@ -30,7 +30,9 @@ import NewForum from "./modules/forum/NewForum";
 import Foso from "./modules/general/Foso";
 import UserPoints from "./modules/playedGames/UserPoints";
 import Profile from "./modules/user/Profile";
-import AdminPlayedGames from "./modules/game/adminPlayedGames";
+import AdminPlayedGames from "./modules/game/AdminPlayedGames";
+import ErrorPage from "./modules/general/ErrorPage";
+import Auditory from "./modules/user/Auditory";
 
 const Links = () => {
     const [role, setRole] = useState<string | null>(null)
@@ -182,7 +184,7 @@ const Links = () => {
             <Route path='/history'>
                 {role === "Admin" ?
                     <div id="body" className="d-flex"><AdminNavbar />
-                        <Patata /></div>
+                        <Auditory /></div>
                     : <>Access is restricted</>}
             </Route>
             <Route path='/adminAwards'>
@@ -205,6 +207,9 @@ const Links = () => {
                 <NewForum />
             </Route>
             
+            <Route path ='*'>
+                <ErrorPage/>
+            </Route>
         </Switch>
     </Router>
 }
