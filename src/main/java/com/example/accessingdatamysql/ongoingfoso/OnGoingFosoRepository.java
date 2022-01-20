@@ -34,7 +34,7 @@ public class OnGoingFosoRepository {
     ) {
       Random random = new Random();
       int randomindex = random
-        .ints(0, onGoingFoso.getRemainingCards().size()-1)
+        .ints(0, onGoingFoso.getRemainingCards().size())
         .findFirst()
         .getAsInt();
       Card newPlayerCard = onGoingFoso.getRemainingCards().get(randomindex);

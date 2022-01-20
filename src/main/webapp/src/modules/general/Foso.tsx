@@ -59,7 +59,7 @@ function Foso(props:any){
 
     if(!foso || !playerCard || !points || !centerCard) return <div>Loading...</div>
 
-    let remaininglength = foso.remainingCards.length;
+    let remaininglength = foso.remainingSize;
 
     if(remaininglength===0){
         window.location.href = '';

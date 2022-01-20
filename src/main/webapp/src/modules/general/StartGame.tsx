@@ -4,12 +4,13 @@ import {  withRouter } from 'react-router-dom';
 import gameAPI from '../game/gameAPI';
 import userAPI from '../user/userAPI';
 import NewOnGoingGame from '../game/OnGoingFoso/OnGoingFosoNew';
+import {default as NewTorre} from '../game/OnGoingTorreInfernal/OnGoingTorreInfernalNew';
+import {default as NewRegalo} from '../game/OnGoingRegaloEnvenenado/OnGoingRegaloEnvenenadoNew';
 
 function StartGame(props: any) {
   const id = props.match.params.id;
   const [players, setPlayers] = useState<any[]>([]);
   const [minigame, setMinigame] = useState<any>();
-  const [foso, SetFoso] = useState<any>();
 
   useEffect(() => {
     gameAPI.getPlayersByGame(id)
@@ -23,17 +24,27 @@ function StartGame(props: any) {
       }).catch((err) => console.log(err));
   }, [])
 
-  useEffect(()=>{
-    gameAPI.getGameMinigame(id)
-    .then((m: any)=>setMinigame(m))
-    .catch((err)=>console.log(err));
-  },[])
-
   const info = {"gameId": id};
 
   useEffect(()=>{
-    NewOnGoingGame(info)
-    .then((f:any)=>SetFoso(f))
+    gameAPI.getGameMinigame(id)
+    .then((m:any)=>{
+      setMinigame(m)
+      switch(m.id){
+        case 1:
+          NewTorre(info)
+          .catch((err:any)=>console.log(err));
+          break;
+        case 2:
+          NewOnGoingGame(info)
+          .catch((err:any)=>console.log(err));
+          break;
+        case 3:
+          NewRegalo(info)
+          .catch((err:any)=>console.log(err));
+          break;
+      }
+    })
     .catch((err)=>console.log(err));
   },[])
 

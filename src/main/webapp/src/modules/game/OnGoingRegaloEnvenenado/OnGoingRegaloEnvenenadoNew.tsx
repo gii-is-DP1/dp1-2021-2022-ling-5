@@ -1,5 +1,5 @@
 
-function NewOnGoingGame(formData: FormData) {
+function NewOnGoingGame(formData: any) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

@@ -30,7 +30,7 @@ public class OnGoingRegaloEnvenenadoRepository {
         onGoingRegaloEnvenenado.getPlayerCard().put(request.getPlayerId(), currentCard);
         if (onGoingRegaloEnvenenado.getRemainingCards().size() != 0) {
             Random random = new Random();
-            int randomindex = random.ints(0, onGoingRegaloEnvenenado.getRemainingCards().size()-1).findFirst().getAsInt();
+            int randomindex = random.ints(0, onGoingRegaloEnvenenado.getRemainingCards().size()).findFirst().getAsInt();
             Card newCard = onGoingRegaloEnvenenado.getRemainingCards().get(randomindex);
             onGoingRegaloEnvenenado.getRemainingCards().remove(newCard);
             onGoingRegaloEnvenenado.setCurrentCard(newCard);

@@ -4,10 +4,15 @@ import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.game.Game;
 import com.example.accessingdatamysql.game.GameRepository;
 import com.example.accessingdatamysql.game.State;
+import com.example.accessingdatamysql.result.Result;
+import com.example.accessingdatamysql.result.ResultService;
+import com.example.accessingdatamysql.user.PlayerService;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -20,6 +25,12 @@ public class OnGoingTorreInfernalService {
 
   @Autowired
   private GameRepository gameRepository;
+
+  @Autowired
+  private ResultService resultService;
+
+  @Autowired
+  private PlayerService playerService;
 
   private static OnGoingTorreInfernalRepository ongoing = null;
 
@@ -71,6 +82,15 @@ public class OnGoingTorreInfernalService {
   @Transactional
   public void deleteGame(Long gameId) {
     Game game = gameRepository.findById(gameId).get();
+    Map<Long, Integer> result = this.getGame(gameId).getPoints();
+    for(Entry<Long, Integer> e: result.entrySet()){
+      Result res = new Result();
+      res.setData(e.getValue() + " 0 " + "");
+      res.setGame(game);
+      res.setPlayer(playerService.findPlayer(e.getKey()).get());
+      res.setTotalPoints(e.getValue());
+      resultService.saveResult(res);
+    }
     game.setEndTime(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
     game.setState(State.FINISHED);
     ongoing.deleteGame(gameId);
