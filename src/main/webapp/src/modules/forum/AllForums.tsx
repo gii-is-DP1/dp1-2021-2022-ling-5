@@ -1,5 +1,9 @@
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Button, Card, Col, Row } from 'react-bootstrap';
+
+import './AllForums.css';
 
 function AllForums() {
   const [playerId, setPlayerId] = useState<number>();
@@ -33,13 +37,23 @@ function AllForums() {
   }
 
   return (
-    <div>
-      <button onClick={() => window.location.href = `/newforum`}>Añadir nuevo foro</button>
+    <div id="page">
+      <p id="ptitle">FORUM</p>
+      <div id="createUser" className="m-2" style={{ textAlign: "right" }}>
+        <Button variant="dark" onClick={() => window.location.href = `/newforum`}>Añadir nuevo foro <FontAwesomeIcon icon={faPlus} /></Button>
+      </div>
       {
         ls.map(e => (
           <Row>
             <Col>
-              <strong><a href={"/forum/" + e.id}>{e.name}</a></strong>
+            <Card>
+            <Card.Body>
+              <div className="d-flex justify-content-between">
+                <Button variant="dark-link" href={"/forum/" + e.id}><strong><u>{e.name}</u></strong></Button>
+                <small className="text-muted ">{e.creationDate}</small>
+              </div>
+            </Card.Body>
+            </Card>
             </Col>
           </Row>
         ))

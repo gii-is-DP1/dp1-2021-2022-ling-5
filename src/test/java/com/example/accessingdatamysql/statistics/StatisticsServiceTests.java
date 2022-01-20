@@ -92,7 +92,7 @@ public class StatisticsServiceTests {
     void testMaxMinAvgAll() {
         Map<String, Double> res = new HashMap<String, Double>();
         res.put("min", 0.0);
-        res.put("avg",8.571428571428571);
+        res.put("avg", 8.666666666666666);
         res.put("max", 30.0);
         assertEquals(statisticsService.maxMinAvgAll(), res);
 
@@ -113,7 +113,7 @@ public class StatisticsServiceTests {
         res.put("avg", 15.0);
         res.put("max", 20.0);
         System.out.println("HOLAAAAAAAAA");
-        System.out.println("PRUEBAAAAAAAAAAAAAAA"+statisticsService.maxMinAvg(1L));
+        System.out.println("PRUEBAAAAAAAAAAAAAAA" + statisticsService.maxMinAvg(1L));
 
         assertEquals(statisticsService.maxMinAvg(1L), res);
 

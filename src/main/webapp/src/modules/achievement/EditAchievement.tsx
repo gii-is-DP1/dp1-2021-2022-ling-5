@@ -10,6 +10,11 @@ const EditAchievement = (props: any) => {
     const [figure, setFigure] = useState<number>(0);
     const [modalShow, setModalShow] = useState<boolean>(false);
 
+    function handleChange(newFigure: number) {
+        setFigure(newFigure);
+        setModalShow(false);
+    }
+    
     const edit = () => {
         console.log(achievement);
         achievementAPI.updateAchievement(achievement, props.idUser)
@@ -51,6 +56,8 @@ const EditAchievement = (props: any) => {
                             />
                             <Button onClick={() => setModalShow(true)}>Change figure</Button>
                             <EditFigureAward idAchievement={achievement.id}
+                                figure={figure}
+                                onChange={handleChange}
                                 show={modalShow}
                                 onHide={() => setModalShow(false)} />
                         </Col>
