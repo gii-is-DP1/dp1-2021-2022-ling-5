@@ -82,6 +82,8 @@ public class PlayerControllerTests {
         given(this.achievementService.findAchievement(TEST_ACHIEVEMENT_ID)).willReturn(Optional.of(achievement));
     }
 
+    
+
     @Test
     void testGetAll() throws Exception {
         mockMvc.perform(get("/api/players")).andExpect(status().isOk());
@@ -141,5 +143,58 @@ public class PlayerControllerTests {
     void testUpdateFigurePlayer() throws Exception {
         mockMvc.perform(put("/api/figures/{figureId}/players/{playerId}", TEST_FIGURE_ID, TEST_PLAYER_ID))
                 .andExpect(status().isOk());
+    }
+
+    
+
+    @Test
+    void testGetByIdBad() throws Exception {
+        mockMvc.perform(get("/api/players/{playerId}", TEST_PLAYER_ID+7L)).andExpect(status().isNotFound());
+    }
+
+    @Test
+    void testGetByNicknameBad() throws Exception {
+        mockMvc.perform(get("/api/players/names/{nickname}", NICKNAME+"vsvrf")).andExpect(status().isNotFound());
+    }
+
+    @Test
+    void testCreationRoleBad() throws Exception {
+        Integer player = 24;
+        mockMvc.perform(post("/api/players")
+                .contentType("application/json").content(objectMapper.writeValueAsString(player)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testAddAchievementToPlayerBad() throws Exception {
+        mockMvc.perform(
+                post("/api/players/{playerId}/achievements/{achievementId}", TEST_PLAYER_ID+5L, TEST_ACHIEVEMENT_ID))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void testDeleteByIdBad() throws Exception {
+        mockMvc.perform(delete("/api/players/{playerId}", TEST_PLAYER_ID+7L)).andExpect(status().isNotFound());
+    }
+
+
+    @Test
+    void testDeleteAchievementFromPlayerBad() throws Exception {
+        mockMvc.perform(
+                delete("/api/players/{playerId}/achievements/{achievementId}", TEST_PLAYER_ID+47L, TEST_ACHIEVEMENT_ID))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void testUpdateBad() throws Exception {
+        Integer player = 1;
+        mockMvc.perform(put("/api/players/{id}", TEST_PLAYER_ID).contentType("application/json")
+                .content(objectMapper.writeValueAsString(player))).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testUpdateFigurePlayerBad() throws Exception {
+        mockMvc.perform(put("/api/figures/{figureId}/players/{playerId}", TEST_FIGURE_ID+6L, TEST_PLAYER_ID))
+                .andExpect(status().isNotFound());
     }
 }
