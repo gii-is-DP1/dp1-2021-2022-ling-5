@@ -11,7 +11,7 @@ class OnGoingTest extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.handleCreate = this.handleCreate.bind(this);
         this.handleAddPoints = this.handleAddPoints.bind(this);
-        this.handleNewCard = this.handleNewCard.bind(this);
+        // this.handleNewCard = this.handleNewCard.bind(this);
     }
 
     handleDelete() {
@@ -32,15 +32,15 @@ class OnGoingTest extends React.Component {
         AddPoints(1, 1, formData);
         window.location.reload();
     }
-    handleNewCard() {
-        NewCard(1);
-        window.location.reload();
-    }
+    // handleNewCard() {
+    //     NewCard(1);
+    //     window.location.reload();
+    // }
 
     render() {
         return (
             <div>
-                <button onClick={this.handleNewCard}>New Center Card</button>
+                {/* <button onClick={this.handleNewCard}>New Center Card</button> */}
                 <button onClick={this.handleDelete}>Delete Game</button>
                 <form onSubmit={this.handleCreate}>
                     <input type="number" name="gameId" />
