@@ -95,7 +95,7 @@ function Forum(props: any) {
               ls.map(e => (
               <ListGroup variant="flush">
               <ListGroup.Item>
-                <img src={figureImg(e.user.figure.id)} width="50" height="50" alt="" /><strong>{e.user.nickname}</strong> 
+                <img src={figureImg(e.user.figure.id -1)} width="50" height="50" alt="" /><strong>{e.user.nickname}</strong> 
                 <div>{e.text}</div>
                 <div><small className="text-muted ">{e.date}</small></div>
               </ListGroup.Item>

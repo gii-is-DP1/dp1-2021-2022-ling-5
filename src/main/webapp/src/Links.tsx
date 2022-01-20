@@ -29,7 +29,7 @@ import Forum from "./modules/forum/Forum";
 import NewForum from "./modules/forum/NewForum";
 import UserPoints from "./modules/playedGames/UserPoints";
 import Profile from "./modules/user/Profile";
-import AdminPlayedGames from "./modules/game/AdminPlayedGames";
+import AdminPlayedGames from "./modules/game/adminPlayedGames";
 
 const Links = () => {
     const [role, setRole] = useState<string | null>(null)

@@ -194,6 +194,11 @@ public class StatisticsService {
     List<Game> misPartidas = gameService.getGamesByPlayer(playerId);
     List<Double> l1 = new ArrayList<Double>();
     List<Double> l2 = new ArrayList<Double>();
+    if (partidas.size() == 0)
+      return 0.0;
+    if (misPartidas.size() == 0)
+      return 0.0;
+
     for (int i = 0; i < partidas.size(); i++) {
       Date f1 = partidas.get(i).getStartTime();
       Date f2 = partidas.get(i).getEndTime();
@@ -228,15 +233,17 @@ public class StatisticsService {
     Long max = 0L;
     Long avg = 0L;
 
-    for (int i = 0; i < misPartidas.size(); i++) {
-      Date f1 = misPartidas.get(i).getStartTime();
-      Date f2 = misPartidas.get(i).getEndTime();
-      TimeUnit time = TimeUnit.MINUTES;
-      Long m = f2.getTime() - f1.getTime();
-      long diffrence = time.convert(m, TimeUnit.MILLISECONDS);
+    if (misPartidas.size() > 0) {
+      for (int i = 0; i < misPartidas.size(); i++) {
+        Date f1 = misPartidas.get(i).getStartTime();
+        Date f2 = misPartidas.get(i).getEndTime();
+        TimeUnit time = TimeUnit.MINUTES;
+        Long m = f2.getTime() - f1.getTime();
+        long diffrence = time.convert(m, TimeUnit.MILLISECONDS);
 
-      l2.add(diffrence);
+        l2.add(diffrence);
 
+      }
     }
 
     Collections.sort(l2);
@@ -256,21 +263,23 @@ public class StatisticsService {
 
   public Map<String, Long> maxMinAvgTimeAll() {
 
-    List<Game> misPartidas = gameService.findAllGames();
+    List<Game> partidas = gameService.findAllGames();
     List<Long> l2 = new ArrayList<Long>();
     Long min = 0L;
     Long max = 0L;
     Long avg = 0L;
 
-    for (int i = 0; i < misPartidas.size(); i++) {
-      Date f1 = misPartidas.get(i).getStartTime();
-      Date f2 = misPartidas.get(i).getEndTime();
-      TimeUnit time = TimeUnit.MINUTES;
-      Long m = f2.getTime() - f1.getTime();
-      long diffrence = time.convert(m, TimeUnit.MILLISECONDS);
+    if (partidas.size() > 0) {
+      for (int i = 0; i < partidas.size(); i++) {
+        Date f1 = partidas.get(i).getStartTime();
+        Date f2 = partidas.get(i).getEndTime();
+        TimeUnit time = TimeUnit.MINUTES;
+        Long m = f2.getTime() - f1.getTime();
+        long diffrence = time.convert(m, TimeUnit.MILLISECONDS);
 
-      l2.add(diffrence);
+        l2.add(diffrence);
 
+      }
     }
 
     Collections.sort(l2);
