@@ -16,11 +16,8 @@ import BestAndWorstFigure from "./modules/figure/BestAndWorstFigure";
 import Ranking from "./modules/user/Ranking";
 import Friends from "./modules/friendship/Friends";
 import { useEffect, useState } from "react";
-import UserFrequency from "./modules/playedGames/UserFrequency";
 import AddFriend from "./modules/friendship/AddFriend";
 import AcceptFriend from "./modules/friendship/Notification";
-import PropGamesPlayed from "./modules/statistics/PropGamesPlayed";
-import PropTime from "./modules/statistics/PropTime";
 import AdminAchievement from "./modules/achievement/AdminAchievement";
 import CreateAchievement from "./modules/achievement/CreateAchievement";
 import Achievements from "./modules/achievement/Achievements";
@@ -28,9 +25,8 @@ import Forums from "./modules/forum/AllForums";
 import Forum from "./modules/forum/Forum";
 import NewForum from "./modules/forum/NewForum";
 import Foso from "./modules/general/Foso";
-import UserPoints from "./modules/playedGames/userPoints";
 import Profile from "./modules/user/Profile";
-import AdminPlayedGames from "./modules/game/AdminPlayedGames";
+import Stats from "./modules/general/Stats";
 import ErrorPage from "./modules/general/ErrorPage";
 import Auditory from "./modules/user/Auditory";
 
@@ -77,8 +73,7 @@ const Links = () => {
                 {role === "Player" ?
                     <div id="body" className="d-flex">
                         <ProfileNavbar />
-                        
-                        <Patata/>
+                        <Stats/>
                     </div>
                     : <>Access is restricted</>}
             </Route>

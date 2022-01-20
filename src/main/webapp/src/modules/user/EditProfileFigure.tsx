@@ -19,9 +19,9 @@ const EditProfileFigure = (props: any) => {
         var userData: any = localStorage.getItem("userData");
         if (userData !== null) userData = JSON.parse(userData)
         const playerId = userData.id
-        // figureAPI.getFigureById(2)
-        //     .then(data => setFigures(data))
-        //     .catch((err) => console.log(err));
+        const list: any[] = []
+        figureAPI.getFigureById(2)
+            .then(data => list.push(data))
         achievementAPI.getAllFigureAchivementsPlayer(playerId)
             .then((f: any[]) => {
                 setFigures(f);
