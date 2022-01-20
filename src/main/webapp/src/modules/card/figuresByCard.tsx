@@ -3,7 +3,7 @@ import figures from "../../images/figures/figures.js";
 import '../../App.css'
 import { Col, Row } from 'react-bootstrap';
 import movimiento from '../game/movimiento';
-import cardAPI from './cardAPI.js';
+import cardAPI from './cardAPI';
 
 //<FiguresByCard id='19'/>
 
