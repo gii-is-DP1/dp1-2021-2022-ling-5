@@ -68,6 +68,7 @@ public class StatisticsServiceTests {
         res.add(r5);
         res.add(r4);
         res.add(r6);
+        assertEquals(statisticsService.getTop10Ranking(), res);
 
     }
 
