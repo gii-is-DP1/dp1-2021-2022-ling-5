@@ -54,13 +54,13 @@ function NewGame() {
       <Form>
         <Form.Group className="mb-3">
           <Form.Label>Game's name</Form.Label>
-          <Form.Control placeholder="Enter name" onChange={(e) => setGame({ ...game, name: e.target.value })} />
+          <Form.Control placeholder="Enter name" required onChange={(e) => setGame({ ...game, name: e.target.value })} />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Choose minigame</Form.Label>
 
-          <Form.Control as="select" onChange={(e) => setMinigame(e.target.value)}>
+          <Form.Control as="select" required onChange={(e) => setMinigame(e.target.value)}>
             <option value="N/A"> Choose game mode </option>
             <option value='1' >Minigame 1</option>
             <option value='2'>Minigame 2</option>

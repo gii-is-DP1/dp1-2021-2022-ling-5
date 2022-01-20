@@ -50,42 +50,42 @@ class Register extends
                         <Form.Label>
                             Name:
                         </Form.Label>
-                        <Form.Control type="text" name="name" value={this.state.name} onChange={this.handleChange}></Form.Control>
+                        <Form.Control required minLength={3} maxLength={50} type="text" name="name" value={this.state.name} onChange={this.handleChange}></Form.Control>
                     </Form.Group>
                 </Row>
                 <Row className="text-center">
                     <div className="col-md-4"></div>
                     <Form.Group className="col-md-4">
                         <Form.Label>Surname: </Form.Label>
-                        <Form.Control type="text" name="surname" value={this.state.surname} onChange={this.handleChange}></Form.Control>
+                        <Form.Control required minLength={3} maxLength={50} type="text" name="surname" value={this.state.surname} onChange={this.handleChange}></Form.Control>
                     </Form.Group>
                 </Row>
                 <Row className="text-center">
                     <div className="col-md-4"></div>
                     <Form.Group className="col-md-4">
                         <Form.Label>Email: </Form.Label>
-                        <Form.Control type="text" name="email" value={this.state.email} onChange={this.handleChange}></Form.Control>
+                        <Form.Control required type="email" minLength={3} maxLength={50} name="email" value={this.state.email} onChange={this.handleChange}></Form.Control>
                     </Form.Group>
                 </Row>
                 <Row className="text-center">
                     <div className="col-md-4"></div>
                     <Form.Group className="col-md-4">
                         <Form.Label>Nickname: </Form.Label>
-                        <Form.Control type="text" name="nickname" value={this.state.nickname} onChange={this.handleChange}></Form.Control>
+                        <Form.Control required  type="text" minLength={3} maxLength={50} name="nickname" value={this.state.nickname} onChange={this.handleChange}></Form.Control>
                     </Form.Group>
                 </Row>
                 <Row className="text-center">
                     <div className="col-md-4"></div>
                     <Form.Group className="col-md-4">
                         <Form.Label>Password: </Form.Label>
-                        <Form.Control type="password" name="password" value={this.state.password} onChange={this.handleChange}></Form.Control>
+                        <Form.Control required type="password" name="password" value={this.state.password} onChange={this.handleChange}></Form.Control>
                     </Form.Group>
                 </Row>
                 <Row className="text-center">
                     <div className="col-md-4"></div>
                     <Form.Group className="col-md-4">
                         <Form.Label>Repeat password: </Form.Label>
-                        <Form.Control type="password" name="password2" value={this.state.password2} onChange={this.handleChange}></Form.Control>
+                        <Form.Control required type="password" name="password2" value={this.state.password2} onChange={this.handleChange}></Form.Control>
                     </Form.Group>
                 </Row>
                 <Row>

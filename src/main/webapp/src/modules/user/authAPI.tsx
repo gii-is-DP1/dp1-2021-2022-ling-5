@@ -17,8 +17,7 @@ const authApi = {
         const requestOptions = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(formData),
-            'credentials':'include' as RequestCredentials
+            body: JSON.stringify(formData)
         };
         return new Promise<any>(function(resolve, reject){
             fetch('http://localhost:8080/api/register', requestOptions)

@@ -1,10 +1,12 @@
 package com.example.accessingdatamysql.statistics;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 public class Ranking {
     private String imageName;
     private String nickname;
@@ -15,4 +17,7 @@ public class Ranking {
         this.nickname = nickname;
         this.points = points;
     }
+
+
+
 }
