@@ -2,6 +2,9 @@ package com.example.accessingdatamysql.ongoingfoso;
 
 import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.game.Game;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,11 +22,13 @@ public class OnGoingFosoRepository {
     }
   }
 
+  @Transactional
   public void createGame(Long gameId, Game game, Iterable<Card> cards) {
     OnGoingFoso onGoingFoso = new OnGoingFoso(gameId, game, cards);
     ongoinggames.put(gameId, onGoingFoso);
   }
 
+  @Transactional
   public void changeCards(Long playerId, Long gameId) {
     OnGoingFoso onGoingFoso = ongoinggames.get(gameId);
     Card newCard = ongoinggames.get(gameId).getPlayerCard().get(playerId);
@@ -60,18 +65,22 @@ public class OnGoingFosoRepository {
     }
   }
 
+  @Transactional
   public Card getPlayerCard(Long gameId, Long playerId) {
     return ongoinggames.get(gameId).getPlayerCard().get(playerId);
   }
 
+  @Transactional
   public Card getCenterCard(Long gameId) {
     return ongoinggames.get(gameId).getCurrentCard();
   }
 
+  @Transactional
   public int getPoints(Long gameId, Long playerId) {
     return ongoinggames.get(gameId).getPoints().get(playerId);
   }
 
+  @Transactional
   public void addPoints(Long gameId, Long playerId, Integer points) {
     ongoinggames
       .get(gameId)
@@ -82,10 +91,12 @@ public class OnGoingFosoRepository {
       );
   }
 
+  @Transactional
   public OnGoingFoso getGame(Long gameId) {
     return ongoinggames.get(gameId);
   }
 
+  @Transactional
   public Iterable<OnGoingFoso> getAllOnGoingGames() {
     List<OnGoingFoso> ongoing = new ArrayList<OnGoingFoso>();
     for (Entry<Long, OnGoingFoso> e : ongoinggames.entrySet()) {
@@ -94,10 +105,12 @@ public class OnGoingFosoRepository {
     return ongoing;
   }
 
+  @Transactional
   public void deleteGame(Long gameId) {
     ongoinggames.remove(gameId);
   }
 
+  @Transactional
   public List<Long> getPositions(Long gameId) {
     return ongoinggames.get(gameId).getOrden();
   }

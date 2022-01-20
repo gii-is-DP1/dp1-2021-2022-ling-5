@@ -9,19 +9,20 @@ import java.util.Random;
 import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.game.Game;
 import com.example.accessingdatamysql.user.Player;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Transactional
 public class OnGoingFoso{
 
     private List<Player> players;
-    @JsonIgnore
-    private List<Card> remainingCards;
+    private List<Card> remainingCards;  
     private Map<Long, Card> playerCard;
     private Map<Long, Integer> points;
     private Card currentCard;
