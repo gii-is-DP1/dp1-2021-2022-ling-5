@@ -1,26 +1,24 @@
-// package com.example.accessingdatamysql.auditor;
+package com.example.accessingdatamysql.auditor;
 
-// import java.util.Optional;
+import java.util.Optional;
 
-// import org.springframework.data.domain.AuditorAware;
-// import org.springframework.security.authentication.AnonymousAuthenticationToken;
-// import org.springframework.security.core.Authentication;
-// import org.springframework.security.core.context.SecurityContextHolder;
-// import org.springframework.stereotype.Component;
+import javax.servlet.http.HttpSession;
 
-// @Component
-// public class AuditorAwareImpl implements AuditorAware<String>{
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
-//     @Override
-//     public Optional<String> getCurrentAuditor() {
-//         Optional<String> currentUserName = Optional.empty();
-//         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//         if(!(authentication instanceof AnonymousAuthenticationToken)){
-//             currentUserName = Optional.of(authentication.getName());
-//         }else if(authentication!=null){
-//             currentUserName=Optional.of(authentication.getPrincipal().toString());
-//         }
-//         return currentUserName;
-//     }
+@Component
+public class AuditorAwareImpl implements AuditorAware<String> {
 
-// }
+    @Override
+    public Optional<String> getCurrentAuditor() {
+        HttpSession s = (HttpSession) RequestContextHolder
+                .currentRequestAttributes()
+                .resolveReference(RequestAttributes.REFERENCE_SESSION);
+        System.out.println(((String) s.getAttribute("nickname")));
+        return Optional.of((String) s.getAttribute("nickname"));
+    }
+
+}

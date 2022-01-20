@@ -21,10 +21,7 @@ const EditUser = () => {
         }
 
         userAPI.addNewUser(player, "player").then((pl: any) => {
-            fetch('http://localhost:8080/api/players/' + pl.id + '/addfigures', requestOptions)
-                .then(res => console.log(res))
-                .catch(error => console.log(error));
-            window.location.href = '/users';
+            userAPI.addFiguresToPlayers(player.id);
         }).catch(err => console.log(err));
 
     }

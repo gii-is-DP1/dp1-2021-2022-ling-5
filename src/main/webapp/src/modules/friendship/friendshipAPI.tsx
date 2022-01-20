@@ -4,7 +4,8 @@ const friendshipAPI = {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(friendship)
+            body: JSON.stringify(friendship),
+            'credentials':'include' as RequestCredentials
         }
 
         return await fetch(`http://localhost:8080/api/players/requester/${requesterId}/requested/${requestedId}/friendships`, requestOptions)
@@ -43,7 +44,8 @@ const friendshipAPI = {
 
     deleteFriendship(friendshipId: number) {
         const requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
         };
 
         return new Promise(function (resolve, reject) {
@@ -57,7 +59,8 @@ const friendshipAPI = {
 
     deleteAllFriendships() {
         const requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
         };
 
         return new Promise(function (resolve, reject) {
@@ -71,7 +74,8 @@ const friendshipAPI = {
 
     deleteAllFriendshipsByRequester(playerId: number) {
         const requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
         };
 
         return new Promise(function (resolve, reject) {
@@ -85,7 +89,8 @@ const friendshipAPI = {
 
     deleteAllFriendshipsByRequested(playerId: number) {
         const requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
         };
 
         return new Promise(function (resolve, reject) {
@@ -101,7 +106,8 @@ const friendshipAPI = {
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newFriendship)
+            body: JSON.stringify(newFriendship),
+            'credentials':'include' as RequestCredentials
         }
 
         return await fetch(`http://localhost:8080/api/players/requested/${requestedId}/friendships/${friendshipId}`, requestOptions)
