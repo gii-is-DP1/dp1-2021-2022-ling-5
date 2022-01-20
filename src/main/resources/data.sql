@@ -14,8 +14,8 @@ insert into admin(id, email, name, nickname, password, surname, figure_id, role_
 
 -- Load of friendship
 
-insert into friendship(id, friendship_state, requested_id, requester_id) values(1, 1, 1, 2);
-insert into friendship(id, friendship_state, requested_id, requester_id) values(2, 0, 3, 1);
+insert into friendship(id, friendship_state, requested_id, requester_id) values(1, 1, 1, 2)
+insert into friendship(id, friendship_state, requested_id, requester_id) values(2, 0, 3, 1)
 
 -- Load of game
 
@@ -23,6 +23,11 @@ insert into game(id, creator, end_time, name, start_time, state, winner) values(
 insert into game(id, creator, end_time, name, start_time, state, winner) values(2,2,'2021-02-02 02:22:02','juegoDos','2021-02-02 02:02:02',2,null)
 insert into game(id, creator, end_time, name, start_time, state, winner) values(3,3,'2021-03-03 03:33:03','juegoTres','2021-03-03 03:03:03',2,null)
 insert into game(id, creator, end_time, name, start_time, state, winner) values(4,4,'2021-04-04 04:44:04','juegoCuatro','2021-04-04 04:04:04',2,null)
+insert into game(id, creator, end_time, name, start_time, state, winner) values(5,1, null,'juegoCinco','2021-04-01 04:04:04',1,null)
+
+-- Load of invitation
+
+insert into invitation(id, creation_date, game_id, requested_id, requester_id) values(1, '2021-05-05 01:11:01', 5, 3, 1)
 
 
 -- Load of role
@@ -163,9 +168,15 @@ INSERT INTO figure(id, name) VALUES (55, "vela")
 INSERT INTO figure(id, name) VALUES (56, "yinyan")
 INSERT INTO figure(id, name) VALUES (57, "zanahoria")
 
+
 -- Load of achievement
 INSERT INTO achievement(id, name, achievement_types, description, requirement, figure_id) VALUES(1,'Points10', 0, 'Accumulate 10 points', 10, 1)
 INSERT INTO achievement(id, name, achievement_types, description, requirement, figure_id) VALUES(2,'Points20', 0, 'Accumulate 20 points', 20, 2)
+
+
+-- Load of achievement into player
+INSERT INTO player_achievements(players_id, achievements_id) VALUES (1,1)
+
 
 -- Load of card
 
