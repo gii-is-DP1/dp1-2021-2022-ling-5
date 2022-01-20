@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import {  withRouter } from 'react-router-dom';
 import gameAPI from '../game/gameAPI';
 import userAPI from '../user/userAPI';
+import NewOnGoingGame from '../game/OnGoingFoso/OnGoingFosoNew';
+import {default as NewTorre} from '../game/OnGoingTorreInfernal/OnGoingTorreInfernalNew';
+import {default as NewRegalo} from '../game/OnGoingRegaloEnvenenado/OnGoingRegaloEnvenenadoNew';
 import { faUserFriends, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './StartGame.css';
@@ -15,6 +18,7 @@ import invitationAPI from '../friendship/InvitationAPI';
 function StartGame(props: any) {
   const id = props.match.params.id;
   const [players, setPlayers] = useState<any[]>([]);
+  const [minigame, setMinigame] = useState<any>();
   const [playerId, setPlayerId] = useState<number>();
   const [username, setUsername] = useState<any>();
   const [friends, setFriends] = useState<any[]>([]);
@@ -72,6 +76,31 @@ function StartGame(props: any) {
       }).catch((err) => console.log(err));
   }, [])
 
+  const info = {"gameId": id};
+
+  useEffect(()=>{
+    gameAPI.getGameMinigame(id)
+    .then((m:any)=>{
+      setMinigame(m)
+      switch(m.id){
+        case 1:
+          NewTorre(info)
+          .catch((err:any)=>console.log(err));
+          break;
+        case 2:
+          NewOnGoingGame(info)
+          .catch((err:any)=>console.log(err));
+          break;
+        case 3:
+          NewRegalo(info)
+          .catch((err:any)=>console.log(err));
+          break;
+      }
+    })
+    .catch((err)=>console.log(err));
+  },[])
+
+  if (!players || !minigame) return <p>Loading...</p>
   const inviteFriend = async () => {
     var userData: any = localStorage.getItem("userData");
     if (userData !== null) userData = JSON.parse(userData)
@@ -116,6 +145,9 @@ function StartGame(props: any) {
             <h4 key={index}>Player {el.id} {el.nickname}</h4>
           )}
 
+        <Button className="Button" size="lg" variant="dark" onClick={()=>window.location.href=`/game/${id}/${minigame.id}`}>
+          START
+        </Button>
         </ListGroup.Item >
         </ListGroup>
         
