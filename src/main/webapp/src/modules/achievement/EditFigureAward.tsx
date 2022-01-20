@@ -7,8 +7,7 @@ const EditFigureAward = (props: any) => {
 
     const edit = (id: number) => {
         achievementAPI.updateFigureAchievement(props.idAch, id)
-            .then((res) => window.location.href = '/adminAwards')
-            .catch((err) => console.log(err));
+            props.onChange(id - 1);
     }
 
     return (
