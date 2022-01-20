@@ -13,7 +13,7 @@ const EditUser = () => {
         playerState: "NO_PLAY"
     })
 
-    const newUser = () => {
+    const newUser = (event:any) => {
 
         const requestOptions = {
             method: 'POST',
@@ -23,33 +23,33 @@ const EditUser = () => {
         userAPI.addNewUser(player, "player").then((pl: any) => {
             userAPI.addFiguresToPlayers(player.id);
         }).catch(err => console.log(err));
-
+        event.preventDefault();
     }
 
     return (
-        <Form>
+        <Form onSubmit={newUser}>
             <Row>
                 <h3>New player</h3>
                 <Col>
                     <Form.Group className="mb-3" controlId="formBasicName">
                         <Form.Label>Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter name" onChange={(e) => setPlayer({ ...player, name: e.target.value })} />
+                        <Form.Control type="text" required minLength={3} maxLength={50} placeholder="Enter name" onChange={(e) => setPlayer({ ...player, name: e.target.value })} />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicSurname">
                         <Form.Label>Surname</Form.Label>
-                        <Form.Control type="text" placeholder="Enter surname" onChange={(e) => setPlayer({ ...player, surname: e.target.value })} />
+                        <Form.Control type="text" required minLength={3} maxLength={50} placeholder="Enter surname" onChange={(e) => setPlayer({ ...player, surname: e.target.value })} />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicNickname">
                         <Form.Label>Nickname</Form.Label>
-                        <Form.Control type="text" placeholder="Enter nickname" onChange={(e) => setPlayer({ ...player, nickname: e.target.value })} />
+                        <Form.Control type="text" required minLength={3} maxLength={50} placeholder="Enter nickname" onChange={(e) => setPlayer({ ...player, nickname: e.target.value })} />
                     </Form.Group>
                 </Col>
                 <Col>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" onChange={(e) => setPlayer({ ...player, email: e.target.value })} />
+                        <Form.Control type="email" required minLength={3} maxLength={50} placeholder="Enter email" onChange={(e) => setPlayer({ ...player, email: e.target.value })} />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -60,7 +60,7 @@ const EditUser = () => {
             </Row>
             <Row>
                 <div style={{ textAlign: "center" }} >
-                    <Button variant="primary" type="button" onClick={() => newUser()}>
+                    <Button variant="primary" type="submit">
                         Submit
                     </Button>
                 </div>

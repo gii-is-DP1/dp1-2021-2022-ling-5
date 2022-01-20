@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Card, Col, Row } from 'react-bootstrap';
 
 function UserPoints(props: any) {
   const [results, setResutls] = useState<any[]>([]);
@@ -22,15 +22,20 @@ function UserPoints(props: any) {
   let minigame3 = results[3];
 
   return (
-    <div>
-      <Row>
-        <Col>Total: {total}</Col>
-      </Row>
-      <Row>
-        <Col>Torre Infernal: {minigame1}</Col>
-        <Col>Foso: {minigame2}</Col>
-        <Col>Regalo Envenenado: {minigame3}</Col>
-      </Row>
+    <div >
+        <Card className="m-1">
+        <Card.Header as="h4">
+          Total points by minigame
+        </Card.Header>
+        <Card.Body>
+          <strong>Torre Infernal: {minigame1}</strong><Row/>
+          <strong>Foso: {minigame2}</strong><Row/>
+          <strong>Regalo Envenenado: {minigame3}</strong><Row/>
+        </Card.Body>
+        <Card.Footer>
+          <h5>Total: {total}</h5>
+        </Card.Footer>
+         </Card>
     </div>
   );
 }

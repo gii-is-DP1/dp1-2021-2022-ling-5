@@ -4,6 +4,7 @@ import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.card.CardService;
 import com.example.accessingdatamysql.game.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
 @Controller
 @RequestMapping("/api")
@@ -78,9 +81,13 @@ public class OnGoingTorreInfernalController {
   public @ResponseBody OnGoingTorreInfernal newCenterCard(
     @RequestBody RequestNewCard request,
     @PathVariable Long gameId
-  ) {
-    onGoinTorreInfernalService.newCenterCard(gameId, request);
-    return onGoinTorreInfernalService.getGame(gameId);
+  ) throws BadRequest{
+    try{
+      onGoinTorreInfernalService.newCenterCard(gameId, request);
+      return onGoinTorreInfernalService.getGame(gameId);
+    } catch(Error e){
+      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+    }
   }
 
   @PutMapping(

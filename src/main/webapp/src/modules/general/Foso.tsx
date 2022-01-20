@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import figures from "../../images/figures/figures";
 import GetPlayerCard from "../game/OnGoingFoso/OnGoingFosoGetPlayerCard";
@@ -10,7 +10,8 @@ import GetPoints from "../game/OnGoingFoso/OnGoingFosoGetPoints";
 import GetCenterCard from "../game/OnGoingFoso/OnGoingFosoGetCard";
 import NewCard from "../game/OnGoingFoso/OnGoingFosoChangeCard";
 import DeleteGame from "../game/OnGoingFoso/OnGoingFosoDelete";
-
+import "./Foso.css";
+import userAPI from "../user/userAPI";
 
 function Foso(props:any){
     const gameId = props.match.params.gameId;
@@ -19,6 +20,7 @@ function Foso(props:any){
     const[playerCard, setPlayerCard] = useState<any>();
     const[points, setPoints] = useState<any[]>();
     const[centerCard, setCenterCard] = useState<any>();
+
 
     useEffect(()=>{
         FindById(gameId)
@@ -38,6 +40,9 @@ function Foso(props:any){
             let points:any[] = [];
             for(let p of ps){
                 let name = p.nickname;
+                let user = p;
+                user.playerState = "PLAYING";
+                userAPI.updateUser(user, p.id, "player");
                 GetPoints(gameId, p.id)
                 .then((ps:any)=>{
                     let point = {name:'',points:0};
@@ -62,7 +67,19 @@ function Foso(props:any){
     let remaininglength = foso.remainingSize;
 
     if(remaininglength===0){
-        window.location.href = '';
+        window.location.href = '/';
+
+        gameAPI.getPlayersByGame(gameId)
+        .then((ps:any[])=>{
+            for(let p of ps){
+                let user = p;
+                user.playerState = "NO_PLAY";
+                userAPI.updateUser(user, p.id, "player");
+            }
+            setPoints(points);
+        })
+        .catch((err)=>console.log(err));
+        
         DeleteGame(gameId)
         .catch((err)=>console.log(err));
     }
@@ -74,9 +91,16 @@ function Foso(props:any){
     return(
         <div>
             <Row>
+                <p id="ptext">ON GOING FOSO </p>
+
                 {
                     points.map(p=>(
-                        <p>{p.name}: {p.points}</p>
+                        <Col className="align-items-start">
+                        <Card ><Card.Body>
+                            <div><strong>{p.name}: {p.points}</strong></div>
+                            </Card.Body></Card>
+                        </Col>
+                        
                     ))
                 }
             </Row>
