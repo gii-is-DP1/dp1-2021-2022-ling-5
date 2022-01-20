@@ -27,6 +27,7 @@ import NewForum from "./modules/forum/NewForum";
 import Foso from "./modules/general/Foso";
 import Profile from "./modules/user/Profile";
 import AdminPlayedGames from "./modules/game/AdminPlayedGames";
+import Stats from "./modules/general/Stats";
 
 const Links = () => {
     const [role, setRole] = useState<string | null>(null)
@@ -71,8 +72,7 @@ const Links = () => {
                 {role === "Player" ?
                     <div id="body" className="d-flex">
                         <ProfileNavbar />
-                        
-                        <Patata/>
+                        <Stats/>
                     </div>
                     : <>Access is restricted</>}
             </Route>
