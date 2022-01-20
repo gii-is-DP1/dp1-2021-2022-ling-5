@@ -1,3 +1,5 @@
+import { faTrashAlt, faUserMinus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { Form, Button,Col, Row, Card, ListGroup } from 'react-bootstrap';
 import {  withRouter } from 'react-router-dom';
@@ -69,6 +71,19 @@ function Forum(props: any) {
             }).catch((err: any) => console.log(err));
   }
 
+   async function deleteComment(commentId: any){
+    const requestOptions = {
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
+      };
+  
+      return await fetch(`http://localhost:8080/api/comment/${commentId}`, requestOptions)
+          .then(res => {
+              console.log(res)
+          })
+          .catch(error => console.log(error))
+  }
+
   return (
     <div id="page">
       <Row>
@@ -92,16 +107,25 @@ function Forum(props: any) {
             </Form>
             </Card.Body>
               {
-              ls.map(e => (
-              <ListGroup variant="flush">
-              <ListGroup.Item>
-                <img src={figureImg(e.user.figure.id)} width="50" height="50" alt="" /><strong>{e.user.nickname}</strong> 
-                <div>{e.text}</div>
-                <div><small className="text-muted ">{e.date}</small></div>
-              </ListGroup.Item>
-              </ListGroup>
-              ))
+              ls.map((e) => (
+                <Row>
+                  <Col> 
+                    <ListGroup variant="flush"> 
+                      <ListGroup.Item> 
+                        <img src={figureImg(e.user.figure.id)} width="50" height="50" alt="" /><strong>{e.user.nickname}</strong>  
+                        <div>{e.text}</div> 
+                        <div><small className="text-muted ">{e.date}</small></div> 
+                      </ListGroup.Item> 
+                    </ListGroup> 
+                  </Col> 
+                {
+                  //if (e.user.id === playerId) {
+                   // <Col>
+                  //    <Button style={{backgroundColor:"transparent", border:"none", color:"black"}} onClick={()=>deleteComment(e.id)} ><FontAwesomeIcon icon={faTrashAlt} /></Button>
+                  //  </Col>}
               }
+                </Row> 
+              ))}
           </Card>
         </Col>
       </Row>
