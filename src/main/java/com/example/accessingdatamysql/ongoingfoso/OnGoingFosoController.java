@@ -4,7 +4,9 @@ import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.card.CardService;
 import com.example.accessingdatamysql.game.GameService;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
 @Controller
 @RequestMapping("/api")
@@ -72,10 +76,14 @@ public class OnGoingFosoController {
   public @ResponseBody Card getNewCard(
     @PathVariable Long playerId,
     @PathVariable Long gameId
-  ) {
-    onGoinFosoService.addPoints(gameId, playerId, 1);
-    onGoinFosoService.changeCards(playerId, gameId);
-    return onGoinFosoService.getPlayerCard(gameId, playerId);
+  ) throws BadRequest{
+    try{
+      onGoinFosoService.addPoints(gameId, playerId, 1);
+      onGoinFosoService.changeCards(playerId, gameId);
+      return onGoinFosoService.getPlayerCard(gameId, playerId);
+    } catch(Error e){
+      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+    }
   }
 
   @GetMapping(value = "/ongoingFoso/{gameId}/positions")

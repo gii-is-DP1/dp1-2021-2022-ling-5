@@ -72,15 +72,16 @@ public class AccountController {
     @PostMapping(value = "/register")
     public @ResponseBody LogRegResponse registerUser(@RequestBody Player player, HttpServletRequest req) throws BadRequest {
         HttpSession session = req.getSession();
+        System.out.println(session);
         if (playerService.findByNickname(player.getNickname()).size() > 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nickname already taken");
         }
         player.setFigure(figureService.findFigure(3L).get());
         player.setRole(roleService.findRole(1L).get());
-        playerService.savePlayer(player);
-        Player newPlayer = playerService.findByNickname(player.getNickname()).get(0);
         String nickname = player.getNickname();
         session.setAttribute("nickname", nickname);
+        playerService.savePlayer(player);
+        Player newPlayer = playerService.findByNickname(player.getNickname()).get(0);
         return new LogRegResponse(newPlayer.getId(), "Player");
     }
 }
