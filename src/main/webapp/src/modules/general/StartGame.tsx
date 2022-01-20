@@ -142,18 +142,18 @@ function StartGame(props: any) {
         <ListGroup variant="flush">
           <ListGroup.Item>
           {players.map((el, index) =>
-            <h4 key={index}>Player {el.id} {el.nickname}</h4>
+            <h4 key={index}>Player {index+1}: {el.nickname}</h4>
           )}
 
-        <Button className="Button" size="lg" variant="dark" onClick={()=>window.location.href=`/game/${id}/${minigame.id}`}>
-          START
-        </Button>
+        
         </ListGroup.Item >
         </ListGroup>
         
       </Form>
 
-      <Button className="Button" size="lg" variant="dark"> START </Button>
+      <Button className="Button" size="lg" variant="dark" onClick={()=>window.location.href=`/game/${id}/${minigame.id}`}>
+          START
+        </Button>
 
       <Modal show={show} onHide={handleClose} >
             <Modal.Header closeButton>            
