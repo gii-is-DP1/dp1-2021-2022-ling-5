@@ -3,6 +3,7 @@ package com.example.accessingdatamysql.statistics;
 import com.example.accessingdatamysql.figure.Figure;
 import com.example.accessingdatamysql.game.Game;
 import com.example.accessingdatamysql.game.GameService;
+import com.example.accessingdatamysql.game.State;
 import com.example.accessingdatamysql.playerfigures.PlayerFigures;
 import com.example.accessingdatamysql.playerfigures.PlayerFiguresService;
 import com.example.accessingdatamysql.result.Result;
@@ -190,8 +191,8 @@ public class StatisticsService {
   }
 
   public Double propTiempo(Long playerId) {
-    List<Game> partidas = gameService.findAllGames();
-    List<Game> misPartidas = gameService.getGamesByPlayer(playerId);
+    List<Game> partidas = gameService.findAllGames().stream().filter(x->x.getState()==State.FINISHED).collect(Collectors.toList());
+    List<Game> misPartidas = gameService.getGamesByPlayer(playerId).stream().filter(x->x.getState()==State.FINISHED).collect(Collectors.toList());
     List<Double> l1 = new ArrayList<Double>();
     List<Double> l2 = new ArrayList<Double>();
     if (partidas.size() == 0)
@@ -227,7 +228,7 @@ public class StatisticsService {
 
   public Map<String, Long> maxMinAvgTime(Long playerId) {
 
-    List<Game> misPartidas = gameService.getGamesByPlayer(playerId);
+    List<Game> misPartidas = gameService.getGamesByPlayer(playerId).stream().filter(x->x.getState()==State.FINISHED).collect(Collectors.toList());
     List<Long> l2 = new ArrayList<Long>();
     Long min = 0L;
     Long max = 0L;
@@ -263,7 +264,7 @@ public class StatisticsService {
 
   public Map<String, Long> maxMinAvgTimeAll() {
 
-    List<Game> partidas = gameService.findAllGames();
+    List<Game> partidas = gameService.findAllGames().stream().filter(x->x.getState()==State.FINISHED).collect(Collectors.toList());
     List<Long> l2 = new ArrayList<Long>();
     Long min = 0L;
     Long max = 0L;
