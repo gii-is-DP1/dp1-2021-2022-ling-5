@@ -62,7 +62,7 @@ function Foso(props:any){
     let remaininglength = foso.remainingSize;
 
     if(remaininglength===0){
-        window.location.href = '';
+        window.location.href = '/';
         DeleteGame(gameId)
         .catch((err)=>console.log(err));
     }
