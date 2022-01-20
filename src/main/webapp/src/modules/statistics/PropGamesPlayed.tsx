@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Badge, Col, Container, Row } from "react-bootstrap";
+import { Badge, Card, Col, Container, Row } from "react-bootstrap";
 import ChartsPage from "./ChartsPage";
 
 const PropGamesPlayed = () => {
@@ -34,7 +34,8 @@ const PropGamesPlayed = () => {
 
     if (playerId === undefined || propTotal === undefined || minMaxAvg === undefined || minMaxAvgAll === undefined) return <></>
 
-    return <Container id="container">
+    return <Container >
+        <Card className="m-1">
         <h4>Ratio of games played to total number of games played: {propTotal}</h4>
         <br />
         <Row >
@@ -57,6 +58,7 @@ const PropGamesPlayed = () => {
                 <strong>Average points</strong>: {minMaxAvgAll.avg.toFixed(2)}
             </Col>
         </Row>
+        </Card>
     </Container>
 }
 export default PropGamesPlayed;
