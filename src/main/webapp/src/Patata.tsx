@@ -4,7 +4,7 @@ import figures from "./images/figures/figures";
 import icons from "./images/icons/icons";
 import BestAndWorstFigure from "./modules/figure/BestAndWorstFigure";
 import UserFrequency from "./modules/playedGames/UserFrequency";
-import UserPoints from "./modules/playedGames/UserPoints";
+import UserPoints from "./modules/playedGames/userPoints";
 import PropGamesPlayed from "./modules/statistics/PropGamesPlayed";
 import PropTime from "./modules/statistics/PropTime";
 import Ranking from "./modules/user/Ranking";
