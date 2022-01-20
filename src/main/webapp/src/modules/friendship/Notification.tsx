@@ -4,6 +4,8 @@ import friendshipAPI from "./friendshipAPI";
 import userAPI from "../user/userAPI";
 import invitationAPI from "./InvitationAPI";
 
+import './Notification.css';
+
 const Notification = () => {
 
     var userData: any = localStorage.getItem("userData");
@@ -29,8 +31,9 @@ const Notification = () => {
             .then((inv: any[]) => {
                 for (let i = 0; i < inv.length; i++) {
                     const invi = inv[i];
-                    if (invi.requester.id.equals(playerId) || (invi.requested.id.equals(playerId))) {
+                    if (invi.requester.id == playerId || invi.requested.id == playerId) {
                         ivitationList.push(invi)
+                        console.log((invi.creationDate).toString)
                     }
                 } setInvitation(ivitationList)
         }).catch(err => console.log(err));
@@ -54,7 +57,8 @@ const Notification = () => {
             .catch((err) => console.log(err));
     }
 
-    return <Container id="container" >
+
+    return <Container id="page" >
         {friendship.map((e, ind) => (
             <Toast>
                 <Toast.Header >
@@ -63,22 +67,25 @@ const Notification = () => {
                     <small>Friendship {ind + 1}</small>
                 </Toast.Header>
                 <Toast.Body>"{e.requester.nickname}" has requested to be friends!</Toast.Body>
-                <Button variant="outline-danger" type="button" onClick={() => rejectFriend(e.id)}>
+                <div className="d-flex justify-content-center">
+<Button  variant="outline-danger" type="button" onClick={() => rejectFriend(e.id)}>
                     Decline
                 </Button>
                 <Button variant="dark" type="button" onClick={() => acceptFriend(e.id, e.requester.nickname)}>
                     Accept
                 </Button>
+                </div>
+                
             </Toast>
         ))}
         {invitation.map((e, ind) => (
             <Toast>
                 <Toast.Header >
                     <i className="fas fa-user-plus"></i>
-                    <strong className="me-auto">You have a new invitation to join a game</strong>
-                    <small>{e.createdDate}</small>
+                    <strong className="me-auto">New invitation </strong>
+                    <small>{e.creationDate}</small>
                 </Toast.Header>
-                <Toast.Body>"{e.requester.nickname}" has requested to join the game {e.game.name}</Toast.Body>
+                <Toast.Body>"{e.requester.nickname}" has requested to join the game "{e.game.name}"</Toast.Body>
             </Toast>
         ))}
 

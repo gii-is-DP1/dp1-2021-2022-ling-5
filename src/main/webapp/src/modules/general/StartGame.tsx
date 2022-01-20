@@ -27,34 +27,36 @@ function StartGame(props: any) {
   const handleShow = () => setShow(true);
 
   const getFriends = async () => {
-      var userData: any = localStorage.getItem("userData");
-      var id = 0;
+    var userData: any = localStorage.getItem("userData");
+    var id = 0;
+    if (userData !== null) {
+      userData = JSON.parse(userData);
       if (userData !== null) {
-          userData = JSON.parse(userData);
-          if (userData !== null) {
-              setPlayerId(userData.id)
-              id = userData.id
-          }
+        setPlayerId(userData.id)
+        id = userData.id
+        console.log(id)
       }
-      if (id !== 0) {
-          const friendsList: any[] = []
-          const friendsByRequested = await friendshipAPI.getAllFriendshipsByRequested(id);
-          const friendsByRequester = await friendshipAPI.getAllFriendshipsByRequester(id);
-          friendsByRequested.map((el: any) => {
-              if (el.state === "FRIENDS") friendsList.push(el);
-          });
-          friendsByRequester.map((el: any) => {
-              if (el.state === "FRIENDS") friendsList.push(el);
-          });
-          setFriends(friendsList);
-      }
+    }
+    if (id !== 0) {
+      const friendsList: any[] = []
+      const friendsByRequested = await friendshipAPI.getAllFriendshipsByRequested(id);
+      const friendsByRequester = await friendshipAPI.getAllFriendshipsByRequester(id);
+      console.log(friendsByRequested);
+      console.log(friendsByRequester);
+      friendsByRequested.map((el: any) => {
+        if (el.state === "FRIENDS") friendsList.push(el);
+        });
+        console.log(friendsList)
+      friendsByRequester.map((el: any) => {
+        if (el.state === "FRIENDS") friendsList.push(el);
+        });
+      setFriends(friendsList);
+      console.log(friendsList)      
+    }
   }
-    useEffect(() => {
-        getFriends()
-
-    }, [friends])
   
   useEffect(() => {
+    getFriends()
     gameAPI.getPlayersByGame(id)
       .then((pls: any[]) => {
         setPlayers(pls);
@@ -73,16 +75,17 @@ function StartGame(props: any) {
   const inviteFriend = async () => {
     var userData: any = localStorage.getItem("userData");
     if (userData !== null) userData = JSON.parse(userData)
-    const id = userData.id
+    const playerId = userData.id
 
     const data = await userAPI.getPlayerByNickname(username);
     const game = await gameAPI.getGameById(id);
-    
-    const invitation = {game: game, requester: userData, requested:data};
+    const event = new Date(Date.now());
+    const creationDate = event.toJSON();
+    const invitation = {createdDate: creationDate , game: game, requester: userData, requested:data};
 
     for (let i = 0; i < friends.length; i++) {
-      if (friends[i].requester.nickname.equals(username) || friends[i].requested.nickname.equals(username)){
-          invitationAPI.addInvitation(invitation, id, data.id).then(res =>
+      if (friends[i].requester.nickname === username || friends[i].requested.nickname === username){
+          invitationAPI.addInvitation(invitation, playerId, data.id).then(res =>
                 window.location.href = '/friends'
             ).catch(err => console.log(err));
       }
@@ -131,8 +134,8 @@ function StartGame(props: any) {
               </Form.Group>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="outline-secondary" onClick={() => inviteFriend()}> Cancel </Button>
-                <Button variant="dark" onClick={handleClose}> Send invitation </Button>
+                <Button variant="outline-secondary" onClick={handleClose}> Cancel </Button>
+                <Button variant="dark" onClick={() => inviteFriend()}> Send invitation </Button>
             </Modal.Footer>
         </Modal>
 

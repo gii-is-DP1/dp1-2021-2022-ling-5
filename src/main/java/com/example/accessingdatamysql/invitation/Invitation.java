@@ -41,7 +41,7 @@ public class Invitation extends BaseEntity {
     }
 
     public Invitation() {
-        ;
+
         this.creationDate = LocalDateTime.now();
     }
 
