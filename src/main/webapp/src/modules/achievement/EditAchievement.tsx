@@ -15,11 +15,12 @@ const EditAchievement = (props: any) => {
         setModalShow(false);
     }
     
-    const edit = () => {
+    const edit = (event:any) => {
         console.log(achievement);
         achievementAPI.updateAchievement(achievement, props.idUser)
             .then((res) => window.location.href = '/adminAwards')
             .catch((err) => console.log(err));
+        event.preventDefault();
     }
 
     useEffect(() => {
@@ -32,6 +33,7 @@ const EditAchievement = (props: any) => {
     }, [props.idUser])
 
     return (
+        <Form onSubmit={edit}>
         <Modal
             show={props.show}
             onHide={props.onHide}
@@ -97,10 +99,11 @@ const EditAchievement = (props: any) => {
                 </>) : <p>Loading...</p>}
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={() => edit()}>Submit changes</Button>
+                <Button type="submit">Submit changes</Button>
                 <Button onClick={props.onHide}>Close</Button>
             </Modal.Footer>
         </Modal >
+        </Form>
     )
 
 

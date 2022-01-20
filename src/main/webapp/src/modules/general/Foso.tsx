@@ -11,6 +11,7 @@ import GetCenterCard from "../game/OnGoingFoso/OnGoingFosoGetCard";
 import NewCard from "../game/OnGoingFoso/OnGoingFosoChangeCard";
 import DeleteGame from "../game/OnGoingFoso/OnGoingFosoDelete";
 import "./Foso.css";
+import userAPI from "../user/userAPI";
 
 function Foso(props:any){
     const gameId = props.match.params.gameId;
@@ -39,6 +40,9 @@ function Foso(props:any){
             let points:any[] = [];
             for(let p of ps){
                 let name = p.nickname;
+                let user = p;
+                user.playerState = "PLAYING";
+                userAPI.updateUser(user, p.id, "player");
                 GetPoints(gameId, p.id)
                 .then((ps:any)=>{
                     let point = {name:'',points:0};
@@ -64,6 +68,18 @@ function Foso(props:any){
 
     if(remaininglength===0){
         window.location.href = '/';
+
+        gameAPI.getPlayersByGame(gameId)
+        .then((ps:any[])=>{
+            for(let p of ps){
+                let user = p;
+                user.playerState = "NO_PLAY";
+                userAPI.updateUser(user, p.id, "player");
+            }
+            setPoints(points);
+        })
+        .catch((err)=>console.log(err));
+        
         DeleteGame(gameId)
         .catch((err)=>console.log(err));
     }
