@@ -27,8 +27,6 @@ public class OnGoingTorreInfernalController {
   @Autowired
   private CardService cardService;
 
-  // curl -H "Content-Type: application/json" -X POST
-  // localhost:8080/api/ongoingTorreInfernal -d "{\"gameId\":1}"
   @PostMapping(value = "/ongoingTorreInfernal")
   public @ResponseBody OnGoingTorreInfernal createGame(
     @RequestBody Request request

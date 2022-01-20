@@ -31,7 +31,7 @@ public class PlayerFiguresController {
     @Autowired
     private FigureService figureService;
 
-    @PostMapping(value = "/players/{playerId}/addfigures") // Map ONLY POST Requests
+    @PostMapping(value = "/players/{playerId}/addfigures") 
     public @ResponseBody void addNewPlayerFigures(@PathVariable Long playerId) {
         Optional<Player> player = this.playerService.findPlayer(playerId);
         if (player.isPresent()) {
@@ -39,7 +39,7 @@ public class PlayerFiguresController {
         }
     }
 
-    @PostMapping(value = "/figure/{figureId}/players/{playerId}/playerfigures") // Map ONLY POST Requests
+    @PostMapping(value = "/figure/{figureId}/players/{playerId}/playerfigures") 
     public @ResponseBody PlayerFigures addNewResult(@RequestBody PlayerFigures result, @PathVariable Long figureId,
             @PathVariable Long playerId) {
         Optional<Figure> figure = this.figureService.findFigure(figureId);

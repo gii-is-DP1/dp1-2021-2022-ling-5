@@ -22,21 +22,21 @@ public class AccountService {
     return account;
   }
 
-  public Optional<Account> findAccount(Long id) {
+  public Optional<Account> findAccount(Long id) throws DataAccessException {
     return accountRepository.findById(id);
   }
 
-  public Iterable<Account> findAllAccounts() {
+  public Iterable<Account> findAllAccounts() throws DataAccessException {
     return accountRepository.findAll();
   }
 
   @Transactional
-  public void deleteAccount(Long id) {
+  public void deleteAccount(Long id) throws DataAccessException {
     accountRepository.deleteById(id);
   }
 
   @Transactional
-  public void deleteAllAccounts() {
+  public void deleteAllAccounts() throws DataAccessException {
     accountRepository.deleteAll();
   }
 }

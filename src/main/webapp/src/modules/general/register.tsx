@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Form, Row } from "react-bootstrap";
 import authApi from "../user/authAPI";
 import token from "../user/token";
+import userAPI from "../user/userAPI";
 
 class Register extends
     React.Component<{}, { name: string, surname: string, email: string, nickname: string, password: string, password2: string }>{
@@ -31,6 +32,7 @@ class Register extends
                     let id = logdata.id;
                     let rol = logdata.rol;
                     token.login(id, rol);
+                    userAPI.addFiguresToPlayers(id);
                 }
             }).catch(error => alert(error));
         } else {

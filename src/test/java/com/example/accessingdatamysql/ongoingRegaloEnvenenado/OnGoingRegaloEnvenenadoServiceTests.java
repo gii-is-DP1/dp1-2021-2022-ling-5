@@ -15,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -38,12 +39,15 @@ public class OnGoingRegaloEnvenenadoServiceTests {
         game = onGoingRegaloEnvenenadoService.getGame(2L);
     }
 
+    @Test
+    @Transactional(readOnly = true)
     void testGetById() {
         OnGoingRegaloEnvenenado game2 = onGoingRegaloEnvenenadoService.getGame(2L);
         assertEquals(game2.getPlayers(), game.getPlayers());
     }
 
     @Test
+    @Transactional
     void testcreateGame() {
         Long gameId = 1L;
         onGoingRegaloEnvenenadoService.createGame(gameId, gameService.findGame(gameId).get(),
@@ -56,24 +60,28 @@ public class OnGoingRegaloEnvenenadoServiceTests {
     }
 
     @Test
+    @Transactional(readOnly = true)
     void testgetPoints() {
         Integer points = onGoingRegaloEnvenenadoService.getGame(2L).getPoints().get(2L);
         assertEquals(points, onGoingRegaloEnvenenadoService.getPoints(2L, 2L));
     }
 
     @Test
+    @Transactional(readOnly = true)
     void testgetPlayerCard() {
         Card playerCard = onGoingRegaloEnvenenadoService.getGame(2L).getPlayerCard().get(2L);
         assertEquals(playerCard, onGoingRegaloEnvenenadoService.getPlayerCard(2L, 2L));
     }
 
     @Test
+    @Transactional(readOnly = true)
     void testgetCenterCard() {
         Card centerCard = onGoingRegaloEnvenenadoService.getGame(2L).getCurrentCard();
         assertEquals(centerCard, onGoingRegaloEnvenenadoService.getCenterCard(2L));
     }
 
     @Test
+    @Transactional
     void testnewCenterCard() {
         Card centerCard = onGoingRegaloEnvenenadoService.getGame(2L).getCurrentCard();
         RequestNewCard request = new RequestNewCard();
@@ -83,6 +91,7 @@ public class OnGoingRegaloEnvenenadoServiceTests {
     }
 
     @Test
+    @Transactional
     void testAddPoints() {
         onGoingRegaloEnvenenadoService.addPoints(2L, 2L, 10);
         Integer points = onGoingRegaloEnvenenadoService.getGame(2L).getPoints().get(2L);
@@ -90,6 +99,7 @@ public class OnGoingRegaloEnvenenadoServiceTests {
     }
 
     @Test
+    @Transactional
     void testDeleteGame() {
         Integer size = 0;
         for (OnGoingRegaloEnvenenado g : onGoingRegaloEnvenenadoService.getAll()) {

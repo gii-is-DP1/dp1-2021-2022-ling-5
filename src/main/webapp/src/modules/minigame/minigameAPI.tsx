@@ -4,7 +4,8 @@ const minigameAPI = {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(minigame)
+            body: JSON.stringify(minigame),
+            'credentials':'include' as RequestCredentials
         }
 
         return await fetch(`http://localhost:8080/api/minigames`, requestOptions)
@@ -43,7 +44,8 @@ const minigameAPI = {
 
     deleteAllMinigames() {
         const requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
         };
 
         return new Promise(function (resolve, reject) {
@@ -59,7 +61,8 @@ const minigameAPI = {
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newMinigame)
+            body: JSON.stringify(newMinigame),
+            'credentials':'include' as RequestCredentials
         }
 
         return await fetch(`http://localhost:8080/api/minigames/${minigameId}`, requestOptions)

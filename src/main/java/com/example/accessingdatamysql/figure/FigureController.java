@@ -26,7 +26,7 @@ public class FigureController {
     @Autowired
     private FigureService figureService;
 
-    @PostMapping(value = "/figures") // Map ONLY POST Requests
+    @PostMapping(value = "/figures") 
     public @ResponseBody Figure addNewFigure(@RequestBody Figure figure) {
         try {
             figure.setAdmins(new ArrayList<Admin>());

@@ -30,12 +30,12 @@ public class GameService {
   }
 
   @Transactional(readOnly = true)
-  public Optional<Game> findGame(Long id) {
+  public Optional<Game> findGame(Long id) throws DataAccessException {
     return gameRepository.findById(id);
   }
 
   @Transactional(readOnly = true)
-  public Optional<Game> findGameByName(String name) {
+  public Optional<Game> findGameByName(String name) throws DataAccessException {
     return StreamSupport
         .stream(gameRepository.findAll().spliterator(), false)
         .filter(game -> game.getName().equals(name))
@@ -43,24 +43,24 @@ public class GameService {
   }
 
   @Transactional(readOnly = true)
-  public List<Game> findAllGames() {
+  public List<Game> findAllGames() throws DataAccessException {
     return StreamSupport
         .stream(gameRepository.findAll().spliterator(), false)
         .collect(Collectors.toList());
   }
 
   @Transactional
-  public void deleteGame(Long id) {
+  public void deleteGame(Long id) throws DataAccessException {
     gameRepository.deleteById(id);
   }
 
   @Transactional
-  public void deleteAllGames() {
+  public void deleteAllGames() throws DataAccessException {
     gameRepository.deleteAll();
   }
 
   @Transactional(readOnly = true)
-  public List<Game> getGamesByPlayer(Long playerId) {
+  public List<Game> getGamesByPlayer(Long playerId) throws DataAccessException {
     List<Game> games = this.findAllGames();
     return games
         .stream()

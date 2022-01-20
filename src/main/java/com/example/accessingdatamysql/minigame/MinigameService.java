@@ -27,24 +27,24 @@ public class MinigameService {
   }
 
   @Transactional(readOnly = true)
-  public Optional<Minigame> findMinigame(Long id) {
+  public Optional<Minigame> findMinigame(Long id) throws DataAccessException {
     return minigameRepository.findById(id);
   }
-  
+
   @Transactional(readOnly = true)
-  public List<Minigame> findAllMinigames() {
+  public List<Minigame> findAllMinigames() throws DataAccessException {
     return StreamSupport
-      .stream(minigameRepository.findAll().spliterator(), false)
-      .collect(Collectors.toList());
+        .stream(minigameRepository.findAll().spliterator(), false)
+        .collect(Collectors.toList());
   }
 
   @Transactional
-  public void deleteMinigame(Long id) {
+  public void deleteMinigame(Long id) throws DataAccessException {
     minigameRepository.deleteById(id);
   }
 
   @Transactional
-  public void deleteAllMinigames() {
+  public void deleteAllMinigames() throws DataAccessException {
     minigameRepository.deleteAll();
   }
 }

@@ -18,7 +18,7 @@ public class AccessingDataMysqlApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/**").allowedOrigins("*").allowedMethods("PUT", "DELETE", "POST", "GET");
+				registry.addMapping("/api/**").allowedOrigins("http://localhost:3000").allowedMethods("PUT", "DELETE", "POST", "GET").allowedHeaders("*").allowCredentials(true);
 				;
 				
 

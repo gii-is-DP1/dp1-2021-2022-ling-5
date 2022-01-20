@@ -8,7 +8,7 @@ function App() {
     <div className="App-header">
       <Container>
         <Row>
-          <p>
+          <p id="title">
             Dobble
           </p>
         </Row>

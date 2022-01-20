@@ -27,7 +27,7 @@ public class CommentController {
     @Autowired
     private ForumService forumService;
 
-    @PostMapping(value = "/{playerId}/{forumId}") // Map ONLY POST Requests
+    @PostMapping(value = "/{playerId}/{forumId}")
     public @ResponseBody Comment addNewComment(@RequestBody Comment comment,@PathVariable Long playerId,@PathVariable Long forumId) {
         comment.setForum(forumService.findForum(forumId).get());
         comment.setUser(playerService.findPlayer(playerId).get());

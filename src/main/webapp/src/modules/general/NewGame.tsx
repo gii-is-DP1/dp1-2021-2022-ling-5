@@ -28,13 +28,9 @@ function NewGame() {
     gameAPI.addNewGame(game).then((gameCreated: any) => {
       setGameid(gameCreated.id);
       if (minigame && gameCreated.id !== undefined) {
-        if (minigame !== '4' && minigame !== 'N/A') {
+        if (minigame !== 'N/A') {
           var mg = parseInt(minigame);
           gameAPI.addNewMinigameToGame(gameCreated.id, mg);
-        } else {
-          gameAPI.addNewMinigameToGame(gameCreated.id, 1);
-          gameAPI.addNewMinigameToGame(gameCreated.id, 2);
-          gameAPI.addNewMinigameToGame(gameCreated.id, 3);
         }
         window.location.href = `/startGame/${gameCreated.id}`;
       }
@@ -69,7 +65,6 @@ function NewGame() {
             <option value='1' >Minigame 1</option>
             <option value='2'>Minigame 2</option>
             <option value='3'>Minigame 3</option>
-            <option value='4'>All minigames</option>
           </Form.Control>
         </Form.Group>
 
@@ -77,7 +72,7 @@ function NewGame() {
           CREATE
         </Button>
 
-        {gameid === undefined ? <p>This name already exists!</p> : <></>}
+        {/* {gameid === undefined ? <p>This name already exists!</p> : <></>} */}
       </Form>
     </div>
 

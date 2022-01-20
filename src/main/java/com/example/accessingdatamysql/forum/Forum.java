@@ -23,9 +23,12 @@ import lombok.Setter;
 @Entity
 public class Forum extends BaseEntity {
 
-    @Size(min = 3, max = 50)
+    public static final int MIN_SIZE = 3;
+    public static final int MAX_SIZE = 50;
+
+    @Size(min = MIN_SIZE, max = MAX_SIZE)
     @NotEmpty
-    @Column(name = "name", unique = true)
+    @Column(unique = true)
     private String name;
 
     @NotNull
