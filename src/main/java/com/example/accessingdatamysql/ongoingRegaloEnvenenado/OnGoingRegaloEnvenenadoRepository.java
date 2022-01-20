@@ -28,6 +28,7 @@ public class OnGoingRegaloEnvenenadoRepository {
         OnGoingRegaloEnvenenado onGoingRegaloEnvenenado = ongoinggames.get(gameId);
         Card currentCard = onGoingRegaloEnvenenado.getCurrentCard();
         onGoingRegaloEnvenenado.getPlayerCard().put(request.getPlayerId(), currentCard);
+        System.out.println(onGoingRegaloEnvenenado.getPlayerCard());
         if (onGoingRegaloEnvenenado.getRemainingCards().size() != 0) {
             Random random = new Random();
             int randomindex = random.ints(0, onGoingRegaloEnvenenado.getRemainingCards().size()).findFirst().getAsInt();

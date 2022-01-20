@@ -21,7 +21,7 @@ const EditUser = () => {
         }
 
         userAPI.addNewUser(player, "player").then((pl: any) => {
-            userAPI.addFiguresToPlayers(player.id);
+            userAPI.addFiguresToPlayers(pl.id);
         }).catch(err => console.log(err));
         event.preventDefault();
     }
