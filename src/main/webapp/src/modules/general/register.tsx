@@ -37,6 +37,7 @@ class Register extends
             }).catch(error => alert(error));
         } else {
             console.log("password doesn't match");
+            alert("Password doesn't match")
         }
         event.preventDefault();
     }
