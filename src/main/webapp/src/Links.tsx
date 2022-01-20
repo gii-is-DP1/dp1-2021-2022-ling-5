@@ -73,11 +73,22 @@ const Links = () => {
             </Route>
             <Route path='/stats'>
                 {role === "Player" ?
-                    <div id="body" className="d-flex"><ProfileNavbar />
-                        <StadisticsNavbar /></div>
+                    <div id="body" className="d-flex">
+                        <ProfileNavbar />
+                        
+                        <Patata/>
+                    </div>
                     : <>Access is restricted</>}
             </Route>
-            <Route path='/pointsByMinigame'>
+            <Route path='/ranking'>
+                {role === "Player" ?
+                    <div id="body" className="d-flex">
+                        <ProfileNavbar />
+                        <Ranking/>
+                    </div>
+                    : <>Access is restricted</>}
+             </Route>
+            {/*<Route path='/pointsByMinigame'>
                 {role === "Player" ?
                     <div id="body" className="d-flex">
                         <ProfileNavbar />
@@ -130,7 +141,7 @@ const Links = () => {
                         <PropTime />
                     </div>
                     : <>Access is restricted</>}
-            </Route>
+            </Route> */}
             <Route path='/games'>
                 {role === "Player" ?
                     <div id="body" className="d-flex">

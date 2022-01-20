@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Card, Col, Row } from 'react-bootstrap';
+import figureImg from '../../images/figures/figures.js';
 import figures from '../../images/figures/figures.js';
 
 function BestAndWorstFigure() {
@@ -26,18 +27,14 @@ function BestAndWorstFigure() {
   let worst = state[1];
   return (
     <div>
-      <Row>
-        <Col>
-          <h1>Most used:</h1>
-          <img src={figures(best.id - 1)} alt="Most used" width='50px' height='50px' />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <h1>Least used:</h1>
-          <img src={figures(worst.id - 1)} alt="Least used" width='50px' height='50px' />
-        </Col>
-      </Row>
+      <Card className="m-1">
+        <Card.Header as="h4">Figures</Card.Header>
+        <Card.Body>
+          <h5>Figure most found:</h5> <img src={figures(best.id - 1)} alt="Most used" width='50px' height='50px' /> <Row/>
+          <h5>Figure least found:</h5> <img src={figures(worst.id - 1)} alt="Least used" width='50px' height='50px' /> <Row/>
+        </Card.Body>
+      </Card>
+     
     </div>
   );
 }
