@@ -29,6 +29,7 @@ import Profile from "./modules/user/Profile";
 import Stats from "./modules/general/Stats";
 import ErrorPage from "./modules/general/ErrorPage";
 import Auditory from "./modules/user/Auditory";
+import AdminPlayedGames from "./modules/game/AdminPlayedGames";
 
 const Links = () => {
     const [role, setRole] = useState<string | null>(null)
