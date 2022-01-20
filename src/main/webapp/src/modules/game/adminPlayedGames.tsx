@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import resultAPI from '../result/resultAPI';
 
+import './AdminPlayedGames.css'
+
 function AdminPlayedGames() {
 
   const [results, setResults] = useState<any[]>()
@@ -32,10 +34,10 @@ function AdminPlayedGames() {
   }
 
   return (
-    <Container>
+    <Container id="page">
       <Row>
-        <Col>
-          <Row> <h1>Juegos en progreso</h1> </Row>
+        <Col >
+          <Row> <h1 id="ptitle">GAMES IN PROGRESS</h1> </Row>
           {
             en_progreso.map(e => (
               <Row>
@@ -45,7 +47,7 @@ function AdminPlayedGames() {
           }
         </Col>
         <Col>
-          <Row> <h1>Juegos jugados</h1> </Row>
+          <Row> <h1 id="ptitle">GAMES PLAYED</h1> </Row>
           {
             jugados.map(e => (
               <Row>

@@ -8,19 +8,17 @@ import NewGame from "./modules/general/NewGame";
 import JoinGame from "./modules/general/JoinGame";
 import PlayedGames from './modules/game/playedGames';
 import StartGame from "./modules/general/StartGame";
-import AdminPlayedGames from "./modules/game/adminPlayedGames";
 import AdminNavbar from "./modules/general/AdminNavbar";
 import UsersCRUD from "./modules/user/UsersCRUD";
 import StadisticsNavbar from "./modules/general/StadisticsNavbar";
 import CreateUser from "./modules/user/CreateUser";
-import UserPoints from "./modules/playedGames/UserPoints";
 import BestAndWorstFigure from "./modules/figure/BestAndWorstFigure";
 import Ranking from "./modules/user/Ranking";
 import Friends from "./modules/friendship/Friends";
 import { useEffect, useState } from "react";
 import UserFrequency from "./modules/playedGames/UserFrequency";
 import AddFriend from "./modules/friendship/AddFriend";
-import AcceptFriend from "./modules/friendship/AcceptFriend";
+import AcceptFriend from "./modules/friendship/Notification";
 import PropGamesPlayed from "./modules/statistics/PropGamesPlayed";
 import PropTime from "./modules/statistics/PropTime";
 import AdminAchievement from "./modules/achievement/AdminAchievement";
@@ -29,6 +27,10 @@ import Achievements from "./modules/achievement/Achievements";
 import Forums from "./modules/forum/AllForums";
 import Forum from "./modules/forum/Forum";
 import NewForum from "./modules/forum/NewForum";
+import Foso from "./modules/general/Foso";
+import UserPoints from "./modules/playedGames/UserPoints";
+import Profile from "./modules/user/Profile";
+import AdminPlayedGames from "./modules/game/adminPlayedGames";
 
 const Links = () => {
     const [role, setRole] = useState<string | null>(null)
@@ -52,6 +54,9 @@ const Links = () => {
             <Route path='/startGame/:id'>
                 <StartGame />
             </Route>
+            <Route path='/game/:gameId/2'>
+                <Foso />
+            </Route>
             <Route path='/notifications'>
                 <AcceptFriend />
             </Route>
@@ -63,7 +68,7 @@ const Links = () => {
                 {role === "Player" ?
                     <div id="body" className="d-flex">
                         <ProfileNavbar />
-                        <Patata /></div>
+                        <Profile /></div>
                     : <>Access is restricted</>}
             </Route>
             <Route path='/stats'>
@@ -152,14 +157,7 @@ const Links = () => {
                         <AddFriend /></div>
                     : <>Access is restricted</>}
             </Route>
-            <Route path='/gamesProgress'>
-                {role === "Admin" ?
-                    <div id="body" className="d-flex">
-                        <AdminNavbar />
-                        <Patata /></div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/gamesPlayed'>
+            <Route path='/gamesProgessAndPlayed'>
                 {role === "Admin" ?
                     <div id="body" className="d-flex"><AdminNavbar />
                         <AdminPlayedGames /></div>

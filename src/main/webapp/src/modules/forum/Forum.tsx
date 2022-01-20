@@ -112,8 +112,9 @@ function ClearFields(Controls: any) {
 
 =======
 import { useEffect, useState } from 'react';
-import { Form, Button,Col, Row } from 'react-bootstrap';
+import { Form, Button,Col, Row, Card, ListGroup } from 'react-bootstrap';
 import {  withRouter } from 'react-router-dom';
+import figureImg from '../../images/figures/figures';
 
 function Forum(props: any) {
     const forumId = props.match.params.id;
@@ -182,34 +183,41 @@ function Forum(props: any) {
   }
 
   return (
-    <div>
+    <div id="page">
       <Row>
         <Col>
-          <h1>{state.name}</h1>
+        <p id="ptitle">FORUM</p>
         </Col>
       </Row>
       <Row>
-        <Col>
-        <Form onSubmit={e => prevent(e)}>
-        <Form.Group className="mb-3">
-          <Form.Label>New Comment</Form.Label>
-          <Form.Control id="text" placeholder="Enter text" onChange={(e) => setComment({ ...comment, text: e.target.value })} />
-        </Form.Group>
-        <Button className="Button" size="lg" variant="dark" onClick={() => comentar()}>
-          Comment
-        </Button>
-        </Form>
+        <Col className="m-3">
+          <Card>
+            <Card.Header  as="h3">{state.name}</Card.Header >
+            <Card.Body>
+            <Form onSubmit={e => prevent(e)}>
+              <Form.Group className="mb-3">
+                <Form.Label>New Comment</Form.Label>
+                <Form.Control  as="textarea" rows={3} id="text" placeholder="Enter text" onChange={(e) => setComment({ ...comment, text: e.target.value })} />
+              </Form.Group>
+              <Button variant="dark" onClick={() => comentar()}>
+                Comment
+              </Button>
+            </Form>
+            </Card.Body>
+              {
+              ls.map(e => (
+              <ListGroup variant="flush">
+              <ListGroup.Item>
+                <img src={figureImg(e.user.figure.id -1)} width="50" height="50" alt="" /><strong>{e.user.nickname}</strong> 
+                <div>{e.text}</div>
+                <div><small className="text-muted ">{e.date}</small></div>
+              </ListGroup.Item>
+              </ListGroup>
+              ))
+              }
+          </Card>
         </Col>
       </Row>
-      {
-        ls.map(e => (
-            <Row>
-                <Col>
-                    <strong>{e.user.nickname}:</strong> {e.text}
-                </Col>
-            </Row>
-        ))
-        }
     </div>
   );
 }

@@ -1,9 +1,10 @@
 
-function NewOnGoingGame(formData: FormData){
+function NewOnGoingGame(formData: any){
     const requestOptions = {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
+        'credentials':'include' as RequestCredentials
     }
     return new Promise(function(resolve, reject){
         fetch(`http://localhost:8080/api/ongoingFoso`, requestOptions)

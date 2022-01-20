@@ -1,0 +1,17 @@
+.AllForums {
+  text-align: center;
+  background-color: #fdfd96;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  width: 100%;
+}
+
+#page {
+  background-color: #fdfd96;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  min-height: 100%;
+  width: 100%;
+}
