@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import figures from "../../images/figures/figures.js";
 import '../../App.css'
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import movimiento from '../game/movimiento';
 
 function NewForum() {
     const [playerId, setPlayerId] = useState<number>();
@@ -43,20 +41,23 @@ function NewForum() {
   }
 
   return (
-    <div>
+    <div id="page">
       <Row>
         <Col>
-          <h1>Add new forum</h1>
+        <p id="ptitle">FORUM</p>
+        
         </Col>
       </Row>
       <Row>
         <Col>
+        
         <Form onSubmit={e => prevent(e)}>
         <Form.Group className="mb-3">
-          <Form.Label>New Comment</Form.Label>
-          <Form.Control placeholder="Enter text" onChange={(e) => setForum({ ...forum, name: e.target.value })} />
+          <h3>Add a new forum</h3>
+          <Form.Label>New Discussion</Form.Label>
+          <Form.Control placeholder="Discussion's name" onChange={(e) => setForum({ ...forum, name: e.target.value })} />
         </Form.Group>
-        <Button className="Button" size="lg" variant="dark" onClick={() => anadir()}>
+        <Button className="Button" variant="dark" onClick={() => anadir()}>
           Add forum
         </Button>
         </Form>
