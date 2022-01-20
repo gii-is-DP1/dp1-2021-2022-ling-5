@@ -34,7 +34,7 @@ function Ranking() {
 
     return (
     <div className="container">
-        <h1>RANKING</h1>
+        <h1 id="ptitle">RANKING</h1>
         <h3>YOUR POSITION IS #{user.first} WITH {user.second.points} POINTS</h3>
 
         <Table striped bordered hover responsive="md">
@@ -50,7 +50,7 @@ function Ranking() {
                 <tr> 
                     <td>{ind+1}</td>
                      {/* <img src={figure(e.imageName)} width='15px' height='15px'/>  */}
-                    <td>{e.nickname}</td>
+                    <td>@{e.nickname}</td>
                     <td>{e.points}</td>
                 </tr> 
             ))}

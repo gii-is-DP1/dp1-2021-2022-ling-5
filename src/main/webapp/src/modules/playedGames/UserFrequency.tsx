@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Badge, Col, Row } from 'react-bootstrap';
+import { Badge, Card, Col, Row } from 'react-bootstrap';
 import ChartsPage from './ChartsPage';
 
 function UserFrequency() {
@@ -28,32 +28,38 @@ function UserFrequency() {
 
   console.log(frequency);
   return (
-    <div className="text-center">
-        
-      <Row>
-        
-        <Col> <Badge bg="primary"> </Badge> {' '}Frecuencia 2 jugadores: {f2} %</Col>
-      </Row>
-      <Row>
-        <Col><Badge bg="success"> </Badge> {' '}Frecuencia 3 jugadores: {f3}  %</Col>
-      </Row>
-      <Row>
-        <Col><Badge bg="secondary"> </Badge> {' '}Frecuencia 4 jugadores: {f4} %</Col>
-      </Row>
-      <Row>
-        <Col><Badge bg="info"> </Badge> {' '}Frecuencia 5 jugadores: {f5} %</Col>
-      </Row>
-      <Row>
-        <Col><Badge bg="warning"> </Badge> {' '}Frecuencia 6 jugadores: {f6} %</Col>
-      </Row>
-      <Row>
-        <Col><Badge bg="dark"> </Badge> {' '}Frecuencia 7 jugadores: {f7} %</Col>
-      </Row>
-      <Row>
-        <Col><Badge bg="danger"> </Badge> {' '}Frecuencia 8 jugadores: {f8} %</Col>
-      </Row>
+    <div><Card className="m-1">
 
-      <ChartsPage frequency={frequency} />
+    <Card.Body>
+        <h4>Ratio of games played to total number of players played </h4>
+        <Row className="text-center d-flex">
+        <Col>
+          <Row>
+            <Col> <Badge bg="primary"> </Badge> {' '}Frec with 2 players: {f2} %</Col>
+          </Row>
+          <Row>
+            <Col><Badge bg="success"> </Badge> {' '}Frec with 3 players: {f3}  %</Col>
+          </Row>
+          <Row>
+            <Col><Badge bg="secondary"> </Badge> {' '}Frec with 4 players: {f4} %</Col>
+          </Row>
+          <Row>
+            <Col><Badge bg="info"> </Badge> {' '}Frec with 5 players: {f5} %</Col>
+          </Row>
+          <Row>
+            <Col><Badge bg="warning"> </Badge> {' '}Frec 6 players: {f6} %</Col>
+          </Row>
+          <Row>
+            <Col><Badge bg="dark"> </Badge> {' '}Frecuencia 7 jugadores: {f7} %</Col>
+          </Row>
+          <Row>
+            <Col><Badge bg="danger"> </Badge> {' '}Frecuencia 8 jugadores: {f8} %</Col>
+          </Row>
+      </Col>
+        <Col><ChartsPage frequency={frequency}  width="10%" /></Col>
+      </Row>
+      </Card.Body>
+      </Card>
     </div>
   );
 }

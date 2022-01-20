@@ -9,7 +9,6 @@ import java.util.Random;
 import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.game.Game;
 import com.example.accessingdatamysql.user.Player;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Getter;
@@ -20,7 +19,6 @@ import lombok.Setter;
 public class OnGoingRegaloEnvenenado {
 
     private List<Player> players;
-    @JsonIgnore
     private List<Card> remainingCards;
     private Map<Long, Card> playerCard;
     private Map<Long, Integer> points;

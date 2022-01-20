@@ -5,6 +5,7 @@ import com.example.accessingdatamysql.card.CardService;
 import com.example.accessingdatamysql.game.GameService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
 @Controller
 @RequestMapping("/api")
@@ -61,9 +64,13 @@ public class OnGoingRegaloEnvenenadoController {
 
     @PutMapping(value = "/ongoingRegaloEnvenenado/{gameId}/card")
     public @ResponseBody OnGoingRegaloEnvenenado newCenterCard(@RequestBody RequestNewCard request,
-            @PathVariable Long gameId) {
-        onGoingRegaloEnvenenadoService.newCenterCard(gameId, request);
-        return onGoingRegaloEnvenenadoService.getGame(gameId);
+            @PathVariable Long gameId) throws BadRequest {
+        try{
+            onGoingRegaloEnvenenadoService.newCenterCard(gameId, request);
+            return onGoingRegaloEnvenenadoService.getGame(gameId);
+        } catch(Error e){
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping(value = "/players/{playerId}/ongoingRegaloEnvenenado/{gameId}/points")

@@ -85,7 +85,7 @@ function Forum(props: any) {
   }
 
   return (
-    <div id="page">
+    <div>
       <Row>
         <Col>
           <p id="ptitle">FORUM</p>
@@ -99,7 +99,7 @@ function Forum(props: any) {
               <Form onSubmit={e => prevent(e)}>
                 <Form.Group className="mb-3">
                   <Form.Label>New Comment</Form.Label>
-                  <Form.Control as="textarea" rows={3} id="text" placeholder="Enter text" onChange={(e) => setComment({ ...comment, text: e.target.value })} />
+                  <Form.Control as="textarea" maxLength={147} rows={3} id="text" placeholder="Enter text" onChange={(e) => setComment({ ...comment, text: e.target.value })} />
                 </Form.Group>
                 <Button variant="dark" onClick={() => comentar()}>
                   Comment
@@ -127,6 +127,15 @@ function Forum(props: any) {
           </Card>
         </Col>
       </Row>
+      {
+        ls.map(e => (
+            <Row>
+                <Col>
+                    <strong>{e.user.nickname}:</strong> {e.text}
+                </Col>
+            </Row>
+        ))
+        }
     </div>
   );
 }
@@ -135,4 +144,3 @@ export default withRouter(Forum);
 function ClearFields(Controls: any) {
   throw new Error('Function not implemented.');
 }
-

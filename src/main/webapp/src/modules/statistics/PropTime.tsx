@@ -24,7 +24,7 @@ const PropTime = () => {
         fetch(`http://localhost:8080/api/statistics/maxMinAvgTime/${id}`).then((res: any) => {
             res.json().then((data: any) => setMinMaxAvg(data)).catch(console.error);
         }).catch(console.error);
-        fetch(`http://localhost:8080/api/statistics/maxMinAvgTimeAll`).then((res: any) => {
+        fetch(`http://localhost:8080/api/statistics/maxminavgtimeall`).then((res: any) => {
             res.json().then((data: any) => setMinMaxAvgAll(data)).catch(console.error);
         }).catch(console.error);
     }, [])
