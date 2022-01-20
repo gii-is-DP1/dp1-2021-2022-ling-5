@@ -2,7 +2,15 @@ package com.example.accessingdatamysql.ongoingfoso;
 
 import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.game.Game;
+import com.example.accessingdatamysql.game.GameRepository;
+import com.example.accessingdatamysql.game.State;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Scope("singleton")
 public class OnGoingFosoService {
+
+  @Autowired
+  private GameRepository gameRepository;
 
   private static OnGoingFosoRepository ongoing = null;
 
@@ -65,6 +76,9 @@ public class OnGoingFosoService {
 
   @Transactional
   public void deleteGame(Long gameId) {
+    Game game = gameRepository.findById(gameId).get();
+    game.setEndTime(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+    game.setState(State.FINISHED);
     ongoing.deleteGame(gameId);
   }
 }

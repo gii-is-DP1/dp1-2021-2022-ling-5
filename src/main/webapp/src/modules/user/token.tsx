@@ -58,6 +58,9 @@ const token = {
         } else {
             return null;
         }
+    },
+    getLoggedId: function(){
+        return localStorage.getItem("sessionId");
     }
 }
 

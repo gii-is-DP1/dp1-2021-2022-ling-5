@@ -217,4 +217,9 @@ public class GameController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
+
+    @GetMapping(value = "/games/{gameId}/minigames")
+    public @ResponseBody Minigame getGameMinigames(@PathVariable Long gameId){
+        return this.gameService.findGame(gameId).get().getMinigames().get(0);
+    }
 }

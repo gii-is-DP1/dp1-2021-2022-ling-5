@@ -132,6 +132,13 @@ const gameAPI = {
             .then((res: any) => {
                 return res.json();
             }).catch((err: any) => console.log(err));
+    },
+
+    async getGameMinigame(gameId: number){
+        return await fetch(`http://localhost:8080/api/games/${gameId}/minigames`)
+        .then((res:any)=>{
+            return res.json();
+        }).catch((err:any)=>console.log(err));
     }
 
 }

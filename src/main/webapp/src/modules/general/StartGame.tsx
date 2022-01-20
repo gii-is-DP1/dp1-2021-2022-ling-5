@@ -3,10 +3,13 @@ import { useEffect, useState } from 'react';
 import {  withRouter } from 'react-router-dom';
 import gameAPI from '../game/gameAPI';
 import userAPI from '../user/userAPI';
+import NewOnGoingGame from '../game/OnGoingFoso/OnGoingFosoNew';
 
 function StartGame(props: any) {
   const id = props.match.params.id;
   const [players, setPlayers] = useState<any[]>([]);
+  const [minigame, setMinigame] = useState<any>();
+  const [foso, SetFoso] = useState<any>();
 
   useEffect(() => {
     gameAPI.getPlayersByGame(id)
@@ -20,7 +23,21 @@ function StartGame(props: any) {
       }).catch((err) => console.log(err));
   }, [])
 
-  if (!players) return <p>Loading...</p>
+  useEffect(()=>{
+    gameAPI.getGameMinigame(id)
+    .then((m: any)=>setMinigame(m))
+    .catch((err)=>console.log(err));
+  },[])
+
+  const info = {"gameId": id};
+
+  useEffect(()=>{
+    NewOnGoingGame(info)
+    .then((f:any)=>SetFoso(f))
+    .catch((err)=>console.log(err));
+  },[])
+
+  if (!players || !minigame) return <p>Loading...</p>
   return (
 
     <div className="NewGame-header">
@@ -39,7 +56,7 @@ function StartGame(props: any) {
 
         </div>
 
-        <Button className="Button" size="lg" variant="dark">
+        <Button className="Button" size="lg" variant="dark" onClick={()=>window.location.href=`/game/${id}/${minigame.id}`}>
           START
         </Button>
       </Form>

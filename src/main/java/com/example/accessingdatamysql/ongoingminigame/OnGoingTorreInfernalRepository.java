@@ -37,7 +37,7 @@ public class OnGoingTorreInfernalRepository {
     if (onGoingTorreInfernal.getRemainingCards().size() != 0) {
       Random random = new Random();
       int randomindex = random
-        .ints(0, onGoingTorreInfernal.getRemainingCards().size())
+        .ints(0, onGoingTorreInfernal.getRemainingCards().size()-1)
         .findFirst()
         .getAsInt();
       Card newCard = onGoingTorreInfernal.getRemainingCards().get(randomindex);

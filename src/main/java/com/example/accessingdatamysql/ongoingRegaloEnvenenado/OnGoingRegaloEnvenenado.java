@@ -32,13 +32,13 @@ public class OnGoingRegaloEnvenenado {
         for (Player player : this.players) {
             points.put(player.getId(), 0);
             Random random = new Random();
-            int randomindex = random.ints(0, remainingCards.size()).findFirst().getAsInt();
+            int randomindex = random.ints(0, remainingCards.size()-1).findFirst().getAsInt();
             Card card = remainingCards.get(randomindex);
             remainingCards.remove(card);
             playerCard.put(player.getId(), card);
         }
         Random random2 = new Random();
-        int randomindex2 = random2.ints(0, remainingCards.size()).findFirst().getAsInt();
+        int randomindex2 = random2.ints(0, remainingCards.size()-1).findFirst().getAsInt();
         this.currentCard = remainingCards.get(randomindex2);
         remainingCards.remove(currentCard);
     }

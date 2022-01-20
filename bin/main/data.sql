@@ -1,11 +1,11 @@
 -- Load of player
 
-insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(1,'uno@gmail.com','Uno','unito','uno','uno',1,3,1);
-insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(2,'dos@gmail.com','dos','dosito','dos','dos',1,3,1);
-insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(3,'tres@gmail.com','tres','tresito','tres','tres',1,3,1);
-insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(4,'cuatro@gmail.com','cuatro','cuatrito','cuatro','cuatro',1,3,1);
-insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(5,'cinco@gmail.com','cinco','cinquito','cinco','cinco',1,3,1);
-insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(6,'seis@gmail.com','seis','seisito','seis','seis',1,3,1);
+insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(1,'uno@gmail.com','Uno','unito','uno','uno',4,3,1);
+insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(2,'dos@gmail.com','dos','dosito','dos','dos',4,3,1);
+insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(3,'tres@gmail.com','tres','tresito','tres','tres',4,3,1);
+insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(4,'cuatro@gmail.com','cuatro','cuatrito','cuatro','cuatro',4,3,1);
+insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(5,'cinco@gmail.com','cinco','cinquito','cinco','cinco',4,3,1);
+insert into player(id, email, name, nickname, password, surname, player_state, figure_id, role_id) values(6,'seis@gmail.com','seis','seisito','seis','seis',4,3,1);
 
 -- Load of admin
 
@@ -29,6 +29,22 @@ insert into game values(4,4,'2021-04-04 04:44:04','juegoCuatro','2021-04-04 04:0
 
 insert into role values(1,'player')
 insert into role values(2,'admin')
+
+-- Load of forum
+
+insert into forum(id,name,creation_date) values(1,'Figuras','2021-01-01 01:01:01')
+insert into forum(id,name,creation_date) values(2,'Cartas','2021-02-01 01:01:01')
+insert into forum(id,name,creation_date) values(3,'Minijuegos','2021-03-01 01:01:01')
+
+-- Load of comments
+
+insert into comment(id,text,date,forum_id,player_id) values(1,'El mio es el de la us','2021-01-01 01:01:02',1,1)
+insert into comment(id,text,date,forum_id,player_id) values(2,'El mio es el de ajedrez','2021-01-01 01:01:03',1,2)
+insert into comment(id,text,date,forum_id,player_id) values(3,'El mio es el perrete','2021-01-01 01:01:09',1,3)
+insert into comment(id,text,date,forum_id,player_id) values(4,'A mi no me gusta ninguna','2021-01-01 01:01:11',1,4)
+insert into comment(id,text,date,forum_id,player_id) values(5,'Las cartas no coincidian','2021-04-01 01:01:02',2,1)
+insert into comment(id,text,date,forum_id,player_id) values(6,'dilo por ti','2021-04-01 01:01:02',2,5)
+insert into comment(id,text,date,forum_id,player_id) values(7,'yo estoy en racha','2021-04-01 01:01:02',2,5)
 
 
 -- Load of player_games_played
