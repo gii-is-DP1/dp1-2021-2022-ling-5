@@ -74,7 +74,7 @@ function StartGame(props: any) {
       .then((game: any) => {
         setNameGame(game.name);
       }).catch((err) => console.log(err));
-  }, [])
+  }, [players])
 
   const info = {"gameId": id};
 
