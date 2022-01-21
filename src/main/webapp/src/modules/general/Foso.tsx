@@ -93,16 +93,6 @@ function Foso(props:any){
             <Row>
                 <p id="ptext">ON GOING FOSO </p>
 
-                {
-                    points.map(p=>(
-                        <Col className="align-items-start">
-                        <Card ><Card.Body>
-                            <div><strong>{p.name}: {p.points}</strong></div>
-                            </Card.Body></Card>
-                        </Col>
-                        
-                    ))
-                }
             </Row>
             <Row>
                 {
