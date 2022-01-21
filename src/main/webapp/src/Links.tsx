@@ -2,7 +2,6 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import App from "./App";
 import PrincipalNavbar from "./modules/general/PrincipalNavbar";
-import Patata from "./Patata";
 import ProfileNavbar from "./modules/general/ProfileNavbar";
 import NewGame from "./modules/general/NewGame";
 import JoinGame from "./modules/general/JoinGame";
@@ -10,17 +9,13 @@ import PlayedGames from './modules/game/playedGames';
 import StartGame from "./modules/general/StartGame";
 import AdminNavbar from "./modules/general/AdminNavbar";
 import UsersCRUD from "./modules/user/UsersCRUD";
-import StadisticsNavbar from "./modules/general/StadisticsNavbar";
 import CreateUser from "./modules/user/CreateUser";
 import BestAndWorstFigure from "./modules/figure/BestAndWorstFigure";
 import Ranking from "./modules/user/Ranking";
 import Friends from "./modules/friendship/Friends";
 import { useEffect, useState } from "react";
-import UserFrequency from "./modules/playedGames/UserFrequency";
 import AddFriend from "./modules/friendship/AddFriend";
 import AcceptFriend from "./modules/friendship/Notification";
-import PropGamesPlayed from "./modules/statistics/PropGamesPlayed";
-import PropTime from "./modules/statistics/PropTime";
 import AdminAchievement from "./modules/achievement/AdminAchievement";
 import CreateAchievement from "./modules/achievement/CreateAchievement";
 import Achievements from "./modules/achievement/Achievements";
@@ -28,9 +23,13 @@ import Forums from "./modules/forum/AllForums";
 import Forum from "./modules/forum/Forum";
 import NewForum from "./modules/forum/NewForum";
 import Foso from "./modules/general/Foso";
-import UserPoints from "./modules/playedGames/userPoints";
 import Profile from "./modules/user/Profile";
-import AdminPlayedGames from "./modules/game/adminPlayedGames";
+import Stats from "./modules/general/Stats";
+import ErrorPage from "./modules/general/ErrorPage";
+import Auditory from "./modules/user/Auditory";
+import AdminPlayedGames from "./modules/game/AdminPlayedGames";
+import RegaloEnvenenado from "./modules/general/RegaloEnvenenado";
+import TorreInfernal from "./modules/general/TorreInfernal";
 
 const Links = () => {
     const [role, setRole] = useState<string | null>(null)
@@ -54,8 +53,14 @@ const Links = () => {
             <Route path='/startGame/:id'>
                 <StartGame />
             </Route>
+            <Route path='/game/:gameId/1'>
+                <TorreInfernal />
+            </Route>
             <Route path='/game/:gameId/2'>
                 <Foso />
+            </Route>
+            <Route path='/game/:gameId/3'>
+                <RegaloEnvenenado />
             </Route>
             <Route path='/notifications'>
                 <AcceptFriend />
@@ -73,25 +78,9 @@ const Links = () => {
             </Route>
             <Route path='/stats'>
                 {role === "Player" ?
-                    <div id="body" className="d-flex"><ProfileNavbar />
-                        <StadisticsNavbar /></div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/pointsByMinigame'>
-                {role === "Player" ?
                     <div id="body" className="d-flex">
                         <ProfileNavbar />
-                        <StadisticsNavbar />
-                        <UserPoints />
-                    </div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/mostAndLeastUsed'>
-                {role === "Player" ?
-                    <div id="body" className="d-flex">
-                        <ProfileNavbar />
-                        <StadisticsNavbar />
-                        <BestAndWorstFigure />
+                        <Stats/>
                     </div>
                     : <>Access is restricted</>}
             </Route>
@@ -99,38 +88,10 @@ const Links = () => {
                 {role === "Player" ?
                     <div id="body" className="d-flex">
                         <ProfileNavbar />
-                        <StadisticsNavbar />
-                        <Ranking />
+                        <Ranking/>
                     </div>
                     : <>Access is restricted</>}
-            </Route>
-            <Route path='/userFrequency'>
-                {role === "Player" ?
-                    <div id="body" className="d-flex">
-                        <ProfileNavbar />
-                        <StadisticsNavbar />
-                        <UserFrequency />
-                    </div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/propGames'>
-                {role === "Player" ?
-                    <div id="body" className="d-flex">
-                        <ProfileNavbar />
-                        <StadisticsNavbar />
-                        <PropGamesPlayed />
-                    </div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/propTime'>
-                {role === "Player" ?
-                    <div id="body" className="d-flex">
-                        <ProfileNavbar />
-                        <StadisticsNavbar />
-                        <PropTime />
-                    </div>
-                    : <>Access is restricted</>}
-            </Route>
+             </Route>
             <Route path='/games'>
                 {role === "Player" ?
                     <div id="body" className="d-flex">
@@ -182,7 +143,7 @@ const Links = () => {
             <Route path='/history'>
                 {role === "Admin" ?
                     <div id="body" className="d-flex"><AdminNavbar />
-                        <Patata /></div>
+                        <Auditory /></div>
                     : <>Access is restricted</>}
             </Route>
             <Route path='/adminAwards'>
@@ -205,6 +166,9 @@ const Links = () => {
                 <NewForum />
             </Route>
             
+            <Route path ='*'>
+                <ErrorPage/>
+            </Route>
         </Switch>
     </Router>
 }

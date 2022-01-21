@@ -72,20 +72,20 @@ insert into player_games_played(players_id, games_played_id) values(5,4)
 
 -- Load of result
 
-insert into result(id, data, total_points, game_id, player_id) values(1,"5 0 5",10,1,1)
-insert into result(id, data, total_points, game_id, player_id) values(2,"0 0 0",0,1,2)
-insert into result(id, data, total_points, game_id, player_id) values(3,"0 5 5",10,1,3)
-insert into result(id, data, total_points, game_id, player_id) values(4,"5 0 5",10,1,4)
-insert into result(id, data, total_points, game_id, player_id) values(5,"0 0 0",0,1,5)
-insert into result(id, data, total_points, game_id, player_id) values(6,"0 0 0",0,1,6)
-insert into result(id, data, total_points, game_id, player_id) values(7,"10 10 10",30,2,2)
-insert into result(id, data, total_points, game_id, player_id) values(8,"0 0 0",0,2,4)
-insert into result(id, data, total_points, game_id, player_id) values(9,"0 0 0",0,2,6)
-insert into result(id, data, total_points, game_id, player_id) values(10,"0 0 10",20,3,3)
-insert into result(id, data, total_points, game_id, player_id) values(11,"5 0 5",10,3,6)
-insert into result(id, data, total_points, game_id, player_id) values(12,"5 10 5",20,4,1)
-insert into result(id, data, total_points, game_id, player_id) values(13,"0 0 0",0,4,3)
-insert into result(id, data, total_points, game_id, player_id) values(14,"5 5 5",10,4,5)
+insert into result(id, data, total_points, game_id, player_id) values(1,"5",5,1,1)
+insert into result(id, data, total_points, game_id, player_id) values(2,"0",0,1,2)
+insert into result(id, data, total_points, game_id, player_id) values(3,"0",0,1,3)
+insert into result(id, data, total_points, game_id, player_id) values(4,"5",5,1,4)
+insert into result(id, data, total_points, game_id, player_id) values(5,"0",0,1,5)
+insert into result(id, data, total_points, game_id, player_id) values(6,"0",0,1,6)
+insert into result(id, data, total_points, game_id, player_id) values(7,"10",10,2,2)
+insert into result(id, data, total_points, game_id, player_id) values(8,"0",0,2,4)
+insert into result(id, data, total_points, game_id, player_id) values(9,"0",0,2,6)
+insert into result(id, data, total_points, game_id, player_id) values(10,"0",0,3,3)
+insert into result(id, data, total_points, game_id, player_id) values(11,"5",5,3,6)
+insert into result(id, data, total_points, game_id, player_id) values(12,"5",5,4,1)
+insert into result(id, data, total_points, game_id, player_id) values(13,"0",0,4,3)
+insert into result(id, data, total_points, game_id, player_id) values(14,"5",5,4,5)
 
 -- Load of minigame
 
@@ -96,16 +96,8 @@ insert into minigame(id, name, description) values(3,'Regalo envenenado','Ejempl
 -- Load of minigame_game
 
 insert into minigame_games(minigames_id, games_id) values(2,1)
-insert into minigame_games(minigames_id, games_id) values(3,1)
-insert into minigame_games(minigames_id, games_id) values(1,1)
 insert into minigame_games(minigames_id, games_id) values(1,2)
-insert into minigame_games(minigames_id, games_id) values(2,2)
-insert into minigame_games(minigames_id, games_id) values(3,2)
 insert into minigame_games(minigames_id, games_id) values(1,3)
-insert into minigame_games(minigames_id, games_id) values(2,3)
-insert into minigame_games(minigames_id, games_id) values(3,3)
-insert into minigame_games(minigames_id, games_id) values(1,4)
-insert into minigame_games(minigames_id, games_id) values(2,4)
 insert into minigame_games(minigames_id, games_id) values(3,4)
 
 -- Load of figure

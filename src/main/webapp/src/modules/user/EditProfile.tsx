@@ -14,11 +14,12 @@ const EditProfile = (props: any) => {
         setModalShow(false);
     }
 
-    const edit = () => {
+    const edit = (event:any) => {
         console.log(player);
         userAPI.updateUser(player, props.idUser, "player")
             .then(props.onHide)
             .catch((err) => console.log(err));
+        event.preventDefault();
     }
 
     useEffect(() => {
@@ -31,6 +32,7 @@ const EditProfile = (props: any) => {
     }, [props.idUser])
 
     return (
+        <Form onSubmit={edit}>
         <Modal
             show={props.show}
             onHide={props.onHide}
@@ -63,12 +65,12 @@ const EditProfile = (props: any) => {
                         <Col>
                             <Form.Group className="mb-3" controlId="formBasicName">
                                 <Form.Label>Name</Form.Label>
-                                <Form.Control type="text" placeholder={player.name} onChange={(e) => setPlayer({ ...player, name: e.target.value })} />
+                                <Form.Control type="text" required minLength={3} maxLength={50} placeholder={player.name} onChange={(e) => setPlayer({ ...player, name: e.target.value })} />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formBasicSurname">
                                 <Form.Label>Surname</Form.Label>
-                                <Form.Control type="text" placeholder={player.surname} onChange={(e) => setPlayer({ ...player, surname: e.target.value })} />
+                                <Form.Control type="text" required minLength={3} maxLength={50} placeholder={player.surname} onChange={(e) => setPlayer({ ...player, surname: e.target.value })} />
                             </Form.Group>
                         </Col>
                     </Row>
@@ -78,10 +80,11 @@ const EditProfile = (props: any) => {
                 </>) : <p>Loading...</p>}
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={() => edit()}>Submit changes</Button>
+                <Button type="submit">Submit changes</Button>
                 <Button onClick={props.onHide}>Close</Button>
             </Modal.Footer>
         </Modal >
+        </Form>
     )
 
 

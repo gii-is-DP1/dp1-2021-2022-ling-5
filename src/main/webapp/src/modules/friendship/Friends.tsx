@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import friendshipAPI from "./friendshipAPI";
 import figures from '../../images/figures/figures'
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faTimes, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
 const Friends = () => {
 
@@ -48,7 +48,7 @@ const Friends = () => {
 
     return <Container id="container">
         <div id="addFriend" style={{ textAlign: "right" }}>
-            <Button variant="dark" onClick={() => window.location.href = '/addFriend'}>Add a Friend </Button>
+            <Button className="m-2" variant="dark" onClick={() => window.location.href = '/addFriend'}>Add a Friend <FontAwesomeIcon icon={faUserPlus} /></Button>
         </div>
         <Row>
             <h3>Online </h3>

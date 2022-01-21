@@ -33,35 +33,15 @@ public class OnGoingFosoRepository {
     OnGoingFoso onGoingFoso = ongoinggames.get(gameId);
     Card newCard = ongoinggames.get(gameId).getPlayerCard().get(playerId);
     onGoingFoso.setCurrentCard(newCard);
-    if (
-      ongoinggames.get(gameId).getPoints().get(playerId) <
-      ongoinggames.get(gameId).getLimit()
-    ) {
+    if (ongoinggames.get(gameId).getRemainingSize() > 0) {
       Random random = new Random();
       int randomindex = random
-        .ints(0, onGoingFoso.getRemainingCards().size())
-        .findFirst()
-        .getAsInt();
+          .ints(0, onGoingFoso.getRemainingCards().size())
+          .findFirst()
+          .getAsInt();
       Card newPlayerCard = onGoingFoso.getRemainingCards().get(randomindex);
       onGoingFoso.getRemainingCards().remove(newPlayerCard);
       onGoingFoso.getPlayerCard().put(playerId, newPlayerCard);
-    } else {
-      onGoingFoso.getPlayerCard().put(playerId, null);
-      onGoingFoso.getOrden().add(playerId);
-      if (
-        onGoingFoso.getOrden().size() == onGoingFoso.getPlayers().size() - 1
-      ) {
-        for (Integer i = 0; i < onGoingFoso.getPlayers().size(); i++) {
-          if (
-            !onGoingFoso
-              .getOrden()
-              .contains(onGoingFoso.getPlayers().get(i).getId())
-          ) {
-            Long idFinal = onGoingFoso.getPlayers().get(i).getId();
-            onGoingFoso.getOrden().add(idFinal);
-          }
-        }
-      }
     }
   }
 
@@ -83,12 +63,11 @@ public class OnGoingFosoRepository {
   @Transactional
   public void addPoints(Long gameId, Long playerId, Integer points) {
     ongoinggames
-      .get(gameId)
-      .getPoints()
-      .put(
-        playerId,
-        ongoinggames.get(gameId).getPoints().get(playerId) + points
-      );
+        .get(gameId)
+        .getPoints()
+        .put(
+            playerId,
+            ongoinggames.get(gameId).getPoints().get(playerId) + points);
   }
 
   @Transactional

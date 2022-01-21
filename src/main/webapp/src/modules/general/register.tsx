@@ -37,12 +37,14 @@ class Register extends
             }).catch(error => alert(error));
         } else {
             console.log("password doesn't match");
+            alert("Password doesn't match")
         }
         event.preventDefault();
     }
 
     render() {
         return (
+            
             <form onSubmit={this.handleSubmit}>
                 <Row className="text-center">
                     <div className="col-md-4"></div>
@@ -98,6 +100,7 @@ class Register extends
                     </Button>
                 </Row>
             </form>
+           
         );
     }
 }

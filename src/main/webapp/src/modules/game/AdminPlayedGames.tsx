@@ -37,7 +37,7 @@ function AdminPlayedGames() {
     <Container id="page">
       <Row>
         <Col >
-          <Row> <h1 id="ptitle">GAMES IN PROGRESS</h1> </Row>
+          <Row> <h3 id="ptitle">GAMES IN PROGRESS</h3> </Row>
           {
             en_progreso.map(e => (
               <Row>
@@ -47,11 +47,11 @@ function AdminPlayedGames() {
           }
         </Col>
         <Col>
-          <Row> <h1 id="ptitle">GAMES PLAYED</h1> </Row>
+          <Row> <h3 id="ptitle">GAMES PLAYED</h3> </Row>
           {
             jugados.map(e => (
               <Row>
-                <strong>{e.game.name}: </strong><p>{e.data}</p>
+                <strong>Game: {e.game.name} </strong><p>Results: {e.data}</p>
               </Row>
             ))
           }

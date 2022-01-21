@@ -12,7 +12,7 @@ const AddFriend = () => {
     const [username, setUsername] = useState<any>();
 
 
-    const newFriend = async() => {
+    const newFriend = async(event:any) => {
 
         
         const data = await userAPI.getPlayerByNickname(username);
@@ -29,17 +29,18 @@ const AddFriend = () => {
             ).catch(err => console.log(err));
 
         }
+        event.preventDefault();
 
     }
 
     return <Container id="container" className="d-inline-block align-top">
-        <Form>
+        <Form onSubmit={newFriend}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Add a friend</Form.Label>
-            <Form.Control type="username" placeholder="enter username"  onChange={(e) => setUsername(e.target.value )}/>
+            <Form.Control type="username" required maxLength={50} minLength={3} placeholder="enter username"  onChange={(e) => setUsername(e.target.value )}/>
         </Form.Group>
 
-        <Button variant="dark" type="button" onClick={() => newFriend()}>
+        <Button variant="dark" type="submit">
             Send invitation
         </Button>
         </Form>

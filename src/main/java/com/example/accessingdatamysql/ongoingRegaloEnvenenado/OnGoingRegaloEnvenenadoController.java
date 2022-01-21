@@ -62,13 +62,14 @@ public class OnGoingRegaloEnvenenadoController {
         return onGoingRegaloEnvenenadoService.getPoints(gameId, playerId);
     }
 
-    @PutMapping(value = "/ongoingRegaloEnvenenado/{gameId}/card")
+    @PutMapping(value = "/ongoingRegaloEnvenenado/{gameId}/card/{playerId}")
     public @ResponseBody OnGoingRegaloEnvenenado newCenterCard(@RequestBody RequestNewCard request,
-            @PathVariable Long gameId) throws BadRequest {
-        try{
-            onGoingRegaloEnvenenadoService.newCenterCard(gameId, request);
+            @PathVariable Long gameId,
+            @PathVariable Long playerId) throws BadRequest {
+        try {
+            onGoingRegaloEnvenenadoService.newCenterCard(gameId, playerId);
             return onGoingRegaloEnvenenadoService.getGame(gameId);
-        } catch(Error e){
+        } catch (Error e) {
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
         }
     }

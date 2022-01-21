@@ -47,22 +47,23 @@ function PlayedGames() {
   return (
     <Container id="container">
       <Row>
+        <Row> <h1 id="ptitle">MY GAMES</h1> </Row>
         <Col>
-          <Row> <h1>Created games</h1> </Row>
+          <Row> <h3>Created games</h3> </Row>
           {
             created.map(e => (
               <Row>
-                <strong>{e.game.name} </strong><p>{e.data}</p>
+                <strong>Game: {e.game.name} </strong><p>Points: {e.data}</p>
               </Row>
             ))
           }
         </Col>
         <Col>
-          <Row> <h1>Played games</h1> </Row>
+          <Row> <h3>Played games</h3> </Row>
           {
             played.map(e => (
               <Row>
-                <strong>{e.game.name}: </strong><p>{e.data}</p>
+                <strong>Game: {e.game.name} </strong><p>Points: {e.data}</p>
               </Row>
             ))
           }

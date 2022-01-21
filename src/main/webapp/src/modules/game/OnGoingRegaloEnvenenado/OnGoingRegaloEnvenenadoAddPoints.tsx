@@ -1,4 +1,3 @@
-
 function AddPoints(gameId: any, playerId: any, formData: FormData) {
     const requestOptions = {
         method: 'PUT',
