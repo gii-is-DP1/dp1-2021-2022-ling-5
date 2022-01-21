@@ -33,16 +33,19 @@ public class Invitation extends BaseEntity {
     @NotNull
     @ManyToOne
     private Player requested;
+    
+    public Invitation() {
+        this.creationDate = LocalDateTime.now();
+    }
+
+    public Invitation(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
 
     @Override
     public String toString() {
         return "Invitation [creationDate=" + creationDate + ", game=" + game + ", requested=" + requested
                 + ", requester=" + requester + "]";
     }
-
-    public Invitation() {
-
-        this.creationDate = LocalDateTime.now();
-    }
-
+    
 }

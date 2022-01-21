@@ -84,9 +84,7 @@ public class OnGoingRegaloEnvenenadoServiceTests {
     @Transactional
     void testnewCenterCard() {
         Card centerCard = onGoingRegaloEnvenenadoService.getGame(2L).getCurrentCard();
-        RequestNewCard request = new RequestNewCard();
-        request.setPlayerId(2L);
-        onGoingRegaloEnvenenadoService.newCenterCard(2L, request);
+        onGoingRegaloEnvenenadoService.newCenterCard(2L, 2L);
         assertNotEquals(centerCard, onGoingRegaloEnvenenadoService.getCenterCard(2L));
     }
 
