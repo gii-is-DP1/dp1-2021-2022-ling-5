@@ -127,7 +127,6 @@ function Foso(props:any){
                                     }
                                     if(equal){
                                         NewCard(gameId, token.getLoggedId())
-                                        .then(()=>userAPI.addOneToFigure(token.getLoggedId(),l.id))
                                         .catch((err)=>console.log(err));
                                     }
                                 }}>
