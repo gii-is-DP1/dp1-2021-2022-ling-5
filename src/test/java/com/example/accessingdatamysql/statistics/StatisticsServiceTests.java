@@ -32,9 +32,9 @@ public class StatisticsServiceTests {
 
         List<Integer> l1 = new ArrayList<Integer>();
         l1.add(10);
-        l1.add(10);
-        l1.add(10);
-        l1.add(10);
+        l1.add(0);
+        l1.add(5);
+        l1.add(5);
         assertEquals(statisticsService.pointsByMinigames(1L), l1);
     }
 
@@ -64,10 +64,10 @@ public class StatisticsServiceTests {
         Ranking r6 = statisticsService.getPositionRanking(6L).getSecond();
         res.add(r2);
         res.add(r1);
-        res.add(r3);
         res.add(r5);
         res.add(r4);
         res.add(r6);
+        res.add(r3);
         assertEquals(statisticsService.getTop10Ranking(), res);
 
     }
@@ -93,8 +93,8 @@ public class StatisticsServiceTests {
     void testMaxMinAvgAll() {
         Map<String, Double> res = new HashMap<String, Double>();
         res.put("min", 0.0);
-        res.put("avg", 8.666666666666666);
-        res.put("max", 30.0);
+        res.put("avg", 2.5);
+        res.put("max", 10.0);
         assertEquals(statisticsService.maxMinAvgAll(), res);
 
     }
@@ -102,7 +102,7 @@ public class StatisticsServiceTests {
     @Test
     @Transactional(readOnly = true)
     void testPropTotal() {
-        assertEquals(statisticsService.propTotal(1L), 0.5);
+        assertEquals(statisticsService.propTotal(1L), 0.4);
     }
 
     @Test
@@ -110,9 +110,9 @@ public class StatisticsServiceTests {
     void testMaxMinAvgPlayer() {
 
         Map<String, Double> res = new HashMap<String, Double>();
-        res.put("min", 10.0);
-        res.put("avg", 15.0);
-        res.put("max", 20.0);
+        res.put("min", 5.0);
+        res.put("avg", 5.0);
+        res.put("max", 5.0);
         System.out.println("HOLAAAAAAAAA");
         System.out.println("PRUEBAAAAAAAAAAAAAAA" + statisticsService.maxMinAvg(1L));
 

@@ -37,6 +37,7 @@ public class StatisticsService {
   @Autowired
   private GameService gameService;
 
+
   public List<Integer> pointsByMinigames(Long id) {
     List<Result> results = resultService.findAllResultsByPlayer(id);
     List<Integer> res = new ArrayList<>();
