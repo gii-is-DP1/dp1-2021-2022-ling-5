@@ -10,6 +10,7 @@ import GetPoints from "../game/OnGoingTorreInfernal/OnGoingTorreInfernalGetPoint
 import GetCenterCard from "../game/OnGoingTorreInfernal/OnGoingTorreInfernalGetCard";
 import NewCard from "../game/OnGoingTorreInfernal/OnGoingTorreInfernalNewCard";
 import DeleteGame from "../game/OnGoingTorreInfernal/OnGoingTorreInfernalDelete";
+import AddPoints from "../game/OnGoingTorreInfernal/OnGoingTorreInfernalAddPoints";
 import "./Foso.css";
 import userAPI from "../user/userAPI";
 import cardImg from "../../images/deck/deck.js";
@@ -39,12 +40,12 @@ function TorreInfernal(props:any){
         gameAPI.getPlayersByGame(gameId)
         .then((ps:any[])=>{
             let points:any[] = [];
-            for(let p of ps){
-                let name = p.nickname;
-                let user = p;
-                user.playerState = "PLAYING";
-                userAPI.updateUser(user, p.id, "player");
-                GetPoints(gameId, p.id)
+            for(let i = 0; i < ps.length; i++){
+                var pl = ps[i];
+                let name = pl.nickname;
+                pl.playerState = "PLAYING";
+                userAPI.updateUser(pl, pl.id, "player");
+                GetPoints(gameId, pl.id)
                 .then((ps:any)=>{
                     let point = {name:'',points:0};
                     point.name = name;
@@ -68,8 +69,7 @@ function TorreInfernal(props:any){
     let remaininglength = torre.remainingSize;
 
     if(remaininglength===0){
-        window.location.href = '/';
-
+        
         gameAPI.getPlayersByGame(gameId)
         .then((ps:any[])=>{
             for(let p of ps){
@@ -83,14 +83,13 @@ function TorreInfernal(props:any){
         
         DeleteGame(gameId)
         .catch((err)=>console.log(err));
+        window.location.href = '/';
     }
 
     let lcf:any[] = [];
     for(let i=0;i<centerCard.figures.length;i++){
         lcf[i] = figures(centerCard.figures[i].id-1);
     }
-    console.log(centerCard);
-    console.log(playerCard);
     return(
         <div>
             <Row>
@@ -125,7 +124,10 @@ function TorreInfernal(props:any){
                                     }
                                     if(equal){
                                         NewCard(token.getLoggedId(),gameId)
-                                        .then(()=>userAPI.addOneToFigure(token.getLoggedId(),l.id))
+                                        .then(()=>{
+                                            userAPI.addOneToFigure(token.getLoggedId(),l.id);
+                                            AddPoints(gameId,token.getLoggedId());
+                                        })
                                         .catch((err)=>console.log(err));
                                     }
                                 }}>

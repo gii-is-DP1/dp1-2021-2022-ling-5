@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import resultAPI from '../result/resultAPI';
+import token from '../user/token';
+import userAPI from '../user/userAPI';
 import './playedGames.css'
 
 function PlayedGames() {
@@ -53,7 +55,7 @@ function PlayedGames() {
           {
             created.map(e => (
               <Row>
-                <strong>Game: {e.game.name} </strong><p>Points: {e.data}</p>
+                <strong>Game: {e.game.name} </strong><p>Points: {e.data} <br/>{e.game.winner===Number(token.getLoggedId())?<span>Juego ganado</span>:<span>Juego perdido</span>}</p>
               </Row>
             ))
           }
@@ -63,7 +65,7 @@ function PlayedGames() {
           {
             played.map(e => (
               <Row>
-                <strong>Game: {e.game.name} </strong><p>Points: {e.data}</p>
+                <strong>Game: {e.game.name} </strong><p>Points: {e.data}<br/>{e.game.winner===Number(token.getLoggedId())?<span>Juego ganado</span>:<span>Juego perdido</span>}</p>
               </Row>
             ))
           }

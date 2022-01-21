@@ -93,14 +93,30 @@ public class OnGoingTorreInfernalService {
   public void deleteGame(Long gameId) {
     Game game = gameRepository.findById(gameId).get();
     Map<Long, Integer> result = this.getGame(gameId).getPoints();
+    Long winner=0L;
+    Integer points=0;
+    for(Entry<Long, Integer> e: result.entrySet()){
+      if(points<e.getValue()){
+          points=e.getValue();
+        winner=e.getKey();
+      }
+    }
+
+    if(result.values().stream().filter(p->p==result.values().stream().max((x,y)->x.compareTo(y)).get()).count()>1L){
+      winner=null;
+    }else{
+      result.put(winner, result.get(winner)+5);
+    }
+
     for(Entry<Long, Integer> e: result.entrySet()){
       Result res = new Result();
-      res.setData(e.getValue() + " 0 " + "");
+      res.setData(""+e.getValue());
       res.setGame(game);
       res.setPlayer(playerService.findPlayer(e.getKey()).get());
       res.setTotalPoints(e.getValue());
       resultService.saveResult(res);
     }
+    game.setWinner(winner);
     game.setEndTime(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
     game.setState(State.FINISHED);
     ongoing.deleteGame(gameId);

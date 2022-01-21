@@ -52,10 +52,10 @@ public class StatisticsService {
         minigame2 += Integer.parseInt(trozos[1]);
         minigame3 += Integer.parseInt(trozos[2]);
       } else {
-        String name = r.getGame().getMinigames().get(0).getName();
-        if (name == "Torre Infernal") {
+        Long name = r.getGame().getMinigames().get(0).getId();
+        if (name == 1L) {
           minigame1 += Integer.parseInt(trozos[0]);
-        } else if (name == "Foso") {
+        } else if (name == 2L) {
           minigame2 += Integer.parseInt(trozos[0]);
         } else {
           minigame3 += Integer.parseInt(trozos[0]);
