@@ -12,6 +12,7 @@ import NewCard from "../game/OnGoingTorreInfernal/OnGoingTorreInfernalNewCard";
 import DeleteGame from "../game/OnGoingTorreInfernal/OnGoingTorreInfernalDelete";
 import "./Foso.css";
 import userAPI from "../user/userAPI";
+import cardImg from "../../images/deck/deck.js";
 
 function TorreInfernal(props:any){
     const gameId = props.match.params.gameId;
@@ -88,36 +89,33 @@ function TorreInfernal(props:any){
     for(let i=0;i<centerCard.figures.length;i++){
         lcf[i] = figures(centerCard.figures[i].id-1);
     }
+    console.log(centerCard);
+    console.log(playerCard);
     return(
         <div>
             <Row>
                 <p id="ptext">ON GOING TORRE INFERNAL</p>
 
-                {
-                    points.map(p=>(
-                        <Col className="align-items-start">
-                        <Card ><Card.Body>
-                            <div><strong>{p.name}: {p.points}</strong></div>
-                            </Card.Body></Card>
-                        </Col>
-                        
-                    ))
-                }
+                <Col className="center"><h1>Central Card</h1></Col>
+                <Col className="center"><h1>Your Card</h1></Col>
             </Row>
             <Row>
-                {
-                    lcf.map(l=>(
-                        <Col>
-                            <img src={l} width="100px" alt="logo"/>
-                        </Col>
-                    ))
-                }
+            <Col className='center'>
+                <img src={cardImg(centerCard.id-1)} width="50%"/>
+            
+            </Col>
+            <Col>
+            <Row>
+                <Col className="center"> 
+                <img src={cardImg(playerCard.id-1)} width="50%"/>
+                </Col>
             </Row>
+            </Col>
             <Row>
                 {
                     playerCard.figures.map((l:any)=>(
-                        <Col>
-                            <Button onClick={()=>{
+                        <Col className="center" >
+                            <Button className="btn btn-info" onClick={()=>{
                                     let equal = false;
                                     for(let figure of centerCard.figures){
                                         if(figure.id===l.id){
@@ -136,6 +134,7 @@ function TorreInfernal(props:any){
                         </Col>
                     ))
                 }
+            </Row>
             </Row>
         </div>
     );
