@@ -123,6 +123,24 @@ function StartGame(props: any) {
 
 
   if (!players) return <p>Loading...</p>
+  else{
+    let playing:any=false;
+    for (let i = 0; i < players.length; i++) {
+      playing=playing || players[i].playerState==='PLAYING';
+    }
+    if(playing){
+      window.location.href=`/game/${id}/${minigame.id}`;
+    }
+  }
+
+  
+function canStartGame(): void {
+  if(players.length>1){
+    window.location.href=`/game/${id}/${minigame.id}`;
+  }
+}
+
+
   return (
 
     
@@ -151,7 +169,7 @@ function StartGame(props: any) {
         
       </Form>
 
-      <Button className="Button" size="lg" variant="dark" onClick={()=>window.location.href=`/game/${id}/${minigame.id}`}>
+      <Button className="Button" size="lg" variant="dark" onClick={()=>canStartGame()}>
           START
         </Button>
 
@@ -179,3 +197,5 @@ function StartGame(props: any) {
 
 
 export default withRouter(StartGame);
+
+

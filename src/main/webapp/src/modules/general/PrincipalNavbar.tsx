@@ -48,7 +48,15 @@ const PrincipalNavbar = () => {
             /></a>
             <NavDropdown title={nickname} id="img">
                 <NavDropdown.Item href={href1}>{namehref1}</NavDropdown.Item>
-                <NavDropdown.Item onClick={() => token.logout()}>Logout</NavDropdown.Item>
+                <NavDropdown.Item onClick={() =>{ 
+                    userAPI.getUser(Number(token.getLoggedId()),"player")
+                    .then((pls: any) => {
+                        var pl:any = pls;
+                        pl.playerState = "OFFLINE";
+                        userAPI.updateUser(pl, pl.id, "player");
+                    })
+                    token.logout();
+                    }}>Logout</NavDropdown.Item>
             </NavDropdown>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">

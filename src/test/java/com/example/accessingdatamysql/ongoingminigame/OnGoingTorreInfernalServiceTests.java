@@ -34,9 +34,7 @@ public class OnGoingTorreInfernalServiceTests {
   void SetUp() {
     Long gameId = 2L;
     onGoingTorreInfernalService.createGame(
-      gameId,
-      gameService.findGame(gameId).get(),
-      cardService.findAllCards()
+      gameId
     );
     game = onGoingTorreInfernalService.getGame(2L);
   }
@@ -53,9 +51,7 @@ public class OnGoingTorreInfernalServiceTests {
   void testcreateGame() {
     Long gameId = 1L;
     onGoingTorreInfernalService.createGame(
-      gameId,
-      gameService.findGame(gameId).get(),
-      cardService.findAllCards()
+      gameId
     );
     Integer i = 0;
     for (OnGoingTorreInfernal g : onGoingTorreInfernalService.getAll()) {

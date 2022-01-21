@@ -1,8 +1,10 @@
 package com.example.accessingdatamysql.ongoingminigame;
 
 import com.example.accessingdatamysql.card.Card;
+import com.example.accessingdatamysql.card.CardService;
 import com.example.accessingdatamysql.game.Game;
 import com.example.accessingdatamysql.game.GameRepository;
+import com.example.accessingdatamysql.game.GameService;
 import com.example.accessingdatamysql.game.State;
 import com.example.accessingdatamysql.result.Result;
 import com.example.accessingdatamysql.result.ResultService;
@@ -32,6 +34,12 @@ public class OnGoingTorreInfernalService {
   @Autowired
   private PlayerService playerService;
 
+  @Autowired
+  private GameService gameService;
+
+  @Autowired
+  private CardService cardService;
+
   private static OnGoingTorreInfernalRepository ongoing = null;
 
   public OnGoingTorreInfernalService() {
@@ -45,7 +53,9 @@ public class OnGoingTorreInfernalService {
   }
 
   @Transactional
-  public void createGame(Long gameId, Game game, Iterable<Card> cards) {
+  public void createGame(Long gameId) {
+    Game game = gameService.findGame(gameId).get();
+    Iterable<Card> cards = cardService.findAllCards();
     ongoing.createGame(gameId, game, cards);
   }
 
@@ -83,14 +93,30 @@ public class OnGoingTorreInfernalService {
   public void deleteGame(Long gameId) {
     Game game = gameRepository.findById(gameId).get();
     Map<Long, Integer> result = this.getGame(gameId).getPoints();
+    Long winner=0L;
+    Integer points=0;
+    for(Entry<Long, Integer> e: result.entrySet()){
+      if(points<e.getValue()){
+          points=e.getValue();
+        winner=e.getKey();
+      }
+    }
+
+    if(result.values().stream().filter(p->p==result.values().stream().max((x,y)->x.compareTo(y)).get()).count()>1L){
+      winner=null;
+    }else{
+      result.put(winner, result.get(winner)+5);
+    }
+
     for(Entry<Long, Integer> e: result.entrySet()){
       Result res = new Result();
-      res.setData(e.getValue() + " 0 " + "");
+      res.setData(""+e.getValue());
       res.setGame(game);
       res.setPlayer(playerService.findPlayer(e.getKey()).get());
       res.setTotalPoints(e.getValue());
       resultService.saveResult(res);
     }
+    game.setWinner(winner);
     game.setEndTime(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
     game.setState(State.FINISHED);
     ongoing.deleteGame(gameId);

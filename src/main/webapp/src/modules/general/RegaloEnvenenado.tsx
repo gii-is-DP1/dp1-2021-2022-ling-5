@@ -152,6 +152,7 @@ function RegaloEnvenenado(props: any) {
                                     NewCard(token.getLoggedId(),gameId)
                                     .then(()=>userAPI.addOneToFigure(token.getLoggedId(),l.id))
                                         .catch((err) => console.log(err));
+                                    window.location.reload();
                                 }
                             }}>
                                 <img src={figures(l.id - 1)} width="100px" alt="logo" />
