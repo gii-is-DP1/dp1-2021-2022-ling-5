@@ -13,13 +13,10 @@ const Share = (props: any) => {
                     Share Dobble with your friends!
                 </Modal.Title>
             </Modal.Header>
-            {/* <div id="fb-root"></div>
-            <script async defer crossOrigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v12.0" nonce="XPFgo5oc"></script> */}
             <Modal.Body style={{ textAlign: "center" }}>
                 <p>Copy the link</p>
                 <input type="text" value="http://localhost:3000/" style={{ width: "100%", marginBottom: "0.5rem" }} readOnly />
 
-                {/* SOLO FUNCIONA SI SE DESPLIEGA EL PROYECTO */}
                 <div className="fb-share-button" data-href="http://localhost:3000/" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2F&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Share <FontAwesomeIcon icon={faFacebook} /> </a></div>
 
                 <div><a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Flocalhost%3A3000%2F">Share  <FontAwesomeIcon icon={faTwitter} /></a></div>

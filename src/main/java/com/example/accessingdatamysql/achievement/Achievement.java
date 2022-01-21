@@ -29,7 +29,7 @@ public class Achievement extends NamedEntity {
 
     @NotNull
     @NotEmpty
-    @Size(max=MAX_SIZE)
+    @Size(max = MAX_SIZE)
     @Column(name = "description")
     private String description;
 
@@ -63,8 +63,8 @@ public class Achievement extends NamedEntity {
     @Override
     public String toString() {
         return "{" + " id='" + getId() + "'" + ", name='" + getName() + "'" + ", description='" + getDescription() + "'"
-                + ", figure='" + getFigure() + "'" + ", type='"+ getAchievementTypes().value() + "'" +
-                ", requirements='"+ getRequirement().toString() + "'" +"}";
+                + ", figure='" + getFigure() + "'" + ", type='" + getAchievementTypes().value() + "'" +
+                ", requirements='" + getRequirement().toString() + "'" + "}";
     }
 
 }

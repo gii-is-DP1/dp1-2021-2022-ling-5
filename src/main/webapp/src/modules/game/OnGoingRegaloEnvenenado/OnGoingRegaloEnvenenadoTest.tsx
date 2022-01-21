@@ -2,7 +2,6 @@ import React from "react";
 import AddPoints from "./OnGoingRegaloEnvenenadoAddPoints";
 import DeleteGame from "./OnGoingRegaloEnvenenadoDelete";
 import NewOnGoingGame from "./OnGoingRegaloEnvenenadoNew";
-import NewCard from "./OnGoingRegaloEnvenenadoNewCard";
 
 class OnGoingTest extends React.Component {
     constructor(props: any) {

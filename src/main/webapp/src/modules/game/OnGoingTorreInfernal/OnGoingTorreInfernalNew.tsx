@@ -1,4 +1,3 @@
-
 function NewOnGoingGame(formData: any){
     const requestOptions = {
         method: 'POST',

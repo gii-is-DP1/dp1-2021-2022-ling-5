@@ -2,7 +2,6 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import App from "./App";
 import PrincipalNavbar from "./modules/general/PrincipalNavbar";
-import Patata from "./Patata";
 import ProfileNavbar from "./modules/general/ProfileNavbar";
 import NewGame from "./modules/general/NewGame";
 import JoinGame from "./modules/general/JoinGame";
@@ -94,60 +93,6 @@ const Links = () => {
                     </div>
                     : <>Access is restricted</>}
              </Route>
-            {/*<Route path='/pointsByMinigame'>
-                {role === "Player" ?
-                    <div id="body" className="d-flex">
-                        <ProfileNavbar />
-                        <StadisticsNavbar />
-                        <UserPoints />
-                    </div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/mostAndLeastUsed'>
-                {role === "Player" ?
-                    <div id="body" className="d-flex">
-                        <ProfileNavbar />
-                        <StadisticsNavbar />
-                        <BestAndWorstFigure />
-                    </div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/ranking'>
-                {role === "Player" ?
-                    <div id="body" className="d-flex">
-                        <ProfileNavbar />
-                        <StadisticsNavbar />
-                        <Ranking />
-                    </div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/userFrequency'>
-                {role === "Player" ?
-                    <div id="body" className="d-flex">
-                        <ProfileNavbar />
-                        <StadisticsNavbar />
-                        <UserFrequency />
-                    </div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/propGames'>
-                {role === "Player" ?
-                    <div id="body" className="d-flex">
-                        <ProfileNavbar />
-                        <StadisticsNavbar />
-                        <PropGamesPlayed />
-                    </div>
-                    : <>Access is restricted</>}
-            </Route>
-            <Route path='/propTime'>
-                {role === "Player" ?
-                    <div id="body" className="d-flex">
-                        <ProfileNavbar />
-                        <StadisticsNavbar />
-                        <PropTime />
-                    </div>
-                    : <>Access is restricted</>}
-            </Route> */}
             <Route path='/games'>
                 {role === "Player" ?
                     <div id="body" className="d-flex">
