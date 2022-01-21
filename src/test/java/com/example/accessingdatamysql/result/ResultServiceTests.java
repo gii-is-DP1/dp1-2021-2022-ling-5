@@ -41,7 +41,7 @@ public class ResultServiceTests {
         Optional<Result> resultOpt = this.resultService.findResult(1L);
         if (resultOpt.isPresent()) {
             Result result = resultOpt.get();
-            assertEquals(result.getTotalPoints(), 10);
+            assertEquals(result.getTotalPoints(), 5);
         }
     }
 

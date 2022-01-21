@@ -24,20 +24,12 @@ public class OnGoingTorreInfernalController {
   @Autowired
   private OnGoingTorreInfernalService onGoinTorreInfernalService;
 
-  @Autowired
-  private GameService gameService;
-
-  @Autowired
-  private CardService cardService;
-
   @PostMapping(value = "/ongoingTorreInfernal")
   public @ResponseBody OnGoingTorreInfernal createGame(
     @RequestBody Request request
   ) {
     onGoinTorreInfernalService.createGame(
-      request.getGameId(),
-      gameService.findGame(request.getGameId()).get(),
-      cardService.findAllCards()
+      request.getGameId()
     );
     return onGoinTorreInfernalService.getGame(request.getGameId());
   }

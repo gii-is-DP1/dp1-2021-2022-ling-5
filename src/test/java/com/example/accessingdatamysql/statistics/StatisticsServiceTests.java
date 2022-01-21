@@ -31,7 +31,7 @@ public class StatisticsServiceTests {
     void testPointsByMinigames() {
 
         List<Integer> l1 = new ArrayList<Integer>();
-        l1.add(30);
+        l1.add(10);
         l1.add(10);
         l1.add(10);
         l1.add(10);
