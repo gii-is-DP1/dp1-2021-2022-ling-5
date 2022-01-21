@@ -56,9 +56,16 @@ import c7 from "./7.png"
 import c8 from "./8.png"
 import c9 from "./9.png"
 
-
-export default [
+const ls= [
  c1,
+ c2,
+ c3,
+ c4,
+ c5,
+ c6,
+ c7,
+ c8,
+ c9,
  c10,
  c11,
  c12,
@@ -69,7 +76,6 @@ export default [
  c17,
  c18,
  c19,
- c2,
  c20,
  c21,
  c22,
@@ -80,7 +86,6 @@ export default [
  c27,
  c28,
  c29,
- c3,
  c30,
  c31,
  c32,
@@ -91,7 +96,6 @@ export default [
  c37,
  c38,
  c39,
- c4,
  c40,
  c41,
  c42,
@@ -102,7 +106,6 @@ export default [
  c47,
  c48,
  c49,
- c5,
  c50,
  c51,
  c52,
@@ -110,11 +113,7 @@ export default [
  c54,
  c55,
  c56,
- c57,
- c6,
- c7,
- c8,
- c9
+ c57
 ]
 
 export default function cardImg(id){
