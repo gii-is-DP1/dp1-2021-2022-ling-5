@@ -13,7 +13,7 @@ const EditUser = () => {
         playerState: "NO_PLAY"
     })
 
-    const newUser = () => {
+    const newUser = (event:any) => {
 
         const requestOptions = {
             method: 'POST',
@@ -21,13 +21,13 @@ const EditUser = () => {
         }
 
         userAPI.addNewUser(player, "player").then((pl: any) => {
-            userAPI.addFiguresToPlayers(player.id);
+            userAPI.addFiguresToPlayers(pl.id);
         }).catch(err => console.log(err));
-
+        event.preventDefault();
     }
 
     return (
-        <Form>
+        <Form onSubmit={newUser}>
             <Row>
                 <h3>New player</h3>
                 <Col>
@@ -60,7 +60,7 @@ const EditUser = () => {
             </Row>
             <Row>
                 <div style={{ textAlign: "center" }} >
-                    <Button variant="primary" type="button" onClick={() => newUser()}>
+                    <Button variant="primary" type="submit">
                         Submit
                     </Button>
                 </div>

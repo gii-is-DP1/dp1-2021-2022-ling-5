@@ -20,7 +20,7 @@ const CreateAchievement = () => {
         requirement: null
     })
 
-    const newAchievement = () => {
+    const newAchievement = (event:any) => {
 
         if (achievement.achievementTypes != null ) {
             console.log(achievement);
@@ -29,11 +29,11 @@ const CreateAchievement = () => {
                 window.location.href = '/adminAwards'
             ).catch(err => console.log(err));
         }
-
+        event.preventDefault();
     }
 
     return (
-        <Form>
+        <Form onSubmit={newAchievement}>
             <Row>
                  <h3>New achievement</h3>
                 <Col>
@@ -94,7 +94,7 @@ const CreateAchievement = () => {
             </Row>
             <Row>
                 <div style={{ textAlign: "center" }} >
-                    <Button variant="dark" type="button" onClick={() => newAchievement()}>
+                    <Button variant="dark" type="submit">
                         Submit
                     </Button>
                 </div>
