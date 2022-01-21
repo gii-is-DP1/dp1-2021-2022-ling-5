@@ -95,9 +95,7 @@ public class OnGoingTorreInfernalServiceTests {
   @Transactional(readOnly = true)
   void testnewCenterCard() {
     Card centerCard = onGoingTorreInfernalService.getGame(2L).getCurrentCard();
-    RequestNewCard request = new RequestNewCard();
-    request.setPlayerId(2L);
-    onGoingTorreInfernalService.newCenterCard(2L, request);
+    onGoingTorreInfernalService.newCenterCard(2L, 2L);
     assertNotEquals(centerCard, onGoingTorreInfernalService.getCenterCard(2L));
   }
 
