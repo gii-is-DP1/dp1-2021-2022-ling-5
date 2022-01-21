@@ -50,8 +50,8 @@ public class OnGoingTorreInfernalService {
   }
 
   @Transactional
-  public void newCenterCard(Long gameId, RequestNewCard request) {
-    ongoing.newCenterCard(gameId, request);
+  public void newCenterCard(Long gameId, Long playerId) {
+    ongoing.newCenterCard(gameId, playerId);
   }
 
   @Transactional(readOnly = true)

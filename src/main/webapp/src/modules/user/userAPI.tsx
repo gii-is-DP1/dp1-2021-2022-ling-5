@@ -189,7 +189,7 @@ const userAPI = {
             .catch(error => console.log(error));
     },
 
-    async addOneToFigure(playerId:number,figureId:number){
+    async addOneToFigure(playerId:any,figureId:any){
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },

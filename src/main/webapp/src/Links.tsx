@@ -31,6 +31,7 @@ import ErrorPage from "./modules/general/ErrorPage";
 import Auditory from "./modules/user/Auditory";
 import AdminPlayedGames from "./modules/game/AdminPlayedGames";
 import RegaloEnvenenado from "./modules/general/RegaloEnvenenado";
+import TorreInfernal from "./modules/general/TorreInfernal";
 
 const Links = () => {
     const [role, setRole] = useState<string | null>(null)
@@ -53,6 +54,9 @@ const Links = () => {
             </Route>
             <Route path='/startGame/:id'>
                 <StartGame />
+            </Route>
+            <Route path='/game/:gameId/1'>
+                <TorreInfernal />
             </Route>
             <Route path='/game/:gameId/2'>
                 <Foso />
