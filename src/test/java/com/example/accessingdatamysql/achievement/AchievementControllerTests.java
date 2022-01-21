@@ -91,4 +91,24 @@ public class AchievementControllerTests {
                 .content(objectMapper.writeValueAsString(achievement))).andExpect(status().isOk());
     }
 
+    @Test
+    void testGetByIdBad() throws Exception {
+        mockMvc.perform(get("/api/achievements/{achievementId}", TEST_ACHIEVEMENT_ID + 8L)).andExpect(status().isNotFound());
+    }
+
+    @Test
+    void testDeleteByIdBad() throws Exception {
+        mockMvc.perform(delete("/api/achievements/{achievementId}", TEST_ACHIEVEMENT_ID + 6L)).andExpect(status().isNotFound());
+    }
+
+    @Test
+    void testUpdateBad() throws Exception {
+        Integer achievement = 8;
+        mockMvc.perform(put("/api/achievements/{achievementId}", 
+                TEST_ACHIEVEMENT_ID).contentType("application/json")
+                .content(objectMapper.writeValueAsString(achievement))).andExpect(status().isBadRequest());
+    }
+
+
+
 }
