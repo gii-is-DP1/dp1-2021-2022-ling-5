@@ -5,3 +5,17 @@
     font-size: calc(30px + 2vmin);
     color: #7845b0;
 }
+
+.center{
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.nomargin{
+    margin:0;
+}
+
+.magen{
+    margin-top: 100px !important; 
+}
