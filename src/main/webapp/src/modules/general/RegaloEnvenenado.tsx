@@ -142,7 +142,8 @@ function RegaloEnvenenado(props: any) {
                                     }
                                 }
                                 if (equal) {
-                                    NewCard(gameId, el.id)
+                                    NewCard(token.getLoggedId(),gameId)
+                                    .then(()=>userAPI.addOneToFigure(token.getLoggedId(),l.id))
                                         .catch((err) => console.log(err));
                                 }
                             }}>

@@ -49,8 +49,8 @@ public class OnGoingRegaloEnvenenadoService {
   }
 
   @Transactional
-  public void newCenterCard(Long gameId, RequestNewCard request) {
-    ongoing.newCenterCard(gameId, request);
+  public void newCenterCard(Long gameId, Long playerId) {
+    ongoing.newCenterCard(gameId, playerId);
   }
 
   @Transactional(readOnly = true)
@@ -82,7 +82,7 @@ public class OnGoingRegaloEnvenenadoService {
   public void deleteGame(Long gameId) {
     Game game = gameRepository.findById(gameId).get();
     Map<Long, Integer> result = this.getGame(gameId).getPoints();
-    for(Entry<Long, Integer> e: result.entrySet()){
+    for (Entry<Long, Integer> e : result.entrySet()) {
       Result res = new Result();
       res.setData("0 " + "0 " + e.getValue());
       res.setGame(game);
