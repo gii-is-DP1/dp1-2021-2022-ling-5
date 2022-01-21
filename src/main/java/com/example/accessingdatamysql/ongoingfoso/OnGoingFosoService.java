@@ -91,7 +91,7 @@ public class OnGoingFosoService {
     Map<Long, Integer> result = this.getGame(gameId).getPoints();
     for(Entry<Long, Integer> e: result.entrySet()){
       Result res = new Result();
-      res.setData("0 " + e.getValue() + " 0");
+      res.setData(""+e.getValue());
       res.setGame(game);
       res.setPlayer(playerService.findPlayer(e.getKey()).get());
       res.setTotalPoints(e.getValue());

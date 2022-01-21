@@ -1,8 +1,6 @@
 package com.example.accessingdatamysql.ongoingminigame;
 
 import com.example.accessingdatamysql.card.Card;
-import com.example.accessingdatamysql.card.CardService;
-import com.example.accessingdatamysql.game.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
