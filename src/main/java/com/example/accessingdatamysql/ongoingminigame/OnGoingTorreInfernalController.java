@@ -77,13 +77,14 @@ public class OnGoingTorreInfernalController {
     return onGoinTorreInfernalService.getPoints(gameId, playerId);
   }
 
-  @PutMapping(value = "/ongoingTorreInfernal/{gameId}/card")
+  @PutMapping(value = "/ongoingTorreInfernal/{gameId}/card/{playerId}")
   public @ResponseBody OnGoingTorreInfernal newCenterCard(
     @RequestBody RequestNewCard request,
-    @PathVariable Long gameId
+    @PathVariable Long gameId,
+    @PathVariable Long playerId
   ) throws BadRequest{
     try{
-      onGoinTorreInfernalService.newCenterCard(gameId, request);
+      onGoinTorreInfernalService.newCenterCard(gameId, playerId);
       return onGoinTorreInfernalService.getGame(gameId);
     } catch(Error e){
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);

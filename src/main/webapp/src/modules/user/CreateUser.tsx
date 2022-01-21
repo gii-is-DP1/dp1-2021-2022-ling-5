@@ -21,7 +21,8 @@ const EditUser = () => {
         }
 
         userAPI.addNewUser(player, "player").then((pl: any) => {
-            userAPI.addFiguresToPlayers(player.id);
+            userAPI.addFiguresToPlayers(pl.id);
+            window.location.href = `/users`;
         }).catch(err => console.log(err));
         event.preventDefault();
     }
