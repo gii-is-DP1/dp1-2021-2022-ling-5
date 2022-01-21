@@ -1,8 +1,10 @@
 package com.example.accessingdatamysql.ongoingminigame;
 
 import com.example.accessingdatamysql.card.Card;
+import com.example.accessingdatamysql.card.CardService;
 import com.example.accessingdatamysql.game.Game;
 import com.example.accessingdatamysql.game.GameRepository;
+import com.example.accessingdatamysql.game.GameService;
 import com.example.accessingdatamysql.game.State;
 import com.example.accessingdatamysql.result.Result;
 import com.example.accessingdatamysql.result.ResultService;
@@ -32,6 +34,12 @@ public class OnGoingTorreInfernalService {
   @Autowired
   private PlayerService playerService;
 
+  @Autowired
+  private GameService gameService;
+
+  @Autowired
+  private CardService cardService;
+
   private static OnGoingTorreInfernalRepository ongoing = null;
 
   public OnGoingTorreInfernalService() {
@@ -45,7 +53,9 @@ public class OnGoingTorreInfernalService {
   }
 
   @Transactional
-  public void createGame(Long gameId, Game game, Iterable<Card> cards) {
+  public void createGame(Long gameId) {
+    Game game = gameService.findGame(gameId).get();
+    Iterable<Card> cards = cardService.findAllCards();
     ongoing.createGame(gameId, game, cards);
   }
 
