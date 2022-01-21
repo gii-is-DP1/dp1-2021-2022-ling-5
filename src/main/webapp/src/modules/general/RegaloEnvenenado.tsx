@@ -28,28 +28,28 @@ function RegaloEnvenenado(props: any) {
             .catch((err: any) => console.log(err));
     }, [regaloEnvenenado])
 
-     useEffect(() => {
-         let cards: any[] = [];
-         gameAPI.getPlayersByGame(gameId)
-             .then((pls: any) => {
-                 for (let pl of pls) {
-                     GetPlayerCard(gameId, pl.id)
-                         .then((pc: any) => {
-                             let cardItem = { name: pl.nickname, id: pl.id, card: pc };
-                             cards.push(cardItem);
-                         })
-                         .catch((err) => console.log(err));
-                 }
-                 setPlayersCards(cards);
-             }).catch((err: any) => console.log(err));
-         console.log(cards);
-     }, [])
+    useEffect(() => {
+        let cards: any[] = [];
+        gameAPI.getPlayersByGame(gameId)
+            .then((pls: any) => {
+                for (let pl of pls) {
+                    GetPlayerCard(gameId, pl.id)
+                        .then((pc: any) => {
+                            let cardItem = { name: pl.nickname, id: pl.id, card: pc };
+                            cards.push(cardItem);
+                        })
+                        .catch((err) => console.log(err));
+                }
+                setPlayersCards(cards);
+            }).catch((err: any) => console.log(err));
+        console.log(cards);
+    }, [])
 
-/*     useEffect(()=>{
-        GetPlayerCard(gameId, token.getLoggedId())
-        .then((pc:any)=>setPlayersCards(pc))
-        .catch((err)=>console.log(err));
-    },[playersCards]) */
+    // useEffect(()=>{
+    //     GetPlayerCard(gameId, token.getLoggedId())
+    //     .then((pc:any)=>setPlayersCards(pc))
+    //     .catch((err)=>console.log(err));
+    // },[playersCards])
 
     useEffect(() => {
         gameAPI.getPlayersByGame(gameId)
@@ -82,6 +82,7 @@ function RegaloEnvenenado(props: any) {
     if (!regaloEnvenenado || !playersCards || !points || !centerCard) return <div>Loading...</div>
 
     let remaininglength = regaloEnvenenado.remainingSize;
+
 
     if (remaininglength === 0) {
         window.location.href = '/';
