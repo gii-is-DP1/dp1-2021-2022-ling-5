@@ -65,12 +65,12 @@ const EditProfile = (props: any) => {
                         <Col>
                             <Form.Group className="mb-3" controlId="formBasicName">
                                 <Form.Label>Name</Form.Label>
-                                <Form.Control type="text" placeholder={player.name} onChange={(e) => setPlayer({ ...player, name: e.target.value })} />
+                                <Form.Control type="text" required minLength={3} maxLength={50} placeholder={player.name} onChange={(e) => setPlayer({ ...player, name: e.target.value })} />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formBasicSurname">
                                 <Form.Label>Surname</Form.Label>
-                                <Form.Control type="text" placeholder={player.surname} onChange={(e) => setPlayer({ ...player, surname: e.target.value })} />
+                                <Form.Control type="text" required minLength={3} maxLength={50} placeholder={player.surname} onChange={(e) => setPlayer({ ...player, surname: e.target.value })} />
                             </Form.Group>
                         </Col>
                     </Row>

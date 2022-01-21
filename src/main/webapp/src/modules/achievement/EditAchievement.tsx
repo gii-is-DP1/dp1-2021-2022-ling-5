@@ -66,12 +66,12 @@ const EditAchievement = (props: any) => {
                         <Col>
                             <Form.Group className="mb-3" controlId="formBasicName">
                                 <Form.Label>Name</Form.Label>
-                                <Form.Control type="text" placeholder={achievement.name} onChange={(e) => setAchievement({ ...achievement, name: e.target.value })} />
+                                <Form.Control type="text" required placeholder={achievement.name} onChange={(e) => setAchievement({ ...achievement, name: e.target.value })} />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formBasicDescription">
                                 <Form.Label>Description</Form.Label>
-                                <Form.Control type="text" placeholder={achievement.description} onChange={(e) => setAchievement({ ...achievement, description: e.target.value })} />
+                                <Form.Control type="text" required maxLength={200} placeholder={achievement.description} onChange={(e) => setAchievement({ ...achievement, description: e.target.value })} />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formBasicType">

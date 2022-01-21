@@ -39,12 +39,12 @@ const CreateAchievement = () => {
                 <Col>
                     <Form.Group className="mb-3" controlId="formBasicName">
                         <Form.Label>Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter name" onChange={(e) => setAchievement({ ...achievement, name: e.target.value })} />
+                        <Form.Control type="text" required placeholder="Enter name" onChange={(e) => setAchievement({ ...achievement, name: e.target.value })} />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicDescription">
                         <Form.Label>Description</Form.Label>
-                        <Form.Control type="text" placeholder="Enter description" onChange={(e) => setAchievement({ ...achievement, description: e.target.value })} />
+                        <Form.Control type="text" required maxLength={200} placeholder="Enter description" onChange={(e) => setAchievement({ ...achievement, description: e.target.value })} />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicType">
@@ -60,7 +60,7 @@ const CreateAchievement = () => {
 
                     <Form.Group className="mb-3" controlId="formBasicRequirement">
                         <Form.Label>Requirement points</Form.Label>
-                        <Form.Control type="text" placeholder="Enter number of requirement" onChange={(e) => setAchievement({ ...achievement, requirement: e.target.value })} />
+                        <Form.Control type="text" required placeholder="Enter number of requirement" onChange={(e) => setAchievement({ ...achievement, requirement: e.target.value })} />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicNickname">
