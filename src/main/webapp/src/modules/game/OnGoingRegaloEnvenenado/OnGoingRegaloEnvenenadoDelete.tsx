@@ -1,4 +1,3 @@
-
 function DeleteGame(gameId: any) {
     const requestOptions = {
         method: 'DELETE',

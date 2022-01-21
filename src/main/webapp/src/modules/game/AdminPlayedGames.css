@@ -1,18 +1,17 @@
 .AdminPlayedGames {
-    text-align: center;
-    background-color: #fdfd96;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    
-  }
-
-#page {
-    background-color: #fdfd96;
-    align-items: center;
-    justify-content: center;    
+  text-align: center;
+  background-color: #fdfd96;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-#ptitle{
-    color: #7845b0;
+#page {
+  background-color: #fdfd96;
+  align-items: center;
+  justify-content: center;
+}
+
+#ptitle {
+  color: #7845b0;
 }

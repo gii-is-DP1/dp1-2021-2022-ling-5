@@ -2,7 +2,6 @@ import React, { Props, useEffect, useState } from 'react';
 import figures from "../../images/figures/figures.js";
 import '../../App.css'
 import { Col, Row } from 'react-bootstrap';
-import movimiento from '../game/movimiento';
 import cardAPI from './cardAPI';
 
 //<FiguresByCard id='19'/>
@@ -17,7 +16,6 @@ const FiguresByCard = (data: any) => {
   }, [])
 
   if (!card) return <div>Loading...</div>
-  else console.log(movimiento(1, card))
 
   let ls: any[] = []
   for (let i = 0; i < card.figures.length; i++) {

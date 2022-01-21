@@ -4,13 +4,6 @@
   flex-direction: column;
 }
 
-/* .Container {
-  margin: 0;
-  width: 200%;
-  min-height: 100%;
-  display: flex;
-} */
-
 #page {
   background-color: #fdfd96;
   min-height: 100vh;
