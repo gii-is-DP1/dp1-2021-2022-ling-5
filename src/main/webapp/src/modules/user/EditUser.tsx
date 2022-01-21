@@ -9,11 +9,17 @@ const EditUser = (props: any) => {
     const [figure, setFigure] = useState<number>(0);
     const [modalShow, setModalShow] = useState<boolean>(false);
 
-    const edit = () => {
+    function handleChange(newFigure: number) {
+        setFigure(newFigure);
+        setModalShow(false);
+    }
+
+    const edit = (event:any) => {
         console.log(player);
         userAPI.updateUser(player, props.idUser, "player")
-            .then((res) => window.location.href = '/users')
+            .then(props.onHide)
             .catch((err) => console.log(err));
+        event.preventDefault();
     }
 
     useEffect(() => {
@@ -26,6 +32,7 @@ const EditUser = (props: any) => {
     }, [props.idUser])
 
     return (
+        <Form onSubmit={edit}>
         <Modal
             show={props.show}
             onHide={props.onHide}
@@ -50,18 +57,20 @@ const EditUser = (props: any) => {
                             />
                             <Button onClick={() => setModalShow(true)}>Change figure</Button>
                             <EditFigure idUser={player.id}
+                                figure={figure}
+                                onChange={handleChange}
                                 show={modalShow}
                                 onHide={() => setModalShow(false)} />
                         </Col>
                         <Col>
                             <Form.Group className="mb-3" controlId="formBasicName">
                                 <Form.Label>Name</Form.Label>
-                                <Form.Control type="text" placeholder={player.name} onChange={(e) => setPlayer({ ...player, name: e.target.value })} />
+                                <Form.Control type="text" required minLength={3} maxLength={50} placeholder={player.name} onChange={(e) => setPlayer({ ...player, name: e.target.value })} />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formBasicSurname">
                                 <Form.Label>Surname</Form.Label>
-                                <Form.Control type="text" placeholder={player.surname} onChange={(e) => setPlayer({ ...player, surname: e.target.value })} />
+                                <Form.Control type="text" required minLength={3} maxLength={50} placeholder={player.surname} onChange={(e) => setPlayer({ ...player, surname: e.target.value })} />
                             </Form.Group>
                         </Col>
                     </Row>
@@ -71,10 +80,11 @@ const EditUser = (props: any) => {
                 </>) : <p>Loading...</p>}
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={() => edit()}>Submit changes</Button>
+                <Button type="submit">Submit changes</Button>
                 <Button onClick={props.onHide}>Close</Button>
             </Modal.Footer>
         </Modal >
+        </Form>
     )
 
 

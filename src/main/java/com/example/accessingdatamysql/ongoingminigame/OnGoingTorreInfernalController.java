@@ -1,9 +1,8 @@
 package com.example.accessingdatamysql.ongoingminigame;
 
 import com.example.accessingdatamysql.card.Card;
-import com.example.accessingdatamysql.card.CardService;
-import com.example.accessingdatamysql.game.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +12,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
 @Controller
 @RequestMapping("/api")
@@ -21,22 +22,12 @@ public class OnGoingTorreInfernalController {
   @Autowired
   private OnGoingTorreInfernalService onGoinTorreInfernalService;
 
-  @Autowired
-  private GameService gameService;
-
-  @Autowired
-  private CardService cardService;
-
-  // curl -H "Content-Type: application/json" -X POST
-  // localhost:8080/api/ongoingTorreInfernal -d "{\"gameId\":1}"
   @PostMapping(value = "/ongoingTorreInfernal")
   public @ResponseBody OnGoingTorreInfernal createGame(
     @RequestBody Request request
   ) {
     onGoinTorreInfernalService.createGame(
-      request.getGameId(),
-      gameService.findGame(request.getGameId()).get(),
-      cardService.findAllCards()
+      request.getGameId()
     );
     return onGoinTorreInfernalService.getGame(request.getGameId());
   }
@@ -76,13 +67,18 @@ public class OnGoingTorreInfernalController {
     return onGoinTorreInfernalService.getPoints(gameId, playerId);
   }
 
-  @PutMapping(value = "/ongoingTorreInfernal/{gameId}/card")
+  @PutMapping(value = "/ongoingTorreInfernal/{gameId}/card/{playerId}")
   public @ResponseBody OnGoingTorreInfernal newCenterCard(
     @RequestBody RequestNewCard request,
-    @PathVariable Long gameId
-  ) {
-    onGoinTorreInfernalService.newCenterCard(gameId, request);
-    return onGoinTorreInfernalService.getGame(gameId);
+    @PathVariable Long gameId,
+    @PathVariable Long playerId
+  ) throws BadRequest{
+    try{
+      onGoinTorreInfernalService.newCenterCard(gameId, playerId);
+      return onGoinTorreInfernalService.getGame(gameId);
+    } catch(Error e){
+      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+    }
   }
 
   @PutMapping(

@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PlayerService {
@@ -26,56 +27,53 @@ public class PlayerService {
     return player;
   }
 
-  public Optional<Player> findPlayer(Long id) {
+  @Transactional(readOnly = true)
+  public Optional<Player> findPlayer(Long id) throws DataAccessException {
     return playerRepository.findById(id);
   }
 
-  public List<Player> findAllPlayers() {
+  @Transactional(readOnly = true)
+  public List<Player> findAllPlayers() throws DataAccessException {
     return StreamSupport
-      .stream(playerRepository.findAll().spliterator(), false)
-      .collect(Collectors.toList());
+        .stream(playerRepository.findAll().spliterator(), false)
+        .collect(Collectors.toList());
   }
 
-  public List<Player> findAllPlayersByRole(Long roleId) {
+  @Transactional(readOnly = true)
+  public List<Player> findAllPlayersByRole(Long roleId) throws DataAccessException {
     return StreamSupport
-      .stream(playerRepository.findAll().spliterator(), false)
-      .filter(player -> player.getRole().getId() == roleId)
-      .collect(Collectors.toList());
+        .stream(playerRepository.findAll().spliterator(), false)
+        .filter(player -> player.getRole().getId() == roleId)
+        .collect(Collectors.toList());
   }
 
-  public Optional<Player> findPlayerByNickname(String nickname) {
+  @Transactional(readOnly = true)
+  public Optional<Player> findPlayerByNickname(String nickname) throws DataAccessException {
     return StreamSupport
-      .stream(playerRepository.findAll().spliterator(), false)
-      .filter(player -> player.getNickname().equals(nickname))
-      .findFirst();
+        .stream(playerRepository.findAll().spliterator(), false)
+        .filter(player -> player.getNickname().equals(nickname))
+        .findFirst();
   }
 
-  // public List<Player> findAllPlayersByGame(Long gameId) {
-  // System.out.println("gameId: " + gameId);
-  // System.out.println("GAMEEE: " + gameRepository.findById(gameId).get());
-  // return StreamSupport.stream(playerRepository.findAll().spliterator(), false)
-  // .filter(player ->
-  // player.getGamesPlayed().contains(gameRepository.findById(gameId).get()))
-  // .collect(Collectors.toList());
-  // }
   @Transactional
-  public void deletePlayer(Long id) {
+  public void deletePlayer(Long id) throws DataAccessException {
     playerRepository.deleteById(id);
   }
 
   @Transactional
-  public void deleteAllPlayers() {
+  public void deleteAllPlayers() throws DataAccessException {
     playerRepository.deleteAll();
   }
 
   @Transactional
-  public void deleteAllPlayersByRole(Long roleId) {
+  public void deleteAllPlayersByRole(Long roleId) throws DataAccessException {
     findAllPlayersByRole(roleId)
-      .stream()
-      .forEach(player -> playerRepository.deleteById(player.getId()));
+        .stream()
+        .forEach(player -> playerRepository.deleteById(player.getId()));
   }
 
-  public List<Player> findByNickname(String nickname) {
+  @Transactional(readOnly = true)
+  public List<Player> findByNickname(String nickname) throws DataAccessException {
     List<Player> players = new ArrayList<Player>();
     for (Player p : playerRepository.findAll()) {
       if (p.getNickname().equals(nickname)) {

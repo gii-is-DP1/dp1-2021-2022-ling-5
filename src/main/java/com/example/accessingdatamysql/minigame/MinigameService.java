@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MinigameService {
@@ -25,23 +26,25 @@ public class MinigameService {
     return minigame;
   }
 
-  public Optional<Minigame> findMinigame(Long id) {
+  @Transactional(readOnly = true)
+  public Optional<Minigame> findMinigame(Long id) throws DataAccessException {
     return minigameRepository.findById(id);
   }
 
-  public List<Minigame> findAllMinigames() {
+  @Transactional(readOnly = true)
+  public List<Minigame> findAllMinigames() throws DataAccessException {
     return StreamSupport
-      .stream(minigameRepository.findAll().spliterator(), false)
-      .collect(Collectors.toList());
+        .stream(minigameRepository.findAll().spliterator(), false)
+        .collect(Collectors.toList());
   }
 
   @Transactional
-  public void deleteMinigame(Long id) {
+  public void deleteMinigame(Long id) throws DataAccessException {
     minigameRepository.deleteById(id);
   }
 
   @Transactional
-  public void deleteAllMinigames() {
+  public void deleteAllMinigames() throws DataAccessException {
     minigameRepository.deleteAll();
   }
 }

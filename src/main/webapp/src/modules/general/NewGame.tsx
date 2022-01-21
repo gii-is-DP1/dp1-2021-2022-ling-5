@@ -4,6 +4,8 @@ import { Form, Button } from 'react-bootstrap';
 import './NewGame.css';
 import { useEffect, useState } from 'react';
 import gameAPI from '../game/gameAPI';
+import userAPI from '../user/userAPI';
+import token from '../user/token';
 
 
 function NewGame() {
@@ -24,21 +26,16 @@ function NewGame() {
   const [gameid, setGameid] = useState<number | undefined>(0);
 
   function createGame() {
-
-    gameAPI.addNewGame(game).then((gameCreated: any) => {
-      setGameid(gameCreated.id);
-      if (minigame && gameCreated.id !== undefined) {
-        if (minigame !== '4' && minigame !== 'N/A') {
-          var mg = parseInt(minigame);
-          gameAPI.addNewMinigameToGame(gameCreated.id, mg);
-        } else {
-          gameAPI.addNewMinigameToGame(gameCreated.id, 1);
-          gameAPI.addNewMinigameToGame(gameCreated.id, 2);
-          gameAPI.addNewMinigameToGame(gameCreated.id, 3);
+      gameAPI.addNewGame(game).then((gameCreated: any) => {
+        setGameid(gameCreated.id);
+        if (minigame && gameCreated.id !== undefined) {
+          if (minigame !== 'N/A') {
+            var mg = parseInt(minigame);
+            gameAPI.addNewMinigameToGame(gameCreated.id, mg);
+          }
+          window.location.href = `/startGame/${gameCreated.id}`;
         }
-        window.location.href = `/startGame/${gameCreated.id}`;
-      }
-    }).catch((err) => console.log(err));
+      }).catch((err) => console.log(err));
 
   }
 
@@ -58,26 +55,23 @@ function NewGame() {
       <Form>
         <Form.Group className="mb-3">
           <Form.Label>Game's name</Form.Label>
-          <Form.Control placeholder="Enter name" onChange={(e) => setGame({ ...game, name: e.target.value })} />
+          <Form.Control placeholder="Enter name" required onChange={(e) => setGame({ ...game, name: e.target.value })} />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Choose minigame</Form.Label>
 
-          <Form.Control as="select" onChange={(e) => setMinigame(e.target.value)}>
+          <Form.Control as="select" required onChange={(e) => setMinigame(e.target.value)}>
             <option value="N/A"> Choose game mode </option>
-            <option value='1' >Minigame 1</option>
-            <option value='2'>Minigame 2</option>
-            <option value='3'>Minigame 3</option>
-            <option value='4'>All minigames</option>
+            <option value='1' >Torre Infernal</option>
+            <option value='2'>Foso</option>
+            <option value='3'>Regalo Envenenado</option>
           </Form.Control>
         </Form.Group>
 
         <Button className="Button" size="lg" variant="dark" onClick={() => createGame()}>
           CREATE
         </Button>
-
-        {gameid === undefined ? <p>This name already exists!</p> : <></>}
       </Form>
     </div>
 

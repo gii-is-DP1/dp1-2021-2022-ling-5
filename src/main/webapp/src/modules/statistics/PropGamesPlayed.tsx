@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Badge, Card, Col, Container, Row } from "react-bootstrap";
+import ChartsPage from "./ChartsPage";
 
 const PropGamesPlayed = () => {
     const [playerId, setPlayerId] = useState<number>();
@@ -17,7 +18,7 @@ const PropGamesPlayed = () => {
                 id = userData.id
             }
         }
-        if (id != 0) {
+        if (id !== 0) {
             fetch(`http://localhost:8080/api/statistics/propTotal/${id}`).then((res: any) => {
                 res.json().then((prop: number) => setPropTotal(prop)).catch(console.error);
             }).catch(console.error);
@@ -33,28 +34,31 @@ const PropGamesPlayed = () => {
 
     if (playerId === undefined || propTotal === undefined || minMaxAvg === undefined || minMaxAvgAll === undefined) return <></>
 
-    return <Container id="container">
+    return <Container >
+        <Card className="m-1">
         <h4>Ratio of games played to total number of games played: {propTotal}</h4>
         <br />
-        <Row>
-            <Col>
+        <Row >
+            <Col ><ChartsPage ratio={propTotal} width="50%" /></Col>
+            <Col className="my-auto"> <Badge bg="info"> </Badge> {' '}Games played by me: {propTotal*100} %</Col>
+
+            <Col className="my-auto text-center">
                 <h5>Me</h5>
-                Min points: {minMaxAvg.min}
+                <strong>Min points</strong>: {minMaxAvg.min}
                 <br />
-                Max points: {minMaxAvg.max}
+                <strong>Max points</strong>: {minMaxAvg.max}
                 <br />
-                Average points: {minMaxAvg.avg.toFixed(2)}
-            </Col>
-            <Col>
+                <strong>Average points</strong>: {minMaxAvg.avg.toFixed(2)}
+                <hr />
                 <h5>Global</h5>
-                Min points: {minMaxAvgAll.min}
+                <strong>Min points</strong>: {minMaxAvgAll.min}
                 <br />
-                Max points: {minMaxAvgAll.max}
+                <strong>Max points</strong>: {minMaxAvgAll.max}
                 <br />
-                Average points: {minMaxAvgAll.avg.toFixed(2)}
+                <strong>Average points</strong>: {minMaxAvgAll.avg.toFixed(2)}
             </Col>
         </Row>
-
+        </Card>
     </Container>
 }
 export default PropGamesPlayed;

@@ -40,7 +40,7 @@ class Login extends React.Component<{}, { nickname: string, password: string }>{
                         <Form.Label>
                             Nickname:
                         </Form.Label>
-                        <Form.Control name="nickname" type="text" placeholder={this.state.nickname} onChange={this.handleChange}>
+                        <Form.Control name="nickname" required  type="text" placeholder={this.state.nickname} onChange={this.handleChange}>
                         </Form.Control>
                     </Form.Group>
                 </Row>
@@ -50,7 +50,7 @@ class Login extends React.Component<{}, { nickname: string, password: string }>{
                         <Form.Label>
                             Password:
                         </Form.Label>
-                        <Form.Control name="password" type="password" placeholder={this.state.password} onChange={this.handleChange}>
+                        <Form.Control name="password" required type="password" placeholder={this.state.password} onChange={this.handleChange}>
                         </Form.Control>
                     </Form.Group>
                 </Row>

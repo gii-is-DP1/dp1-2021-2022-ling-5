@@ -10,11 +10,17 @@ const EditAchievement = (props: any) => {
     const [figure, setFigure] = useState<number>(0);
     const [modalShow, setModalShow] = useState<boolean>(false);
 
-    const edit = () => {
+    function handleChange(newFigure: number) {
+        setFigure(newFigure);
+        setModalShow(false);
+    }
+    
+    const edit = (event:any) => {
         console.log(achievement);
         achievementAPI.updateAchievement(achievement, props.idUser)
             .then((res) => window.location.href = '/adminAwards')
             .catch((err) => console.log(err));
+        event.preventDefault();
     }
 
     useEffect(() => {
@@ -27,6 +33,7 @@ const EditAchievement = (props: any) => {
     }, [props.idUser])
 
     return (
+        <Form onSubmit={edit}>
         <Modal
             show={props.show}
             onHide={props.onHide}
@@ -51,18 +58,20 @@ const EditAchievement = (props: any) => {
                             />
                             <Button onClick={() => setModalShow(true)}>Change figure</Button>
                             <EditFigureAward idAchievement={achievement.id}
+                                figure={figure}
+                                onChange={handleChange}
                                 show={modalShow}
                                 onHide={() => setModalShow(false)} />
                         </Col>
                         <Col>
                             <Form.Group className="mb-3" controlId="formBasicName">
                                 <Form.Label>Name</Form.Label>
-                                <Form.Control type="text" placeholder={achievement.name} onChange={(e) => setAchievement({ ...achievement, name: e.target.value })} />
+                                <Form.Control type="text" required placeholder={achievement.name} onChange={(e) => setAchievement({ ...achievement, name: e.target.value })} />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formBasicDescription">
                                 <Form.Label>Description</Form.Label>
-                                <Form.Control type="text" placeholder={achievement.description} onChange={(e) => setAchievement({ ...achievement, description: e.target.value })} />
+                                <Form.Control type="text" required maxLength={200} placeholder={achievement.description} onChange={(e) => setAchievement({ ...achievement, description: e.target.value })} />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formBasicType">
@@ -90,10 +99,11 @@ const EditAchievement = (props: any) => {
                 </>) : <p>Loading...</p>}
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={() => edit()}>Submit changes</Button>
+                <Button type="submit">Submit changes</Button>
                 <Button onClick={props.onHide}>Close</Button>
             </Modal.Footer>
         </Modal >
+        </Form>
     )
 
 

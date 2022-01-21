@@ -1,91 +1,84 @@
 package com.example.accessingdatamysql.game;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import com.example.accessingdatamysql.minigame.Minigame;
 import com.example.accessingdatamysql.model.BaseEntity;
 import com.example.accessingdatamysql.result.Result;
 import com.example.accessingdatamysql.user.Player;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "game")
 public class Game extends BaseEntity {
 
-    @Size(min = 3, max = 50)
-    @NotEmpty
-    @NotNull
-    @Column(name = "name", unique = true)
-    private String name;
+  public static final int MIN_SIZE = 3;
+  public static final int MAX_SIZE = 50;
 
-    @Column(name = "state")
-    private State state;
+  @Size(min = MIN_SIZE, max = MAX_SIZE)
+  @NotEmpty
+  @NotNull
+  @Column(unique = true)
+  private String name;
 
-    @Column(name = "startTime")
-    private Date startTime;
+  private State state;
 
-    @Column(name = "endTime")
-    private Date endTime;
+  private Date startTime;
 
-    @NotNull
-    @Column(name = "creator")
-    private Long creator;
+  private Date endTime;
 
-    @Column(name = "winner")
-    private Long winner;
+  @NotNull
+  private Long creator;
 
-    @ManyToMany(mappedBy = "games")
-    @Size(max = 3)
-    private List<Minigame> minigames;
+  private Long winner;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "game", cascade = CascadeType.REMOVE)
-    private List<Result> results;
+  @ManyToMany(mappedBy = "games")
+  @Size(max = 3)
+  private List<Minigame> minigames;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "gamesPlayed")
-    @Size(max = 8)
-    private List<Player> players;
+  @JsonIgnore
+  @OneToMany(mappedBy = "game", cascade = CascadeType.REMOVE)
+  private List<Result> results;
 
-    public Game() {
-        this.name = "";
-        this.state = State.UNSTARTED;
-        this.startTime = new Date(System.currentTimeMillis());
-        this.endTime = new Date(System.currentTimeMillis());
-        this.creator = 0L;
-        this.winner = 0L;
-    }
+  @JsonIgnore
+  @ManyToMany(mappedBy = "gamesPlayed")
+  @Size(max = 8)
+  private List<Player> players;
 
-    public Game(String name, State state, Date startTime, Date endTime, Long creator, Long winner) {
-        this.name = name;
-        this.state = state;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.creator = creator;
-        this.winner = winner;
-    }
+  public Game() {
+    this.name = "";
+    this.state = State.UNSTARTED;
+    this.startTime = new Date(System.currentTimeMillis());
+    this.endTime = new Date(System.currentTimeMillis());
+    this.creator = 0L;
+    this.winner = 0L;
+  }
 
-    @Override
-    public String toString() {
-        return "{" + " id='" + getId() + "'" + ", name='" + getName() + "'" + ", state='" + getState() + "'"
-                + ", startTime='" + getStartTime() + "'" + ", endTime='" + getEndTime() + "'" + ", creator='"
-                + getCreator() + "'" + ", winner='" + getWinner() + "'" + ", minigames='" + getMinigames() + "'" + "}";
-    }
+  public Game(String name, State state, Date startTime, Date endTime, Long creator, Long winner) {
+    this.name = name;
+    this.state = state;
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.creator = creator;
+    this.winner = winner;
+  }
 
+  @Override
+  public String toString() {
+    return ("{" + " id='" + getId() + "'" + ", name='" + getName() + "'" + ", state='" + getState() + "'"
+        + ", startTime='" + getStartTime() + "'" + ", endTime='" + getEndTime() + "'" + ", creator='" + getCreator()
+        + "'" + ", winner='" + getWinner() + "'" + ", minigames='" + getMinigames() + "'" + "}");
+  }
 }

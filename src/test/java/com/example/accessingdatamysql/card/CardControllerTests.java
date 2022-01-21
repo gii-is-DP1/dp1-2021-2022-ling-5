@@ -22,7 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Optional;
 
-// NO FUNCIONA UPDATE
 @WebMvcTest(controllers = CardController.class)
 public class CardControllerTests {
 
@@ -85,17 +84,17 @@ public class CardControllerTests {
     @Test
     void testDeleteAFigureFromCard() throws Exception {
         mockMvc.perform(delete("/api//cards/{cardId}/figures/{figureId}", TEST_CARD_ID, TEST_FIGURE_ID))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
     }
 
     @Test
     void testDeleteById() throws Exception {
-        mockMvc.perform(delete("/api/cards/{cardId}", TEST_CARD_ID)).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/cards/{cardId}", TEST_CARD_ID)).andExpect(status().isNoContent());
     }
 
     @Test
     void testDeleteAll() throws Exception {
-        mockMvc.perform(delete("/api/cards")).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/cards")).andExpect(status().isNoContent());
     }
 
     @Test

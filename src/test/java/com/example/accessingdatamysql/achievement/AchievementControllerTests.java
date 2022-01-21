@@ -76,12 +76,12 @@ public class AchievementControllerTests {
 
     @Test
     void testDeleteAll() throws Exception {
-        mockMvc.perform(delete("/api/achievements")).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/achievements")).andExpect(status().isNoContent());
     }
 
     @Test
     void testDeleteById() throws Exception {
-        mockMvc.perform(delete("/api/achievements/{achievementId}", TEST_ACHIEVEMENT_ID)).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/achievements/{achievementId}", TEST_ACHIEVEMENT_ID)).andExpect(status().isNoContent());
     }
 
     @Test
@@ -90,5 +90,25 @@ public class AchievementControllerTests {
         mockMvc.perform(put("/api/achievements/{achievementId}", TEST_ACHIEVEMENT_ID).contentType("application/json")
                 .content(objectMapper.writeValueAsString(achievement))).andExpect(status().isOk());
     }
+
+    @Test
+    void testGetByIdBad() throws Exception {
+        mockMvc.perform(get("/api/achievements/{achievementId}", TEST_ACHIEVEMENT_ID + 8L)).andExpect(status().isNotFound());
+    }
+
+    @Test
+    void testDeleteByIdBad() throws Exception {
+        mockMvc.perform(delete("/api/achievements/{achievementId}", TEST_ACHIEVEMENT_ID + 6L)).andExpect(status().isNotFound());
+    }
+
+    @Test
+    void testUpdateBad() throws Exception {
+        Integer achievement = 8;
+        mockMvc.perform(put("/api/achievements/{achievementId}", 
+                TEST_ACHIEVEMENT_ID).contentType("application/json")
+                .content(objectMapper.writeValueAsString(achievement))).andExpect(status().isBadRequest());
+    }
+
+
 
 }

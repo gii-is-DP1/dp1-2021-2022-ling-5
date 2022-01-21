@@ -9,6 +9,7 @@ import java.util.Random;
 import com.example.accessingdatamysql.card.Card;
 import com.example.accessingdatamysql.game.Game;
 import com.example.accessingdatamysql.user.Player;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -41,5 +42,10 @@ public class OnGoingRegaloEnvenenado {
         int randomindex2 = random2.ints(0, remainingCards.size()).findFirst().getAsInt();
         this.currentCard = remainingCards.get(randomindex2);
         remainingCards.remove(currentCard);
+    }
+
+    @JsonInclude
+    public int getRemainingSize(){
+        return remainingCards.size();
     }
 }

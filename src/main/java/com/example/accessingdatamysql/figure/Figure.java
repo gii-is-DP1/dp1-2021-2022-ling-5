@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 import com.example.accessingdatamysql.achievement.Achievement;
 import com.example.accessingdatamysql.card.Card;
@@ -23,7 +22,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "figure")
 public class Figure extends NamedEntity {
 
     @JsonIgnore
@@ -35,7 +33,7 @@ public class Figure extends NamedEntity {
     private Collection<Admin> admins;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "figure", cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "figure")
     private Achievement achievement;
 
     @JsonIgnore

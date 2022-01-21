@@ -22,8 +22,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Optional;
-
-// NO FUNCIONA UPDATE
 @WebMvcTest(controllers = FriendshipController.class)
 public class FriendshipControllerTests {
 
@@ -47,15 +45,18 @@ public class FriendshipControllerTests {
 
     @BeforeEach
     void setup() {
-        Friendship friendship = new Friendship(FriendshipState.REQUESTED);
-        friendship.setId(TEST_FRIENDSHIP_ID);
-        given(this.friendshipService.findAllFriendships()).willReturn(Lists.newArrayList(friendship));
-
+        
         Player player1 = new Player("name1", "surname1", "password1", "email1", "nickname1", PlayerState.NO_PLAY);
         player1.setId(TEST_PLAYER_ID);
         Player player2 = new Player("name2", "surname2", "password2", "email2", "nickname2", PlayerState.NO_PLAY);
         player2.setId(TEST_PLAYER_ID_2);
         given(this.playerService.findAllPlayers()).willReturn(Lists.newArrayList(player1, player2));
+        
+        Friendship friendship = new Friendship(FriendshipState.REQUESTED);
+        friendship.setId(TEST_FRIENDSHIP_ID);
+        friendship.setRequested(player2);
+        friendship.setRequester(player1);
+        given(this.friendshipService.findAllFriendships()).willReturn(Lists.newArrayList(friendship));
 
         given(this.friendshipService.findFriendship(TEST_FRIENDSHIP_ID)).willReturn(Optional.of(friendship));
         given(this.playerService.findPlayer(TEST_PLAYER_ID)).willReturn(Optional.of(player1));
@@ -73,15 +74,32 @@ public class FriendshipControllerTests {
     }
 
     @Test
+    void testGetByIdBad() throws Exception {
+        mockMvc.perform(get("/api/friendships/{friendshipId}", TEST_FRIENDSHIP_ID+9L)).andExpect(status().isNotFound());
+    }
+
+    @Test
     void testGetByRequester() throws Exception {
         mockMvc.perform(get("/api/players/requester/{playerId}/friendships", TEST_PLAYER_ID))
                 .andExpect(status().isOk());
     }
 
     @Test
+    void testGetByRequesterBad() throws Exception {
+        mockMvc.perform(get("/api/players/requester/{playerId}/friendships", TEST_PLAYER_ID+8L))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     void testGetByRequested() throws Exception {
         mockMvc.perform(get("/api/players/requested/{playerId}/friendships", TEST_PLAYER_ID_2))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void testGetByRequestedBad() throws Exception {
+        mockMvc.perform(get("/api/players/requester/{playerId}/friendships", TEST_PLAYER_ID+8L))
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -93,25 +111,50 @@ public class FriendshipControllerTests {
     }
 
     @Test
+    void testProcessCreationSuccessBad() throws Exception {
+        Friendship friendship = new Friendship(FriendshipState.REQUESTED);
+        mockMvc.perform(post("/api/players/requester/{requesterId}/requested/{requestedId}/friendships", TEST_PLAYER_ID+8L,
+                TEST_PLAYER_ID_2+8L).contentType("application/json").content(objectMapper.writeValueAsString(friendship)))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     void testDeleteById() throws Exception {
-        mockMvc.perform(delete("/api/friendships/{friendshipId}", TEST_FRIENDSHIP_ID)).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/friendships/{friendshipId}", TEST_FRIENDSHIP_ID)).andExpect(status().isNoContent());
+    }
+
+    @Test
+    void testDeleteByIdBad() throws Exception {
+        mockMvc.perform(delete("/api/friendships/{friendshipId}", TEST_FRIENDSHIP_ID+8L)).andExpect(status().isNotFound());
     }
 
     @Test
     void testDeleteAll() throws Exception {
-        mockMvc.perform(delete("/api/friendships")).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/friendships")).andExpect(status().isNoContent());
     }
 
     @Test
     void testDeleteByRequester() throws Exception {
         mockMvc.perform(delete("/api/players/requester/{playerId}/friendships", TEST_PLAYER_ID))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void testDeleteByRequesterBad() throws Exception {
+        mockMvc.perform(delete("/api/players/requester/{playerId}/friendships", TEST_PLAYER_ID+6L))
+                .andExpect(status().isNotFound());
     }
 
     @Test
     void testDeleteByRequested() throws Exception {
         mockMvc.perform(delete("/api/players/requested/{playerId}/friendships", TEST_PLAYER_ID_2))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void testDeleteByRequestedBad() throws Exception {
+        mockMvc.perform(delete("/api/players/requested/{playerId}/friendships", TEST_PLAYER_ID_2+6L))
+                .andExpect(status().isNotFound());
     }
 
     @Test

@@ -4,7 +4,8 @@ const gameAPI = {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(game)
+            body: JSON.stringify(game),
+            'credentials':'include' as RequestCredentials
         }
 
         return await fetch(`http://localhost:8080/api/games`, requestOptions)
@@ -16,7 +17,8 @@ const gameAPI = {
     async addNewPlayerToGame(gameId: number, playerId: number) {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json' },
+            'credentials':'include' as RequestCredentials
         }
 
         return await fetch(`http://localhost:8080/api/games/${gameId}/players/${playerId}`, requestOptions)
@@ -28,7 +30,8 @@ const gameAPI = {
     async addNewMinigameToGame(gameId: number, minigameId: number) {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json' },
+            'credentials':'include' as RequestCredentials
         }
 
         return await fetch(`http://localhost:8080/api/games/${gameId}/minigames/${minigameId}`, requestOptions)
@@ -67,7 +70,8 @@ const gameAPI = {
 
     deleteGame(gameId: number) {
         const requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
         };
 
         return new Promise(function (resolve, reject) {
@@ -81,7 +85,8 @@ const gameAPI = {
 
     deleteAllGames() {
         const requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
         };
 
         return new Promise(function (resolve, reject) {
@@ -95,7 +100,8 @@ const gameAPI = {
 
     deletePlayerFromGame(gameId: number, playerId: number) {
         const requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
         };
 
         return new Promise(function (resolve, reject) {
@@ -109,7 +115,8 @@ const gameAPI = {
 
     deleteMinigameFromGame(gameId: number, minigameId: number) {
         const requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
         };
 
         return new Promise(function (resolve, reject) {
@@ -125,13 +132,21 @@ const gameAPI = {
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newGame)
+            body: JSON.stringify(newGame),
+            'credentials':'include' as RequestCredentials
         }
 
         return await fetch(`http://localhost:8080/api/games/${gameId}`, requestOptions)
             .then((res: any) => {
                 return res.json();
             }).catch((err: any) => console.log(err));
+    },
+
+    async getGameMinigame(gameId: number){
+        return await fetch(`http://localhost:8080/api/games/${gameId}/minigames`)
+        .then((res:any)=>{
+            return res.json();
+        }).catch((err:any)=>console.log(err));
     }
 
 }

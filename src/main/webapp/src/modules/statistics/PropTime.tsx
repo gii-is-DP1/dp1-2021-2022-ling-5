@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Badge, Col, Container, Row } from "react-bootstrap";
+import ChartsPage from "./ChartsPage";
 
 const PropTime = () => {
     const [playerId, setPlayerId] = useState<number>();
@@ -23,7 +24,7 @@ const PropTime = () => {
         fetch(`http://localhost:8080/api/statistics/maxMinAvgTime/${id}`).then((res: any) => {
             res.json().then((data: any) => setMinMaxAvg(data)).catch(console.error);
         }).catch(console.error);
-        fetch(`http://localhost:8080/api/statistics/maxMinAvgTimeAll`).then((res: any) => {
+        fetch(`http://localhost:8080/api/statistics/maxminavgtimeall`).then((res: any) => {
             res.json().then((data: any) => setMinMaxAvgAll(data)).catch(console.error);
         }).catch(console.error);
     }, [])
@@ -33,22 +34,24 @@ const PropTime = () => {
     return <Container id="container">
         <h4>Ratio of time played to total: {propTotal}</h4>
         <br />
-        <Row>
-            <Col>
+        <Row >
+            <Col ><ChartsPage ratio={propTotal} width="50%" /></Col>
+            <Col className="my-auto"> <Badge bg="info"> </Badge> {' '}Time played by me: {propTotal*100} %</Col>
+
+            <Col className="my-auto text-center">
                 <h5>Me</h5>
-                Min time: {minMaxAvg.min}
+                <strong>Min time</strong>: {minMaxAvg.min}
                 <br />
-                Max time: {minMaxAvg.max}
+                <strong>Max time</strong>: {minMaxAvg.max}
                 <br />
-                Average time: {minMaxAvg.avg.toFixed(2)}
-            </Col>
-            <Col>
+                <strong>Average time</strong>: {minMaxAvg.avg.toFixed(2)}
+                <hr />
                 <h5>Global</h5>
-                Min time: {minMaxAvgAll.min}
+                <strong>Min time</strong>: {minMaxAvgAll.min}
                 <br />
-                Max time: {minMaxAvgAll.max}
+                <strong>Max time</strong>: {minMaxAvgAll.max}
                 <br />
-                Average time: {minMaxAvgAll.avg.toFixed(2)}
+                <strong>Average time</strong>: {minMaxAvgAll.avg.toFixed(2)}
             </Col>
         </Row>
 

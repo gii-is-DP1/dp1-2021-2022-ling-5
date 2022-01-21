@@ -31,7 +31,7 @@ public class AdminControllerTests {
 
     private static final Long TEST_FIGURE_ID = 1L;
 
-    private static final Long TEST_ROLE_ID = 1L;
+    private static final Long TEST_ROLE_ID = 2L;
 
     @MockBean
     private AdminService adminService;
@@ -87,12 +87,12 @@ public class AdminControllerTests {
 
     @Test
     void testDeleteById() throws Exception {
-        mockMvc.perform(delete("/api/admins/{adminId}", TEST_ADMIN_ID)).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/admins/{adminId}", TEST_ADMIN_ID)).andExpect(status().isNoContent());
     }
 
     @Test
     void testDeleteAll() throws Exception {
-        mockMvc.perform(delete("/api/admins")).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/admins")).andExpect(status().isNoContent());
     }
 
     @Test
@@ -108,4 +108,42 @@ public class AdminControllerTests {
         mockMvc.perform(put("/api/figures/{figureId}/admins/{adminId}", TEST_FIGURE_ID, TEST_ADMIN_ID))
                 .andExpect(status().isOk());
     }
+
+    
+
+    @Test
+    void testGetByIdBad() throws Exception {
+        mockMvc.perform(get("/api/admins/{adminId}", TEST_ADMIN_ID+8L)).andExpect(status().isNotFound());
+    }
+
+    @Test
+    void testCreationRoleBad() throws Exception {
+        Integer admin = 4;
+        mockMvc.perform(post("/api/admins")
+                .contentType("application/json").content(objectMapper.writeValueAsString(admin)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testDeleteByIdBad() throws Exception {
+        mockMvc.perform(delete("/api/admins/{adminId}", TEST_ADMIN_ID+6L)).andExpect(status().isNotFound());
+    }
+
+   
+
+    @Test
+    void testUpdateBad() throws Exception {
+        Integer admin = 8;
+    
+        mockMvc.perform(put("/api/admins/{id}", TEST_ADMIN_ID).contentType("application/json")
+                .content(objectMapper.writeValueAsString(admin))).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testUpdateFigureAdminBad() throws Exception {
+        mockMvc.perform(put("/api/figures/{figureId}/admins/{adminId}", TEST_FIGURE_ID+7L, TEST_ADMIN_ID))
+                .andExpect(status().isNotFound());
+    }
+
+    
 }

@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class GameService {
@@ -29,40 +29,43 @@ public class GameService {
     return game;
   }
 
-  public Optional<Game> findGame(Long id) {
+  @Transactional(readOnly = true)
+  public Optional<Game> findGame(Long id) throws DataAccessException {
     return gameRepository.findById(id);
   }
 
-  public Optional<Game> findGameByName(String name) {
+  @Transactional(readOnly = true)
+  public Optional<Game> findGameByName(String name) throws DataAccessException {
     return StreamSupport
-      .stream(gameRepository.findAll().spliterator(), false)
-      .filter(game -> game.getName().equals(name))
-      .findFirst();
+        .stream(gameRepository.findAll().spliterator(), false)
+        .filter(game -> game.getName().equals(name))
+        .findFirst();
   }
 
-  public List<Game> findAllGames() {
+  @Transactional(readOnly = true)
+  public List<Game> findAllGames() throws DataAccessException {
     return StreamSupport
-      .stream(gameRepository.findAll().spliterator(), false)
-      .collect(Collectors.toList());
+        .stream(gameRepository.findAll().spliterator(), false)
+        .collect(Collectors.toList());
   }
 
   @Transactional
-  public void deleteGame(Long id) {
+  public void deleteGame(Long id) throws DataAccessException {
     gameRepository.deleteById(id);
   }
 
   @Transactional
-  public void deleteAllGames() {
+  public void deleteAllGames() throws DataAccessException {
     gameRepository.deleteAll();
   }
 
-  public List<Game> getGamesByPlayer(Long playerId) {
+  @Transactional(readOnly = true)
+  public List<Game> getGamesByPlayer(Long playerId) throws DataAccessException {
     List<Game> games = this.findAllGames();
     return games
-      .stream()
-      .filter(
-        g -> g.getPlayers().contains(playerService.findPlayer(playerId).get())
-      )
-      .collect(Collectors.toList());
+        .stream()
+        .filter(
+            g -> g.getPlayers().contains(playerService.findPlayer(playerId).get()))
+        .collect(Collectors.toList());
   }
 }

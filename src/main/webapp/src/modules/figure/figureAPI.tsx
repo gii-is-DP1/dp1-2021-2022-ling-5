@@ -3,7 +3,8 @@ const figureAPI = {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(figure)
+            body: JSON.stringify(figure),
+            'credentials':'include' as RequestCredentials
         }
 
         return await fetch(`http://localhost:8080/api/figures`, requestOptions)
@@ -28,7 +29,8 @@ const figureAPI = {
 
     deleteFigure(figureId: number) {
         const requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
         };
 
         return new Promise(function (resolve, reject) {
@@ -42,7 +44,8 @@ const figureAPI = {
 
     deleteAllFigures() {
         const requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
         };
 
         return new Promise(function (resolve, reject) {
@@ -58,7 +61,8 @@ const figureAPI = {
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newFigure)
+            body: JSON.stringify(newFigure),
+            'credentials':'include' as RequestCredentials
         }
 
         return await fetch(`http://localhost:8080/api/figures/${figureId}`, requestOptions)

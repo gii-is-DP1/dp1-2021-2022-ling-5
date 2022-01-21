@@ -25,9 +25,11 @@ import lombok.Setter;
 @Table(name = "achievement")
 public class Achievement extends NamedEntity {
 
+    public final static int MAX_SIZE = 200;
+
     @NotNull
     @NotEmpty
-    @Size(max=200)
+    @Size(max = MAX_SIZE)
     @Column(name = "description")
     private String description;
 
@@ -61,8 +63,8 @@ public class Achievement extends NamedEntity {
     @Override
     public String toString() {
         return "{" + " id='" + getId() + "'" + ", name='" + getName() + "'" + ", description='" + getDescription() + "'"
-                + ", figure='" + getFigure() + "'" + ", type='"+ getAchievementTypes().value() + "'" +
-                ", requirements='"+ getRequirement().toString() + "'" +"}";
+                + ", figure='" + getFigure() + "'" + ", type='" + getAchievementTypes().value() + "'" +
+                ", requirements='" + getRequirement().toString() + "'" + "}";
     }
 
 }

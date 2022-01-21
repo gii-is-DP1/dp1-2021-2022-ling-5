@@ -1,7 +1,7 @@
-
 function DeleteGame(gameId: any){
     const requestOptions = {
-        method: 'DELETE'
+        method: 'DELETE',
+        'credentials':'include' as RequestCredentials
     }
     return new Promise(function(resolve, reject){
         fetch(`http://localhost:8080/api/ongoingTorreInfernal/${gameId}`, requestOptions)

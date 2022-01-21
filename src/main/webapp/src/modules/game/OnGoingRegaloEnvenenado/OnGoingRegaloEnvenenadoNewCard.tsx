@@ -1,13 +1,12 @@
-
-
-function NewCard(gameId: any) {
+function NewCard(playerId:any,gameId: any) {
     const requestOptions = {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({})
+        body: JSON.stringify({}),
+        'credentials':'include' as RequestCredentials
     };
     return new Promise(function (resolve, reject) {
-        fetch(`http://localhost:8080/api/ongoingRegaloEnvenenado/${gameId}/card`, requestOptions)
+        fetch(`http://localhost:8080/api/ongoingRegaloEnvenenado/${gameId}/card/${playerId}`, requestOptions)
             .then(res => {
                 resolve(res.json())
             })

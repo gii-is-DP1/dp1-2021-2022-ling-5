@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AdminService {
@@ -26,41 +26,45 @@ public class AdminService {
     return admin;
   }
 
-  public Optional<Admin> findAdmin(Long id) {
+  @Transactional(readOnly = true)
+  public Optional<Admin> findAdmin(Long id) throws DataAccessException {
     return adminRepository.findById(id);
   }
 
-  public List<Admin> findAllAdmins() {
+  @Transactional(readOnly = true)
+  public List<Admin> findAllAdmins() throws DataAccessException {
     return StreamSupport
-      .stream(adminRepository.findAll().spliterator(), false)
-      .collect(Collectors.toList());
+        .stream(adminRepository.findAll().spliterator(), false)
+        .collect(Collectors.toList());
   }
 
-  public List<Admin> findAllAdminsByRole(Long roleId) {
+  @Transactional(readOnly = true)
+  public List<Admin> findAllAdminsByRole(Long roleId) throws DataAccessException {
     return StreamSupport
-      .stream(adminRepository.findAll().spliterator(), false)
-      .filter(admin -> admin.getRole().getId() == roleId)
-      .collect(Collectors.toList());
+        .stream(adminRepository.findAll().spliterator(), false)
+        .filter(admin -> admin.getRole().getId() == roleId)
+        .collect(Collectors.toList());
   }
 
   @Transactional
-  public void deleteAdmin(Long id) {
+  public void deleteAdmin(Long id) throws DataAccessException {
     adminRepository.deleteById(id);
   }
 
   @Transactional
-  public void deleteAllAdmins() {
+  public void deleteAllAdmins() throws DataAccessException {
     adminRepository.deleteAll();
   }
 
   @Transactional
-  public void deleteAllAdminsByRole(Long roleId) {
+  public void deleteAllAdminsByRole(Long roleId) throws DataAccessException {
     findAllAdminsByRole(roleId)
-      .stream()
-      .forEach(admin -> adminRepository.deleteById(admin.getId()));
+        .stream()
+        .forEach(admin -> adminRepository.deleteById(admin.getId()));
   }
 
-  public List<Admin> findByNickname(String nickname) {
+  @Transactional(readOnly = true)
+  public List<Admin> findByNickname(String nickname) throws DataAccessException {
     List<Admin> admins = new ArrayList<Admin>();
     for (Admin a : adminRepository.findAll()) {
       if (a.getNickname().equals(nickname)) {

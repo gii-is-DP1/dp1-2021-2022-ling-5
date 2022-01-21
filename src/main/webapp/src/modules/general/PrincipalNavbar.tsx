@@ -1,5 +1,5 @@
-import { Container, Nav, Navbar, NavDropdown, Button } from "react-bootstrap"
-import React, { useEffect, useState } from 'react'
+import { Container, Nav, Navbar, NavDropdown} from "react-bootstrap"
+import { useEffect, useState } from 'react'
 import figures from '../../images/figures/figures'
 import icons from '../../images/icons/icons'
 import './principalNavbar.css'
@@ -34,7 +34,7 @@ const PrincipalNavbar = () => {
     const src = role === "Admin" ? icons(3) : figures(figure);
     const alt = role === "Admin" ? "Dobble logo" : "Profile image";
     const nickname = role === "Admin" ? "Admin" : username;
-    const href1 = role === "Admin" ? "/gamesProgress" : "/profile";
+    const href1 = role === "Admin" ? "/gamesProgessAndPlayed" : "/profile";
     const namehref1 = role === "Admin" ? "Info" : "Profile";
 
     return <Navbar expand="lg">
@@ -48,7 +48,15 @@ const PrincipalNavbar = () => {
             /></a>
             <NavDropdown title={nickname} id="img">
                 <NavDropdown.Item href={href1}>{namehref1}</NavDropdown.Item>
-                <NavDropdown.Item onClick={() => { token.logout(); window.location.href = "/"; }}>Logout</NavDropdown.Item>
+                <NavDropdown.Item onClick={() =>{ 
+                    userAPI.getUser(Number(token.getLoggedId()),"player")
+                    .then((pls: any) => {
+                        var pl:any = pls;
+                        pl.playerState = "OFFLINE";
+                        userAPI.updateUser(pl, pl.id, "player");
+                    })
+                    token.logout();
+                    }}>Logout</NavDropdown.Item>
             </NavDropdown>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -60,7 +68,7 @@ const PrincipalNavbar = () => {
                         className="d-inline-block align-top"
                         alt="Notifications"
                     /></Nav.Link>
-                    <Nav.Link href="/forum"><img
+                    <Nav.Link href="/forums"><img
                         src={icons(1)}
                         width="30"
                         height="30"

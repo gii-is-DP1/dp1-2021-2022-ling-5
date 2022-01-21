@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import resultAPI from '../result/resultAPI';
+import token from '../user/token';
+import userAPI from '../user/userAPI';
 import './playedGames.css'
-
-let urlParams = new URLSearchParams(window.location.search);
-let playerId = urlParams.get("playerId");
 
 function PlayedGames() {
   const [results, setResults] = useState<any[]>();
@@ -50,22 +49,23 @@ function PlayedGames() {
   return (
     <Container id="container">
       <Row>
+        <Row> <h1 id="ptitle">MY GAMES</h1> </Row>
         <Col>
-          <Row> <h1>Created games</h1> </Row>
+          <Row> <h3>Created games</h3> </Row>
           {
             created.map(e => (
               <Row>
-                <strong>{e.game.name} </strong><p>{e.data}</p>
+                <strong>Game: {e.game.name} </strong><p>Points: {e.data} <br/>{e.game.winner===Number(token.getLoggedId())?<span>Juego ganado</span>:<span>Juego perdido</span>}</p>
               </Row>
             ))
           }
         </Col>
         <Col>
-          <Row> <h1>Played games</h1> </Row>
+          <Row> <h3>Played games</h3> </Row>
           {
             played.map(e => (
               <Row>
-                <strong>{e.game.name}: </strong><p>{e.data}</p>
+                <strong>Game: {e.game.name} </strong><p>Points: {e.data}<br/>{e.game.winner===Number(token.getLoggedId())?<span>Juego ganado</span>:<span>Juego perdido</span>}</p>
               </Row>
             ))
           }

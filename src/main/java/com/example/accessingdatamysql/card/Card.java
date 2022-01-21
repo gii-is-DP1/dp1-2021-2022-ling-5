@@ -1,11 +1,9 @@
 package com.example.accessingdatamysql.card;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import com.example.accessingdatamysql.figure.Figure;
@@ -17,11 +15,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "card")
 public class Card extends NamedEntity {
 
+    public static final int MAX_CARDS = 8;
+
     @ManyToMany(mappedBy = "cards")
-    @Size(max = 6)
+    @Size(max = MAX_CARDS)
     private List<Figure> figures;
 
     public Card() {

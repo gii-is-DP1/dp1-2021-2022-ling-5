@@ -1,6 +1,6 @@
 
 const userAPI = {
-    getUser: function (id: any, role: string) {
+    getUser: function (id: number, role: string) {
         let roleId = "";
         if (role.toLowerCase() === "player") {
             roleId = "players";
@@ -36,7 +36,8 @@ const userAPI = {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(user)
+            body: JSON.stringify(user),
+            'credentials':'include' as RequestCredentials
         }
 
         return await fetch(`http://localhost:8080/api/${role}`, requestOptions)
@@ -70,7 +71,8 @@ const userAPI = {
         }
 
         const requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
         };
 
         return new Promise(function (resolve, reject) {
@@ -92,7 +94,8 @@ const userAPI = {
         }
 
         const requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            'credentials':'include' as RequestCredentials
         };
 
         return new Promise(function (resolve, reject) {
@@ -116,7 +119,8 @@ const userAPI = {
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newUser)
+            body: JSON.stringify(newUser),
+            'credentials':'include' as RequestCredentials
         }
 
         return await fetch(`http://localhost:8080/api/${role}/${userId}`, requestOptions)
@@ -136,19 +140,24 @@ const userAPI = {
 
         const requestOptions = {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json' },
+            'credentials':'include' as RequestCredentials
         }
 
-        return await fetch(`http://localhost:8080/api/figures/${figureId}/${role}/${userId}`, requestOptions)
-            .then((res: any) => {
-                return res.json();
-            }).catch((err: any) => console.log(err));
+        return new Promise(function (resolve, reject) {
+            fetch(`http://localhost:8080/api/figures/${figureId}/${role}/${userId}`, requestOptions)
+                .then(res => {
+                    resolve(res.json())
+                })
+                .catch(error => reject(console.error))
+        });
     },
 
     async addNewAchievementToPlayer(playerId: number, achievementId: number) {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json' },
+            'credentials':'include' as RequestCredentials
         }
 
         return await fetch(`http://localhost:8080/api/players/${playerId}/achievements/${achievementId}`, requestOptions)
@@ -160,7 +169,8 @@ const userAPI = {
     async deleteAchievementFromPlayer(playerId: number, achievementId: number) {
         const requestOptions = {
             method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json' },
+            'credentials':'include' as RequestCredentials
         }
 
         return await fetch(`http://localhost:8080/api/players/${playerId}/achievements/${achievementId}`, requestOptions)
@@ -168,6 +178,28 @@ const userAPI = {
                 return res.json();
             }).catch((err: any) => console.log(err));
     },
+
+    async addFiguresToPlayers(id: number){
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        }
+        fetch('http://localhost:8080/api/players/' + id + '/addfigures', requestOptions)
+            .then(res => console.log(res))
+            .catch(error => console.log(error));
+    },
+
+    async addOneToFigure(playerId:any,figureId:any){
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: ''
+        }
+        fetch(`http://localhost:8080/api/player/${playerId}/figure/${figureId}/add`, requestOptions)
+            .then((res: any) => {
+                console.log(`One point added to figure ${figureId} of player ${playerId}`)
+            }).catch((err: any) => console.log(err));
+    }
 
 }
 

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.accessingdatamysql.statistics.StatisticsService;
 import com.example.accessingdatamysql.user.PlayerService;
@@ -19,7 +19,7 @@ public class AchievementService {
 
   private AchievementRepository achievementRepository;
 
-  @Autowired 
+  @Autowired
   private StatisticsService statisticsService;
 
   @Autowired
@@ -32,38 +32,40 @@ public class AchievementService {
 
   @Transactional
   public Achievement saveAchievement(Achievement achievement)
-    throws DataAccessException {
+      throws DataAccessException {
     achievementRepository.save(achievement);
     return achievement;
   }
 
-  public Optional<Achievement> findAchievement(Long id) {
+  @Transactional(readOnly = true)
+  public Optional<Achievement> findAchievement(Long id) throws DataAccessException {
     return achievementRepository.findById(id);
   }
 
-  public List<Achievement> findAllAchievements() {
+  @Transactional(readOnly = true)
+  public List<Achievement> findAllAchievements() throws DataAccessException {
     return StreamSupport
-      .stream(achievementRepository.findAll().spliterator(), false)
-      .collect(Collectors.toList());
+        .stream(achievementRepository.findAll().spliterator(), false)
+        .collect(Collectors.toList());
   }
 
   @Transactional
-  public void deleteAchievement(Long id) {
+  public void deleteAchievement(Long id) throws DataAccessException {
     achievementRepository.deleteById(id);
   }
 
   @Transactional
-  public void deleteAllAchievements() {
+  public void deleteAllAchievements() throws DataAccessException {
     achievementRepository.deleteAll();
   }
 
   @Transactional
-  public List<Achievement> checkAchievements(Long playerId){
+  public List<Achievement> checkAchievements(Long playerId) throws DataAccessException {
     List<Achievement> achievements = new ArrayList<Achievement>();
-    for(Achievement a: this.findAllAchievements()){
-      if(!a.getPlayers().contains(this.playerService.findPlayer(playerId).get())){
+    for (Achievement a : this.findAllAchievements()) {
+      if (!a.getPlayers().contains(this.playerService.findPlayer(playerId).get())) {
         Achievement achievement = verifyAchievementPlayer(a, playerId);
-        if(achievement!=null){
+        if (achievement != null) {
           achievements.add(achievement);
         }
       }
@@ -71,12 +73,12 @@ public class AchievementService {
     return achievements;
   }
 
-  private Achievement verifyAchievementPlayer(Achievement achievement, Long playerId){
+  private Achievement verifyAchievementPlayer(Achievement achievement, Long playerId) throws DataAccessException {
     Integer points = 0;
-    switch(achievement.getAchievementTypes()){
+    switch (achievement.getAchievementTypes()) {
       case POINTS:
         points = this.statisticsService.pointsByMinigames(playerId).stream()
-          .collect(Collectors.summingInt(Integer::intValue));
+            .collect(Collectors.summingInt(Integer::intValue));
         break;
       case POINTSFOSO:
         points = this.statisticsService.pointsByMinigames(playerId).get(0);
@@ -90,9 +92,9 @@ public class AchievementService {
       default:
         break;
     }
-    if(points>=achievement.getRequirement()){
+    if (points >= achievement.getRequirement()) {
       return achievement;
-    } else{
+    } else {
       return null;
     }
   }

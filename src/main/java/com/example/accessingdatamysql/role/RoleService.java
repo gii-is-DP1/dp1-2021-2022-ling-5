@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RoleService {
@@ -25,23 +25,25 @@ public class RoleService {
     return role;
   }
 
-  public Optional<Role> findRole(Long id) {
+  @Transactional(readOnly = true)
+  public Optional<Role> findRole(Long id) throws DataAccessException {
     return roleRepository.findById(id);
   }
 
-  public List<Role> findAllRoles() {
+  @Transactional(readOnly = true)
+  public List<Role> findAllRoles() throws DataAccessException {
     return StreamSupport
-      .stream(roleRepository.findAll().spliterator(), false)
-      .collect(Collectors.toList());
+        .stream(roleRepository.findAll().spliterator(), false)
+        .collect(Collectors.toList());
   }
 
   @Transactional
-  public void deleteRole(Long id) {
+  public void deleteRole(Long id) throws DataAccessException {
     roleRepository.deleteById(id);
   }
 
   @Transactional
-  public void deleteAllRoles() {
+  public void deleteAllRoles() throws DataAccessException {
     roleRepository.deleteAll();
   }
 }

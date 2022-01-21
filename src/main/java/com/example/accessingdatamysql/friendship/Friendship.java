@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 
 import com.example.accessingdatamysql.model.BaseEntity;
 import com.example.accessingdatamysql.user.Player;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,13 +16,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "friendship", uniqueConstraints = @UniqueConstraint(columnNames = {"requested_id", "requester_id"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"requested_id", "requester_id"}))
 public class Friendship extends BaseEntity {
 
     @NotNull
     @Column(name = "friendshipState")
     private FriendshipState state;
-
     
     @ManyToOne
     private Player requester;

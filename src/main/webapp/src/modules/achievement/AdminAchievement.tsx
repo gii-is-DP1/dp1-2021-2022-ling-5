@@ -1,9 +1,11 @@
-import { faEdit, faPlus, faTrash, faUserEdit, faUserMinus, faUserPlus } from "@fortawesome/free-solid-svg-icons"
+import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react"
-import { Button, Col, Container, Modal, Row } from "react-bootstrap"
+import { Button, Col, Collapse, Container, Row } from "react-bootstrap"
+import figures from "../../images/figures/figures"
 import achievementAPI from "./achievementAPI"
 import EditAchievement from "./EditAchievement"
+
 
 
 const AdminAchievement = () => {
@@ -27,16 +29,27 @@ const AdminAchievement = () => {
     return (
 
         <Container id="container">
-            <div id="createUser" style={{ textAlign: "right" }}>
+            <div id="createUser" className="m-2" style={{ textAlign: "right" }}>
                 <Button variant="dark" onClick={() => window.location.href = '/createAchievement'}>Create new achievement <FontAwesomeIcon icon={faPlus} /></Button>
             </div>
 
             {achievements.map((e, ind) =>
                 <Row key={ind}>
-                    <Col><h4>{e.name}</h4></Col>
-                    <Col>
-                        <a style={{ cursor: "pointer" }} onClick={() => setModalShow(`1 ${e.id}`)}><FontAwesomeIcon icon={faEdit} /></a>&nbsp;&nbsp;
-                        <a style={{ cursor: "pointer" }} onClick={() => removeAchievement(e.id)}><FontAwesomeIcon icon={faTrash} /></a>
+                    <Col><div className="d-flex m-2"><img
+                                src={figures(e.figure.id)}
+                                width="50vh"
+                                height="50vh"
+                                alt="Award img"
+                            />
+                        <Row>
+                        <Col><h4 className="m-2">{e.name}</h4></Col>
+                        <Col>
+                            <Button onClick={() => setModalShow(`1 ${e.id}`)} style={{backgroundColor:"transparent", border:"none", color:"black"}}><FontAwesomeIcon icon={faEdit} /></Button>&nbsp;&nbsp;
+                            <Button onClick={() => removeAchievement(e.id)} style={{backgroundColor:"transparent", border:"none", color:"black"}}><FontAwesomeIcon icon={faTrash} /></Button>
+                        </Col>
+                        </Row>
+                        
+                    </div>
                     </Col>
                 </Row>)}
             <EditAchievement

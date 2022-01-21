@@ -5,6 +5,7 @@ import com.example.accessingdatamysql.card.CardService;
 import com.example.accessingdatamysql.game.GameService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
 @Controller
 @RequestMapping("/api")
@@ -27,8 +30,6 @@ public class OnGoingRegaloEnvenenadoController {
     @Autowired
     private CardService cardService;
 
-    // curl -H "Content-Type: application/json" -X POST
-    // localhost:8080/api/ongoingRegaloEnvenenado -d "{\"gameId\":1}"
     @PostMapping(value = "/ongoingRegaloEnvenenado")
     public @ResponseBody OnGoingRegaloEnvenenado createGame(@RequestBody Request request) {
         onGoingRegaloEnvenenadoService.createGame(request.getGameId(), gameService.findGame(request.getGameId()).get(),
@@ -61,11 +62,16 @@ public class OnGoingRegaloEnvenenadoController {
         return onGoingRegaloEnvenenadoService.getPoints(gameId, playerId);
     }
 
-    @PutMapping(value = "/ongoingRegaloEnvenenado/{gameId}/card")
+    @PutMapping(value = "/ongoingRegaloEnvenenado/{gameId}/card/{playerId}")
     public @ResponseBody OnGoingRegaloEnvenenado newCenterCard(@RequestBody RequestNewCard request,
-            @PathVariable Long gameId) {
-        onGoingRegaloEnvenenadoService.newCenterCard(gameId, request);
-        return onGoingRegaloEnvenenadoService.getGame(gameId);
+            @PathVariable Long gameId,
+            @PathVariable Long playerId) throws BadRequest {
+        try {
+            onGoingRegaloEnvenenadoService.newCenterCard(gameId, playerId);
+            return onGoingRegaloEnvenenadoService.getGame(gameId);
+        } catch (Error e) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping(value = "/players/{playerId}/ongoingRegaloEnvenenado/{gameId}/points")

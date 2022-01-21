@@ -1,7 +1,4 @@
 package com.example.accessingdatamysql.role;
-
-import com.example.accessingdatamysql.privilege.Privilege;
-import com.example.accessingdatamysql.privilege.PrivilegeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.assertj.core.util.Lists;
@@ -27,13 +24,8 @@ public class RoleControllerTests {
 
     private static final Long TEST_ROLE_ID = 1L;
 
-    private static final Long TEST_PRIVILEGE_ID = 1L;
-
     @MockBean
     private RoleService roleService;
-
-    @MockBean
-    private PrivilegeService privilegeService;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -47,12 +39,7 @@ public class RoleControllerTests {
         role.setId(TEST_ROLE_ID);
         given(this.roleService.findAllRoles()).willReturn(Lists.newArrayList(role));
 
-        Privilege privilege = new Privilege("CREATE_GAMES");
-        privilege.setId(TEST_PRIVILEGE_ID);
-        given(this.privilegeService.findAllPrivileges()).willReturn(Lists.newArrayList(privilege));
-
         given(this.roleService.findRole(TEST_ROLE_ID)).willReturn(Optional.of(role));
-        given(this.privilegeService.findPrivilege(TEST_PRIVILEGE_ID)).willReturn(Optional.of(privilege));
     }
 
     @Test
@@ -74,25 +61,13 @@ public class RoleControllerTests {
     }
 
     @Test
-    void testAddPrivilegeToRole() throws Exception {
-        mockMvc.perform(post("/api/roles/{roleId}/privileges/{privilegeId}", TEST_ROLE_ID, TEST_PRIVILEGE_ID))
-                .andExpect(status().isOk());
-    }
-
-    @Test
     void testDeleteById() throws Exception {
-        mockMvc.perform(delete("/api/roles/{roleId}", TEST_ROLE_ID)).andExpect(status().isOk());
+        mockMvc.perform(delete("/api/roles/{roleId}", TEST_ROLE_ID)).andExpect(status().isNoContent());
     }
 
     @Test
     void testDeleteAll() throws Exception {
-        mockMvc.perform(delete("/api/roles")).andExpect(status().isOk());
-    }
-
-    @Test
-    void testDeletePrivilegeFromRole() throws Exception {
-        mockMvc.perform(delete("/api/roles/{roleId}/privileges/{privilegeId}", TEST_ROLE_ID, TEST_PRIVILEGE_ID))
-                .andExpect(status().isOk());
+        mockMvc.perform(delete("/api/roles")).andExpect(status().isNoContent());
     }
 
     @Test

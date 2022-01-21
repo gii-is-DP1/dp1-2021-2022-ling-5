@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -33,25 +34,24 @@ public class OnGoingTorreInfernalServiceTests {
   void SetUp() {
     Long gameId = 2L;
     onGoingTorreInfernalService.createGame(
-      gameId,
-      gameService.findGame(gameId).get(),
-      cardService.findAllCards()
+      gameId
     );
     game = onGoingTorreInfernalService.getGame(2L);
   }
 
+  @Test
+  @Transactional(readOnly = true)
   void testGetById() {
     OnGoingTorreInfernal game2 = onGoingTorreInfernalService.getGame(2L);
     assertEquals(game2.getPlayers(), game.getPlayers());
   }
 
   @Test
+  @Transactional
   void testcreateGame() {
     Long gameId = 1L;
     onGoingTorreInfernalService.createGame(
-      gameId,
-      gameService.findGame(gameId).get(),
-      cardService.findAllCards()
+      gameId
     );
     Integer i = 0;
     for (OnGoingTorreInfernal g : onGoingTorreInfernalService.getAll()) {
@@ -61,6 +61,7 @@ public class OnGoingTorreInfernalServiceTests {
   }
 
   @Test
+  @Transactional(readOnly = true)
   void testgetPoints() {
     Integer points = onGoingTorreInfernalService
       .getGame(2L)
@@ -70,6 +71,7 @@ public class OnGoingTorreInfernalServiceTests {
   }
 
   @Test
+  @Transactional(readOnly = true)
   void testgetPlayerCard() {
     Card playerCard = onGoingTorreInfernalService
       .getGame(2L)
@@ -79,21 +81,22 @@ public class OnGoingTorreInfernalServiceTests {
   }
 
   @Test
+  @Transactional(readOnly = true)
   void testgetCenterCard() {
     Card centerCard = onGoingTorreInfernalService.getGame(2L).getCurrentCard();
     assertEquals(centerCard, onGoingTorreInfernalService.getCenterCard(2L));
   }
 
   @Test
+  @Transactional(readOnly = true)
   void testnewCenterCard() {
     Card centerCard = onGoingTorreInfernalService.getGame(2L).getCurrentCard();
-    RequestNewCard request = new RequestNewCard();
-    request.setPlayerId(2L);
-    onGoingTorreInfernalService.newCenterCard(2L, request);
+    onGoingTorreInfernalService.newCenterCard(2L, 2L);
     assertNotEquals(centerCard, onGoingTorreInfernalService.getCenterCard(2L));
   }
 
   @Test
+  @Transactional
   void testAddPoints() {
     onGoingTorreInfernalService.addPoints(2L, 2L, 10);
     Integer points = onGoingTorreInfernalService
@@ -104,6 +107,7 @@ public class OnGoingTorreInfernalServiceTests {
   }
 
   @Test
+  @Transactional
   void testDeleteGame() {
     Integer size = 0;
     for (OnGoingTorreInfernal g : onGoingTorreInfernalService.getAll()) {
