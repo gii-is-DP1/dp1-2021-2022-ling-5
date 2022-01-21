@@ -49,7 +49,6 @@ function Ranking() {
             {results.map((e, ind) => (
                 <tr> 
                     <td>{ind+1}</td>
-                     {/* <img src={figure(e.imageName)} width='15px' height='15px'/>  */}
                     <td>@{e.nickname}</td>
                     <td>{e.points}</td>
                 </tr> 

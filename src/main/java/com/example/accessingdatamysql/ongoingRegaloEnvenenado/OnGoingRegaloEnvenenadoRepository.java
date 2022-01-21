@@ -24,10 +24,10 @@ public class OnGoingRegaloEnvenenadoRepository {
         ongoinggames.put(gameId, onGoingRegaloEnvenenado);
     }
 
-    public void newCenterCard(Long gameId, RequestNewCard request) {
+    public void newCenterCard(Long gameId, Long playerId) {
         OnGoingRegaloEnvenenado onGoingRegaloEnvenenado = ongoinggames.get(gameId);
         Card currentCard = onGoingRegaloEnvenenado.getCurrentCard();
-        onGoingRegaloEnvenenado.getPlayerCard().put(request.getPlayerId(), currentCard);
+        onGoingRegaloEnvenenado.getPlayerCard().put(playerId, currentCard);
         System.out.println(onGoingRegaloEnvenenado.getPlayerCard());
         if (onGoingRegaloEnvenenado.getRemainingCards().size() != 0) {
             Random random = new Random();

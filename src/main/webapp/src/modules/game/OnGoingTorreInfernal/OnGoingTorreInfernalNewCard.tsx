@@ -1,5 +1,3 @@
-
-
 function NewCard(playerId:any,gameId: any){
     const requestOptions = {
         method: 'PUT',
