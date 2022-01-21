@@ -111,16 +111,7 @@ function RegaloEnvenenado(props: any) {
             <Row>
                 <p id="ptext">ON GOING REGALO ENVENENADO </p>
 
-                {
-                    points.map((p, i) => (
-                        <Col key={i} className="align-items-start">
-                            <Card ><Card.Body>
-                                <div><strong>{p.name}: {p.points}</strong></div>
-                            </Card.Body></Card>
-                        </Col>
-
-                    ))
-                }
+                
             </Row>
             <Row>
                 {
